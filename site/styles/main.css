@@ -1,0 +1,150 @@
+/*Mantengo los colores default por ahora; cambiar los colores implica
+cambiar todos los background-color, border-color, highlights y color
+del texto
+
+.navbar-default {
+  background-color: #337ab7;
+  background-image: linear-gradient(to bottom,#2e6da4 0,#337ab7 100%)
+}*/
+
+.navbar>.container-fluid .navbar-brand {
+  margin-left: 0;
+}
+
+.navbar-nav .navbar-brand {
+  padding-left: 0;
+}
+
+form>.col-lg-6 {
+  width: 100%;
+  padding-right: 0;
+}
+
+.panel-body {
+  text-align: left;
+}
+
+.panel-body.centered>nav {
+  text-align: center;
+}
+
+.panel-body>.page-header {
+  text-align: left;
+}
+
+.popup-bg {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0;
+  margin: 0;
+}
+
+.file-upload {
+  display: none;
+  position: fixed;
+  width: 50%;
+  top: 25%;
+  left: 25%;
+}
+
+.manual-entry {
+  display: none;
+  position: fixed;
+  width: 75%;
+  top: 25%;
+  left: 12.5%;
+}
+
+.fields>input {
+  margin-bottom: 10px;
+}
+
+#file-upload-input {
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
+.panel-body>.btn {
+  margin:  10px;
+}
+
+#brand-logo {
+  padding: 5px;
+}
+
+#brand-logo img {
+  height: 40px;
+}
+
+.confirm-buttons {
+  text-align: center;
+}
+
+.confirm-buttons>.btn {
+  margin: 5px;
+}
+
+.alert {
+  margin-top: -20px;
+}
+
+#uploadSuccess {
+  display: none;
+}
+
+#registrySuccess {
+  display: none;
+}
+
+.empresa-logo {
+  width: 32px;
+  margin-right: 5px;
+}
+
+.container-fluid.no-padding {
+  margin: 15px 0 0 0;
+  padding: 0;
+}
+
+.container-fluid.right-aligned {
+  text-align: right;
+}
+
+.table>thead>tr>td {
+  vertical-align: middle;
+}
+
+.table>thead>tr>th {
+  vertical-align: middle;
+}
+
+.table>tbody>tr>td {
+  vertical-align: middle;
+}
+
+.table>tbody>tr>th {
+  vertical-align: middle;
+}
+
+.cuentaValor {
+  text-align: right;
+}
+
+#filters>.panel-body>.input-group {
+  margin-bottom: 5px;
+}
+
+.panel-body>#btn-buscar {
+  text-align: right;
+  margin: 5px 0;
+}
+
+body {
+  padding-top: 70px;
+  background-color: #fafafa;
+}
