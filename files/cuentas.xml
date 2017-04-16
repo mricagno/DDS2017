@@ -1,0 +1,68 @@
+<cuentas>
+	<cuentaEmpresa>
+		<empresa>
+			<nombre>Facebook Inc.</nombre>
+			<sigla>FB</sigla>
+		</empresa>
+		<cuenta>
+			<tipo>EBITDA</tipo>
+			<periodo>20151231</periodo>
+			<valor>8162</valor>
+		</cuenta>
+	</cuentaEmpresa>
+	<cuentaEmpresa>
+		<empresa>
+			<nombre>Facebook Inc.</nombre>
+			<sigla>FB</sigla>
+		</empresa>
+		<cuenta>
+			<tipo>EBITDA</tipo>
+			<periodo>20161231</periodo>
+			<valor>14870</valor>
+		</cuenta>
+	</cuentaEmpresa>
+	<cuentaEmpresa>
+		<empresa>
+			<nombre>Facebook Inc.</nombre>
+			<sigla>FB</sigla>
+		</empresa>
+		<cuenta>
+			<tipo>FCF</tipo>
+			<periodo>20151231</periodo>
+			<valor>3.99</valor>
+		</cuenta>
+	</cuentaEmpresa>
+	<cuentaEmpresa>
+		<empresa>
+			<nombre>Tesla Inc.</nombre>
+			<sigla>TSLA</sigla>
+		</empresa>
+		<cuenta>
+			<tipo>EBITDA</tipo>
+			<periodo>20151231</periodo>
+			<valor>213</valor>
+		</cuenta>
+	</cuentaEmpresa>
+	<cuentaEmpresa>
+		<empresa>
+			<nombre>Tesla Inc.</nombre>
+			<sigla>TSLA</sigla>
+		</empresa>
+		<cuenta>
+			<tipo>EBITDA</tipo>
+			<periodo>20161231</periodo>
+			<valor>630</valor>
+		</cuenta>
+	</cuentaEmpresa>
+	<cuentaEmpresa>
+		<empresa>
+			<nombre>Twitter Inc.</nombre>
+			<sigla>TWTR</sigla>
+		</empresa>
+		<cuenta>
+			<tipo>EBITDA</tipo>
+			<periodo>20161231</periodo>
+			<valor>751</valor>
+		</cuenta>
+	</cuentaEmpresa>
+</cuentas>
