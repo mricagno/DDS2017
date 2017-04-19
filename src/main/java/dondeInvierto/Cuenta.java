@@ -21,7 +21,7 @@ public class Cuenta {
 		return this.periodo;
 	}
 	
-	public double valor() {
+	public double getValor() {
 		return this.valor;
 	}
 }
