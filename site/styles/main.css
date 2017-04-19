@@ -28,8 +28,16 @@ form>.col-lg-6 {
   text-align: center;
 }
 
+.panel.criterios-seleccionables {
+  margin-top: 20px;
+}
+
 .panel-body>.page-header {
   text-align: left;
+}
+
+.panel-body>.buttons {
+  text-align: center;
 }
 
 .popup-bg {
@@ -82,11 +90,19 @@ form>.col-lg-6 {
 }
 
 .confirm-buttons {
-  text-align: center;
+  text-align: right;
 }
 
 .confirm-buttons>.btn {
   margin: 5px;
+}
+
+.container-fluid.confirm-buttons {
+  padding-right: 0;
+}
+
+.container-fluid.confirm-buttons>button {
+  margin-right: 0;
 }
 
 .alert {

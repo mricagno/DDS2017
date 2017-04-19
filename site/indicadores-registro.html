@@ -30,17 +30,17 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li><a href="index.html">Inicio <span class="sr-only">(current)</span></a></li>
-              <li class="dropdown active">
+              <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuentas <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Registro</a></li>
+                  <li><a href="cuentas-registro.html">Registro</a></li>
                   <li><a href="cuentas-consulta.html">Consulta</a></li>
                 </ul>
               </li>
-              <li class="dropdown">
+              <li class="dropdown active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Indicadores <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="indicadores-registro.html">Registro</a></li>
+                  <li><a href="#">Registro</a></li>
                   <li><a href="indicadores-consulta.html">Consulta</a></li>
                 </ul>
               </li>
@@ -72,12 +72,6 @@
       </div>
     </nav>
 
-    <div class="alert alert-success alert-dismissible" role="alert" id="uploadSuccess">
-      <button type="button" class="close" aria-label="Close" onClick="toggleFileUploadSuccess()">
-        <span aria-hidden="true">&times;</span></button>
-      <strong>E&#769;xito!</strong> El archivo se subio&#769; correctamente.
-    </div>
-
     <div class="alert alert-success alert-dismissible" role="alert" id="registrySuccess">
       <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
         <span aria-hidden="true">&times;</span></button>
@@ -88,56 +82,45 @@
       <div class="panel panel-default">
         <div class="panel-body centered">
           <div class="page-header">
-            <h1>Registro de cuentas</h1>
+            <h1>Registro de indicadores</h1>
           </div>
-          <div class="buttons">
-            <button type="button" class="btn btn-default btn-lg" onClick="toggleManualEntryPrompt()">Registro manual</button>
-            <button type="button" class="btn btn-default btn-lg" onClick="toggleFileUploadPrompt()">Registro vi&#769;a archivo</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="popup-bg">
-      <div class="container-fluid">
-        <div class="panel panel-primary file-upload">
-          <div class="panel-heading">
-            Seleccio&#769;n de archivo
-            <button type="button" class="close" onClick="toggleFileUploadPrompt()" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="panel-body">
-            <div class="container-fluid">
-              Elija el archivo de cuentas a subir:
+          <div class="container-fluid">
+            <div class="input-group">
+              <div class="col-xl-2">
+                <input type="text" class="form-control" placeholder="Nombre del indicador">
+              </div>
+              <span class="input-group-addon">=</span>
+              <input type="text" class="form-control" placeholder="Fo&#769;rmula" id="formula">
             </div>
-            <div class="container-fluid" id="file-upload-input">
-              <input type="file" name="archivo-cuentas">
+            <div class="panel panel-default criterios-seleccionables">
+              <div class="panel-heading">Operadores</div>
+              <div class="panel-body">
+                <div class="container-fluid">
+                  <h3>
+                    <a href="#" onClick="addToFormula('+')"><span class="label label-primary">+</span></a>
+                    <a href="#" onClick="addToFormula('-')"><span class="label label-primary">-</span></a>
+                    <a href="#" onClick="addToFormula('x')"><span class="label label-primary">x</span></a>
+                    <a href="#" onClick="addToFormula('/')"><span class="label label-primary">/</span></a>
+                    <a href="#" onClick="addToFormula('(')"><span class="label label-primary">(</span></a>
+                    <a href="#" onClick="addToFormula(')')"><span class="label label-primary">)</span></a>
+                    <a href="#" onClick="addToFormula('^')"><span class="label label-primary">^</span></a>
+                  </h3>
+              </div>
             </div>
-            <div class="container-fluid confirm-buttons">
-             <button type="button" class="btn btn-danger" onClick="toggleFileUploadPrompt()">Volver</button>
-             <button type="button" class="btn btn-success" onClick="uploadSuccess()">Subir</button>
-           </div>
-          </div>
-        </div>
-        <div class="panel panel-primary manual-entry">
-          <div class="panel-heading">
-            Registro de cuenta
-            <button type="button" class="close" onClick="toggleManualEntryPrompt()" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="panel-body">
-            <div class="container-fluid fields">
-              <input type="text" class="form-control" id="nombreEmpresa" placeholder="Nombre de la empresa">
-              <input type="text" class="form-control" id="tipoCuenta" placeholder="Tipo de cuenta">
-              <input type="text" class="form-control" id="periodoCuenta" placeholder="Periodo">
-              <input type="text" class="form-control" id="valorCuenta" placeholder="Valor">
+            <div class="panel panel-default criterios-seleccionables">
+              <div class="panel-heading">Cuentas</div>
+              <div class="panel-body">
+                <h3><a href="#" onClick="addToFormula('EBITDA')"><span class="label label-primary">EBITDA</span></a></h3>
+                <h3><a href="#" onClick="addToFormula('FDS')"><span class="label label-primary">FDS</span></a></h3>
+                <h3><a href="#" onClick="addToFormula('Free Cash Flow')"><span class="label label-primary">Free Cash Flow</span></a></h3>
+                <h3><a href="#" onClick="addToFormula('Ingreso neto en operaciones discontinuas')"><span class="label label-primary">Ingreso neto en operaciones discontinuas</span></a></h3>
+                <h3><a href="#" onClick="addToFormula('Ingreso neto en operaciones continuas')"><span class="label label-primary">Ingreso neto en operaciones continuas</span></a></h3>
+              </div>
             </div>
             <div class="container-fluid confirm-buttons">
-             <button type="button" class="btn btn-danger" onClick="toggleManualEntryPrompt()">Volver</button>
-             <button type="button" class="btn btn-success" onClick="registrySuccess()">Registrar</button>
-           </div>
+              <button type="button" class="btn btn-danger">Volver</button>
+              <button type="button" class="btn btn-success" onClick="registrySuccess()">Registrar</button>
+            </div>
           </div>
         </div>
       </div>

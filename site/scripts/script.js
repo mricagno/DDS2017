@@ -29,3 +29,7 @@ function registrySuccess() {
   toggleManualEntryPrompt();
   toggleRegistrySuccess();
 }
+
+function addToFormula(x) {
+  $("#formula").val($("#formula").val() + x + ' ');
+}
