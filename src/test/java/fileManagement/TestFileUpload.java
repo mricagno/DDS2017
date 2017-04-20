@@ -22,6 +22,7 @@ public class TestFileUpload extends FileHandler {
 	Empresa facebook = new Empresa("Facebook Inc.", "FB");
 	Empresa tesla = new Empresa("Tesla Inc.", "TSLA");
 	Empresa twitter = new Empresa("Twitter Inc.", "TWTR");
+	Empresa mcdonalds = new Empresa("McDonalds", "MCD");
 	
 	
 	@Before
@@ -45,6 +46,11 @@ public class TestFileUpload extends FileHandler {
 	@Test
 	public void TestEmpresaFacebook() {
 		assertTrue(mercado.containsEmpresa(facebook) != -1);
+	}
+	
+	@Test
+	public void TestEmpresaMcDonalds() {
+		assertTrue(mercado.containsEmpresa(mcdonalds) != -1);
 	}
 	
 	@Test

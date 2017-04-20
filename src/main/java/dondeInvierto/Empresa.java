@@ -33,6 +33,7 @@ public class Empresa {
 			if (( cuenta.getTipo().equals(this.getCuentas().get(i).getTipo()) ) && 
 					( cuenta.getPeriodo().equals(this.getCuentas().get(i).getPeriodo()) )) {
 					foundFlag = true;
+					break;
 			}
 		}
 		
