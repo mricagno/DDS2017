@@ -33,3 +33,50 @@ function registrySuccess() {
 function addToFormula(x) {
   $("#formula").val($("#formula").val() + x + ' ');
 }
+
+function toggleMetodologiaPrompt() {
+    $(".popup-bg").fadeToggle();
+}
+
+function toggleMetodologiaEntryPrompt() {
+    hideConds(50);
+    toggleMetodologiaPrompt();
+    $(".manual-entry").fadeToggle();
+    $("#comboCond").val('-1');
+}
+
+function showCond(x) {
+  switch (parseInt(x)) {
+    case 1:
+          hideConds(500);
+          setTimeout( function() {
+            $(".condicion1").delay(550).css('display', 'table');
+          }, 750);
+          break;
+    case 2:
+          hideConds(500);
+          setTimeout( function() {
+            $(".condicion2").delay(550).css('display', 'table');
+          }, 750);
+          break;
+    case 3:
+          hideConds(500);
+          setTimeout( function() {
+            $(".condicion3").delay(550).css('display', 'table');
+          }, 750);
+          break;
+    case 4:
+          hideConds(500);
+          setTimeout( function() {
+            $(".condicion4").delay(550).css('display', 'table');
+          }, 750);
+          break;
+  }
+}
+
+function hideConds(x) {
+  $(".condicion1").fadeOut(x);
+  $(".condicion2").fadeOut(x);
+  $(".condicion3").fadeOut(x);
+  $(".condicion4").fadeOut(x);
+}

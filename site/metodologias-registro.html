@@ -34,24 +34,24 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li><a href="index.html">Inicio <span class="sr-only">(current)</span></a></li>
-              <li class="dropdown active">
+              <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuentas <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Registro</a></li>
+                  <li><a href="cuentas-registro.html">Registro</a></li>
                   <li><a href="cuentas-consulta.html">Consulta</a></li>
                 </ul>
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Indicadores <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="indicadores-registro.html">Registro</a></li>
+                  <li><a href="#">Registro</a></li>
                   <li><a href="indicadores-consulta.html">Consulta</a></li>
                 </ul>
               </li>
-              <li class="dropdown">
+              <li class="dropdown active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Metodologi&#769;as <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="metodologias-registro.html">Registro</a></li>
+                  <li><a href="#">Registro</a></li>
                   <li><a href="metodologias-consulta.html">Consulta</a></li>
                   <!-- Se pueden usar separadores
                   <li role="separator" class="divider"></li>
@@ -76,27 +76,34 @@
       </div>
     </nav>
 
-    <div class="alert alert-success alert-dismissible" role="alert" id="uploadSuccess">
-      <button type="button" class="close" aria-label="Close" onClick="toggleFileUploadSuccess()">
-        <span aria-hidden="true">&times;</span></button>
-      <strong>E&#769;xito!</strong> El archivo se subio&#769; correctamente.
-    </div>
-
     <div class="alert alert-success alert-dismissible" role="alert" id="registrySuccess">
       <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
         <span aria-hidden="true">&times;</span></button>
-      <strong>E&#769;xito!</strong> La cuenta se registro&#769; correctamente.
+      <strong>E&#769;xito!</strong> La metodologi&#769;a se registro&#769; correctamente.
     </div>
 
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-body centered">
           <div class="page-header">
-            <h1>Registro de cuentas</h1>
+            <h1>Registro de metodologi&#769;as</h1>
           </div>
-          <div class="buttons">
-            <button type="button" class="btn btn-default btn-lg" onClick="toggleManualEntryPrompt()">Registro manual</button>
-            <button type="button" class="btn btn-default btn-lg" onClick="toggleFileUploadPrompt()">Registro vi&#769;a archivo</button>
+          <div class="container-fluid">
+            <form class="form-inline">
+              <div class="form-group">
+                <label for="nombre-metodologia">Nombre</label>
+                <input type="text" class="form-control" id="nombre-metodologia">
+              </div>
+            </form>
+            <div class="panel panel-default">
+              <div class="panel-heading">Condiciones</div>
+              <div class="panel-body">
+                <button type="submit" class="btn btn-default" onClick="toggleMetodologiaEntryPrompt()">Agregar nueva</button>
+              </div>
+            </div>
+            <div class="container-fluid confirm-buttons">
+              <button type="button" class="btn btn-success" onClick="toggleRegistrySuccess()">Registrar</button>
+            </div>
           </div>
         </div>
       </div>
@@ -104,42 +111,72 @@
 
     <div class="popup-bg">
       <div class="container-fluid">
-        <div class="panel panel-primary file-upload">
-          <div class="panel-heading">
-            Seleccio&#769;n de archivo
-            <button type="button" class="close" onClick="toggleFileUploadPrompt()" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="panel-body">
-            <div class="container-fluid">
-              Elija el archivo de cuentas a subir:
-            </div>
-            <div class="container-fluid" id="file-upload-input">
-              <input type="file" name="archivo-cuentas">
-            </div>
-            <div class="container-fluid confirm-buttons">
-             <button type="button" class="btn btn-danger" onClick="toggleFileUploadPrompt()">Volver</button>
-             <button type="button" class="btn btn-success" onClick="uploadSuccess()">Subir</button>
-           </div>
-          </div>
-        </div>
         <div class="panel panel-primary manual-entry">
           <div class="panel-heading">
-            Registro de cuenta
-            <button type="button" class="close" onClick="toggleManualEntryPrompt()" aria-label="Close">
+            Registro de condicio&#769;n
+            <button type="button" class="close" onClick="toggleMetodologiaEntryPrompt()" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="panel-body">
             <div class="container-fluid fields">
-              <input type="text" class="form-control" id="nombreEmpresa" placeholder="Nombre de la empresa">
-              <input type="text" class="form-control" id="tipoCuenta" placeholder="Tipo de cuenta">
-              <input type="text" class="form-control" id="periodoCuenta" placeholder="Periodo">
-              <input type="text" class="form-control" id="valorCuenta" placeholder="Valor">
+              <div class="form-group condicion-metodologia">
+                <label for="nombre-metodologia" style="display: table-cell; padding-right: 5px;">Tipo de condicio&#769;n</label>
+                <select class="form-control" id="comboCond">
+                  <option value="-1">Seleccione una opcio&#769;n...</option>
+                  <option value="1">Evolucio&#769;n de indicador en el tiempo</option>
+                  <option value="2">Comparacio&#769;n de empresas por indicador</option>
+                  <option value="3">Evaluacio&#769;n de indicador contra valor</option>
+                  <option value="4">Crecimiento o decrecimiento sostenido en el tiempo</option>
+                </select>
+              </div>
+              <div class="condiciones">
+                <div class="condicion1">
+                  <div class="form-group">
+                    <label for="cond1Indicador" style="display: table-cell">Indicador</label>
+                    <select class="form-control" id="cond1Indicador">
+                      <option value="ingNeto">Ingreso Neto</option>
+                      <option value="retCapital">Retorno sobre capital</option>
+                    </select>
+                    <label for="cond1Comparador" style="display: table-cell">Comparador</label>
+                    <select class="form-control" id="cond1Comparador">
+                      <option value="menor">&lt;</option>
+                      <option value="mayor">&gt;</option>
+                    </select>
+                    <label for="cond1Valor" style="display: table-cell">Valor de referencia</label>
+                    <input type="text" class="form-control" placeholder="Valor" aria-describedby="valor-condicion1">
+                    <label for="cond1Anios" style="display: table-cell">A&ntilde;os a considerar</label>
+                    <input type="text" class="form-control" placeholder="Nu&#769;mero de a&ntilde;os" aria-describedby="anios-condicion1">
+                  </div>
+                </div>
+                <div class="form-group condicion2">
+                  <label for="nombre-metodologia" style="display: table-cell; padding-right: 5px;">Indicador</label>
+                  <select class="combobox">
+                    <option></option>
+                    <option value="ingNeto">Ingreso Neto</option>
+                    <option value="retCapital">Retorno sobre capital</option>
+                  </select>
+                </div>
+                <div class="form-group condicion3">
+                  <label for="nombre-metodologia" style="display: table-cell; padding-right: 5px;">Indicador</label>
+                  <select class="combobox">
+                    <option></option>
+                    <option value="ingNeto">Ingreso Neto</option>
+                    <option value="retCapital">Retorno sobre capital</option>
+                  </select>
+                </div>
+                <div class="form-group condicion4">
+                  <label for="nombre-metodologia" style="display: table-cell; padding-right: 5px;">Indicador</label>
+                  <select class="combobox">
+                    <option></option>
+                    <option value="ingNeto">Ingreso Neto</option>
+                    <option value="retCapital">Retorno sobre capital</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="container-fluid confirm-buttons">
-             <button type="button" class="btn btn-danger" onClick="toggleManualEntryPrompt()">Volver</button>
+             <button type="button" class="btn btn-danger" onClick="toggleMetodologiaEntryPrompt()">Volver</button>
              <button type="button" class="btn btn-success" onClick="registrySuccess()">Registrar</button>
            </div>
           </div>
@@ -149,6 +186,12 @@
 
     <script src="scripts/jquery-3.2.0.js"></script>
     <script src="scripts/script.js"></script>
+    <script>
+    $('#comboCond').change(function () {
+      var selected = $(this).find("option:selected").attr("value");
+      showCond(selected);
+    });
+    </script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>

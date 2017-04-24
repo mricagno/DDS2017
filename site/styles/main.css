@@ -164,3 +164,23 @@ body {
   padding-top: 70px;
   background-color: #fafafa;
 }
+
+.condicion-metodologia {
+  display: table;
+}
+
+.condicion1 {
+  display: none;
+}
+
+.condicion2 {
+  display: none;
+}
+
+.condicion3 {
+  display: none;
+}
+
+.condicion4 {
+  display: none;
+}
