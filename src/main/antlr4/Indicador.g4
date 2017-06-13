@@ -1,5 +1,9 @@
 grammar Indicador;
 
+@header {
+package antlr4;
+}
+
 asign	: ind '=' expr;
 
 ind	: ID;

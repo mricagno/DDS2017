@@ -23,6 +23,9 @@
 				<executions>
 					<execution>
 						<id>antlr</id>
+						<configuration>
+							<outputDirectory>src/main/java/antlr4</outputDirectory>
+						</configuration>
 						<goals>
 							<goal>antlr4</goal>
 						</goals>
