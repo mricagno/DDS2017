@@ -11,11 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dondeInvierto.Empresa;
+import dondeInvierto.Indicador;
 import dondeInvierto.MercadoBursatil;
 
 import fileManagement.FileHandler;
-import fileManagement.CuentaFromFile;
-import fileManagement.GSONParser;
 
 public class TestIndicadorSegundoParse extends FileHandler {
 
@@ -23,6 +22,7 @@ public class TestIndicadorSegundoParse extends FileHandler {
 	List<Empresa> listaArchivo = new ArrayList<Empresa>();
 	MercadoBursatil mercado = new MercadoBursatil(listaArchivo);
 	Empresa facebook = new Empresa("Facebook Inc.", "FB");
+	Indicador indicadorDePrueba = new Indicador("Indicador de prueba", "Indicador de prueba = EBITDA + FCF", mercado);
 	
 	@Before
 	public void determineFile() {
@@ -81,5 +81,12 @@ public class TestIndicadorSegundoParse extends FileHandler {
 		assertEquals(8162.0, resultado, 0.01);
 	}
 	
+	@Test
+	public void testFormulaConIndicador() throws ParseException {
+		mercado.addIndicador(indicadorDePrueba);
+		double resultado = Antlr.calculate("Indicador = Indicador de prueba - EBITDA", mercado, facebook, new SimpleDateFormat("yyyyMMdd").parse("20151231"));
+		System.out.println(resultado);
+		assertEquals(3.99, resultado, 0.01);
+	}
 
 }

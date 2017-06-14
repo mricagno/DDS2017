@@ -6,7 +6,6 @@ import java.util.Map;
 
 import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
-import dondeInvierto.Indicador;
 import dondeInvierto.MercadoBursatil;
 
 public class EvalVisitor extends IndicadorBaseVisitor<Double> {
@@ -47,7 +46,7 @@ public class EvalVisitor extends IndicadorBaseVisitor<Double> {
 				valor = mercado.getEmpresas().get(mercado.containsEmpresa(empresa)).getCuentas().get(i).getValor();
 			} 
 		} else {
-			valor = mercado.getIndicadores().get(i).getValorFor(empresa, periodo);
+			valor = mercado.getIndicadores().get(i).getValorFor(mercado, empresa, periodo);
 		}
 		
 		return valor;
