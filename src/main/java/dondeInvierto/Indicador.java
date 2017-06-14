@@ -15,6 +15,14 @@ public class Indicador {
 		this.mercado = mercado;
 	}
 	
+	public static void crearIndicador(String nombre, String formula, MercadoBursatil mercado) throws Exception {
+		if (Antlr.parseString(formula)) {
+			mercado.addIndicador(new Indicador(nombre, formula, mercado));
+		} else {
+			System.err.println("No se ha creado el indicador.");
+		}	
+	}
+	
 	public String getNombre() {
 		return this.nombre;
 	}

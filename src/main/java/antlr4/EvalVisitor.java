@@ -35,9 +35,6 @@ public class EvalVisitor extends IndicadorBaseVisitor<Double> {
 		
 		int i = mercado.containsIndicador(contexto.ID().getText()); 
 		if (i == -1) {
-			System.out.println("Contains empresa: " + mercado.containsEmpresa(empresa));
-			System.out.println("Contexto.ID: " + contexto.ID().getText());
-			System.out.println("Periodo: " + periodo);
 			i = mercado.getEmpresas().get(mercado.containsEmpresa(empresa)).containsCuenta(new Cuenta(contexto.ID().getText(), periodo, 0));
 			 
 			if (i == -1) {

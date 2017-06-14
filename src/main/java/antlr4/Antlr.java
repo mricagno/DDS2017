@@ -33,7 +33,7 @@ public class Antlr {
 			return true;
 		} catch (IllegalStateException e) {
 			System.err.println("<<ERROR>> " + e.getMessage());
-			System.err.println("Se produjo un error al intentar parsear la expresión ingresada. Por favor, revísela e intente nuevamente.");
+			System.err.println("Se produjo un error al intentar parsear la expresión ingresada (" + string + "). Por favor, revísela e intente nuevamente.");
 			return false;
 		}
 	}
