@@ -201,6 +201,7 @@ public class IndicadorParser extends Parser {
 		}
 	}
 	public static class SumaRestaContext extends ExprContext {
+		public Token op;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -215,6 +216,7 @@ public class IndicadorParser extends Parser {
 		}
 	}
 	public static class MultDivContext extends ExprContext {
+		public Token op;
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -302,9 +304,10 @@ public class IndicadorParser extends Parser {
 						setState(21);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
 						setState(22);
+						((MultDivContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==MUL || _la==DIV) ) {
-						_errHandler.recoverInline(this);
+							((MultDivContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
 							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -322,9 +325,10 @@ public class IndicadorParser extends Parser {
 						setState(24);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(25);
+						((SumaRestaContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==SUM || _la==RES) ) {
-						_errHandler.recoverInline(this);
+							((SumaRestaContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
 							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
