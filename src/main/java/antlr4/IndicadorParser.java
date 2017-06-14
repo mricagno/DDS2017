@@ -95,12 +95,9 @@ public class IndicadorParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_asign; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterAsign(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitAsign(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof IndicadorVisitor ) return ((IndicadorVisitor<? extends T>)visitor).visitAsign(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -136,12 +133,9 @@ public class IndicadorParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_ind; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterInd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitInd(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof IndicadorVisitor ) return ((IndicadorVisitor<? extends T>)visitor).visitInd(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -183,36 +177,27 @@ public class IndicadorParser extends Parser {
 		}
 		public ParentesisContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterParentesis(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitParentesis(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof IndicadorVisitor ) return ((IndicadorVisitor<? extends T>)visitor).visitParentesis(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class NumContext extends ExprContext {
 		public TerminalNode NUMERO() { return getToken(IndicadorParser.NUMERO, 0); }
 		public NumContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterNum(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitNum(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof IndicadorVisitor ) return ((IndicadorVisitor<? extends T>)visitor).visitNum(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class ValorContext extends ExprContext {
 		public TerminalNode ID() { return getToken(IndicadorParser.ID, 0); }
 		public ValorContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterValor(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitValor(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof IndicadorVisitor ) return ((IndicadorVisitor<? extends T>)visitor).visitValor(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class SumaRestaContext extends ExprContext {
@@ -224,12 +209,9 @@ public class IndicadorParser extends Parser {
 		}
 		public SumaRestaContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterSumaResta(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitSumaResta(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof IndicadorVisitor ) return ((IndicadorVisitor<? extends T>)visitor).visitSumaResta(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class MultDivContext extends ExprContext {
@@ -241,12 +223,9 @@ public class IndicadorParser extends Parser {
 		}
 		public MultDivContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterMultDiv(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitMultDiv(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof IndicadorVisitor ) return ((IndicadorVisitor<? extends T>)visitor).visitMultDiv(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
