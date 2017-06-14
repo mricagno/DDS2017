@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.Recognizer;
 
 public class Antlr {
 
-	public static void parseString(String string) throws Exception {
+	public static Boolean parseString(String string) throws Exception {
 		CharStream input = CharStreams.fromString(string); 
 		IndicadorLexer lexer = new IndicadorLexer(input);
 		IndicadorParser parser = new IndicadorParser(new CommonTokenStream(lexer));
@@ -24,9 +24,11 @@ public class Antlr {
 		try {
 			parser.asign();
 			System.out.println("La expresión cumple con el formato establecido.");
+			return true;
 		} catch (IllegalStateException e) {
 			System.err.println("<<ERROR>> " + e.getMessage());
 			System.err.println("Se produjo un error al intentar parsear la expresión ingresada. Por favor, revísela e intente nuevamente.");
+			return false;
 		}
 	}
 }
