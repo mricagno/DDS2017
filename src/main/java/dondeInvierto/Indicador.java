@@ -1,5 +1,7 @@
 package dondeInvierto;
 
+import java.util.Date;
+
 public class Indicador {
 	private String nombre;
 	private String formula;
@@ -15,5 +17,10 @@ public class Indicador {
 	
 	public String getFormula() {
 		return this.formula;
+	}
+	
+	public int getValorFor(Empresa empresa, Date periodo) {
+		// Add calculation logic
+		return 0;
 	}
 }
