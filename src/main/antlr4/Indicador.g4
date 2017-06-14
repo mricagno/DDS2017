@@ -4,32 +4,26 @@ grammar Indicador;
 package antlr4;
 }
 
-asign	: ind '=' expr;
+asign	: ind '=' expr ;
 
-ind	: ID;
+ind	: ID ;
 
-expr 	: expr (SUM | RES) expr
-	| expr (MUL | DIV) expr
-	| val
-	| constant
-	| '(' expr ')';
+expr 	: expr ('*' | '/') expr	# MultDiv
+	| expr ('+' | '-') expr	# SumaResta
+	| ID			# valor
+	| NUMERO		# num
+	| '(' expr ')'		# parentesis
+	;
 
-val	: ID;
+MUL	: '*' ;
+DIV	: '/' ;
+SUM	: '+' ;
+RES	: '-' ;
 
-SUM	: '+';
+ID	: LETRA+ (' 'LETRA+)* ;
 
-RES	: '-';
+LETRA	: ('a'..'z'|'A'..'Z') ;
 
-MUL	: '*';
+NUMERO	: [0-9]+ ;
 
-DIV	: '/';
-
-ID	: LETRA+ (' 'LETRA+)*;
-
-LETRA	: ('a'..'z'|'A'..'Z');
-
-constant: NUMERO;
-
-NUMERO	: [0-9]+;
-
-WS	: [ \t\r\n]+ -> skip;
+WS	: [ \t\r\n]+ -> skip ;

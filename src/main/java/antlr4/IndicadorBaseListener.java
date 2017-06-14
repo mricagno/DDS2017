@@ -42,37 +42,61 @@ public class IndicadorBaseListener implements IndicadorListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpr(IndicadorParser.ExprContext ctx) { }
+	@Override public void enterParentesis(IndicadorParser.ParentesisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpr(IndicadorParser.ExprContext ctx) { }
+	@Override public void exitParentesis(IndicadorParser.ParentesisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVal(IndicadorParser.ValContext ctx) { }
+	@Override public void enterNum(IndicadorParser.NumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVal(IndicadorParser.ValContext ctx) { }
+	@Override public void exitNum(IndicadorParser.NumContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstant(IndicadorParser.ConstantContext ctx) { }
+	@Override public void enterValor(IndicadorParser.ValorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConstant(IndicadorParser.ConstantContext ctx) { }
+	@Override public void exitValor(IndicadorParser.ValorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumaResta(IndicadorParser.SumaRestaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumaResta(IndicadorParser.SumaRestaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMultDiv(IndicadorParser.MultDivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMultDiv(IndicadorParser.MultDivContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

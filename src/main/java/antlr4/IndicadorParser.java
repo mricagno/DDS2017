@@ -19,19 +19,19 @@ public class IndicadorParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, SUM=4, RES=5, MUL=6, DIV=7, ID=8, LETRA=9, NUMERO=10, 
+		T__0=1, T__1=2, T__2=3, MUL=4, DIV=5, SUM=6, RES=7, ID=8, LETRA=9, NUMERO=10, 
 		WS=11;
 	public static final int
-		RULE_asign = 0, RULE_ind = 1, RULE_expr = 2, RULE_val = 3, RULE_constant = 4;
+		RULE_asign = 0, RULE_ind = 1, RULE_expr = 2;
 	public static final String[] ruleNames = {
-		"asign", "ind", "expr", "val", "constant"
+		"asign", "ind", "expr"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'='", "'('", "')'", "'+'", "'-'", "'*'", "'/'"
+		null, "'='", "'('", "')'", "'*'", "'/'", "'+'", "'-'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, "SUM", "RES", "MUL", "DIV", "ID", "LETRA", "NUMERO", 
+		null, null, null, null, "MUL", "DIV", "SUM", "RES", "ID", "LETRA", "NUMERO", 
 		"WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
@@ -110,11 +110,11 @@ public class IndicadorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(10);
+			setState(6);
 			ind();
-			setState(11);
+			setState(7);
 			match(T__0);
-			setState(12);
+			setState(8);
 			expr(0);
 			}
 		}
@@ -151,7 +151,7 @@ public class IndicadorParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(14);
+			setState(10);
 			match(ID);
 			}
 		}
@@ -167,33 +167,86 @@ public class IndicadorParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public ValContext val() {
-			return getRuleContext(ValContext.class,0);
+		public ExprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
-		public ConstantContext constant() {
-			return getRuleContext(ConstantContext.class,0);
+		@Override public int getRuleIndex() { return RULE_expr; }
+	 
+		public ExprContext() { }
+		public void copyFrom(ExprContext ctx) {
+			super.copyFrom(ctx);
 		}
+	}
+	public static class ParentesisContext extends ExprContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public ParentesisContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterParentesis(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitParentesis(this);
+		}
+	}
+	public static class NumContext extends ExprContext {
+		public TerminalNode NUMERO() { return getToken(IndicadorParser.NUMERO, 0); }
+		public NumContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterNum(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitNum(this);
+		}
+	}
+	public static class ValorContext extends ExprContext {
+		public TerminalNode ID() { return getToken(IndicadorParser.ID, 0); }
+		public ValorContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterValor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitValor(this);
+		}
+	}
+	public static class SumaRestaContext extends ExprContext {
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode SUM() { return getToken(IndicadorParser.SUM, 0); }
-		public TerminalNode RES() { return getToken(IndicadorParser.RES, 0); }
-		public TerminalNode MUL() { return getToken(IndicadorParser.MUL, 0); }
-		public TerminalNode DIV() { return getToken(IndicadorParser.DIV, 0); }
-		public ExprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expr; }
+		public SumaRestaContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterExpr(this);
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterSumaResta(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitExpr(this);
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitSumaResta(this);
+		}
+	}
+	public static class MultDivContext extends ExprContext {
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
+		public MultDivContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterMultDiv(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitMultDiv(this);
 		}
 	}
 
@@ -213,28 +266,38 @@ public class IndicadorParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(23);
+			setState(19);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
 				{
-				setState(17);
-				val();
+				_localctx = new ValorContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
+				setState(13);
+				match(ID);
 				}
 				break;
 			case NUMERO:
 				{
-				setState(18);
-				constant();
+				_localctx = new NumContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(14);
+				match(NUMERO);
 				}
 				break;
 			case T__1:
 				{
-				setState(19);
+				_localctx = new ParentesisContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(15);
 				match(T__1);
-				setState(20);
+				setState(16);
 				expr(0);
-				setState(21);
+				setState(17);
 				match(T__2);
 				}
 				break;
@@ -242,7 +305,7 @@ public class IndicadorParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(33);
+			setState(29);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -250,36 +313,16 @@ public class IndicadorParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(31);
+					setState(27);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx = new MultDivContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(25);
+						setState(21);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(26);
-						_la = _input.LA(1);
-						if ( !(_la==SUM || _la==RES) ) {
-						_errHandler.recoverInline(this);
-						}
-						else {
-							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-							_errHandler.reportMatch(this);
-							consume();
-						}
-						setState(27);
-						expr(6);
-						}
-						break;
-					case 2:
-						{
-						_localctx = new ExprContext(_parentctx, _parentState);
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(28);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(29);
+						setState(22);
 						_la = _input.LA(1);
 						if ( !(_la==MUL || _la==DIV) ) {
 						_errHandler.recoverInline(this);
@@ -289,14 +332,34 @@ public class IndicadorParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(30);
+						setState(23);
+						expr(6);
+						}
+						break;
+					case 2:
+						{
+						_localctx = new SumaRestaContext(new ExprContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(24);
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						setState(25);
+						_la = _input.LA(1);
+						if ( !(_la==SUM || _la==RES) ) {
+						_errHandler.recoverInline(this);
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
+							consume();
+						}
+						setState(26);
 						expr(5);
 						}
 						break;
 					}
 					} 
 				}
-				setState(35);
+				setState(31);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
@@ -309,80 +372,6 @@ public class IndicadorParser extends Parser {
 		}
 		finally {
 			unrollRecursionContexts(_parentctx);
-		}
-		return _localctx;
-	}
-
-	public static class ValContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(IndicadorParser.ID, 0); }
-		public ValContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_val; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterVal(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitVal(this);
-		}
-	}
-
-	public final ValContext val() throws RecognitionException {
-		ValContext _localctx = new ValContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_val);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(36);
-			match(ID);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class ConstantContext extends ParserRuleContext {
-		public TerminalNode NUMERO() { return getToken(IndicadorParser.NUMERO, 0); }
-		public ConstantContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_constant; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).enterConstant(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IndicadorListener ) ((IndicadorListener)listener).exitConstant(this);
-		}
-	}
-
-	public final ConstantContext constant() throws RecognitionException {
-		ConstantContext _localctx = new ConstantContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_constant);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(38);
-			match(NUMERO);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
 		}
 		return _localctx;
 	}
@@ -405,18 +394,16 @@ public class IndicadorParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\r+\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\3\2\3\3\3\3\3\4\3\4\3\4\3\4\3\4"+
-		"\3\4\3\4\5\4\32\n\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\"\n\4\f\4\16\4%\13\4\3"+
-		"\5\3\5\3\6\3\6\3\6\2\3\6\7\2\4\6\b\n\2\4\3\2\6\7\3\2\b\t\2)\2\f\3\2\2"+
-		"\2\4\20\3\2\2\2\6\31\3\2\2\2\b&\3\2\2\2\n(\3\2\2\2\f\r\5\4\3\2\r\16\7"+
-		"\3\2\2\16\17\5\6\4\2\17\3\3\2\2\2\20\21\7\n\2\2\21\5\3\2\2\2\22\23\b\4"+
-		"\1\2\23\32\5\b\5\2\24\32\5\n\6\2\25\26\7\4\2\2\26\27\5\6\4\2\27\30\7\5"+
-		"\2\2\30\32\3\2\2\2\31\22\3\2\2\2\31\24\3\2\2\2\31\25\3\2\2\2\32#\3\2\2"+
-		"\2\33\34\f\7\2\2\34\35\t\2\2\2\35\"\5\6\4\b\36\37\f\6\2\2\37 \t\3\2\2"+
-		" \"\5\6\4\7!\33\3\2\2\2!\36\3\2\2\2\"%\3\2\2\2#!\3\2\2\2#$\3\2\2\2$\7"+
-		"\3\2\2\2%#\3\2\2\2&\'\7\n\2\2\'\t\3\2\2\2()\7\f\2\2)\13\3\2\2\2\5\31!"+
-		"#";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\r#\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\3\2\3\2\3\2\3\2\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\26"+
+		"\n\4\3\4\3\4\3\4\3\4\3\4\3\4\7\4\36\n\4\f\4\16\4!\13\4\3\4\2\3\6\5\2\4"+
+		"\6\2\4\3\2\6\7\3\2\b\t\2#\2\b\3\2\2\2\4\f\3\2\2\2\6\25\3\2\2\2\b\t\5\4"+
+		"\3\2\t\n\7\3\2\2\n\13\5\6\4\2\13\3\3\2\2\2\f\r\7\n\2\2\r\5\3\2\2\2\16"+
+		"\17\b\4\1\2\17\26\7\n\2\2\20\26\7\f\2\2\21\22\7\4\2\2\22\23\5\6\4\2\23"+
+		"\24\7\5\2\2\24\26\3\2\2\2\25\16\3\2\2\2\25\20\3\2\2\2\25\21\3\2\2\2\26"+
+		"\37\3\2\2\2\27\30\f\7\2\2\30\31\t\2\2\2\31\36\5\6\4\b\32\33\f\6\2\2\33"+
+		"\34\t\3\2\2\34\36\5\6\4\7\35\27\3\2\2\2\35\32\3\2\2\2\36!\3\2\2\2\37\35"+
+		"\3\2\2\2\37 \3\2\2\2 \7\3\2\2\2!\37\3\2\2\2\5\25\35\37";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
