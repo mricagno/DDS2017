@@ -1,5 +1,7 @@
 package antlr4;
 
+import java.util.Date;
+
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -7,6 +9,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.tree.ParseTree;
+
+import dondeInvierto.Empresa;
+import dondeInvierto.MercadoBursatil;
 
 public class Antlr {
 
@@ -33,15 +38,21 @@ public class Antlr {
 		}
 	}
 	
-	public static int calculate(String string) {
+	public static Double calculate(String string, MercadoBursatil mercado, Empresa empresa, Date periodo) {
 		CharStream input = CharStreams.fromString(string); 
 		IndicadorLexer lexer = new IndicadorLexer(input);
 		IndicadorParser parser = new IndicadorParser(new CommonTokenStream(lexer));
 		ParseTree arbol = parser.asign();
 		
-		EvalVisitor evaluador = new EvalVisitor();
-		evaluador.visit(arbol);
+		Double resultado = 0.0;
 		
-		return 0;
+		if (mercado.containsEmpresa(empresa) == -1) {
+			System.out.println("No existe la empresa especificada.");
+		} else {
+			EvalVisitor evaluador = new EvalVisitor(mercado, empresa, periodo);
+			resultado = evaluador.visit(arbol);
+		}
+			
+		return resultado;
 	}
 }

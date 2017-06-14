@@ -26,13 +26,13 @@ public class Empresa {
 		return this.cuentas;
 	}
 	
-	public boolean containsCuenta(Cuenta cuenta) {
-		boolean foundFlag = false;
+	public int containsCuenta(Cuenta cuenta) {
+		int foundFlag = -1;
 		
 		for (int i = 0; i < this.getCuentas().size(); i++) {
 			if (( cuenta.getTipo().equals(this.getCuentas().get(i).getTipo()) ) && 
 					( cuenta.getPeriodo().equals(this.getCuentas().get(i).getPeriodo()) )) {
-					foundFlag = true;
+					foundFlag = i;
 					break;
 			}
 		}
@@ -42,7 +42,7 @@ public class Empresa {
 	}
 	
 	public void addCuenta(Cuenta cuenta) {
-		if (!this.containsCuenta(cuenta)) {
+		if (this.containsCuenta(cuenta) == -1) {
 			this.cuentas.add(cuenta);
 		} else {
 			System.out.println("Ya existe una cuenta para esta empresa para el tipo y periodo especificado.");

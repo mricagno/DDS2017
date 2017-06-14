@@ -24,7 +24,7 @@ public class MercadoBursatil {
 		int foundFlag = -1;
 		
 		for (int i = 0; i < this.getEmpresas().size(); i++) {
-			if ( empresa.getSigla().equals(this.getEmpresas().get(i).getSigla()) ) {
+			if ( empresa.getNombre().equals(this.getEmpresas().get(i).getNombre()) ) {
 					foundFlag = i;
 			}
 		}
@@ -32,11 +32,11 @@ public class MercadoBursatil {
 		return foundFlag;
 	}
 	
-	public int containsIndicador(Indicador indicador) {
+	public int containsIndicador(String indicador) {
 		int foundFlag = -1;
 		
 		for (int i = 0; i < this.getIndicadores().size(); i++) {
-			if ( indicador.getNombre().equals(this.getIndicadores().get(i).getNombre()) ) {
+			if ( indicador.equals(this.getIndicadores().get(i).getNombre()) ) {
 					foundFlag = i;
 			}
 		}
@@ -54,7 +54,7 @@ public class MercadoBursatil {
 	}
 	
 	public void addIndicador(Indicador indicador) {
-		if (this.containsIndicador(indicador) == -1) {
+		if (this.containsIndicador(indicador.getNombre()) == -1) {
 			this.indicadores.add(indicador);
 		} else {
 			System.out.println("Ya existe un indicador con ese nombre.");
