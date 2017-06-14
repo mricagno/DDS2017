@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 public class Antlr {
 
@@ -30,5 +31,17 @@ public class Antlr {
 			System.err.println("Se produjo un error al intentar parsear la expresión ingresada. Por favor, revísela e intente nuevamente.");
 			return false;
 		}
+	}
+	
+	public static int calculate(String string) {
+		CharStream input = CharStreams.fromString(string); 
+		IndicadorLexer lexer = new IndicadorLexer(input);
+		IndicadorParser parser = new IndicadorParser(new CommonTokenStream(lexer));
+		ParseTree arbol = parser.asign();
+		
+		EvalVisitor evaluador = new EvalVisitor();
+		evaluador.visit(arbol);
+		
+		return 0;
 	}
 }

@@ -8,11 +8,11 @@ asign	: ind '=' expr ;
 
 ind	: ID ;
 
-expr 	: expr ('*' | '/') expr	# MultDiv
-	| expr ('+' | '-') expr	# SumaResta
-	| ID			# valor
-	| NUMERO		# num
-	| '(' expr ')'		# parentesis
+expr 	: expr op=('*' | '/') expr	# MultDiv
+	| expr op=('+' | '-') expr	# SumaResta
+	| ID				# valor
+	| NUMERO			# num
+	| '(' expr ')'			# parentesis
 	;
 
 MUL	: '*' ;
