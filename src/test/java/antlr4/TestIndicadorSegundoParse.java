@@ -88,5 +88,13 @@ public class TestIndicadorSegundoParse extends FileHandler {
 		System.out.println(resultado);
 		assertEquals(3.99, resultado, 0.01);
 	}
+	
+	@Test
+	public void testFormulaConIndicador2() throws ParseException {
+		mercado.addIndicador(indicadorDePrueba);
+		double resultado = Antlr.calculate("Indicador2 = Indicadoreses - EBITDA", mercado, facebook, new SimpleDateFormat("yyyyMMdd").parse("20151231"));
+		System.out.println(resultado);
+		assertEquals(3.99, resultado, 0.01);
+	}
 
 }
