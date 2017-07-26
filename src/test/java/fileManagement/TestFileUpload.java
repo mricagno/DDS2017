@@ -9,27 +9,33 @@ import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 import fileManagement.FileHandler;
 
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.List;
 
 
 public class TestFileUpload extends FileHandler {
-	String filepath = "C:\\Users\\Patito\\workspace\\DDS_2017-Grupo_8\\files\\cuentas.json";
+	private String filepath = "C:\\Users\\Patito\\workspace\\DDS_2017-Grupo_8\\files\\cuentas.json";
+	private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
+	List<CuentaFromFile> listaArchivo;
+	CuentaFromFile cuentaActual;
 	
-	List<Empresa> listaArchivo = new ArrayList<Empresa>();
-	MercadoBursatil mercado = new MercadoBursatil(listaArchivo);
-	
-	Empresa facebook = new Empresa("Facebook Inc.", "FB");
-	Empresa tesla = new Empresa("Tesla Inc.", "TSLA");
-	Empresa twitter = new Empresa("Twitter Inc.", "TWTR");
+	Empresa facebook = new Empresa("Facebook Inc.");
+	Empresa tesla = new Empresa("Tesla Inc.");
+	Empresa twitter = new Empresa("Twitter Inc.");
 	//Empresa mcdonalds = new Empresa("McDonalds", "MCD");
 	
 	
 	@Before
-	public void determineFile() {
-		listaArchivo = dispatchParser(readFile(filepath));	
+	public  void loadCuentas() throws ParseException {
+		listaArchivo = dispatchParser(readFile(filepath));
+		
 		for (int i = 0; i < listaArchivo.size(); i++) {
-			mercado.addCuenta(listaArchivo.get(i));
+			cuentaActual = listaArchivo.get(i);
+			
+			mercado.addCuenta(cuentaActual.getNombre(),
+					cuentaActual.getTipo(),
+					cuentaActual.getPeriodo(),
+					cuentaActual.getValor());
 		}
 	}
 	
@@ -45,7 +51,7 @@ public class TestFileUpload extends FileHandler {
 	
 	@Test
 	public void TestEmpresaFacebook() {
-		assertTrue(mercado.containsEmpresa(facebook) != -1);
+		assertTrue(mercado.containsEmpresa(facebook.getNombre()));
 	}
 	
 	/*@Test
@@ -55,22 +61,22 @@ public class TestFileUpload extends FileHandler {
 	
 	@Test
 	public void TestCuentasFacebook() {
-		assertTrue(mercado.getEmpresas().get(mercado.containsEmpresa(facebook)).getCuentas().size() == 3);
+		assertTrue(mercado.getEmpresa(facebook.getNombre()).getCuentas().size() == 3);
 	}
 	
 	@Test
 	public void TestEmpresaTesla() {
-		assertTrue(mercado.containsEmpresa(tesla) != -1);
+		assertTrue(mercado.containsEmpresa(tesla.getNombre()));
 	}
 	
 	@Test
 	public void TestCuentaTwitterTipo() {
-		assertTrue(mercado.getEmpresas().get(mercado.containsEmpresa(twitter)).getCuentas().get(0).getTipo().equals("EBITDA"));
+		assertTrue(mercado.getEmpresa(twitter.getNombre()).getCuentas().get(0).getTipo().equals("EBITDA"));
 	}
 	
 	@Test
 	public void TestCuentaTwitterValor() {
-		assertEquals(mercado.getEmpresas().get(mercado.containsEmpresa(twitter)).getCuentas().get(0).getValor(), 751.0, 0);
+		assertEquals(mercado.getEmpresa(twitter.getNombre()).getCuentas().get(0).getValor(), 751.0, 0);
 	}
 
 }

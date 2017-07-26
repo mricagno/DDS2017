@@ -1,7 +1,5 @@
 package antlr4;
 
-import java.util.Date;
-
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -13,12 +11,20 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 
+/**
+ * Contiene los métodos necesarios para analizar léxica y sintácticamente una expresión
+ * y resolverla.
+ */
 public class Antlr {
 
-	public static Boolean parseString(String string) throws Exception {
+	/**
+	 * Verifica que el argumento tenga una estructura léxica y sintáctica válida.
+	 */
+	public static boolean parseString(String string) throws Exception {
 		CharStream input = CharStreams.fromString(string); 
 		IndicadorLexer lexer = new IndicadorLexer(input);
 		IndicadorParser parser = new IndicadorParser(new CommonTokenStream(lexer));
+		
 		parser.removeErrorListeners();
 		parser.addErrorListener(new BaseErrorListener () {
 			@Override
@@ -27,6 +33,7 @@ public class Antlr {
 				throw new IllegalStateException("Falló el parser en la línea " + line + " debido a: " + msg, e);
 			}
 		});
+		
 		try {
 			parser.asign();
 			System.out.println("La expresión cumple con el formato establecido.");
@@ -38,7 +45,10 @@ public class Antlr {
 		}
 	}
 	
-	public static Double calculate(String string, MercadoBursatil mercado, Empresa empresa, Date periodo) {
+	/**
+	 * Reemplaza los valores en la fórmula y resuelve la expresión.
+	 */
+	public static Double calculate(String string, Empresa empresa, String periodo) {
 		CharStream input = CharStreams.fromString(string); 
 		IndicadorLexer lexer = new IndicadorLexer(input);
 		IndicadorParser parser = new IndicadorParser(new CommonTokenStream(lexer));
@@ -46,10 +56,10 @@ public class Antlr {
 		
 		Double resultado = 0.0;
 		
-		if (mercado.containsEmpresa(empresa) == -1) {
+		if (!MercadoBursatil.INSTANCE.containsEmpresa(empresa.getNombre())) {
 			System.out.println("No existe la empresa especificada.");
 		} else {
-			EvalVisitor evaluador = new EvalVisitor(mercado, empresa, periodo);
+			EvalVisitor evaluador = new EvalVisitor(empresa, periodo);
 			resultado = evaluador.visit(arbol);
 		}
 			

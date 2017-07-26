@@ -1,12 +1,12 @@
 package dondeInvierto;
 
-import org.kie.api.KieServices;
+/*import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.StatelessKieSession;
+import org.kie.api.runtime.StatelessKieSession;*/
 
 public class Metodologia {
-	private String nombre;
+	/*private String nombre;
 	private String rutaRegla;
 	
 	public Metodologia(String nombre, String rutaRegla) {
@@ -32,5 +32,5 @@ public class Metodologia {
 	
 		kSession.fireAllRules();
 
-	}
+	}*/
 }

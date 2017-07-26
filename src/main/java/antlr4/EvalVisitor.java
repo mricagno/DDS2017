@@ -1,10 +1,9 @@
 package antlr4;
 
-import java.util.Date;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
-import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 
@@ -12,11 +11,11 @@ public class EvalVisitor extends IndicadorBaseVisitor<Double> {
 	private Map<String, Double> memoria;
 	private MercadoBursatil mercado;
 	private Empresa empresa;
-	private Date periodo;
+	private String periodo;
 	
-	public EvalVisitor(MercadoBursatil mercado, Empresa empresa, Date periodo) {
+	public EvalVisitor(Empresa empresa, String periodo) {
 		this.memoria = new HashMap<String, Double>();
-		this.mercado = mercado;
+		this.mercado = MercadoBursatil.INSTANCE;
 		this.empresa = empresa;
 		this.periodo = periodo;
 	}
@@ -31,20 +30,22 @@ public class EvalVisitor extends IndicadorBaseVisitor<Double> {
 
 	@Override
 	public Double visitValor(IndicadorParser.ValorContext contexto) {
-		double valor;
+		double valor = 0;
 		
-		int i = mercado.containsIndicador(contexto.ID().getText()); 
-		if (i == -1) {
-			i = mercado.getEmpresas().get(mercado.containsEmpresa(empresa)).containsCuenta(new Cuenta(contexto.ID().getText(), periodo, 0));
-			 
-			if (i == -1) {
-				throw new IllegalArgumentException("La palabra " + contexto.ID().getText() + " no identifica a una cuenta o indicador.");
+		try {
+			if (!mercado.containsIndicador(contexto.ID().getText())) { 
+				if (!mercado.getEmpresa(empresa.getNombre()).
+						containsCuenta(contexto.ID().getText(), periodo)) {
+					throw new IllegalArgumentException("La palabra " + contexto.ID().getText() + " no identifica a una cuenta o indicador.");
+				} else {
+					valor = mercado.getEmpresa(empresa.getNombre()).getCuenta(contexto.ID().getText(), periodo).getValor();
+				} 
 			} else {
-				valor = mercado.getEmpresas().get(mercado.containsEmpresa(empresa)).getCuentas().get(i).getValor();
-			} 
-		} else {
-			valor = mercado.getIndicadores().get(i).getValorFor(mercado, empresa, periodo);
-		}
+				valor = mercado.getIndicador(contexto.ID().getText()).getValorFor(empresa, periodo);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
 		
 		return valor;
 	}

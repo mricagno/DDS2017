@@ -3,10 +3,7 @@ package fileManagement;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-//import java.util.ArrayList;
 import java.util.List;
-
-import dondeInvierto.Empresa;
 
 public class FileHandler extends GSONParser {
 	
@@ -23,11 +20,11 @@ public class FileHandler extends GSONParser {
 		return br;
 	}
 	
-	public String determineType(String filepath) {
+	/* public String determineType(String filepath) {
 		return filepath.substring(filepath.indexOf('.', 0));
 	}
 
-	/* public List<Empresa> dispatchParser(String extension, BufferedReader br) {
+	public List<Empresa> dispatchParser(String extension, BufferedReader br) {
 	
 		List<Empresa> cuentas = new ArrayList<Empresa>();
 		
@@ -45,7 +42,7 @@ public class FileHandler extends GSONParser {
 		
 	} */
 	
-	public List<Empresa> dispatchParser(BufferedReader br) {
+	public List<CuentaFromFile> dispatchParser(BufferedReader br) {
 		return parseJSON(br);
 	}
 	
