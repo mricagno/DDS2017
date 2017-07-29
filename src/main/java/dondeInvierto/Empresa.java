@@ -9,14 +9,16 @@ import java.util.List;
  */
 public class Empresa {
 	private String nombre;
+	private Integer antiguedad;
 	private List<Cuenta> cuentas;
-	
+		
 	/**
 	 * Constructor de la empresa.
 	 */
-	public Empresa(String nombre) {
+	public Empresa(String nombre, Integer antiguedad) {
 		this.nombre = nombre;
 		this.cuentas = new ArrayList<Cuenta>();
+		this.antiguedad = antiguedad;
 	}
 	
 	/**
@@ -24,7 +26,11 @@ public class Empresa {
 	 */
 	public String getNombre() {
 		return this.nombre;
-	}	
+	}
+	
+	public Integer getAntiguedad() {
+		return antiguedad;
+	}
 	
 	/**
 	 * Devuelve la lista de cuentas de la empresa.
@@ -63,5 +69,7 @@ public class Empresa {
 			this.getCuentas().add(cuenta);
 		}
 	}
+
+	
 
 }

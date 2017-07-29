@@ -19,9 +19,9 @@ public enum MercadoBursatil {
 	 */
 	public void init() {
 		
-		addEmpresa("Facebook Inc.");
-		addEmpresa("Tesla Inc.");
-		addEmpresa("Twitter Inc.");
+		addEmpresa("Facebook Inc.","11");
+		addEmpresa("Tesla Inc.","30");
+		addEmpresa("Twitter Inc.","8");
 		
 		try {
 			addCuenta("Facebook Inc.", "EBITDA", "20151231", "8162");
@@ -62,8 +62,15 @@ public enum MercadoBursatil {
 	/**
 	 * Agrega la empresa a la lista de empresas del mercado bursátil.
 	 */
-	public void addEmpresa(String nombre) {
-		getEmpresas().add(new Empresa(nombre));
+	public void addEmpresa(String nombre, Integer antiguedad) {
+		getEmpresas().add(new Empresa(nombre, antiguedad));
+	}
+	
+	/**
+	 * Ordena la lista de empresas del mercado bursátil.
+	 */
+	public void ordenaEmpresa() {
+		getEmpresas().sort();
 	}
 	
 	/**
