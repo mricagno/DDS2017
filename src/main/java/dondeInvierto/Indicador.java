@@ -36,11 +36,10 @@ public class Indicador {
 	 */
 	public String getFormula() {
 		return this.formula;
-	}
+	}	
 	
 	/**
 	 * Calcula el valor de un indicador para una determinada empresa, en un periodo dado.
-	 * VER SI ES NECESARIO EL MERCADO BURSÁTIL.
 	 */
 	public Double getValorFor(Empresa empresa, String periodo) {
 		return Antlr.calculate(this.getFormula(), empresa, periodo);

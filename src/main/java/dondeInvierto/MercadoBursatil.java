@@ -83,7 +83,8 @@ public enum MercadoBursatil {
 		
 		if(!containsEmpresa(empresa)) {
 			addEmpresa(empresa);
-		}		
+		}
+		
 		Empresa emp = getEmpresa(empresa);
 		
 		if (!emp.containsCuenta(tipo, periodo)) {

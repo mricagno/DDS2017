@@ -22,11 +22,9 @@ public class TestFileUpload extends FileHandler {
 	Empresa facebook = new Empresa("Facebook Inc.");
 	Empresa tesla = new Empresa("Tesla Inc.");
 	Empresa twitter = new Empresa("Twitter Inc.");
-	//Empresa mcdonalds = new Empresa("McDonalds", "MCD");
-	
 	
 	@Before
-	public  void loadCuentas() throws ParseException {
+	public void loadCuentas() throws ParseException {
 		listaArchivo = dispatchParser(readFile(filepath));
 		
 		for (int i = 0; i < listaArchivo.size(); i++) {
@@ -45,7 +43,7 @@ public class TestFileUpload extends FileHandler {
 	}
 	
 	@Test
-	public void TestCuentasEnMercado() {
+	public void TestEmpresasEnMercado() {
 		assertTrue(mercado.getEmpresas().size() == 3);
 	}
 	
@@ -53,11 +51,6 @@ public class TestFileUpload extends FileHandler {
 	public void TestEmpresaFacebook() {
 		assertTrue(mercado.containsEmpresa(facebook.getNombre()));
 	}
-	
-	/*@Test
-	public void TestEmpresaMcDonalds() {
-		assertTrue(mercado.containsEmpresa(mcdonalds) != -1);
-	}*/
 	
 	@Test
 	public void TestCuentasFacebook() {
