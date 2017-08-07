@@ -1,24 +1,33 @@
 package dondeInvierto;
 
 import java.io.IOException;
-import java.text.ParseException;
+import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
-import server.Servidor;
+import json.JsonApplication;
 
 public class Main {
-	public static final String BASE_URI = "http://localhost:8080/dondeInvierto/";
+	private static final URI BASE_URI = URI.create("http://localhost:8080/dondeInvierto/");
 	
-	public static void main(String[] args) throws IOException, ParseException {
+	public static void main(String[] args) {
 		MercadoBursatil mercado = MercadoBursatil.INSTANCE;	
 		mercado.init();
 		
-        final HttpServer server = Servidor.startServer(BASE_URI);
-        System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
-        System.in.read();
-        server.shutdownNow();
-	}
+        try {
+            final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, new JsonApplication(), false);
+            Runtime.getRuntime().addShutdownHook(new Thread(server::shutdownNow));
+            server.start();
 
+            System.out.println(
+            		String.format("Application started.%nTry out %s%nStop the application using CTRL+C", BASE_URI));
+
+            Thread.currentThread().join();
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	}
 }

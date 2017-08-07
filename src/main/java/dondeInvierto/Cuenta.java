@@ -4,9 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.json.bind.annotation.JsonbPropertyOrder;
+
 /**
  * La cuenta está definida por un tipo, un periodo y un valor
  */
+@JsonbPropertyOrder({"tipo", "periodo", "valor"})
 public class Cuenta {
 	private String tipo;
 	private Date periodo;
