@@ -1,37 +1,66 @@
 package dondeInvierto.resource;
 
-import java.util.List;
-
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
+import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 
 @Path("empresas")
 public class EmpresaResource {
-	MercadoBursatil mercado = MercadoBursatil.INSTANCE;
+	private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Empresa> getEmpresas() {
-        return mercado.getEmpresas();
-    }
-     
-    @GET
-    @Path("/{empresa}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Empresa getCuenta(@PathParam("empresa") final String empresa) {
-        return mercado.getEmpresa(empresa);
+	@GET
+	@Produces("application/json")
+    public String getEmpresas() {
+		JsonArrayBuilder empresasBuilder = Json.createArrayBuilder();   
+		
+		for(Empresa emp : mercado.getEmpresas()) {
+			JsonArrayBuilder cuentasBuilder = Json.createArrayBuilder();
+			
+			for(Cuenta c : emp.getCuentas()) {
+				cuentasBuilder.add(Json.createObjectBuilder()
+						.add("tipo", c.getTipo())
+						.add("periodo", c.getPeriodoAsString())
+						.add("valor", c.getValor()));
+			}
+			empresasBuilder.add(Json.createObjectBuilder()
+					.add("nombre", emp.getNombre())
+					.add("cuentas", cuentasBuilder));
+		}
+		return empresasBuilder.build().toString();
     }
     
-    @GET
-    @Path("/prueba")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String showText() {
-        return "Prueba";
+	@Path("/{empresa}")
+	@GET
+	@Produces("application/json")
+    public String getEmpresa(@PathParam("empresa") final String empresa) {
+		Empresa emp = mercado.getEmpresa(empresa.replaceAll("%20", " "));
+		JsonArrayBuilder cuentasBuilder = Json.createArrayBuilder();
+		
+		for(Cuenta c : emp.getCuentas()) {
+			cuentasBuilder.add(Json.createObjectBuilder()
+					.add("tipo", c.getTipo())
+					.add("periodo", c.getPeriodoAsString())
+					.add("valor", c.getValor()));
+		}
+		
+		return Json.createObjectBuilder()
+				.add("nombre", emp.getNombre())
+				.add("cuentas", cuentasBuilder)
+				.build().toString();
     }
+	
+	/*@Path("/{empresa}/{cuenta}/{periodo}/")
+	@GET
+	@Produces("application/json")
+    public Empresa getCuenta(@PathParam("empresa") final String empresa) {
+        Jsonb jsonb = JsonbBuilder.create(config);
+        return jsonb.toJson(mercado.getEmpresa(empresa.replaceAll("%20", " ")));
+    }*/
 }

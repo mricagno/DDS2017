@@ -1,30 +1,33 @@
 package dondeInvierto.resource;
 
-import javax.ws.rs.core.MediaType;
-
-/*import java.util.List;
-
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import dondeInvierto.Cuenta;*/
+import dondeInvierto.Cuenta;
+import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 
-/*@Path("cuentas")
-@Produces(MediaType.APPLICATION_JSON)*/
+@Path("cuentas")
 public class CuentaResource {
-	MercadoBursatil mercado = MercadoBursatil.INSTANCE;
-	/*
-    @GET
-    public List<Cuenta> getCuentas() {
-        return 
-    }
-     
-    @GET
-    @Path("/{cuenta}")
-    public Cuenta getCuenta(@PathParam("cuenta") final Cuenta cuenta) {
-        return mercado.getCuenta(cuenta);
-    }*/
+	private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
+	
+	@GET
+	@Produces("application/json")
+	public String getCuentas() {	
+		JsonArrayBuilder cuentasBuilder = Json.createArrayBuilder();
+		
+		for(Empresa emp : mercado.getEmpresas()) {
+			for(Cuenta c : emp.getCuentas()) {
+				cuentasBuilder.add(Json.createObjectBuilder()
+						.add("empresa", emp.getNombre())
+						.add("tipo", c.getTipo())
+						.add("periodo", c.getPeriodoAsString())
+						.add("valor", c.getValor()));
+			}
+		}	
+		return cuentasBuilder.build().toString();
+	}
 }

@@ -4,12 +4,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.json.bind.annotation.JsonbPropertyOrder;
-
 /**
  * La empresa está definida por un nombre y una lista de cuentas asociadas a esa empresa.
  */
-@JsonbPropertyOrder({"nombre", "cuentas"})
 public class Empresa {
 	private String nombre;
 	private List<Cuenta> cuentas;
