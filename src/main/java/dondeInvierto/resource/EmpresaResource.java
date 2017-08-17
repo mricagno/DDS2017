@@ -50,6 +50,9 @@ public class EmpresaResource {
 					.add("valor", c.getValor()));
 		}
 		
+        //return {errors=...
+        //Ver https://dev.twitter.com/overview/api/response-codes
+		
 		return Json.createObjectBuilder()
 				.add("nombre", emp.getNombre())
 				.add("cuentas", cuentasBuilder)

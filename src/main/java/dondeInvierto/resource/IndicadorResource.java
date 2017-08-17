@@ -33,6 +33,8 @@ public class IndicadorResource {
 	@Produces("application/json")
     public String getIndicador(@PathParam("indicador") final String indicador) {
         Indicador ind = mercado.getIndicador(indicador.replaceAll("%20", " "));
+        //return {errors=...
+        //Ver https://dev.twitter.com/overview/api/response-codes
         return Json.createObjectBuilder()
         		.add("nombre", ind.getNombre())
         		.add("formula", ind.getFormula())

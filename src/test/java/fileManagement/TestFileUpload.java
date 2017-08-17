@@ -14,7 +14,8 @@ import java.util.List;
 
 
 public class TestFileUpload extends FileHandler {
-	private String filepath = "C:\\Users\\Patito\\workspace\\DDS_2017-Grupo_8\\files\\cuentas.json";
+	private String filepath = ".//files//cuentas.json";
+	
 	private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	List<CuentaFromFile> listaArchivo;
 	CuentaFromFile cuentaActual;
