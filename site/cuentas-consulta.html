@@ -110,7 +110,7 @@
             </div>
             </div>
           </div>
-          <table class="table">
+          <table class="table" id="tabla-resultados">
             <thead>
               <th>#</th>
               <th>Empresa</th>
@@ -118,89 +118,9 @@
               <th>Cuenta</th>
               <th class="cuentaValor">Valor</th>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>
-                  <img class="empresa-logo" src="img/empresas/facebook-logo.png">
-                  Facebook Inc. (FB)
-                </td>
-                <td>31 Dic 2015</td>
-                <td>EBITDA</td>
-                <td class="cuentaValor">8,162</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>
-                  <img class="empresa-logo" src="img/empresas/facebook-logo.png">
-                  Facebook Inc. (FB)
-                </td>
-                <td>31 Dic 2016</td>
-                <td>EBITDA</td>
-                <td class="cuentaValor">14,870</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>
-                  <img class="empresa-logo" src="img/empresas/facebook-logo.png">
-                  Facebook Inc. (FB)
-                </td>
-                <td>31 Dic 2015</td>
-                <td>FCF</td>
-                <td class="cuentaValor">$ 3.99</td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>
-                  <img class="empresa-logo" src="img/empresas/tesla-logo.png">
-                  Tesla Inc. (TSLA)
-                </td>
-                <td>31 Dic 2015</td>
-                <td>EBITDA</td>
-                <td class="cuentaValor">213</td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>
-                  <img class="empresa-logo" src="img/empresas/tesla-logo.png">
-                  Tesla Inc. (TSLA)
-                </td>
-                <td>31 Dic 2016</td>
-                <td>EBITDA</td>
-                <td class="cuentaValor">630</td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td>
-                  <img class="empresa-logo" src="img/empresas/twitter-logo.png">
-                  Twitter Inc. (TWTR)
-                </td>
-                <td>31 Dic 2016</td>
-                <td>EBITDA</td>
-                <td class="cuentaValor">751</td>
-              </tr>
+            <tbody id="tabla-cuentas">
             </tbody>
           </table>
-
-          <nav aria-label="Page navigation">
-            <ul class="pagination">
-              <li class="disabled">
-                <a href="#" aria-label="Anterior">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Siguiente">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
 
         </div>
       </div>
@@ -208,6 +128,7 @@
 
     <script src="scripts/jquery-3.2.0.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/cuentas-consulta.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>

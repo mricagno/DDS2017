@@ -91,45 +91,13 @@
           <div class="container-fluid">
             <div class="input-group">
               <div class="col-xl-2">
-                <input type="text" class="form-control" placeholder="Nombre del indicador">
+                <input type="text" class="form-control" placeholder="Nombre del indicador" id="nombre">
               </div>
               <span class="input-group-addon">=</span>
               <input type="text" class="form-control" placeholder="Fo&#769;rmula" id="formula">
             </div>
-            <div class="panel panel-default criterios-seleccionables">
-              <div class="panel-heading">Operadores</div>
-              <div class="panel-body">
-                <div class="container-fluid">
-                  <h3>
-                    <a href="#" onClick="addToFormula('+')"><span class="label label-primary">+</span></a>
-                    <a href="#" onClick="addToFormula('-')"><span class="label label-primary">-</span></a>
-                    <a href="#" onClick="addToFormula('x')"><span class="label label-primary">x</span></a>
-                    <a href="#" onClick="addToFormula('/')"><span class="label label-primary">/</span></a>
-                    <a href="#" onClick="addToFormula('(')"><span class="label label-primary">(</span></a>
-                    <a href="#" onClick="addToFormula(')')"><span class="label label-primary">)</span></a>
-                  </h3>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default criterios-seleccionables">
-              <div class="panel-heading">Cuentas</div>
-              <div class="panel-body">
-                <h3><a href="#" onClick="addToFormula('EBITDA')"><span class="label label-primary">EBITDA</span></a></h3>
-                <h3><a href="#" onClick="addToFormula('FDS')"><span class="label label-primary">FDS</span></a></h3>
-                <h3><a href="#" onClick="addToFormula('Free Cash Flow')"><span class="label label-primary">Free Cash Flow</span></a></h3>
-                <h3><a href="#" onClick="addToFormula('Ingreso neto en operaciones discontinuas')"><span class="label label-primary">Ingreso neto en operaciones discontinuas</span></a></h3>
-                <h3><a href="#" onClick="addToFormula('Ingreso neto en operaciones continuas')"><span class="label label-primary">Ingreso neto en operaciones continuas</span></a></h3>
-              </div>
-            </div>
-            <div class="panel panel-default criterios-seleccionables">
-              <div class="panel-heading">Indicadores</div>
-              <div class="panel-body">
-                <h3><a href="#" onClick="addToFormula('Ingreso Neto')"><span class="label label-primary">Ingreso Neto</span></a></h3>
-                <h3><a href="#" onClick="addToFormula('Retorno sobre Capital Total')"><span class="label label-primary">Retorno sobre Capital Total</span></a></h3>
-              </div>
-            </div>
             <div class="container-fluid confirm-buttons">
-              <button type="button" class="btn btn-success" onClick="registrySuccess()">Registrar</button>
+              <button type="button" class="btn btn-success" id="btn-registro" onClick="registrySuccess()">Registrar</button>
             </div>
           </div>
         </div>
@@ -138,6 +106,7 @@
 
     <script src="scripts/jquery-3.2.0.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/indicadores-registro.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>

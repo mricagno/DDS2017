@@ -30,10 +30,6 @@ function registrySuccess() {
   toggleRegistrySuccess();
 }
 
-function addToFormula(x) {
-  $("#formula").val($("#formula").val() + x + ' ');
-}
-
 function toggleMetodologiaPrompt() {
     $(".popup-bg").fadeToggle();
 }
