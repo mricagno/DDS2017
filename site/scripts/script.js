@@ -76,3 +76,80 @@ function hideConds(x) {
   $(".condicion3").fadeOut(x);
   $(".condicion4").fadeOut(x);
 }
+
+$(function () {
+    $("#btn-buscar-cuentas").click(function () {
+        $("#tabla-resultados").show();
+        $('#tabla-cuentas').replaceWith($('<tbody id="tabla-cuentas"></tbody>'));
+        $.ajax({
+            type: 'GET',
+            url: "http://localhost:8080/dondeInvierto/cuentas/",
+            dataType: "json",
+            beforeSend: function () {
+                console.log("Buscando información de cuentas...");
+            },
+            success: function (response) {
+                $.each(response, function(index, element) {
+                    $('#tabla-cuentas').append($('<tr><th scope="row">' + (index+1) +
+                        '</th><td>' + element.empresa +
+                        '</td><td>' + new Date(
+                            element.periodo.substring(0,4) + "-" +
+                            element.periodo.substring(4,6) + "-" +
+                            element.periodo.substring(6,8)).toUTCString().substring(5,16) +
+                        '</td><td>' + element.tipo + 
+                        '</td><td class="cuentaValor">' + element.valor +
+                        '</td></tr>'));
+                });    
+            }
+        });
+    });
+});
+
+$(function () {
+    $("#btn-buscar-ind").click(function () {
+        $("#tabla-resultados").show();
+        $('#tabla-indicadores').replaceWith($('<tbody id="tabla-indicadores"></tbody>'));
+        $.ajax({
+            type: 'GET',
+            url: "http://localhost:8080/dondeInvierto/indicadores/",
+            dataType: "json",
+            beforeSend: function () {
+                console.log("Buscando información de indicadores...");
+            },
+            success: function (response) {
+                $.each(response, function(index, element) {
+                    $('#tabla-indicadores').append($('<tr><th scope="row">' + (index+1) +
+                        '</th><td>' + element.nombre +
+                        '</td><td>' + element.formula +
+                        '</td></tr>'));
+                });    
+            }
+        });
+    });
+});
+
+$(function () {
+    $("#btn-registro-ind").click(function () {
+        var data = {};
+        data.nombre = $("#nombre").val();
+        data.formula = $("#formula").val();
+        console.log(JSON.stringify(data));
+
+        $.ajax({
+            type: 'POST',
+            url: "http://localhost:8080/dondeInvierto/indicadores/nuevo",
+            dataType: "application/json",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            beforeSend: function () {
+                console.log("Enviando información del indicador...");
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    });
+});
