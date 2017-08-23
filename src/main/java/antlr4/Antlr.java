@@ -36,11 +36,12 @@ public class Antlr {
 		
 		try {
 			parser.asign();
-			System.out.println("La expresión cumple con el formato establecido.");
+			System.out.println("[INFO] (ANTLR) La expresión cumple con el formato establecido.");
 			return true;
 		} catch (IllegalStateException e) {
-			System.err.println("<<ERROR>> " + e.getMessage());
-			System.err.println("Se produjo un error al intentar parsear la expresión ingresada (" + string + "). Por favor, revísela e intente nuevamente.");
+			System.err.println("[ERROR] (ANTLR) " + e.getMessage() + ". " +
+					"Se produjo un error al intentar parsear la expresión ingresada (" + string +
+					"). Por favor, revísela e intente nuevamente.");
 			return false;
 		}
 	}
@@ -57,7 +58,7 @@ public class Antlr {
 		Double resultado = 0.0;
 		
 		if (!MercadoBursatil.INSTANCE.containsEmpresa(empresa.getNombre())) {
-			System.out.println("No existe la empresa especificada.");
+			System.err.println("[ERROR] (ANTLR) No existe la empresa especificada.");
 		} else {
 			EvalVisitor evaluador = new EvalVisitor(empresa, periodo);
 			resultado = evaluador.visit(arbol);

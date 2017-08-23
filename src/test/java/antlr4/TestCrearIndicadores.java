@@ -2,7 +2,6 @@ package antlr4;
 
 import static org.junit.Assert.*;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +36,6 @@ public class TestCrearIndicadores extends FileHandler {
 	
 	@Test
 	public void testCalculoIndicador() throws Exception {		
-		String aux = new SimpleDateFormat("yyyyMMdd").format(mercado.getEmpresa("Facebook Inc.").getCuentas().get(0).getPeriodo());
-		System.out.println(aux);
 		double resultado = mercado.getIndicador("Indicador").getValorFor(facebook, "20151231");
 		assertEquals(8165.99, resultado, 0.01);
 	}

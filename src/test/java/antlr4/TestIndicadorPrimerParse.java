@@ -19,8 +19,7 @@ public class TestIndicadorPrimerParse {
 	
 	@Test
 	public void testFail() throws Exception {
-		assertFalse(Antlr.parseString("AA = BB +- CC */ A"));
-		
+		assertFalse(Antlr.parseString("AA = BB +- CC */ A"));	
 	}
 
 }
