@@ -86,7 +86,7 @@ $(function () {
             url: "http://localhost:8080/dondeInvierto/cuentas/",
             dataType: "json",
             beforeSend: function () {
-                console.log("Buscando información de cuentas...");
+                console.log("[INFO] (AJAX) Buscando información de cuentas...");
             },
             success: function (response) {
                 $.each(response, function(index, element) {
@@ -114,7 +114,7 @@ $(function () {
             url: "http://localhost:8080/dondeInvierto/indicadores/",
             dataType: "json",
             beforeSend: function () {
-                console.log("Buscando información de indicadores...");
+                console.log("[INFO] (AJAX) Buscando información de indicadores...");
             },
             success: function (response) {
                 $.each(response, function(index, element) {
@@ -133,7 +133,6 @@ $(function () {
         var data = {};
         data.nombre = $("#nombre").val();
         data.formula = $("#formula").val();
-        console.log(JSON.stringify(data));
 
         $.ajax({
             type: 'POST',
@@ -142,13 +141,30 @@ $(function () {
             contentType: "application/json",
             data: JSON.stringify(data),
             beforeSend: function () {
-                console.log("Enviando información del indicador...");
+                console.log("[INFO] (AJAX) Enviando información del indicador...");
             },
             success: function (response) {
+                console.log("Success!");
                 console.log(response);
             },
-            failure: function (errMsg) {
-                alert(errMsg);
+            error: function (jqXHR, exception) {
+                var msg = '';
+                if (jqXHR.status === 0) {
+                    msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 404) {
+                    msg = 'Requested page not found. [404]';
+                } else if (jqXHR.status == 500) {
+                    msg = 'Internal Server Error [500].';
+                } else if (exception === 'parsererror') {
+                    msg = 'Requested JSON parse failed.';
+                } else if (exception === 'timeout') {
+                    msg = 'Time out error.';
+                } else if (exception === 'abort') {
+                    msg = 'Ajax request aborted.';
+                } else {
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                }
+                console.log(msg);
             }
         });
     });
