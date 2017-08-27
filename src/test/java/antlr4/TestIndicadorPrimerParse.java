@@ -17,9 +17,8 @@ public class TestIndicadorPrimerParse {
 				+ "/ Capital Total"));
 	}
 	
-	@Test
+	@Test(expected = IllegalStateException.class)
 	public void testFail() throws Exception {
-		assertFalse(Antlr.parseString("AA = BB +- CC */ A"));	
+		Antlr.parseString("AA = BB +- CC */ A");	
 	}
-
 }

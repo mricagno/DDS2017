@@ -127,8 +127,10 @@ public enum MercadoBursatil {
 		if (!containsIndicador(nombre)) {
 			try {
 				getIndicadores().add(new Indicador(nombre, formula));
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				System.err.println("[ERROR] (ANTLR) " + e.getMessage() + ". " +
+						"Se produjo un error al intentar parsear la expresión ingresada (" + nombre + " = " +
+						formula + "). El indicador no ha sido creado. Por favor, revísela e intente nuevamente.");
 			}
 		}
 	}

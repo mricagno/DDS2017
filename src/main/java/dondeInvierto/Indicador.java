@@ -15,13 +15,11 @@ public class Indicador {
 	 * 
 	 * @throws Exception 
 	 */
-	public Indicador(String nombre, String formula) throws Exception {
+	public Indicador(String nombre, String formula) throws IllegalStateException {
 		if (Antlr.parseString(formula)) {
 			this.nombre = nombre;
 			this.formula = formula;
-		} else {
-			System.err.println("No se ha creado el indicador.");
-		}	
+		}
 	}
 	
 	/**

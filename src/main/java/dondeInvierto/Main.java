@@ -23,8 +23,9 @@ public class Main {
             server.start();
 
             System.out.println(
-            		String.format("Application started.%nTry out %s%nStop the application using CTRL+C", BASE_URI));
-
+            		String.format("[INFO] (Grizzly) El servidor está en línea.%n[INFO] (Grizzly) Pruebe ingresar"
+            				+ " a %s.%n[INFO] (Grizzly) Detenga el servidor usando CTRL+C.", BASE_URI));
+            
             Thread.currentThread().join();
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

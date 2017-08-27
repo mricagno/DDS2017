@@ -20,10 +20,11 @@ public class Antlr {
 	/**
 	 * Verifica que el argumento tenga una estructura léxica y sintáctica válida.
 	 */
-	public static boolean parseString(String string) throws Exception {
+	public static boolean parseString(String string) throws IllegalStateException {
 		CharStream input = CharStreams.fromString(string); 
 		IndicadorLexer lexer = new IndicadorLexer(input);
 		IndicadorParser parser = new IndicadorParser(new CommonTokenStream(lexer));
+		boolean result = false;
 		
 		parser.removeErrorListeners();
 		parser.addErrorListener(new BaseErrorListener () {
@@ -34,16 +35,10 @@ public class Antlr {
 			}
 		});
 		
-		try {
-			parser.asign();
-			System.out.println("[INFO] (ANTLR) La expresión cumple con el formato establecido.");
-			return true;
-		} catch (IllegalStateException e) {
-			System.err.println("[ERROR] (ANTLR) " + e.getMessage() + ". " +
-					"Se produjo un error al intentar parsear la expresión ingresada (" + string +
-					"). Por favor, revísela e intente nuevamente.");
-			return false;
-		}
+		parser.asign();
+		result = true;
+		System.out.println("[INFO] (ANTLR) La expresión cumple con el formato establecido.");
+		return result;
 	}
 	
 	/**
