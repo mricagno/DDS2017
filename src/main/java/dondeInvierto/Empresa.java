@@ -1,5 +1,6 @@
 package dondeInvierto;
 
+import javax.persistence.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +8,13 @@ import java.util.List;
 /**
  * La empresa está definida por un nombre y una lista de cuentas asociadas a esa empresa.
  */
+@Entity
+@Table(name = "empresa")
 public class Empresa {
+    @Id
 	private String nombre;
+	@OneToMany
+	@JoinColumn(name="empresa_id")
 	private List<Cuenta> cuentas;
 	
 	/**
@@ -18,10 +24,16 @@ public class Empresa {
 		this.nombre = nombre;
 		this.cuentas = new ArrayList<Cuenta>();
 	}
-	
+	/**
+	 * Constructor vacio de la empresa.
+	 */
+	@SuppressWarnings("unused")
+	private Empresa() {
+	}
 	/**
 	 * Devuelve el nombre de la empresa.
 	 */
+	@Column(name = "NOMBRE")
 	public String getNombre() {
 		return this.nombre;
 	}	

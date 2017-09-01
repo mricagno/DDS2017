@@ -1,5 +1,6 @@
 package dondeInvierto;
 
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +8,11 @@ import java.util.Date;
 /**
  * La cuenta está definida por un tipo, un periodo y un valor
  */
+@Entity
+@Table(name = "cuenta")
 public class Cuenta {
+	@Id @GeneratedValue
+	private int cuentaID;
 	private String tipo;
 	private Date periodo;
 	private double valor;
@@ -24,6 +29,7 @@ public class Cuenta {
 	/**
 	 * Devuelve el tipo de la cuenta.
 	 */
+	@Column(name = "TIPO")
 	public String getTipo() {
 		return this.tipo;
 	}
@@ -31,6 +37,7 @@ public class Cuenta {
 	/**
 	 * Devuelve el periodo de la cuenta.
 	 */
+	@Column(name = "PERIODO")
 	public Date getPeriodo() {
 		return this.periodo;
 	}
@@ -45,7 +52,12 @@ public class Cuenta {
 	/**
 	 * Devuelve el valor de la cuenta.
 	 */
+	@Column(name = "VALOR")
 	public double getValor() {
 		return this.valor;
+	}
+	
+	public int getId() {
+		return cuentaID;
 	}
 }
