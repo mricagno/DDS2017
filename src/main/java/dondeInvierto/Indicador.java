@@ -1,20 +1,16 @@
 package dondeInvierto;
 
+import javax.persistence.*;
+
 import antlr4.Antlr;
 
-/**
- * El indicador está definido por un nombre y la fórmula para calcularlo.
- */
+@Entity
+@Table(name = "indicador")
 public class Indicador {
+	@Id
 	private String nombre;
 	private String formula;
 	
-	/**
-	 * Constructor del indicador. Valida que la fórmula tenga una estructura aritmética
-	 * lógica; de no ser así, devuelve un error.
-	 * 
-	 * @throws Exception 
-	 */
 	public Indicador(String nombre, String formula) throws IllegalStateException {
 		if (Antlr.parseString(formula)) {
 			this.nombre = nombre;
@@ -22,23 +18,16 @@ public class Indicador {
 		}
 	}
 	
-	/**
-	 * Devuelve el nombre del indicador.
-	 */
+	@Column(name = "NOMBRE")
 	public String getNombre() {
 		return this.nombre;
 	}
 	
-	/**
-	 * Devuelve la fórmula del indicador.
-	 */
+	@Column(name = "FORMULA")
 	public String getFormula() {
 		return this.formula;
 	}	
 	
-	/**
-	 * Calcula el valor de un indicador para una determinada empresa, en un periodo dado.
-	 */
 	public Double getValorFor(Empresa empresa, String periodo) {
 		return Antlr.calculate(this.getFormula(), empresa, periodo);
 	}
