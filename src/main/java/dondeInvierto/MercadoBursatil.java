@@ -132,7 +132,7 @@ public enum MercadoBursatil {
 				added = true;
 			} catch (IllegalStateException e) {
 				System.err.println("[ERROR] (ANTLR) " + e.getMessage() + ". " +
-						"Se produjo un error al intentar parsear la expresión ingresada (" + nombre + " = " + formula +
+						"Se produjo un error al intentar parsear la expresión ingresada (" + formula +
 						"). El indicador no ha sido creado. Por favor, revísela e intente nuevamente.");
 			}
 		}
