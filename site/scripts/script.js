@@ -143,9 +143,8 @@ $(function () {
             beforeSend: function () {
                 console.log("[INFO] (AJAX) Enviando información del indicador...");
             },
-            success: function (response) {
+            success: function () {
                 console.log("Success!");
-                console.log(response);
             },
             error: function (jqXHR, exception) {
                 var msg = '';

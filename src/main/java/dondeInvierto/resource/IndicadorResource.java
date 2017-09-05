@@ -50,18 +50,17 @@ public class IndicadorResource {
     @Path("/nuevo")
     @POST
 	@Consumes("application/json")
+    @Produces("application/json")
     public Response createIndicador(String indicador) {
     	JsonObject json = (JsonObject) Json.createReader(new StringReader(indicador)).read();
     	String formula = json.getString("nombre") + " = " + json.getString("formula"); 	
+    	Response respuesta;
     	
-    	try {
-    		mercado.addIndicador(json.getString("nombre"), formula);
-    		return Response.ok().build();
-    	} catch (Exception e) {
-			e.printStackTrace();
-			return Response.notModified().build();
-		}
-        //return {errors=...
-        //Ver https://dev.twitter.com/overview/api/response-codes
+    	if (mercado.addIndicador(json.getString("nombre"), formula)) {
+    		respuesta = Response.status(Response.Status.OK).entity("OK").build();
+    	} else {
+    		respuesta = Response.status(Response.Status.BAD_REQUEST).entity("Error").build();
+    	}
+    	return respuesta;
     }
 }

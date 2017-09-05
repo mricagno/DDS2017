@@ -123,16 +123,21 @@ public enum MercadoBursatil {
 	/**
 	 * Agrega el indicador en la lista de indicadores del mercado bursátil.
 	 */
-	public void addIndicador(String nombre, String formula) {
+	public boolean addIndicador(String nombre, String formula) {
+		boolean added = false;
+		
 		if (!containsIndicador(nombre)) {
 			try {
 				getIndicadores().add(new Indicador(nombre, formula));
+				added = true;
 			} catch (IllegalStateException e) {
 				System.err.println("[ERROR] (ANTLR) " + e.getMessage() + ". " +
-						"Se produjo un error al intentar parsear la expresión ingresada (" + nombre + " = " +
-						formula + "). El indicador no ha sido creado. Por favor, revísela e intente nuevamente.");
+						"Se produjo un error al intentar parsear la expresión ingresada (" + nombre + " = " + formula +
+						"). El indicador no ha sido creado. Por favor, revísela e intente nuevamente.");
 			}
 		}
+		
+		return added;
 	}
 	
 	/**
