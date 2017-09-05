@@ -55,7 +55,7 @@ public class TestFileUpload extends FileHandler {
 	}
 
 	@Test
-	public void TestCuentasFacebook() {
+	public void TestCuentasFacebook() throws ParseException {
 		assertTrue(mercado.getEmpresa(facebook.getNombre()).getCuentas().size() == 3);
 	}
 
@@ -65,7 +65,7 @@ public class TestFileUpload extends FileHandler {
 	}
 
 	@Test
-	public void TestCuentaTwitterTipo() {
+	public void TestCuentaTwitterTipo() throws ParseException {
 		// assertTrue(mercado.getEmpresa(twitter.getNombre()).getCuentas().get(0).getTipo().equals("EBITDA"));
 		Set<Cuenta> cuentas = new HashSet<Cuenta>();
 		cuentas = mercado.getEmpresa(twitter.getNombre()).getCuentas();
@@ -76,7 +76,7 @@ public class TestFileUpload extends FileHandler {
 	}
 
 	@Test
-	public void TestCuentaTwitterValor() {
+	public void TestCuentaTwitterValor() throws ParseException {
 		// assertEquals(mercado.getEmpresa(twitter.getNombre()).getCuentas().get(0).getValor(),
 		// 751.0, 0);
 		Set<Cuenta> cuentas = new HashSet<Cuenta>();

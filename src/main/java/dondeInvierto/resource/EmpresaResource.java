@@ -1,5 +1,7 @@
 package dondeInvierto.resource;
 
+import java.text.ParseException;
+
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.ws.rs.GET;
@@ -17,7 +19,7 @@ public class EmpresaResource {
 	
 	@GET
 	@Produces("application/json")
-    public String getEmpresas() {
+    public String getEmpresas() throws ParseException {
 		JsonArrayBuilder empresasBuilder = Json.createArrayBuilder();   
 		
 		for(Empresa emp : mercado.getEmpresas()) {
@@ -39,7 +41,7 @@ public class EmpresaResource {
 	@Path("/{empresa}")
 	@GET
 	@Produces("application/json")
-    public String getEmpresa(@PathParam("empresa") final String empresa) {
+    public String getEmpresa(@PathParam("empresa") final String empresa) throws ParseException {
 		Empresa emp = mercado.getEmpresa(empresa.replaceAll("%20", " "));
 		JsonArrayBuilder cuentasBuilder = Json.createArrayBuilder();
 		

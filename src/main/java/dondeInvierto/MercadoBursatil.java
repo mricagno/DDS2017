@@ -89,7 +89,7 @@ public enum MercadoBursatil {
 		
 		if (!emp.containsCuenta(tipo, periodo)) {
 			try {
-				emp.addCuenta(new Cuenta(tipo, periodo, valor));
+				emp.addCuenta(new Cuenta(tipo, periodo, valor,emp));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

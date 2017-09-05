@@ -30,31 +30,33 @@ public class DondeInviertoDB_Test {
 
 	@Test
 	public void saveCuenta()  throws Exception {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-		EntityManager em = emf.createEntityManager();
+		EntityManagerFactory emf2 = Persistence.createEntityManagerFactory("db");
+		EntityManager em = emf2.createEntityManager();
 		final Empresa empresa = new Empresa("Facebook Inc.1");
-		final Empresa empresa2 = new Empresa("Facebook Inc.");
-		final Cuenta cuenta = new Cuenta("FCF", "20151231", "3.99");
-		empresa.addCuenta(cuenta);
+		final Empresa empresa2 = new Empresa("Google");
+		empresa.addCuenta(new Cuenta("FCF", "20151231", "3.99",empresa));
+		empresa.addCuenta(new Cuenta("EBITDA", "20151231", "3.99",empresa));
+		empresa2.addCuenta(new Cuenta("EBITDA", "20151231", "3.99",empresa2));
 		// Get a new transaction
 		EntityTransaction trx = em.getTransaction();
 		trx.begin();
-		em.persist(empresa2);
-		em.persist(cuenta);
 		em.persist(empresa);
+		em.persist(empresa2);
 		trx.commit();
 	}
 
-/*	@Test
+	@Test
 	public void saveIndicador() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
 		EntityManager em = emf.createEntityManager();
 		// Get a new transaction
 		EntityTransaction trx = em.getTransaction();
-		final Indicador indicador = new Indicador("EBITDA","");
+		final Indicador indicador = new Indicador("TEST","TEST = EBITDA + 2");
+		// Get a new transaction
+		trx.begin();
 		em.persist(indicador);
 		trx.commit();
-	}*/
+	}
 
 	/*
 	 * @Test public void getEmpresas() throws ParseException { final EntityManager

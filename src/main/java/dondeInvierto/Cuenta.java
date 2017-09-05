@@ -14,14 +14,19 @@ public class Cuenta {
 	private String tipo;
 	private Date periodo;
 	private double valor;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "empresa")
 	private Empresa empresa;
 
-	public Cuenta(String tipo, String periodo, String valor) throws ParseException {
+	public Cuenta(String tipo, String periodo, String valor, Empresa empresa) throws ParseException {
 		this.tipo = tipo;
 		this.periodo = new SimpleDateFormat("yyyyMMdd").parse(periodo);
 		this.valor = Double.parseDouble(valor);
+		this.empresa = empresa;
 	}
+
+	public Cuenta() {
+	};
 
 	@Column(name = "TIPO")
 	public String getTipo() {
@@ -41,16 +46,20 @@ public class Cuenta {
 	public double getValor() {
 		return this.valor;
 	}
-	
+
 	public Long getId() {
-		return cuentaID;
+		return this.cuentaID;
 	}
-	
+
+	public void setId(Long id) {
+		this.cuentaID = id;
+	}
+
 	public Empresa getEmpresa() {
-		return empresa;
+		return this.empresa;
 	}
-	
+
 	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;  
+		this.empresa = empresa;
 	}
 }
