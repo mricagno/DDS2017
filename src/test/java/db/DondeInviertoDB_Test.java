@@ -43,6 +43,8 @@ public class DondeInviertoDB_Test {
 		em.persist(empresa);
 		em.persist(empresa2);
 		trx.commit();
+		final DbEmpresa_Manager empresa_mng = new DbEmpresa_Manager();
+		empresa_mng.listEmpresas();
 	}
 
 	@Test
