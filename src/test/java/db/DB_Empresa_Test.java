@@ -10,8 +10,8 @@ import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
 
-public class DondeInviertoDB_Test {
-
+public class DB_Empresa_Test {
+/*
 	@Test
 	public void saveEmpresa() throws Exception {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
@@ -41,7 +41,7 @@ public class DondeInviertoDB_Test {
 		em.persist(empresa2);
 		trx.commit();
 		em.close();
-	}
+	}/*
 /*
 	@Test
 	public void saveIndicador() {

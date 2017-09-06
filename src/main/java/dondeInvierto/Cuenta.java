@@ -54,6 +54,10 @@ public class Cuenta {
 	public void setId(Long id) {
 		this.cuentaID = id;
 	}
+	
+	public void setValor(Double valor) {
+		this.valor = valor;
+	};
 
 	public Empresa getEmpresa() {
 		return this.empresa;

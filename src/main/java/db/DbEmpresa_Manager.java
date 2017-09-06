@@ -67,9 +67,30 @@ public class DbEmpresa_Manager {
 			em.close();
 		}
 	}
+	
+	//Lee una empresa
+	public Empresa getEmpresa(Long empresa_id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		EntityManager em = emf.createEntityManager();
+		// Get a new transaction
+		EntityTransaction trx = em.getTransaction();
+		Empresa empresa = null;
+		try {
+			trx.begin();
+			empresa = em.find(Empresa.class, empresa_id);
+			trx.commit();
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return empresa;
+	}
 
 	//	 Actualizar Empresa 
-	public void updateEmpesa(Long id, String Nombre) {
+	public void updateEmpresa(Long id, String Nombre) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
 		EntityManager em = emf.createEntityManager();
 		// Get a new transaction
