@@ -7,9 +7,10 @@ import java.util.List;
 /**
  * La empresa está definida por un nombre y una lista de cuentas asociadas a esa empresa.
  */
-public class Empresa {
+public class Empresa implements Comparable<Empresa> {
 	private String nombre;
 	private List<Cuenta> cuentas;
+	private int antiguedad;
 	
 	/**
 	 * Constructor de la empresa.
@@ -19,6 +20,27 @@ public class Empresa {
 		this.cuentas = new ArrayList<Cuenta>();
 	}
 	
+	void setAntiguedad(int antiguedad){
+		this.antiguedad=antiguedad;
+	}
+	
+	static void imprimeArrayEmpresas(Empresa[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println((i+1) + ". " + array[i].nombre + " - Cuentas: " + array[i].cuentas + " - Antigüedad: " + array[i].antiguedad);
+        }
+    }	
+	//redefine criterio de comparacion para ordenamiento de arrays
+	 @Override
+     public int compareTo(Empresa o) {
+         if (antiguedad > o.antiguedad) {
+             return -1;
+         }
+         if (antiguedad < o.antiguedad) {
+             return 1;
+         }
+         return 0;
+     }
+	
 	/**
 	 * Devuelve el nombre de la empresa.
 	 */
@@ -26,7 +48,7 @@ public class Empresa {
 		return this.nombre;
 	}	
 	
-	/**
+		/**
 	 * Devuelve la lista de cuentas de la empresa.
 	 */
 	public List<Cuenta> getCuentas() {
@@ -62,6 +84,10 @@ public class Empresa {
 		if (!this.containsCuenta(cuenta.getTipo(), cuenta.getPeriodoAsString())) {
 			this.getCuentas().add(cuenta);
 		}
+	}
+
+	public int getAntiguedad() {
+		return antiguedad;
 	}
 
 }

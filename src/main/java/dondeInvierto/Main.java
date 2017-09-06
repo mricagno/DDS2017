@@ -2,6 +2,7 @@ package dondeInvierto;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,5 +31,16 @@ public class Main {
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+       /*
+        System.out.println("Array sin ordenar por antiguedad");
+        imprimeArrayEmpresas(mercado.getEmpresas());
+        
+    // Ordeno el array de personas por antiguedad (de menor a mayor).
+        Arrays.sort(empresas);
+        System.out.println("Array ordenado por altura");
+        imprimeArrayPersonas(empresas());
+        */
 	}
 }
