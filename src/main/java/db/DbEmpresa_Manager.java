@@ -1,6 +1,12 @@
 package db;
 
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
 import java.util.Date;
 import java.util.Iterator;
 
@@ -8,96 +14,99 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import dondeInvierto.Empresa;
 
 public class DbEmpresa_Manager {
 
-	private static SessionFactory factory;
-	public static void main(String[] args) {
-	      try{
-	         factory = new Configuration().configure().buildSessionFactory();
-	      }catch (Throwable ex) { 
-	         System.err.println("Failed to create sessionFactory object." + ex);
-	         throw new ExceptionInInitializerError(ex); 
-	      }
-	      DbEmpresa_Manager ME = new DbEmpresa_Manager();
-	}
-	/* Crear empresa en DB */
+	public DbEmpresa_Manager() {
+	};
+
+//	 Crear empresa en DB 
 	public Long addEmpresa(Empresa empresa) {
-		Session session = factory.openSession();
-		Transaction tx = null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		EntityManager em = emf.createEntityManager();
+		// Get a new transaction
+		EntityTransaction trx = em.getTransaction();
 		Long empresaID = null;
 		try {
-			tx = session.beginTransaction();
-			empresaID = (Long) session.save(empresa);
-			tx.commit();
+			trx.begin();
+			em.persist(empresa);
+			trx.commit();
+			empresaID = empresa.getId();
 		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
+			if (trx != null)
+				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			session.close();
+			em.close();
 		}
 		return empresaID;
 	}
 
-	/* Lee todas las empresas */
+	//	 Lee todas las empresas 
 	public void listEmpresas() {
-		Session session = factory.openSession();
-		Transaction tx = null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		EntityManager em = emf.createEntityManager();
+		// Get a new transaction
+		EntityTransaction trx = em.getTransaction();
 		try {
-			tx = session.beginTransaction();
-			List empresas = session.createQuery("FROM Empresa").list();
+			trx.begin();
+			List empresas = em.createQuery("FROM Empresa").getResultList();
+			System.out.println("LISTA DE EMPRESAS");
 			for (Iterator iterator = empresas.iterator(); iterator.hasNext();) {
 				Empresa empresa = (Empresa) iterator.next();
-				System.out.print("Id: " + empresa.getId());
-				System.out.print("Nombre: " + empresa.getNombre());
+				System.out.println("Id: " + empresa.getId());
+				System.out.println("Nombre: " + empresa.getNombre());
 			}
-			tx.commit();
+			trx.commit();
 		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
+			if (trx != null)
+				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			session.close();
+			em.close();
 		}
 	}
 
-	/* Actualizar Empresa */
+	//	 Actualizar Empresa 
 	public void updateEmpesa(Long id, String Nombre) {
-		Session session = factory.openSession();
-		Transaction tx = null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		EntityManager em = emf.createEntityManager();
+		// Get a new transaction
+		EntityTransaction trx = em.getTransaction();
 		try {
-			tx = session.beginTransaction();
-			Empresa empresa = (Empresa)session.get(Empresa.class, id);
+
+			Empresa empresa = em.find(Empresa.class, id);
+			trx.begin();
 			empresa.setNombre(Nombre);
-			session.update(empresa);
-			tx.commit();
+			trx.commit();
 		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
+			if (trx != null)
+				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			session.close();
+			em.close();
 		}
 	}
 
-	/* Borrar Empresa */
+	// Borrar Empresa 
 	public void deleteEmpresa(Long id) {
-		Session session = factory.openSession();
-		Transaction tx = null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		EntityManager em = emf.createEntityManager();
+		// Get a new transaction
+		EntityTransaction trx = em.getTransaction();
 		try {
-			tx = session.beginTransaction();
-			Empresa empresa = (Empresa) session.get(Empresa.class, id);
-			session.delete(empresa);
-			tx.commit();
+
+			Empresa empresa = (Empresa) em.find(Empresa.class, id);
+			trx.begin();
+			em.remove(empresa);
+			trx.commit();
 		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
+			if (trx != null)
+				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			session.close();
+			em.close();
 		}
 	}
 

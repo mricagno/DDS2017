@@ -11,6 +11,7 @@ public class Empresa {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
 	private String nombre;
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Cuenta> cuentas;
