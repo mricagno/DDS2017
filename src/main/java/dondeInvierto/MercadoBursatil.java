@@ -184,7 +184,7 @@ public enum MercadoBursatil {
 	
 	
 	/**
-	 * Agrega la empresa a la lista de empresas del mercado bursátil.
+	 * Agrega la metodologia a la lista de metodologias del mercado bursátil.
 	 */
 	public void addMetodologia(String nombre, Indicador indicador, Condicion condicion){
 		getMetodologias().add(new Metodologia(nombre,indicador,condicion));
