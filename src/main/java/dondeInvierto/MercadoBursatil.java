@@ -2,7 +2,9 @@ package dondeInvierto;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Contiene todas las empresas, cuentas, identificadores y metodologías del dominio.
@@ -186,11 +188,11 @@ public enum MercadoBursatil {
 	/**
 	 * Agrega la metodologia a la lista de metodologias del mercado bursátil.
 	 */
-	public void addMetodologia(String nombre, Indicador indicador, Condicion condicion){
-		getMetodologias().add(new Metodologia(nombre,indicador,condicion));
+	public void addMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, CondicionOrdenamiento condicionOrdenamiento){
+		getMetodologias().add(new Metodologia(nombre,condicionesFiltro,condicionOrdenamiento));
 	}
 	
-	public boolean evaluarCondicion(double resultadoIndicador, Condicion condicion){
+	public boolean evaluarCondicion(Condicion condicion){
 		return true;
 	}
 	
@@ -205,8 +207,19 @@ public enum MercadoBursatil {
 	/**
 	 * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
 	 */
-	public void calcularMetodologia(Metodologia metodologia, String periodo, Condicion condicion) {
-		List<Empresa> listaEmpresasResultantes = new ArrayList<Empresa>();
+	public void calcularMetodologia(Metodologia metodologia){
+		
+		//pasar de a 1 las condiciones de filtro
+		Iterator<CondicionFiltro> iter = metodologia.getCondicionesFiltro().iterator();
+		while (iter.hasNext()) {
+			evaluarCondicion(iter.next());
+		}
+				
+		//por ultimo pasar la condicion de ordenamiento
+		evaluarCondicion(metodologia.getCondicionOrdenamiento());
+		
+		
+		/*List<Empresa> listaEmpresasResultantes = new ArrayList<Empresa>();
 		
 		for(Empresa empresa : getEmpresas()){
 			double resultadoIndicador = metodologia.getIndicador().getValorFor(empresa, periodo);
@@ -217,6 +230,6 @@ public enum MercadoBursatil {
 				for(int i=0;i<listaEmpresasResultantes.size();i++){
 				    System.out.println(listaEmpresasResultantes.get(i));
 				} 
-		}
-	}
+		}*/
+	}                                                           											                                                   
 }

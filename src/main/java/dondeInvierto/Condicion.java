@@ -1,6 +1,5 @@
 package dondeInvierto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Condicion {
@@ -8,16 +7,23 @@ public class Condicion {
 	private String nombre;
 	private String comparador;
 	private int valor;
+	private Indicador indicador;
 	
 	/**
 	 * Constructor de la condición.
 	 */
-	public Condicion(String nombre, String comparador, int valor) {
+	public Condicion(String nombre, String comparador, int valor, Indicador indicador) {
 		this.nombre = nombre;
 		this.comparador = comparador;
 		this.valor = valor;
+		this.indicador = indicador;
 	}
 	
+	MercadoBursatil mercado = MercadoBursatil.INSTANCE;
+	
+	List<Empresa> empresas = mercado.getEmpresas();
+	public ResultadoCondicionado[] resultadoCondicion = new ResultadoCondicionado[mercado.getEmpresas().size()];
+		
 	/**
 	 * Devuelve el nombre de la condicion.
 	 */
@@ -37,37 +43,17 @@ public class Condicion {
 	 */
 	public int getValor() {
 		return this.valor;
-	}	
+	}
+	
+	/**
+	 * Devuelve el valor a comparar de la condicion.
+	 */
+	public Indicador getIndicador() {
+		return this.indicador;
+	}
 
 	
-	public boolean evaluarCondicion(double resultadoIndicador, Condicion condicion){
-	
-		boolean resultadoCondicionado=true;
-		switch(condicion.getComparador()){
-		
-		case "<":
-			resultadoCondicionado = resultadoIndicador < condicion.getValor();
-			break;
-			
-		case ">":
-			resultadoCondicionado = resultadoIndicador > condicion.getValor();
-			break;
-			
-		case "==":
-			resultadoCondicionado = resultadoIndicador == condicion.getValor();
-			break;
-			
-		case "<=":
-			resultadoCondicionado = resultadoIndicador <= condicion.getValor();
-			break;
-			
-		case ">=":
-			resultadoCondicionado = resultadoIndicador >= condicion.getValor();
-			break;
-		
-		}
-		return resultadoCondicionado;
-		
+	public void evaluarCondicion(Condicion condicion){
 	}
 	
 }

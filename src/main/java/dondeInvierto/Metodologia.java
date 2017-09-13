@@ -1,19 +1,16 @@
 package dondeInvierto;
-import java.lang.Math;
-import java.util.Arrays;
-
-import antlr4.Antlr;
+import java.util.Set;
 
 
 public class Metodologia{
 	private String nombre;
-	private Indicador indicador;
-	private Condicion condicion;
+	private Set<CondicionFiltro> condicionesFiltro;
+	private CondicionOrdenamiento condicionOrdenamiento;
 	
-	public Metodologia(String nombre, Indicador indicador, Condicion condicion) {
+	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, CondicionOrdenamiento condicionOrdenamiento) {
 		this.nombre = nombre;
-		this.indicador = indicador;
-		this.condicion = condicion;
+		this.condicionesFiltro = condicionesFiltro;
+		this.condicionOrdenamiento = condicionOrdenamiento;
 	}
 	
 	/**
@@ -26,15 +23,15 @@ public class Metodologia{
 	/**
 	 * Devuelve el indicador de la metodologia.
 	 */
-	public Indicador getIndicador() {
-		return this.indicador;
+	public Set<CondicionFiltro> getCondicionesFiltro() {
+		return this.condicionesFiltro;
 	}
 	
 	/**
 	 * Devuelve la tupla de comparado y valor a comparar de la metodologia.
 	 */
-	public Condicion getCondicion() {
-		return this.condicion;
+	public CondicionOrdenamiento getCondicionOrdenamiento() {
+		return this.condicionOrdenamiento;
 	}
 	
 	
@@ -50,16 +47,6 @@ public class Metodologia{
 
 
 
-
-
-
-
-/**
- * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
-
-public Double getValorFor(Empresa empresa, String periodo) {
-	return Antlr.calculate(this.getFormula(), empresa, periodo);
-}*/
 	
 	
 	
@@ -87,34 +74,3 @@ public Double getValorFor(Empresa empresa, String periodo) {
 	
 	
 	
-	
-	
-	
-	/*private String nombre;
-	private String rutaRegla;
-	
-	public Metodologia(String nombre, String rutaRegla) {
-		this.nombre = nombre;
-		this.rutaRegla = rutaRegla;
-	}
-	
-	public String getNombre(){
-		return this.nombre;
-	}
-	
-	public String getRutaRegla() {
-		return this.rutaRegla;
-	}
-	
-	public void evaluarMetodologia(MercadoBursatil mercado) {
-		KieServices kieServices = KieServices.Factory.get();
-		KieContainer kContainer = kieServices.getKieClasspathContainer();
-		
-		KieSession kSession = kContainer.newKieSession();
-				
-		Indicador indicador = new Indicador("Prueba", "1+2", mercado);
-	
-		kSession.fireAllRules();
-
-	}
-}*/

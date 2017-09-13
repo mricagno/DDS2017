@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Empresa implements Comparable<Empresa> {
 	private String nombre;
-	private List<Cuenta> cuentas;
+	private ArrayList<Cuenta> cuentas;
 	private int antiguedad;
 	
 	/**
@@ -29,6 +29,7 @@ public class Empresa implements Comparable<Empresa> {
             System.out.println((i+1) + ". " + array[i].nombre + " - Cuentas: " + array[i].cuentas + " - Antigüedad: " + array[i].antiguedad);
         }
     }	
+	
 	//redefine criterio de comparacion para ordenamiento de arrays
 	 @Override
      public int compareTo(Empresa o) {
