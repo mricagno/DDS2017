@@ -1,8 +1,14 @@
 package dondeInvierto;
 
 import java.util.List;
+import dondeInvierto.CondicionFiltro;
+import dondeInvierto.CondicionOrdenamiento;
+import dondeInvierto.Empresa;
+import dondeInvierto.Indicador;
+import dondeInvierto.MercadoBursatil;
+import dondeInvierto.Metodologia;
 
-public class Condicion {
+public abstract class Condicion {
 	
 	private String nombre;
 	private String comparador;
@@ -23,6 +29,12 @@ public class Condicion {
 	
 	List<Empresa> empresas = mercado.getEmpresas();
 	public ResultadoCondicionado[] resultadoCondicion = new ResultadoCondicionado[mercado.getEmpresas().size()];
+	
+	public ResultadoCondicionado[] vectorCondicion(){
+		
+		return resultadoCondicion;
+		
+	}
 		
 	/**
 	 * Devuelve el nombre de la condicion.
@@ -53,7 +65,8 @@ public class Condicion {
 	}
 
 	
-	public void evaluarCondicion(Condicion condicion){
-	}
+	public abstract ResultadoCondicionado[] evaluarCondicion(Condicion condicion);
+	
+	public abstract ResultadoCondicionado[] getResultadoCondicion();
 	
 }

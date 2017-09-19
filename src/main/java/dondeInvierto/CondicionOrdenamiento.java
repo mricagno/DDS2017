@@ -10,15 +10,25 @@ public class CondicionOrdenamiento extends Condicion {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public ResultadoCondicionado[] getResultadoCondicion(){
+		return this.resultadoCondicion;
+	}
+	
 	//Se define nuevamente evaluarCondicion para las condiciones de ordenamiento
 	@Override
-	public void evaluarCondicion(Condicion condicion){
+	public ResultadoCondicionado[] evaluarCondicion(Condicion condicion){
 		
 		Arrays.sort(resultadoCondicion);
+		System.out.println(Arrays.deepToString(resultadoCondicion));
+		
+		if(resultadoCondicion.length <= 0){
+			System.out.println("Hola");
+		}
 		
 		if(condicion.getComparador() == "descendente"){
 		reverse(resultadoCondicion);
 		}
+		return resultadoCondicion;
 		
 	}
 

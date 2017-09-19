@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import dondeInvierto.Condicion;
+import dondeInvierto.CondicionFiltro;
+import dondeInvierto.CondicionOrdenamiento;
+import dondeInvierto.Empresa;
+import dondeInvierto.Indicador;
+
+import dondeInvierto.Metodologia;
 
 /**
  * Contiene todas las empresas, cuentas, identificadores y metodologías del dominio.
@@ -192,8 +199,8 @@ public enum MercadoBursatil {
 		getMetodologias().add(new Metodologia(nombre,condicionesFiltro,condicionOrdenamiento));
 	}
 	
-	public boolean evaluarCondicion(Condicion condicion){
-		return true;
+	public void evaluarCondicion(Condicion condicion){
+		
 	}
 	
 	/**
@@ -204,32 +211,5 @@ public enum MercadoBursatil {
 				anyMatch(m -> nombre.equals(m.getNombre()));
 	}
 	
-	/**
-	 * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
-	 */
-	public void calcularMetodologia(Metodologia metodologia){
-		
-		//pasar de a 1 las condiciones de filtro
-		Iterator<CondicionFiltro> iter = metodologia.getCondicionesFiltro().iterator();
-		while (iter.hasNext()) {
-			evaluarCondicion(iter.next());
-		}
-				
-		//por ultimo pasar la condicion de ordenamiento
-		evaluarCondicion(metodologia.getCondicionOrdenamiento());
-		
-		
-		/*List<Empresa> listaEmpresasResultantes = new ArrayList<Empresa>();
-		
-		for(Empresa empresa : getEmpresas()){
-			double resultadoIndicador = metodologia.getIndicador().getValorFor(empresa, periodo);
-				if(evaluarCondicion(resultadoIndicador, metodologia.getCondicion())){
-				listaEmpresasResultantes.add(empresa);
-				}
-				listaEmpresasResultantes.sort(null);
-				for(int i=0;i<listaEmpresasResultantes.size();i++){
-				    System.out.println(listaEmpresasResultantes.get(i));
-				} 
-		}*/
-	}                                                           											                                                   
+	
 }

@@ -1,4 +1,5 @@
 package dondeInvierto;
+import java.util.Iterator;
 import java.util.Set;
 
 
@@ -32,6 +33,36 @@ public class Metodologia{
 	 */
 	public CondicionOrdenamiento getCondicionOrdenamiento() {
 		return this.condicionOrdenamiento;
+	}
+	
+	/**
+	 * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
+	 */
+	public void calcularMetodologia(Metodologia metodologia){
+		
+		System.out.println("calcular metodologia");
+		
+		for(CondicionFiltro condicion : metodologia.getCondicionesFiltro()){
+			condicion.evaluarCondicion(condicion);
+		}
+		
+			
+		//pasar de a 1 las condiciones de filtro
+		/*Iterator<CondicionFiltro> iter = metodologia.getCondicionesFiltro().iterator();
+		int i = 0;
+		System.out.println("condicione filtro cargadas "+ metodologia.getCondicionesFiltro().size());
+		while (iter.hasNext()) {
+			evaluarCondicion(iter.next());
+			i++;
+			if(i <= 1){
+				System.out.println("calcular metodologia - condiciones filtro");
+			}
+		}
+				
+		//por ultimo pasar la condicion de ordenamiento
+		evaluarCondicion(metodologia.getCondicionOrdenamiento());
+		*/
+		
 	}
 	
 	

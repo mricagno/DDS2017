@@ -8,10 +8,15 @@ public class CondicionFiltro extends Condicion {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public ResultadoCondicionado[] getResultadoCondicion(){
+		return this.resultadoCondicion;
+	}
+	
 	//Se define nuevamente evaluarCondicion para las condiciones de filtro
 	@Override
-	public void evaluarCondicion(Condicion condicion){
+	public ResultadoCondicionado[] evaluarCondicion(Condicion condicion){
 		double resultadoIndicador;
+		System.out.println("evaluarCondicion FILTRO");
 		int i=0;
 		switch(condicion.getComparador()){
 	
@@ -27,11 +32,14 @@ public class CondicionFiltro extends Condicion {
 					}					
 				}			
 			}
-			break;
+			return resultadoCondicion;
+			
 			
 		case ">":
 			for(Empresa empresa : empresas){
+				System.out.println("FILTRO CASE EMPRESAS");
 				for(Cuenta cuenta : empresa.getCuentas()){
+					System.out.println("FILTRO CASE CUENTAS");
 					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 					
 					if(resultadoIndicador > condicion.getValor()){
@@ -41,7 +49,7 @@ public class CondicionFiltro extends Condicion {
 					}					
 				}			
 			}
-			break;
+			return resultadoCondicion;
 			
 		case "==":
 			double valorCondicion = (double)condicion.getValor();
@@ -56,7 +64,7 @@ public class CondicionFiltro extends Condicion {
 					}					
 				}			
 			}
-			break;
+			return resultadoCondicion;
 		
 		case "<=":
 			for(Empresa empresa : empresas){
@@ -70,7 +78,7 @@ public class CondicionFiltro extends Condicion {
 					}					
 				}			
 			}
-			break;
+			return resultadoCondicion;
 		
 		case ">=":
 			for(Empresa empresa : empresas){
@@ -84,7 +92,7 @@ public class CondicionFiltro extends Condicion {
 					}					
 				}			
 			}
-			break;
+			return resultadoCondicion;
 	
 		case "!=":
 			for(Empresa empresa : empresas){
@@ -98,7 +106,7 @@ public class CondicionFiltro extends Condicion {
 					}					
 				}			
 			}
-			break;
+			return resultadoCondicion;
 			
 		case "filtrarAntiguedadMenor":
 			for(Empresa empresa : empresas){
@@ -108,7 +116,7 @@ public class CondicionFiltro extends Condicion {
 						i++;
 				}			
 			}
-			break;
+			return resultadoCondicion;
 			
 		case "filtrarAntiguedadMayor":
 			for(Empresa empresa : empresas){
@@ -118,10 +126,11 @@ public class CondicionFiltro extends Condicion {
 					i++;
 				}			
 			}
-			break;
+			return resultadoCondicion;
 			
 		//case "anios":
 			
 		}
+		return resultadoCondicion;
 	}
 }
