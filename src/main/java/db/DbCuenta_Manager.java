@@ -59,7 +59,6 @@ public class DbCuenta_Manager {
 				System.out.println("Tipo: " + cuenta.getTipo());
 				System.out.println("Periodo: " + cuenta.getPeriodo());
 				System.out.println("Valor: " + cuenta.getValor());
-				System.out.println("Empresa: " + cuenta.getEmpresa().getNombre());
 			}
 			trx.commit();
 		} catch (HibernateException e) {
@@ -79,7 +78,7 @@ public class DbCuenta_Manager {
 		EntityTransaction trx = em.getTransaction();
 		try {
 			trx.begin();
-			List cuentas = em.createQuery("FROM Cuenta c WHERE c.empresa = :eid",Cuenta.class).setParameter("eid", empresa).getResultList();
+			List cuentas = em.createQuery("FROM Cuenta WHERE empresa_id = :eid",Cuenta.class).setParameter("eid", empresa).getResultList();
 			System.out.println("LISTA DE Cuentas de empresa " + empresa.getNombre());
 			for (Iterator iterator = cuentas.iterator(); iterator.hasNext();) {
 				Cuenta cuenta = (Cuenta) iterator.next();
@@ -87,7 +86,6 @@ public class DbCuenta_Manager {
 				System.out.println("Tipo: " + cuenta.getTipo());
 				System.out.println("Periodo: " + cuenta.getPeriodo());
 				System.out.println("Valor: " + cuenta.getValor());
-				System.out.println("Empresa: " + cuenta.getEmpresa());
 			}
 			trx.commit();
 		} catch (HibernateException e) {

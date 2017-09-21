@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
+@NamedQueries(value = {
+	    @NamedQuery(name = "Cuenta.getAll", query = "SELECT b FROM Cuenta b")
+	})
 @Table(name = "cuenta")
 public class Cuenta {
 	@Id
@@ -14,15 +17,11 @@ public class Cuenta {
 	private String tipo;
 	private Date periodo;
 	private double valor;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "empresa")
-	private Empresa empresa;
 
-	public Cuenta(String tipo, String periodo, String valor, Empresa empresa) throws ParseException {
+	public Cuenta(String tipo, String periodo, String valor) throws ParseException {
 		this.tipo = tipo;
 		this.periodo = new SimpleDateFormat("yyyyMMdd").parse(periodo);
 		this.valor = Double.parseDouble(valor);
-		this.empresa = empresa;
 	}
 
 	public Cuenta() {
@@ -59,11 +58,4 @@ public class Cuenta {
 		this.valor = valor;
 	};
 
-	public Empresa getEmpresa() {
-		return this.empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
 }

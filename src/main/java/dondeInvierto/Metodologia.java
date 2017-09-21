@@ -6,8 +6,9 @@ import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;*/
 
 public class Metodologia {
-	/*private String nombre;
-	private String rutaRegla;
+	private String nombre;
+	
+	/*private String rutaRegla;
 	
 	public Metodologia(String nombre, String rutaRegla) {
 		this.nombre = nombre;

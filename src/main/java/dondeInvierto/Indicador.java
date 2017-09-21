@@ -5,6 +5,9 @@ import javax.persistence.*;
 import antlr4.Antlr;
 
 @Entity
+@NamedQueries(value = {
+	    @NamedQuery(name = "Indicador.getAll", query = "SELECT b FROM Indicador b")
+	})
 @Table(name = "indicador")
 public class Indicador {
 	@Id

@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NamedQueries(value = {
+	    @NamedQuery(name = "Empresa.getAll", query = "SELECT b FROM Empresa b")
+	})
 @Table(name = "empresa")
 public class Empresa {
 	@Id
@@ -13,8 +16,12 @@ public class Empresa {
 	private Long id;
 	
 	private String nombre;
-	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	//@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "empresa_id")
 	private Set<Cuenta> cuentas;
+	
+	private int antiguedad;
 
 	public Empresa(String nombre) {
 		this.nombre = nombre;
@@ -39,6 +46,14 @@ public class Empresa {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public int getAntiguedad() {
+		return this.antiguedad;
+	}
+
+	public void setAntiguedad(int antiguedad) {
+		this.antiguedad = antiguedad;
 	}
 
 	public Set<Cuenta> getCuentas() {
