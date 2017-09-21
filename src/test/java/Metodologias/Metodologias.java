@@ -37,16 +37,18 @@ public class Metodologias {
 		mercado.addCuenta("Facebook Inc.", "FCF", "20151231", "3.99");
 		mercado.addCuenta("Tesla Inc.", "EBITDA", "20151231", "213");
 		mercado.addCuenta("Tesla Inc.", "EBITDA", "20161231", "630");
-		mercado.addCuenta("Twitter Inc.", "EBITDA", "20161231", "751");
+		mercado.addCuenta("Tesla Inc.", "FCF", "20151231", "230");
+		mercado.addCuenta("Twitter Inc.", "EBITDA", "20151231", "751");
+		mercado.addCuenta("Twitter Inc.", "FCF", "20151231", "1751");
 		
-		mercado.addIndicador("Ingreso Neto", "A = BB + CC");
-		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC");
+		//mercado.addIndicador("Ingreso Neto", "A = BB + CC");
+		//mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC");
 		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF");
-		mercado.addIndicador("Ingreso Neto","Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-			+ "Ingreso Neto En Operaciones Discontinuadas");
+		//mercado.addIndicador("Ingreso Neto","Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
+		//	+ "Ingreso Neto En Operaciones Discontinuadas");
 		
-		Indicador indicador = mercado.getIndicador("Ingreso Neto");
-		CondicionFiltro filtro = new CondicionFiltro("CondFiltroIngNeto", ">", 1, indicador);
+		Indicador indicador = mercado.getIndicador("Indicador");
+		CondicionFiltro filtro = new CondicionFiltro("CondFiltroIngNeto", ">", 1.00, indicador);
 		CondicionOrdenamiento orden = new CondicionOrdenamiento("CondOrdIngNet","ascendente",0,indicador);
 				
 		Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
@@ -67,12 +69,12 @@ public class Metodologias {
 		
 		mercado.getMetodologia("metodologia1").calcularMetodologia(mercado.getMetodologia("metodologia1"));
 		
-		System.out.println(" "+mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().vectorCondicion().length );
+		System.out.println(" "+mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getVectorCondicion().size() );
 		
-		mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().vectorCondicion()[1].setNombre("gonzalo");
+		//mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().vectorCondicion()[1].setNombre("gonzalo");
 		
-		for(int i =0;i<mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().vectorCondicion().length;i++){
-			System.out.println(" "+mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().vectorCondicion()[i].getNombre());	
+		for(ResultadoCondicionado empresaResultante : mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getResultadoCondicion()){
+			System.out.println(" "+empresaResultante.getNombre());	
 		}
 		
 				

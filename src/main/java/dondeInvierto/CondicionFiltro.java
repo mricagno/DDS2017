@@ -1,20 +1,21 @@
 package dondeInvierto;
 
+import java.util.List;
 
 public class CondicionFiltro extends Condicion {
 
-	public CondicionFiltro(String nombre, String comparador, int valor, Indicador indicador) {
+	public CondicionFiltro(String nombre, String comparador, double valor, Indicador indicador) {
 		super(nombre, comparador, valor, indicador);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ResultadoCondicionado[] getResultadoCondicion(){
+	public List<ResultadoCondicionado> getResultadoCondicion(){
 		return this.resultadoCondicion;
 	}
 	
 	//Se define nuevamente evaluarCondicion para las condiciones de filtro
 	@Override
-	public ResultadoCondicionado[] evaluarCondicion(Condicion condicion){
+	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion){
 		double resultadoIndicador;
 		System.out.println("evaluarCondicion FILTRO");
 		int i=0;
@@ -26,8 +27,8 @@ public class CondicionFiltro extends Condicion {
 					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 					
 					if(resultadoIndicador < condicion.getValor()){
-						resultadoCondicion[i].setNombre(empresa.getNombre());
-						resultadoCondicion[i].setResultadoIndicador(resultadoIndicador);
+						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
+						
 						i++;
 					}					
 				}			
@@ -36,15 +37,16 @@ public class CondicionFiltro extends Condicion {
 			
 			
 		case ">":
+			
 			for(Empresa empresa : empresas){
 				System.out.println("FILTRO CASE EMPRESAS");
 				for(Cuenta cuenta : empresa.getCuentas()){
 					System.out.println("FILTRO CASE CUENTAS");
 					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
-					
+					System.out.println(" "+condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString()));
 					if(resultadoIndicador > condicion.getValor()){
-						resultadoCondicion[i].setNombre(empresa.getNombre());
-						resultadoCondicion[i].setResultadoIndicador(resultadoIndicador);
+						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
+						System.out.println(" "+empresa.getNombre());
 						i++;
 					}					
 				}			
@@ -58,8 +60,7 @@ public class CondicionFiltro extends Condicion {
 					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 					
 					if(resultadoIndicador == valorCondicion){
-						resultadoCondicion[i].setNombre(empresa.getNombre());
-						resultadoCondicion[i].setResultadoIndicador(resultadoIndicador);
+						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
 						i++;
 					}					
 				}			
@@ -72,8 +73,7 @@ public class CondicionFiltro extends Condicion {
 					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 					
 					if(resultadoIndicador <= condicion.getValor()){
-						resultadoCondicion[i].setNombre(empresa.getNombre());
-						resultadoCondicion[i].setResultadoIndicador(resultadoIndicador);
+						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
 						i++;
 					}					
 				}			
@@ -86,8 +86,7 @@ public class CondicionFiltro extends Condicion {
 					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 					
 					if(resultadoIndicador >= condicion.getValor()){
-						resultadoCondicion[i].setNombre(empresa.getNombre());
-						resultadoCondicion[i].setResultadoIndicador(resultadoIndicador);
+						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
 						i++;
 					}					
 				}			
@@ -100,8 +99,7 @@ public class CondicionFiltro extends Condicion {
 					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 					
 					if(resultadoIndicador != condicion.getValor()){
-						resultadoCondicion[i].setNombre(empresa.getNombre());
-						resultadoCondicion[i].setResultadoIndicador(resultadoIndicador);
+						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
 						i++;
 					}					
 				}			
@@ -111,8 +109,8 @@ public class CondicionFiltro extends Condicion {
 		case "filtrarAntiguedadMenor":
 			for(Empresa empresa : empresas){
 				if(empresa.getAntiguedad() < condicion.getValor()){
-						resultadoCondicion[i].setNombre(empresa.getNombre());
-						resultadoCondicion[i].setResultadoIndicador((double)empresa.getAntiguedad());
+					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),empresa.getAntiguedad()));
+
 						i++;
 				}			
 			}
@@ -121,8 +119,7 @@ public class CondicionFiltro extends Condicion {
 		case "filtrarAntiguedadMayor":
 			for(Empresa empresa : empresas){
 				if(empresa.getAntiguedad() > condicion.getValor()){
-					resultadoCondicion[i].setNombre(empresa.getNombre());
-					resultadoCondicion[i].setResultadoIndicador((double)empresa.getAntiguedad());
+					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),empresa.getAntiguedad()));
 					i++;
 				}			
 			}

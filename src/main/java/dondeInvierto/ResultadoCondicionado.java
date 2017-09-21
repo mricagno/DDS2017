@@ -45,7 +45,7 @@ public class ResultadoCondicionado implements Comparable<ResultadoCondicionado> 
 		}
 		return 0;
 	}
-	
+
 	
 
 }

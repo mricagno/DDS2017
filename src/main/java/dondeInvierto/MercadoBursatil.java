@@ -199,9 +199,7 @@ public enum MercadoBursatil {
 		getMetodologias().add(new Metodologia(nombre,condicionesFiltro,condicionOrdenamiento));
 	}
 	
-	public void evaluarCondicion(Condicion condicion){
-		
-	}
+	
 	
 	/**
 	 * Devuelve true si el mercado bursátil tiene alguna empresa con el nombre buscado.

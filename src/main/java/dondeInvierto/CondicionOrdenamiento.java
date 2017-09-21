@@ -1,32 +1,33 @@
 package dondeInvierto;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 public class CondicionOrdenamiento extends Condicion {
 
-	public CondicionOrdenamiento(String nombre, String comparador, int valor, Indicador indicador) {
+	public CondicionOrdenamiento(String nombre, String comparador, double valor, Indicador indicador) {
 		super(nombre, comparador, valor, indicador);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ResultadoCondicionado[] getResultadoCondicion(){
+	public List<ResultadoCondicionado> getResultadoCondicion(){
 		return this.resultadoCondicion;
 	}
 	
 	//Se define nuevamente evaluarCondicion para las condiciones de ordenamiento
 	@Override
-	public ResultadoCondicionado[] evaluarCondicion(Condicion condicion){
+	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion){
 		
-		Arrays.sort(resultadoCondicion);
-		System.out.println(Arrays.deepToString(resultadoCondicion));
-		
-		if(resultadoCondicion.length <= 0){
-			System.out.println("Hola");
+		Collections.sort(resultadoCondicion);
+		for(int i=0;i<resultadoCondicion.size();i++){
+			System.out.println(resultadoCondicion);	
 		}
 		
+		
 		if(condicion.getComparador() == "descendente"){
-		reverse(resultadoCondicion);
+		Collections.reverse(resultadoCondicion);
 		}
 		return resultadoCondicion;
 		

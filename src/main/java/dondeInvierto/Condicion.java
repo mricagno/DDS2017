@@ -1,5 +1,6 @@
 package dondeInvierto;
 
+import java.util.ArrayList;
 import java.util.List;
 import dondeInvierto.CondicionFiltro;
 import dondeInvierto.CondicionOrdenamiento;
@@ -12,13 +13,13 @@ public abstract class Condicion {
 	
 	private String nombre;
 	private String comparador;
-	private int valor;
+	private double valor;
 	private Indicador indicador;
 	
 	/**
 	 * Constructor de la condición.
 	 */
-	public Condicion(String nombre, String comparador, int valor, Indicador indicador) {
+	public Condicion(String nombre, String comparador, double valor, Indicador indicador) {
 		this.nombre = nombre;
 		this.comparador = comparador;
 		this.valor = valor;
@@ -28,9 +29,10 @@ public abstract class Condicion {
 	MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	
 	List<Empresa> empresas = mercado.getEmpresas();
-	public ResultadoCondicionado[] resultadoCondicion = new ResultadoCondicionado[mercado.getEmpresas().size()];
+	List<ResultadoCondicionado> resultadoCondicion = new ArrayList<>();
 	
-	public ResultadoCondicionado[] vectorCondicion(){
+	
+	public List <ResultadoCondicionado> getVectorCondicion(){
 		
 		return resultadoCondicion;
 		
@@ -53,7 +55,7 @@ public abstract class Condicion {
 	/**
 	 * Devuelve el valor a comparar de la condicion.
 	 */
-	public int getValor() {
+	public double getValor() {
 		return this.valor;
 	}
 	
@@ -65,8 +67,8 @@ public abstract class Condicion {
 	}
 
 	
-	public abstract ResultadoCondicionado[] evaluarCondicion(Condicion condicion);
+	public abstract List<ResultadoCondicionado> evaluarCondicion(Condicion condicion);
 	
-	public abstract ResultadoCondicionado[] getResultadoCondicion();
+	public abstract List<ResultadoCondicionado> getResultadoCondicion();
 	
 }
