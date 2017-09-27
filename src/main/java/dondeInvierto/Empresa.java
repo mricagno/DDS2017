@@ -1,41 +1,39 @@
 package dondeInvierto;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@NamedQueries(value = {
-	    @NamedQuery(name = "Empresa.getAll", query = "SELECT b FROM Empresa b")
-	})
+@NamedQueries(value = { @NamedQuery(name = "Empresa.getAll", query = "SELECT b FROM Empresa b") })
 @Table(name = "empresa")
 public class Empresa {
 	@Id
 	@GeneratedValue
+	@NotNull
+	@Column(name = "ID")
 	private Long id;
-	
+	@Column(name = "NOMBRE")
 	private String nombre;
-	//@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@Column(name = "ANTIGUEDAD")
+	private int antiguedad;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "empresa_id")
 	private Set<Cuenta> cuentas;
-	
-	private int antiguedad;
 
 	public Empresa(String nombre) {
 		this.nombre = nombre;
-		this.cuentas = new HashSet<Cuenta>();// new ArrayList<Cuenta>();
+		this.cuentas = new HashSet<Cuenta>();
+	}
+	public Empresa() {
 	}
 
-	public Empresa() {
-	};
-
-	@Column(name = "NOMBRE")
 	public String getNombre() {
 		return this.nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -47,7 +45,7 @@ public class Empresa {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public int getAntiguedad() {
 		return this.antiguedad;
 	}
@@ -60,20 +58,20 @@ public class Empresa {
 		if (this.cuentas != null) {
 			return this.cuentas;
 		} else {
-			Set<Cuenta> cuenta = new HashSet<Cuenta>();// Collections.emptySet();
+			Set<Cuenta> cuenta = new HashSet<Cuenta>();
 			this.cuentas = cuenta;
 			return this.cuentas;
 		}
 	}
 
-	public boolean containsCuenta(String tipo, String periodo) throws ParseException {
-		return this.getCuentas().stream()
-				.anyMatch(c -> (tipo.equals(c.getTipo())) && (periodo.equals(c.getPeriodoAsString())));
-	}
-
 	public Cuenta getCuenta(String tipo, String periodo) throws ParseException {
 		return getCuentas().stream().filter(c -> (tipo.equals(c.getTipo())) && (periodo.equals(c.getPeriodoAsString())))
 				.findFirst().orElse(null);
+	}
+
+	public boolean containsCuenta(String tipo, String periodo) throws ParseException {
+		return this.getCuentas().stream()
+				.anyMatch(c -> (tipo.equals(c.getTipo())) && (periodo.equals(c.getPeriodoAsString())));
 	}
 
 	public void addCuenta(Cuenta cuenta) throws ParseException {

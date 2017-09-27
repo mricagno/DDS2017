@@ -1,6 +1,7 @@
 package dondeInvierto;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,9 +14,13 @@ import java.util.Date;
 public class Cuenta {
 	@Id
 	@GeneratedValue
+	@NotNull
 	private Long cuentaID;
+	@Column(name = "TIPO")
 	private String tipo;
+	@Column(name = "PERIODO")
 	private Date periodo;
+	@Column(name = "VALOR")
 	private double valor;
 
 	public Cuenta(String tipo, String periodo, String valor) throws ParseException {
@@ -27,12 +32,12 @@ public class Cuenta {
 	public Cuenta() {
 	};
 
-	@Column(name = "TIPO")
+	
 	public String getTipo() {
 		return this.tipo;
 	}
 
-	@Column(name = "PERIODO")
+	
 	public Date getPeriodo() {
 		return this.periodo;
 	}
@@ -41,7 +46,7 @@ public class Cuenta {
 		return new SimpleDateFormat("yyyyMMdd").format(this.periodo);
 	}
 
-	@Column(name = "VALOR")
+	
 	public double getValor() {
 		return this.valor;
 	}

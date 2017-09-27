@@ -45,7 +45,7 @@ public class DB_Cuenta_Test extends DB_jpa_Test {
 		cuenta.setValor((double) 300);
 		trx.commit();
 		assertNotNull(cuentas);
-		assertEquals((double)300, cuenta.getValor());
+		assertEquals((double)300.0, cuenta.getValor(),(double)0);
 	}
 	
 }

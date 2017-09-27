@@ -3,6 +3,13 @@ package dondeInvierto;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
+import db.DB_Manager;
+import db.Init_DB_data;
 
 /**
  * Contiene todas las empresas, cuentas, identificadores y metodologías del dominio.
@@ -12,17 +19,19 @@ public enum MercadoBursatil {
 	
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
-	//private List<Metodologia> metodologias = new ArrayList<Metodologia>();
+	private List<Metodologia> metodologias = new ArrayList<Metodologia>();
 	
 	/**
 	 * Agrega datos de prueba (empresas, cuentas e indicadores) al mercado bursátil.
+	 * @throws ParseException 
 	 */
-	public void init() {
+	public void init() throws ParseException {
 		
-		addEmpresa("Facebook Inc.");
-		addEmpresa("Tesla Inc.");
-		addEmpresa("Twitter Inc.");
-		
+		//@SuppressWarnings("unused")
+		DB_Manager DBManager = DB_Manager.getSingletonInstance();
+		EntityManagerFactory factory = DBManager.getEmf();
+		EntityManager em = factory.createEntityManager();
+		Init_DB_data test = new Init_DB_data(em);
 		try {
 			addCuenta("Facebook Inc.", "EBITDA", "20151231", "8162");
 			addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
@@ -141,16 +150,49 @@ public enum MercadoBursatil {
 	public Double calcularIndicador(Indicador indicador, Empresa empresa, String periodo) {
 		return indicador.getValorFor(empresa, periodo);
 	}
+	/**
+	 * Devuelve listado de metodologias.
+	 */
 	
-	/*public List<Metodologia> getMetodologias() {
+	public List<Metodologia> getMetodologias() {
 		return this.metodologias;
 	}	
 	
+	/**
+	 * Devuelve la metodologia con el nombre buscado.
+	 */
+	public Metodologia getMetodologia(String metodologia) {
+		return getMetodologias().stream().
+				filter(m -> metodologia.equals(m.getNombre())).
+				findFirst().orElse(null);
+	}
+	
+	
 	public void addMetodologia(Metodologia metodologia) {
-		if (this.containsMetodologia(metodologia.getNombre()) == -1) {
-			this.metodologias.add(metodologia);
+		if (this.containsMetodologia(metodologia.getNombre())){
+			System.out.println("Ya existe una metodologia con ese nombre.");
 		} else {
-			System.out.println("Ya existe un indicador con ese nombre.");
+			this.metodologias.add(metodologia);
 		}
-	}*/
+	}
+	
+	
+	
+	/**
+	 * Agrega la metodologia a la lista de metodologias del mercado bursátil.
+	 */
+	public void addMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, CondicionOrdenamiento condicionOrdenamiento){
+		getMetodologias().add(new Metodologia(nombre,condicionesFiltro,condicionOrdenamiento));
+	}
+	
+	
+	
+	/**
+	 * Devuelve true si el mercado bursátil tiene alguna empresa con el nombre buscado.
+	 */
+	public boolean containsMetodologia(String nombre) {		
+		return getMetodologias().stream().
+				anyMatch(m -> nombre.equals(m.getNombre()));
+	}
+	
 }

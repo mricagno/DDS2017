@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -17,41 +18,44 @@ import org.hibernate.SessionFactory;
 import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 
-public class DbCuenta_Manager {
-	
-	public DbCuenta_Manager() {
+public class CuentaService {
+	protected EntityManager em;
+	public CuentaService(EntityManager em) {
+		this.em = em;
 	};
 //	 Crear cuenta en DB 
-	public Long addCuenta(Cuenta cuenta) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-		EntityManager em = emf.createEntityManager();
+	//public Long addCuenta(Cuenta cuenta, Empresa empresa) {
+	public Long addCuenta(String tipo, String periodo, String valor, Empresa empresa) throws ParseException {
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		//this.em = emf.createEntityManager();
+		empresa.addCuenta(new Cuenta(tipo, periodo, valor));
 		// Get a new transaction
-		EntityTransaction trx = em.getTransaction();
+		EntityTransaction trx = this.em.getTransaction();
 		Long cuentaID = null;
 		try {
 			trx.begin();
-			em.persist(cuenta);
+			this.em.persist(empresa);
 			trx.commit();
-			cuentaID = cuenta.getId();
+			//cuentaID = cuenta.getId();
 		} catch (HibernateException e) {
 			if (trx != null)
 				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			//this.em.close();
 		}
 		return cuentaID;
 	}
 
 	//Devuelve todas las cuentas 
 	public void listCuentasAll() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-		EntityManager em = emf.createEntityManager();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		//this.em = emf.createEntityManager();
 		// Get a new transaction
-		EntityTransaction trx = em.getTransaction();
+		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
-			List cuentas = em.createQuery("FROM Cuenta").getResultList();
+			List cuentas = this.em.createQuery("FROM Cuenta").getResultList();
 			System.out.println("LISTA DE Cuentas");
 			for (Iterator iterator = cuentas.iterator(); iterator.hasNext();) {
 				Cuenta cuenta = (Cuenta) iterator.next();
@@ -66,19 +70,19 @@ public class DbCuenta_Manager {
 				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			//this.em.close();
 		}
 	}
 	
 	//	 Lee las cuentas de una empresa
 	public void listCuentas(Empresa empresa) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-		EntityManager em = emf.createEntityManager();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		//this.em = emf.createEntityManager();
 		// Get a new transaction
-		EntityTransaction trx = em.getTransaction();
+		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
-			List cuentas = em.createQuery("FROM Cuenta WHERE empresa_id = :eid",Cuenta.class).setParameter("eid", empresa).getResultList();
+			List cuentas = this.em.createQuery("FROM Cuenta WHERE empresa_id = :eid",Cuenta.class).setParameter("eid", empresa).getResultList();
 			System.out.println("LISTA DE Cuentas de empresa " + empresa.getNombre());
 			for (Iterator iterator = cuentas.iterator(); iterator.hasNext();) {
 				Cuenta cuenta = (Cuenta) iterator.next();
@@ -93,19 +97,19 @@ public class DbCuenta_Manager {
 				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			//this.em.close();
 		}
 	}
 
 	//	 Actualizar Cuenta
 	public void updateCuenta(Long id, Double valor) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-		EntityManager em = emf.createEntityManager();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		//this.em = emf.createEntityManager();
 		// Get a new transaction
-		EntityTransaction trx = em.getTransaction();
+		EntityTransaction trx = this.em.getTransaction();
 		try {
 
-			Cuenta cuenta = em.find(Cuenta.class, id);
+			Cuenta cuenta = this.em.find(Cuenta.class, id);
 			trx.begin();
 			cuenta.setValor(valor);
 			trx.commit();
@@ -114,27 +118,27 @@ public class DbCuenta_Manager {
 				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			//this.em.close();
 		}
 	}
 
 	// Borrar Cuenta 
 	public void deleteCuenta(Long id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-		EntityManager em = emf.createEntityManager();
+		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+		//this.em = emf.createEntityManager();
 		// Get a new transaction
 		EntityTransaction trx = em.getTransaction();
 		try {
-			Cuenta cuenta = (Cuenta) em.find(Cuenta.class, id);
+			Cuenta cuenta = (Cuenta) this.em.find(Cuenta.class, id);
 			trx.begin();
-			em.remove(cuenta);
+			this.em.remove(cuenta);
 			trx.commit();
 		} catch (HibernateException e) {
 			if (trx != null)
 				trx.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			//this.em.close();
 		}
 	}
 }

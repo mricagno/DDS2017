@@ -1,37 +1,69 @@
 package dondeInvierto;
+import java.util.Iterator;
+import java.util.Set;
 
-/*import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.StatelessKieSession;*/
 
-public class Metodologia {
+public class Metodologia{
 	private String nombre;
+	private Set<CondicionFiltro> condicionesFiltro;
+	private CondicionOrdenamiento condicionOrdenamiento;
 	
-	/*private String rutaRegla;
-	
-	public Metodologia(String nombre, String rutaRegla) {
+	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, CondicionOrdenamiento condicionOrdenamiento) {
 		this.nombre = nombre;
-		this.rutaRegla = rutaRegla;
+		this.condicionesFiltro = condicionesFiltro;
+		this.condicionOrdenamiento = condicionOrdenamiento;
 	}
 	
-	public String getNombre(){
+	/**
+	 * Devuelve el nombre de la metodologia.
+	 */
+	public String getNombre() {
 		return this.nombre;
 	}
 	
-	public String getRutaRegla() {
-		return this.rutaRegla;
+	/**
+	 * Devuelve el indicador de la metodologia.
+	 */
+	public Set<CondicionFiltro> getCondicionesFiltro() {
+		return this.condicionesFiltro;
 	}
 	
-	public void evaluarMetodologia(MercadoBursatil mercado) {
-		KieServices kieServices = KieServices.Factory.get();
-		KieContainer kContainer = kieServices.getKieClasspathContainer();
-		
-		KieSession kSession = kContainer.newKieSession();
-				
-		Indicador indicador = new Indicador("Prueba", "1+2", mercado);
+	/**
+	 * Devuelve la tupla de comparado y valor a comparar de la metodologia.
+	 */
+	public CondicionOrdenamiento getCondicionOrdenamiento() {
+		return this.condicionOrdenamiento;
+	}
 	
-		kSession.fireAllRules();
-
-	}*/
+	/**
+	 * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
+	 */
+	public void calcularMetodologia(Metodologia metodologia){
+		
+		System.out.println("calcular metodologia");
+		
+		for(CondicionFiltro condicion : metodologia.getCondicionesFiltro()){
+			condicion.evaluarCondicion(condicion);
+		}
+		
+			
+		//pasar de a 1 las condiciones de filtro
+		/*Iterator<CondicionFiltro> iter = metodologia.getCondicionesFiltro().iterator();
+		int i = 0;
+		System.out.println("condicione filtro cargadas "+ metodologia.getCondicionesFiltro().size());
+		while (iter.hasNext()) {
+			evaluarCondicion(iter.next());
+			i++;
+			if(i <= 1){
+				System.out.println("calcular metodologia - condiciones filtro");
+			}
+		}
+				
+		//por ultimo pasar la condicion de ordenamiento
+		evaluarCondicion(metodologia.getCondicionOrdenamiento());
+		*/
+		
+	}
+	
+	
 }

@@ -3,6 +3,8 @@ package db;
 import static org.junit.Assert.*;
 import java.util.List;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+
 import org.junit.Test;
 import dondeInvierto.Empresa;
 
@@ -42,6 +44,19 @@ public class DB_Empresa_Test extends DB_jpa_Test {
 		List<Empresa> empresas = em.createNamedQuery("Empresa.getAll", Empresa.class).getResultList();
 		assertNotNull(empresas);
 		assertEquals(0, empresas.size());
+	}
+	
+	@Test
+	public void getEmpresa_exitoso() {
+		EntityTransaction trx = em.getTransaction();
+		trx.begin();
+		List<Empresa> empresas = em.createQuery("Select e FROM Empresa e WHERE e.nombre = :nombre",Empresa.class)
+                .setParameter("nombre", "Facebook Inc.").getResultList();
+		Empresa empresa = empresas.stream().findFirst().get();
+		trx.commit();
+		assertNotNull(empresa);
+		assertEquals("Facebook Inc.", empresa.getNombre());
+		
 	}
 
 }

@@ -16,9 +16,9 @@ import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
 
-public class DbIndicador_Manager {
+public class IndicadorService {
 	
-	public DbIndicador_Manager() {};
+	public IndicadorService() {};
 	
 	//Crear Indicador
 	public Long addIndicador(Indicador indicador) {

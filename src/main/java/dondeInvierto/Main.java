@@ -2,19 +2,22 @@ package dondeInvierto;
 
 import java.io.IOException;
 import java.net.URI;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 import json.JsonApplication;
-
 public class Main {
 	private static final URI BASE_URI = URI.create("http://localhost:8080/dondeInvierto/");
 	
-	public static void main(String[] args) {
-		MercadoBursatil mercado = MercadoBursatil.INSTANCE;	
+	public static void main(String[] args) throws ParseException {
+		MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 		mercado.init();
 		
         try {
