@@ -195,8 +195,8 @@ public enum MercadoBursatil {
 	/**
 	 * Agrega la metodologia a la lista de metodologias del mercado bursátil.
 	 */
-	public void addMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, CondicionOrdenamiento condicionOrdenamiento){
-		getMetodologias().add(new Metodologia(nombre,condicionesFiltro,condicionOrdenamiento));
+	public void addMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, Set<CondicionOrdenamiento> condicionesOrdenamiento){
+		getMetodologias().add(new Metodologia(nombre,condicionesFiltro,condicionesOrdenamiento));
 	}
 	
 	

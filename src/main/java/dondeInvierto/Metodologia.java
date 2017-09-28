@@ -7,13 +7,14 @@ import java.util.Set;
 public class Metodologia{
 	private String nombre;
 	private Set<CondicionFiltro> condicionesFiltro;
-	private CondicionOrdenamiento condicionOrdenamiento;
-	List<ResultadoCondicionado> listaFiltrada=new ArrayList<>();
+	private Set<CondicionOrdenamiento> condicionesOrdenamiento;
+	private List<ResultadoCondicionado> listaFiltradaUOrdenada=new ArrayList<>();
+	private ResultadoCondicionado elementoListaFiltradaUOrdenada,auxiliar;
 	
-	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, CondicionOrdenamiento condicionOrdenamiento) {
+	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, Set<CondicionOrdenamiento> condicionesOrdenamiento) {
 		this.nombre = nombre;
 		this.condicionesFiltro = condicionesFiltro;
-		this.condicionOrdenamiento = condicionOrdenamiento;
+		this.condicionesOrdenamiento = condicionesOrdenamiento;
 	}
 	
 	/**
@@ -33,8 +34,8 @@ public class Metodologia{
 	/**
 	 * Devuelve la tupla de comparado y valor a comparar de la metodologia.
 	 */
-	public CondicionOrdenamiento getCondicionOrdenamiento() {
-		return this.condicionOrdenamiento;
+	public Set<CondicionOrdenamiento> getCondicionesOrdenamiento() {
+		return this.condicionesOrdenamiento;
 	}
 	
 
@@ -46,12 +47,39 @@ public class Metodologia{
 		System.out.println("calcular metodologia");
 		
 		for(CondicionFiltro condicion : metodologia.getCondicionesFiltro()){
-			listaFiltrada=condicion.evaluarCondicion(condicion);
+			listaFiltradaUOrdenada=condicion.evaluarCondicion(condicion);
 		}
 		
-		metodologia.getCondicionOrdenamiento().evaluarCondicion2(listaFiltrada,metodologia.getCondicionOrdenamiento());
+		for(CondicionOrdenamiento condicion : metodologia.getCondicionesOrdenamiento()){
+			List<ResultadoCondicionado> listaOrdenaUnaCondicion=new ArrayList<>();
+			listaOrdenaUnaCondicion=condicion.evaluarCondicion(condicion);
+			for(int i=0;i<listaOrdenaUnaCondicion.size();i++) {
+				listaOrdenaUnaCondicion.get(i).setPosicionPonderable(i);
+			}
+		}
+		
+		for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
+		{
+			elementoListaFiltradaUOrdenada=listaFiltradaUOrdenada.get(i);
+			
+			for (int j=0; j<listaFiltradaUOrdenada.size()-1;j++) {
+				if (elementoListaFiltradaUOrdenada.getPosicionPonderable()<=listaFiltradaUOrdenada.get(j).getPosicionPonderable()) {
+							auxiliar=elementoListaFiltradaUOrdenada;
+							listaFiltradaUOrdenada.set(i, listaFiltradaUOrdenada.get(j));
+							listaFiltradaUOrdenada.set(j, auxiliar);
+				}				
+			}
+		}		
+		
+		for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
+		{
+			System.out.println(listaFiltradaUOrdenada.get(i));			
+		}
+	
 		
 		
+		//metodologia.getCondicionOrdenamiento().evaluarCondicion(listaFiltradaUOrdenada,metodologia.getCondicionOrdenamiento());
+			
 			
 		//pasar de a 1 las condiciones de filtro
 		/*Iterator<CondicionFiltro> iter = metodologia.getCondicionesFiltro().iterator();

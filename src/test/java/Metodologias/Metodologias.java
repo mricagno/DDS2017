@@ -64,9 +64,12 @@ public class Metodologias {
 		
 		
 		Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
+		Set<CondicionOrdenamiento> condicionesOrden = new HashSet<>();
+
 		condicionesFiltro.add(filtro);
+		condicionesOrden.add(orden);
 		
-		mercado.addMetodologia("metodologia1", condicionesFiltro , orden);
+		mercado.addMetodologia("metodologia1", condicionesFiltro , condicionesOrden);
 		//Metodologia metodologia1 = new Metodologia("metodologia1", condicionesFiltro , orden);
 		
 		
@@ -81,13 +84,14 @@ public class Metodologias {
 		Metodologia metodologia=mercado.getMetodologia("metodologia1");
 		metodologia.calcularMetodologia(mercado.getMetodologia("metodologia1"));
 		
-		System.out.println(" "+mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getVectorCondicion().size() );
+		
+		//System.out.println(" "+mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getVectorCondicion().size() );
 		
 		//mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().vectorCondicion()[1].setNombre("gonzalo");
 		
-		for(ResultadoCondicionado empresaResultante : mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getResultadoCondicion()){
-			System.out.println(" "+empresaResultante.getNombre());	
-		}
+		//for(ResultadoCondicionado empresaResultante : mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getResultadoCondicion()){
+		//	System.out.println(" "+empresaResultante.getNombre());	
+		//}
 		
 				
 	/*	for(int i=0; i< 10; i++){

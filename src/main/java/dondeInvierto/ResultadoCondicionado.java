@@ -4,6 +4,7 @@ public class ResultadoCondicionado implements Comparable<ResultadoCondicionado> 
 		
 	private String nombre;
 	private double resultadoIndicador;
+	private int posicionPonderable;
 	
 	
 	/**
@@ -12,6 +13,7 @@ public class ResultadoCondicionado implements Comparable<ResultadoCondicionado> 
 	public ResultadoCondicionado(String nombre, double resultadoIndicador){
 		this.nombre = nombre;
 		this.resultadoIndicador = resultadoIndicador;
+		this.posicionPonderable=0;
 	}
 
 
@@ -32,6 +34,14 @@ public class ResultadoCondicionado implements Comparable<ResultadoCondicionado> 
 
 	public void setResultadoIndicador(double resultadoIndicador) {
 		this.resultadoIndicador = resultadoIndicador;
+	}
+	
+	public int getPosicionPonderable() {
+		return posicionPonderable;
+	}
+	
+	public void setPosicionPonderable(int posicion) {
+		posicionPonderable+=posicion;
 	}
 	
 	

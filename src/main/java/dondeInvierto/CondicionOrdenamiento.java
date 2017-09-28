@@ -75,14 +75,14 @@ public class CondicionOrdenamiento extends Condicion {
 		
 	}
 
-	public static void reverse(ResultadoCondicionado[] resultadoCondicion) {
-		if(resultadoCondicion == null || resultadoCondicion.length <= 1){
+	public static void reverse(List<ResultadoCondicionado> resultadoCondicion) {
+		if(resultadoCondicion == null || resultadoCondicion.size() <= 1){
 			return;
 		}
-		for(int i = 0; i < resultadoCondicion.length / 2; i++){
-			ResultadoCondicionado temp = resultadoCondicion[i];
-			resultadoCondicion[i] = resultadoCondicion[resultadoCondicion.length - 1 - i];
-			resultadoCondicion[resultadoCondicion.length - 1 - i] = temp;
+		for(int i = 0; i < resultadoCondicion.size() / 2; i++){
+			ResultadoCondicionado temp = resultadoCondicion.get(i);
+			resultadoCondicion.set(i, resultadoCondicion.get(resultadoCondicion.size() - 1 - i));
+			resultadoCondicion.set(resultadoCondicion.size() - 1 - i, temp);
 		}
 	}
 	

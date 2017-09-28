@@ -1,5 +1,6 @@
 package dondeInvierto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CondicionFiltro extends Condicion {
@@ -13,43 +14,43 @@ public class CondicionFiltro extends Condicion {
 		return this.resultadoCondicion;
 	}
 	
+
+	
+	
 	//Se define nuevamente evaluarCondicion para las condiciones de filtro
 	@Override
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion){
 		double resultadoIndicador;
 		int i=0;
-		switch(condicion.getComparador()){
-	
+		switch(condicion.getComparador()){	
 		case "<":
 			for(Empresa empresa : empresas){
+				List<String> listaPeriodos=new ArrayList<>();
 				for(Cuenta cuenta : empresa.getCuentas()){
-					//meter el if
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
-					
-					if(resultadoIndicador < condicion.getValor()){
-						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-					
-						i++;
-					}					
+					if (!listaPeriodos.contains(cuenta.getPeriodoAsString())){
+						listaPeriodos.add(cuenta.getPeriodoAsString());
+						resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
+						if(resultadoIndicador < condicion.getValor()){
+							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
+						}						
+					}										
 				}			
 			}
 			return resultadoCondicion;
 			
 			
-		case ">":
-			
+		case ">":			
 			for(Empresa empresa : empresas){
-				//System.out.println("FILTRO CASE EMPRESAS");
+				List<String> listaPeriodos=new ArrayList<>();
 				for(Cuenta cuenta : empresa.getCuentas()){
-					//System.out.println("FILTRO CASE CUENTAS");
-					
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
-					if(resultadoIndicador > condicion.getValor()){
-						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-						//System.out.println(" "+empresa.getNombre());
-						//System.out.println(" "+condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString()));
-						i++;
-					}					
+					if (!listaPeriodos.contains(cuenta.getPeriodoAsString())){
+						listaPeriodos.add(cuenta.getPeriodoAsString());
+						resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
+						if(resultadoIndicador > condicion.getValor()){
+							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
+							i++;
+						}						
+					}										
 				}			
 			}
 			return resultadoCondicion;
@@ -57,22 +58,24 @@ public class CondicionFiltro extends Condicion {
 		case "==":
 			double valorCondicion = (double)condicion.getValor();
 			for(Empresa empresa : empresas){
+				List<String> listaPeriodos=new ArrayList<>();
 				for(Cuenta cuenta : empresa.getCuentas()){
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
-					
-					if(resultadoIndicador == valorCondicion){
-						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-						i++;
-					}					
+					if (!listaPeriodos.contains(cuenta.getPeriodoAsString())){
+						listaPeriodos.add(cuenta.getPeriodoAsString());
+						resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
+						if(resultadoIndicador == valorCondicion){
+							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
+						}						
+					}										
 				}			
 			}
 			return resultadoCondicion;
 		
 		case "<=":
 			for(Empresa empresa : empresas){
+				List<String> listaPeriodos=new ArrayList<>();
 				for(Cuenta cuenta : empresa.getCuentas()){
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
-					
+					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
 					if(resultadoIndicador <= condicion.getValor()){
 						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
 						i++;
@@ -83,26 +86,30 @@ public class CondicionFiltro extends Condicion {
 		
 		case ">=":
 			for(Empresa empresa : empresas){
+				List<String> listaPeriodos=new ArrayList<>();
 				for(Cuenta cuenta : empresa.getCuentas()){
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
-					
-					if(resultadoIndicador >= condicion.getValor()){
-						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-						i++;
-					}					
+					if (!listaPeriodos.contains(cuenta.getPeriodoAsString())){
+						listaPeriodos.add(cuenta.getPeriodoAsString());
+						resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
+						if(resultadoIndicador >= condicion.getValor()){
+							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
+						}						
+					}										
 				}			
 			}
 			return resultadoCondicion;
 	
 		case "!=":
 			for(Empresa empresa : empresas){
+				List<String> listaPeriodos=new ArrayList<>();
 				for(Cuenta cuenta : empresa.getCuentas()){
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
-					
-					if(resultadoIndicador != condicion.getValor()){
-						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-						i++;
-					}					
+					if (!listaPeriodos.contains(cuenta.getPeriodoAsString())){
+						listaPeriodos.add(cuenta.getPeriodoAsString());
+						resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
+						if(resultadoIndicador != condicion.getValor()){
+							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
+						}						
+					}										
 				}			
 			}
 			return resultadoCondicion;
@@ -111,8 +118,6 @@ public class CondicionFiltro extends Condicion {
 			for(Empresa empresa : empresas){
 				if(empresa.getAntiguedad() < condicion.getValor()){
 					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),empresa.getAntiguedad()));
-
-						i++;
 				}			
 			}
 			return resultadoCondicion;
@@ -121,7 +126,6 @@ public class CondicionFiltro extends Condicion {
 			for(Empresa empresa : empresas){
 				if(empresa.getAntiguedad() > condicion.getValor()){
 					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),empresa.getAntiguedad()));
-					i++;
 				}			
 			}
 			return resultadoCondicion;

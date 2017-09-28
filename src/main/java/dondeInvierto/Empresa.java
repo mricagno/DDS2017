@@ -17,7 +17,7 @@ public class Empresa implements Comparable<Empresa> {
 	 */
 	public Empresa(String nombre) {
 		this.nombre = nombre;
-		this.cuentas = new ArrayList<Cuenta>();
+		this.cuentas = new ArrayList<Cuenta>();		
 	}
 	
 	void setAntiguedad(int antiguedad){
