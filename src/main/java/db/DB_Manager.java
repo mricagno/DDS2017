@@ -17,12 +17,15 @@ public class DB_Manager {
         return db_manager;
     }
 
-	public static EntityManagerFactory getEmf() {
+	public EntityManagerFactory getEmf() {
 		return emf;
 	}
 
-	public static void setEmf(EntityManagerFactory emf) {
+	public void setEmf(EntityManagerFactory emf) {
 		DB_Manager.emf = emf;
 	}
 	
+	public void closeEmf(EntityManagerFactory emf) {
+		DB_Manager.emf.close();
+	}
 }

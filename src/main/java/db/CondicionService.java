@@ -3,47 +3,43 @@ package db;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import org.hibernate.HibernateException;
-import dondeInvierto.Indicador;
+import dondeInvierto.*;
 
-public class IndicadorService {
+public class CondicionService {
 	protected EntityManager em;
 
-	public IndicadorService(EntityManager em) {
+	public CondicionService(EntityManager em) {
 		this.em = em;
-	};
+	}
 	
-	//Crear indicador en DB
-	public Long addIndicador(Indicador indicador) {
+	public void addCondicion_ord(String nombre,String comparador, double valor,Indicador indicador) {
 		// Get a new transaction
 		EntityTransaction trx = em.getTransaction();
-		Long indicadorID = null;
+		final Condicion condicion_ord = new CondicionOrdenamiento(nombre, comparador, valor,indicador);
 		try {
 			trx.begin();
-			em.persist(indicador);
+			em.persist(condicion_ord);
 			trx.commit();
-			indicadorID = indicador.getId();
 		} catch (HibernateException e) {
 			if (trx != null)
 				trx.rollback();
 			e.printStackTrace();
 		}
-		return indicadorID;
-	};
+	}
 	
-	//Borrar indicador en DB
-	public void deleteIndicador(Long id) {
+	public void addCondicion_filtro(String nombre,String comparador, double valor,Indicador indicador) {
 		// Get a new transaction
 		EntityTransaction trx = em.getTransaction();
+		final Condicion condicion_filtro = new CondicionFiltro(nombre, comparador, valor,indicador);
 		try {
-			Indicador indicador = (Indicador) em.find(Indicador.class, id);
 			trx.begin();
-			em.remove(indicador);
+			em.persist(condicion_filtro);
 			trx.commit();
 		} catch (HibernateException e) {
 			if (trx != null)
 				trx.rollback();
 			e.printStackTrace();
-		} 
+		}
 	}
-
+	
 }
