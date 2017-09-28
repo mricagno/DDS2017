@@ -1,61 +1,46 @@
 package db;
 
-import static org.junit.Assert.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import java.util.List;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
-
 import dondeInvierto.*;
 
-public class DB_Condicion_Test {
-/*	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}*/
+public class DB_Condicion_Test extends DB_jpa_Test {
 
-/*	@Test
+	@Test
 	public void test_condicion() {
-	  EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-	   EntityManager em = emf.createEntityManager(); // Get a new transaction
 		EntityTransaction trx = em.getTransaction();
-		final Condicion condicion = new CondicionOrdenamiento("TEST2", ">", 19,2);
+		Indicador indicador = new Indicador("Retorno sobre capital total",
+				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total");
+		final Condicion condicion = new CondicionOrdenamiento("TEST_ORD", "<", (double) 100, indicador);
 		// Start the transaction
 		trx.begin();
 		em.persist(condicion);
 		trx.commit();
-		em.close();
+		List<Condicion> condiciones = em.createQuery("Select e FROM Condicion e WHERE e.tipo = :tipo", Condicion.class)
+				.setParameter("tipo", "Ordenamiento").getResultList();
+		Condicion condicion_test = condiciones.stream().findFirst().get();
+		assertNotNull(condicion_test);
+		assertEquals("TEST_ORD", condicion_test.getNombre());
 	}
-	
+
 	@Test
-	public void test_condicionFiltro() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-		EntityManager em = emf.createEntityManager(); // Get a new transaction
+	public void test_filtro() {
 		EntityTransaction trx = em.getTransaction();
-		final Condicion condicion2 = new CondicionFiltro("TEST5", ">", 19);
+		Indicador indicador = new Indicador("Retorno sobre capital total",
+				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total");
+		final Condicion condicion = new CondicionFiltro("TEST_FILTRO", "<", (double) 100, indicador);
 		// Start the transaction
 		trx.begin();
-		em.persist(condicion2);
+		em.persist(condicion);
 		trx.commit();
-		em.close();
-	}*/
-	
-	@Test
-	public void test_condiciontipos() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
-		EntityManager em = emf.createEntityManager(); // Get a new transaction
-		EntityTransaction trx = em.getTransaction();
-		//final Condicion condicion = new CondicionOrdenamiento("TEST2", ">", 19,2);
-		//final Condicion condicion2 = new CondicionFiltro("TEST5", ">", 19);
-		// Start the transaction
-		trx.begin();
-		//em.persist(condicion);
-		//em.persist(condicion2);
-		trx.commit();
-		em.close();
+		List<Condicion> condiciones = em.createQuery("Select e FROM Condicion e WHERE e.tipo = :tipo", Condicion.class)
+				.setParameter("tipo", "Filtro").getResultList();
+		Condicion condicion_test = condiciones.stream().findFirst().get();
+		assertNotNull(condicion_test);
+		assertEquals("TEST_FILTRO", condicion_test.getNombre());
 	}
 
 }

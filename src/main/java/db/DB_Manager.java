@@ -1,8 +1,5 @@
 package db;
 
-import java.io.IOError;
-import java.io.IOException;
-
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 

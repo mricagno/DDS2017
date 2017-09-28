@@ -2,7 +2,6 @@ package dondeInvierto;
 
 import javax.persistence.*;
 import java.util.List;
-import java.text.ParseException;
 
 @Entity
 @DiscriminatorValue(value="Filtro")

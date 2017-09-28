@@ -1,19 +1,21 @@
 package dondeInvierto;
 
 import javax.persistence.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "condicion")
+@NamedQueries(value = { @NamedQuery(name = "Condicion.getAll", query = "SELECT b FROM Condicion b") })
 @DiscriminatorColumn(name = "tipo")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Condicion {
 	@Id
+	@Column(name = "NOMBRE")
 	private String nombre;
-
+	@Column(name = "COMPARADOR")
 	private String comparador;
+	@Column(name = "VALOR")
 	private double valor;
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Indicador indicador;
@@ -22,7 +24,8 @@ public class Condicion {
 	List<Empresa> empresas = mercado.getEmpresas();
 	@Transient
 	List<ResultadoCondicionado> resultadoCondicion = new ArrayList<>();
-	
+	@Column(insertable = false, updatable = false) 
+	private String tipo;  //Para poder filtrar por la columna discriminadora
 
 	// Constructor de la condición.
 	public Condicion(String nombre, String comparador, double valor, Indicador indicador) {
@@ -32,39 +35,22 @@ public class Condicion {
 		this.indicador = indicador;
 	}
 
-
 	public List<ResultadoCondicionado> getVectorCondicion() {
 		return resultadoCondicion;
 	}
 
-	/**
-	 * Devuelve el nombre de la condicion.
-	 */
-	@Column(name = "NOMBRE")
 	public String getNombre() {
 		return this.nombre;
 	}
 
-	/**
-	 * Devuelve el comparador de la condicion.
-	 */
-	@Column(name = "COMPARADOR")
 	public String getComparador() {
 		return this.comparador;
 	}
 
-	/**
-	 * Devuelve el valor a comparar de la condicion.
-	 */
-	@Column(name = "VALOR")
 	public double getValor() {
 		return this.valor;
 	}
 
-	/**
-	 * Devuelve el valor a comparar de la condicion.
-	 */
-	@Column(name = "INDICADOR")
 	public Indicador getIndicador() {
 		return this.indicador;
 	}

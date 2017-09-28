@@ -13,8 +13,9 @@ public class Indicador {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+	@Column(name = "NOMBRE")
 	private String nombre;
+	@Column(name = "FORMULA")
 	private String formula;
 
 	public Indicador(String nombre, String formula) throws IllegalStateException {
@@ -24,12 +25,10 @@ public class Indicador {
 		}
 	}
 
-	@Column(name = "NOMBRE")
 	public String getNombre() {
 		return this.nombre;
 	}
 
-	@Column(name = "FORMULA")
 	public String getFormula() {
 		return this.formula;
 	}

@@ -1,15 +1,9 @@
 package db;
 
 import static org.junit.Assert.*;
-
 import java.util.List;
-
 import javax.persistence.EntityTransaction;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
 
 public class DB_Indicador_Test extends DB_jpa_Test {

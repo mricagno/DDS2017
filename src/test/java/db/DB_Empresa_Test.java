@@ -3,8 +3,6 @@ package db;
 import static org.junit.Assert.*;
 import java.util.List;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-
 import org.junit.Test;
 import dondeInvierto.Empresa;
 
