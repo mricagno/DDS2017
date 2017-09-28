@@ -17,18 +17,18 @@ public class CondicionFiltro extends Condicion {
 	@Override
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion){
 		double resultadoIndicador;
-		System.out.println("evaluarCondicion FILTRO");
 		int i=0;
 		switch(condicion.getComparador()){
 	
 		case "<":
 			for(Empresa empresa : empresas){
 				for(Cuenta cuenta : empresa.getCuentas()){
+					//meter el if
 					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 					
 					if(resultadoIndicador < condicion.getValor()){
 						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-						
+					
 						i++;
 					}					
 				}			
@@ -39,14 +39,15 @@ public class CondicionFiltro extends Condicion {
 		case ">":
 			
 			for(Empresa empresa : empresas){
-				System.out.println("FILTRO CASE EMPRESAS");
+				//System.out.println("FILTRO CASE EMPRESAS");
 				for(Cuenta cuenta : empresa.getCuentas()){
-					System.out.println("FILTRO CASE CUENTAS");
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
-					System.out.println(" "+condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString()));
+					//System.out.println("FILTRO CASE CUENTAS");
+					
+					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
 					if(resultadoIndicador > condicion.getValor()){
 						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-						System.out.println(" "+empresa.getNombre());
+						//System.out.println(" "+empresa.getNombre());
+						//System.out.println(" "+condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString()));
 						i++;
 					}					
 				}			

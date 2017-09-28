@@ -26,31 +26,43 @@ public class Metodologias {
 	
 	@BeforeClass
 	public static void inicializar() throws Exception {	
-		mercado.init();
+		//mercado.init();
 		
 		mercado.addEmpresa("Facebook Inc.");
 		mercado.addEmpresa("Tesla Inc.");
 		mercado.addEmpresa("Twitter Inc.");
 		
 		mercado.addCuenta("Facebook Inc.", "EBITDA", "20151231", "8162");
-		mercado.addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
 		mercado.addCuenta("Facebook Inc.", "FCF", "20151231", "3.99");
+		
+		mercado.addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
+		mercado.addCuenta("Facebook Inc.", "FCF", "20161231", "170");
+		
 		mercado.addCuenta("Tesla Inc.", "EBITDA", "20151231", "213");
-		mercado.addCuenta("Tesla Inc.", "EBITDA", "20161231", "630");
 		mercado.addCuenta("Tesla Inc.", "FCF", "20151231", "230");
+		
+		mercado.addCuenta("Tesla Inc.", "EBITDA", "20161231", "630");
+		mercado.addCuenta("Tesla Inc.", "FCF", "20161231", "6340");
+
+		
 		mercado.addCuenta("Twitter Inc.", "EBITDA", "20151231", "751");
 		mercado.addCuenta("Twitter Inc.", "FCF", "20151231", "1751");
 		
 		//mercado.addIndicador("Ingreso Neto", "A = BB + CC");
 		//mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC");
 		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF");
-		//mercado.addIndicador("Ingreso Neto","Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-		//	+ "Ingreso Neto En Operaciones Discontinuadas");
+				
+		//mercado.addIndicador("Ingreso Neto", "Ingreso Neto= ");
+		//mercado.addIndicador("Ingreso Neto","Ingreso Neto = Ingreso Neto En Operaciones Continuas + " + "Ingreso Neto En Operaciones Discontinuadas");
 		
 		Indicador indicador = mercado.getIndicador("Indicador");
 		CondicionFiltro filtro = new CondicionFiltro("CondFiltroIngNeto", ">", 1.00, indicador);
+		
 		CondicionOrdenamiento orden = new CondicionOrdenamiento("CondOrdIngNet","ascendente",0,indicador);
-				
+		
+		
+		
+		
 		Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
 		condicionesFiltro.add(filtro);
 		
@@ -63,11 +75,11 @@ public class Metodologias {
 	
 	
 	@Test
-		
 	public void test() {
 		//fail("Not yet implemented");
 		
-		mercado.getMetodologia("metodologia1").calcularMetodologia(mercado.getMetodologia("metodologia1"));
+		Metodologia metodologia=mercado.getMetodologia("metodologia1");
+		metodologia.calcularMetodologia(mercado.getMetodologia("metodologia1"));
 		
 		System.out.println(" "+mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getVectorCondicion().size() );
 		

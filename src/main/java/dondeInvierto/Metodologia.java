@@ -1,12 +1,14 @@
 package dondeInvierto;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
-
 
 public class Metodologia{
 	private String nombre;
 	private Set<CondicionFiltro> condicionesFiltro;
 	private CondicionOrdenamiento condicionOrdenamiento;
+	List<ResultadoCondicionado> listaFiltrada=new ArrayList<>();
 	
 	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, CondicionOrdenamiento condicionOrdenamiento) {
 		this.nombre = nombre;
@@ -35,6 +37,7 @@ public class Metodologia{
 		return this.condicionOrdenamiento;
 	}
 	
+
 	/**
 	 * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
 	 */
@@ -43,8 +46,11 @@ public class Metodologia{
 		System.out.println("calcular metodologia");
 		
 		for(CondicionFiltro condicion : metodologia.getCondicionesFiltro()){
-			condicion.evaluarCondicion(condicion);
+			listaFiltrada=condicion.evaluarCondicion(condicion);
 		}
+		
+		metodologia.getCondicionOrdenamiento().evaluarCondicion2(listaFiltrada,metodologia.getCondicionOrdenamiento());
+		
 		
 			
 		//pasar de a 1 las condiciones de filtro
@@ -67,40 +73,6 @@ public class Metodologia{
 	
 	
 }
-	
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
