@@ -65,10 +65,8 @@ public abstract class Condicion {
 	public Indicador getIndicador() {
 		return this.indicador;
 	}
-
 	
-	public abstract List<ResultadoCondicionado> evaluarCondicion(Condicion condicion);
-	
+	public abstract List<ResultadoCondicionado> evaluarCondicion(Condicion condicion);	
 	public abstract List<ResultadoCondicionado> getResultadoCondicion();
 	
 }

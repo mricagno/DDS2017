@@ -48,7 +48,7 @@ public class CondicionFiltro extends Condicion {
 						resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
 						if(resultadoIndicador > condicion.getValor()){
 							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-							i++;
+							i++;///VA O NO VA????
 						}						
 					}										
 				}			

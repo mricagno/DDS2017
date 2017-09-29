@@ -72,6 +72,15 @@ public class CondicionOrdenamiento extends Condicion {
 		Collections.reverse(resultadoCondicion);
 		}
 		return resultadoCondicion;
+	}
+	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion,List<ResultadoCondicionado> resultadoCondicionado){
+		
+		Collections.sort(resultadoCondicionado);
+	
+		if(condicion.getComparador() == "descendente"){
+		Collections.reverse(resultadoCondicionado);
+		}
+		return resultadoCondicionado;
 		
 	}
 

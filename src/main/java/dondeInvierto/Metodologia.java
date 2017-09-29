@@ -1,5 +1,6 @@
 package dondeInvierto;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -10,7 +11,8 @@ public class Metodologia{
 	private Set<CondicionOrdenamiento> condicionesOrdenamiento;
 	private List<ResultadoCondicionado> listaFiltradaUOrdenada=new ArrayList<>();
 	private ResultadoCondicionado elementoListaFiltradaUOrdenada,auxiliar;
-	
+	private List<ResultadoCondicionado> listaOrdenaUnaCondicion=new ArrayList<>();
+
 	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, Set<CondicionOrdenamiento> condicionesOrdenamiento) {
 		this.nombre = nombre;
 		this.condicionesFiltro = condicionesFiltro;
@@ -51,51 +53,22 @@ public class Metodologia{
 		}
 		
 		for(CondicionOrdenamiento condicion : metodologia.getCondicionesOrdenamiento()){
-			List<ResultadoCondicionado> listaOrdenaUnaCondicion=new ArrayList<>();
-			listaOrdenaUnaCondicion=condicion.evaluarCondicion(condicion);
+			listaOrdenaUnaCondicion=condicion.evaluarCondicion(condicion,listaFiltradaUOrdenada);
 			for(int i=0;i<listaOrdenaUnaCondicion.size();i++) {
 				listaOrdenaUnaCondicion.get(i).setPosicionPonderable(i);
 			}
 		}
 		
+		Collections.sort(listaFiltradaUOrdenada);		
+
 		for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
 		{
-			elementoListaFiltradaUOrdenada=listaFiltradaUOrdenada.get(i);
-			
-			for (int j=0; j<listaFiltradaUOrdenada.size()-1;j++) {
-				if (elementoListaFiltradaUOrdenada.getPosicionPonderable()<=listaFiltradaUOrdenada.get(j).getPosicionPonderable()) {
-							auxiliar=elementoListaFiltradaUOrdenada;
-							listaFiltradaUOrdenada.set(i, listaFiltradaUOrdenada.get(j));
-							listaFiltradaUOrdenada.set(j, auxiliar);
-				}				
-			}
-		}		
-		
-		for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
-		{
-			System.out.println(listaFiltradaUOrdenada.get(i));			
+			System.out.println(listaFiltradaUOrdenada.get(i).getNombre());			
+			System.out.println(listaFiltradaUOrdenada.get(i).getResultadoIndicador());		
+
 		}
-	
-		
-		
-		//metodologia.getCondicionOrdenamiento().evaluarCondicion(listaFiltradaUOrdenada,metodologia.getCondicionOrdenamiento());
-			
-			
-		//pasar de a 1 las condiciones de filtro
-		/*Iterator<CondicionFiltro> iter = metodologia.getCondicionesFiltro().iterator();
-		int i = 0;
-		System.out.println("condicione filtro cargadas "+ metodologia.getCondicionesFiltro().size());
-		while (iter.hasNext()) {
-			evaluarCondicion(iter.next());
-			i++;
-			if(i <= 1){
-				System.out.println("calcular metodologia - condiciones filtro");
-			}
-		}
-				
-		//por ultimo pasar la condicion de ordenamiento
-		evaluarCondicion(metodologia.getCondicionOrdenamiento());
-		*/
+		//volver a poner en cero los ponderable??
+
 		
 	}
 	
