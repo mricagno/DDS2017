@@ -39,8 +39,7 @@ public class EmpresaService {
 		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
-			@SuppressWarnings("unchecked")
-			List<Empresa> empresas = this.em.createQuery("FROM Empresa").getResultList();
+			List<Empresa> empresas = this.em.createQuery("FROM Empresa",Empresa.class).getResultList();
 			trx.commit();
 			return empresas;
 		} catch (HibernateException e) {

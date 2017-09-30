@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Iterator;
 import org.hibernate.HibernateException;
 import dondeInvierto.Cuenta;
@@ -35,49 +36,37 @@ public class CuentaService {
 	}
 
 	// Devuelve todas las cuentas
-	public void listCuentasAll() {
+	public List<Cuenta> listCuentasAll() {
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
 			List<Cuenta> cuentas = this.em.createQuery("FROM Cuenta", Cuenta.class).getResultList();
-			System.out.println("LISTA DE Cuentas");
-			for (Iterator<Cuenta> iterator = cuentas.iterator(); iterator.hasNext();) {
-				Cuenta cuenta = (Cuenta) iterator.next();
-				System.out.println("Id: " + cuenta.getId());
-				System.out.println("Tipo: " + cuenta.getTipo());
-				System.out.println("Periodo: " + cuenta.getPeriodo());
-				System.out.println("Valor: " + cuenta.getValor());
-			}
 			trx.commit();
+			return cuentas;
 		} catch (HibernateException e) {
 			if (trx != null)
 				trx.rollback();
 			e.printStackTrace();
+			return Collections.emptyList();
 		}
 	}
 
 	// Lee las cuentas de una empresa
-	public void listCuentas(Empresa empresa) {
+	public List<Cuenta> listCuentas(Empresa empresa) {
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
 			List<Cuenta> cuentas = this.em.createQuery("FROM Cuenta WHERE empresa_id = :eid", Cuenta.class)
 					.setParameter("eid", empresa).getResultList();
-			System.out.println("LISTA DE Cuentas de empresa " + empresa.getNombre());
-			for (Iterator<Cuenta> iterator = cuentas.iterator(); iterator.hasNext();) {
-				Cuenta cuenta = (Cuenta) iterator.next();
-				System.out.println("Id: " + cuenta.getId());
-				System.out.println("Tipo: " + cuenta.getTipo());
-				System.out.println("Periodo: " + cuenta.getPeriodo());
-				System.out.println("Valor: " + cuenta.getValor());
-			}
 			trx.commit();
+			return cuentas;
 		} catch (HibernateException e) {
 			if (trx != null)
 				trx.rollback();
 			e.printStackTrace();
+			return Collections.emptyList();
 		}
 	}
 

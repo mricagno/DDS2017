@@ -1,8 +1,13 @@
 package db;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import org.hibernate.HibernateException;
+
+import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
 
 public class IndicadorService {
@@ -44,6 +49,23 @@ public class IndicadorService {
 				trx.rollback();
 			e.printStackTrace();
 		} 
+	}
+	
+	// Lee todos los indicadores
+	public List<Indicador> listIndicadores() {
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		try {
+			trx.begin();
+			List<Indicador> indicadores = this.em.createQuery("FROM Indicador",Indicador.class).getResultList();
+			trx.commit();
+			return indicadores;
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+			return Collections.emptyList();
+		}
 	}
 
 }

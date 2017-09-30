@@ -4,14 +4,13 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
 import db.CuentaService;
 import db.DB_Manager;
 import db.EmpresaService;
 import db.IndicadorService;
+import db.MercadoBursatilService;
 
 /**
  * Contiene todas las empresas, cuentas, identificadores y metodologías del
@@ -35,6 +34,7 @@ public enum MercadoBursatil {
 		EntityManagerFactory factory = DBManager.getEmf();
 		EntityManager em = factory.createEntityManager();
 		this.init_db(em);
+		this.init_model(em);
 		try {
 			addCuenta("Facebook Inc.", "EBITDA", "20151231", "8162");
 			addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
@@ -210,6 +210,13 @@ public enum MercadoBursatil {
 		indicador.addIndicador(new Indicador("Retorno sobre capital total",
 				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total"));
 		em.close();
+	}
+
+	public void init_model(EntityManager em) throws ParseException {
+		MercadoBursatilService modelService = new MercadoBursatilService(em);
+		this.empresas = modelService.generate_empresa_model();
+		//this.modelService.generate_cuentas_model();
+		this.indicadores = modelService.generate_indicador_model();
 	}
 
 }
