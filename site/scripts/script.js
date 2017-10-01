@@ -143,26 +143,27 @@ $(function () {
             beforeSend: function () {
                 console.log("[INFO] (AJAX) Enviando información del indicador...");
             },
-            success: function (response) {
+            success: function () {
                 console.log("Success!");
-                console.log(response);
             },
             error: function (jqXHR, exception) {
                 var msg = '';
                 if (jqXHR.status === 0) {
                     msg = 'Not connect.\n Verify Network.';
+                } else if (jqXHR.status == 400) {
+                    msg = 'Bad request. [400]';
                 } else if (jqXHR.status == 404) {
-                    msg = 'Requested page not found. [404]';
+                    msg = 'Requested page not found. [404].';
                 } else if (jqXHR.status == 500) {
                     msg = 'Internal Server Error [500].';
                 } else if (exception === 'parsererror') {
-                    msg = 'Requested JSON parse failed.';
+                    msg = 'Requested JSON parse failed.\n' + jqXHR.responseText + '.\n' + jqXHR.status + '.';
                 } else if (exception === 'timeout') {
                     msg = 'Time out error.';
                 } else if (exception === 'abort') {
                     msg = 'Ajax request aborted.';
                 } else {
-                    msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    msg = 'Uncaught Error.\n' + jqXHR.responseText + '.\n' + jqXHR.status + '.';
                 }
                 console.log(msg);
             }

@@ -92,7 +92,6 @@ public class EmpresaService {
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
 		try {
-
 			Empresa empresa = this.em.find(Empresa.class, id);
 			trx.begin();
 			empresa.setNombre(Nombre);

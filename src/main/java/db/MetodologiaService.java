@@ -1,11 +1,14 @@
 package db;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import org.hibernate.HibernateException;
 import dondeInvierto.CondicionFiltro;
 import dondeInvierto.CondicionOrdenamiento;
+import dondeInvierto.Empresa;
 import dondeInvierto.Metodologia;
 
 public class MetodologiaService {
@@ -32,6 +35,19 @@ public class MetodologiaService {
 		}
 	}
 	
-	
-	
+	public List<Metodologia> getMetodologias(){
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		try {
+			trx.begin();
+			List<Metodologia> metodologias = this.em.createQuery("FROM Metodologia",Metodologia.class).getResultList();
+			trx.commit();
+			return metodologias;
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+			return Collections.emptyList();
+		}
+	}
 }

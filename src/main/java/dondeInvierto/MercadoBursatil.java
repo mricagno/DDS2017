@@ -22,7 +22,7 @@ public enum MercadoBursatil {
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
 	private List<Metodologia> metodologias = new ArrayList<Metodologia>();
-
+	EntityManagerFactory factory;
 	/**
 	 * Agrega datos de prueba (empresas, cuentas e indicadores) al mercado bursátil.
 	 * 
@@ -31,10 +31,10 @@ public enum MercadoBursatil {
 	public void init() throws ParseException {
 
 		DB_Manager DBManager = DB_Manager.getSingletonInstance();
-		EntityManagerFactory factory = DBManager.getEmf();
+		factory = DBManager.getEmf();
 		EntityManager em = factory.createEntityManager();
-		this.init_db(em);
-		//this.init_model(em);
+		//this.init_db(em);
+		this.init_model(em);
 	}
 
 	/**
@@ -149,13 +149,6 @@ public enum MercadoBursatil {
 		return getMetodologias().stream().filter(m -> metodologia.equals(m.getNombre())).findFirst().orElse(null);
 	}
 
-	/*
-	 * public void addMetodologia(Metodologia metodologia) { if
-	 * (this.containsMetodologia(metodologia.getNombre())) {
-	 * System.out.println("Ya existe una metodologia con ese nombre."); } else {
-	 * this.metodologias.add(metodologia); } }
-	 */
-
 	/**
 	 * Agrega la metodologia a la lista de metodologias del mercado bursátil.
 	 */
@@ -207,7 +200,6 @@ public enum MercadoBursatil {
 		indicador.addIndicador(new Indicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )"));
 		indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos"));
 		indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0"));
-
 		em.close();
 	}
 
@@ -215,5 +207,10 @@ public enum MercadoBursatil {
 		MercadoBursatilService modelService = new MercadoBursatilService(em);
 		this.empresas = modelService.generate_empresa_model();
 		this.indicadores = modelService.generate_indicador_model();
+	}
+	
+	public void close() {
+		DB_Manager DBManager = DB_Manager.getSingletonInstance();
+		DBManager.closeEmf(factory);
 	}
 }

@@ -30,12 +30,10 @@ public class Metodologia {
 	@Column(name = "NOMBRE")
 	private String nombre;
 	@ManyToMany(cascade=CascadeType.ALL)
-	//@JoinColumn(name = "metodologia_id")
     @JoinTable(name = "metodologia_Filtro", joinColumns = @JoinColumn(name = "metodologia_id"),
     inverseJoinColumns = @JoinColumn(name = "condicionFiltro_id"))
 	private Set<CondicionFiltro> condicionesFiltro;
 	@ManyToMany(cascade=CascadeType.ALL)
-//	@JoinColumn(name = "metodologia_id")
     @JoinTable(name = "metodologia_Ordenamiento", joinColumns = @JoinColumn(name = "metodologia_id"),
     inverseJoinColumns = @JoinColumn(name = "condicionOrdenamiento_id"))
 	private Set<CondicionOrdenamiento> condicionesOrdenamiento;
@@ -113,7 +111,6 @@ public class Metodologia {
 		for (int i = 0; i < listaFiltradaUOrdenada.size(); i++) {
 			System.out.println(listaFiltradaUOrdenada.get(i).getNombre());
 			System.out.println(listaFiltradaUOrdenada.get(i).getResultadoIndicador());
-
 		}
 		// volver a poner en cero los ponderable??
 	}
