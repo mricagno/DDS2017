@@ -63,15 +63,10 @@ public class Metodologia{
 		for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
 		{
 			System.out.println(listaFiltradaUOrdenada.get(i).getNombre());			
-			System.out.println(listaFiltradaUOrdenada.get(i).getResultadoIndicador());		
+			//System.out.println(listaFiltradaUOrdenada.get(i).getResultadoIndicador());		
 
 		}
-		//volver a poner en cero los ponderable??
-
-		
 	}
-	
-	
 }
 	
 	

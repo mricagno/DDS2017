@@ -20,15 +20,9 @@ public class Empresa implements Comparable<Empresa> {
 		this.cuentas = new ArrayList<Cuenta>();		
 	}
 	
-	void setAntiguedad(int antiguedad){
+	public void setAntiguedad(int antiguedad){
 		this.antiguedad=antiguedad;
 	}
-	
-	static void imprimeArrayEmpresas(Empresa[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.println((i+1) + ". " + array[i].nombre + " - Cuentas: " + array[i].cuentas + " - Antigüedad: " + array[i].antiguedad);
-        }
-    }	
 	
 	//redefine criterio de comparacion para ordenamiento de arrays
 	 @Override

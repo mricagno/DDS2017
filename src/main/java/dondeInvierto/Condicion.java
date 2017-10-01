@@ -25,7 +25,7 @@ public abstract class Condicion {
 		this.valor = valor;
 		this.indicador = indicador;
 	}
-	
+
 	MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	
 	List<Empresa> empresas = mercado.getEmpresas();

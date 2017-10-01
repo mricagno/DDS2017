@@ -25,7 +25,6 @@ public class Metodologias {
 	Empresa twitter = new Empresa("Twitter Inc.");
 	Empresa tesla = new Empresa("Tesla Inc.");
 	
-	
 	@BeforeClass
 	public static void inicializar() throws Exception {	
 		mercado.init();
@@ -33,6 +32,11 @@ public class Metodologias {
 		mercado.addEmpresa("Facebook Inc.");
 		mercado.addEmpresa("Tesla Inc.");
 		mercado.addEmpresa("Twitter Inc.");
+		
+		mercado.getEmpresa("Facebook Inc.").setAntiguedad(15);
+		mercado.getEmpresa("Tesla Inc.").setAntiguedad(5);
+		mercado.getEmpresa("Twitter Inc.").setAntiguedad(15);
+		
 		
 		mercado.addCuenta("Facebook Inc.", "EBITDA", "20151231", "8162");
 		mercado.addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
@@ -56,43 +60,38 @@ public class Metodologias {
 		mercado.addIndicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )");
 		mercado.addIndicador("Margen", "Margen = Capital Total - Dividendos");
 		mercado.addIndicador("Indicador Vacio", "Indicador Vacio = 0");
-		
-		
 		//Indicador indicador = mercado.getIndicador("Indicador");
 		//CondicionFiltro filtro = new CondicionFiltro("CondFiltroIngNeto", ">", 1.00, indicador);
 		//CondicionOrdenamiento orden = new CondicionOrdenamiento("CondOrdIngNet","ascendente",0,indicador);
 		
 		Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
 		Set<CondicionOrdenamiento> condicionesOrdenamiento = new HashSet<>();
-		
-		CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroRoe", ">", 1.00, mercado.getIndicador("Roe"));
-		CondicionFiltro filtro2 = new CondicionFiltro("CondFiltroPropDeuda", ">", 1.00, mercado.getIndicador("Proporcion De Deuda"));
-		CondicionFiltro filtro3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen"));
-		CondicionFiltro filtro4 = new CondicionFiltro("CondFiltroIndVacio", "antiguedad", 10, mercado.getIndicador("Indicador Vacio"));
+				
+		//CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroRoe", ">", 1.00, mercado.getIndicador("Roe"));
+		//CondicionFiltro filtro2 = new CondicionFiltro("CondFiltroPropDeuda", ">", 1.00, mercado.getIndicador("Proporcion De Deuda"));
+		//CondicionFiltro filtro3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen"));
+		CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio"));
 		
 		condicionesFiltro.add(filtro1);
-		condicionesFiltro.add(filtro2);
-		condicionesFiltro.add(filtro3);
+		//condicionesFiltro.add(filtro2);
+		//condicionesFiltro.add(filtro3);
 		//condicionesFiltro.add(filtro4);
 		
-		CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdAscendente","ascendente",0,mercado.getIndicador("Indicador Vacio"));
-		
+		CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe","ascendente",0,mercado.getIndicador("Roe"));
+		CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda","descendente",0,mercado.getIndicador("Proporcion De Deuda"));
+
 		condicionesOrdenamiento.add(orden1);
-		
-		mercado.addMetodologia("metodologia1", condicionesFiltro , condicionesOrdenamiento);
-		//mercado.addMetodologia("metodologiaWarrenBuffet", condicionesFiltro , condicionesOrdenamiento);
-		//Metodologia metodologia1 = new Metodologia("metodologia1", condicionesFiltro , orden);
-		
-		
-	
+		condicionesOrdenamiento.add(orden2);
+				
+		mercado.addMetodologia("metodologiaWarrenBuffet", condicionesFiltro , condicionesOrdenamiento);
 	}
 	
-	
-	@Test
-		
+	@Test		
 	public void test() {
 		//fail("Not yet implemented");
-	/*	
+	
+		mercado.getMetodologia("metodologiaWarrenBuffet").calcularMetodologia(mercado.getMetodologia("metodologiaWarrenBuffet"));
+			/*
 		mercado.getMetodologia("metodologia1").calcularMetodologia(mercado.getMetodologia("metodologia1"));
 		
 		System.out.println(" "+mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getVectorCondicion().size() );
@@ -102,9 +101,9 @@ public class Metodologias {
 		for(ResultadoCondicionado empresaResultante : mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getResultadoCondicion()){
 			System.out.println(" "+empresaResultante.getNombre());	
 		}
-		
+		*/
 				
-	*/
+	
 	/*	for(int i=0; i< 10; i++){
 			System.out.println(" "+metodologia.getCondicionOrdenamiento().getResultadoCondicion()[i].getNombre());
 		}

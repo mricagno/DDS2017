@@ -15,49 +15,8 @@ public class CondicionOrdenamiento extends Condicion {
 	
 	public List<ResultadoCondicionado> getResultadoCondicion(){
 		return this.resultadoCondicion;
-	}
-	
-	
-	
-	
-	///FIELD//
-	
-	/*
-	public List<ResultadoCondicionado> evaluarCondicion2(List<ResultadoCondicionado> lista,Condicion condicion){
-		ResultadoCondicionado elementoLista, auxiliar;
-		
-		for(int i=0; i<lista.size();i++)			
-		{
-			elementoLista=lista.get(i);
-			for (int j=0; j<lista.size()-1;j++) {
-				
-				switch(condicion.getComparador()){				
-				case "ascendente":
-						if (elementoLista.getResultadoIndicador()<lista.get(j).getResultadoIndicador()) {
-							auxiliar=elementoLista;
-							lista.set(i, lista.get(j));
-							lista.set(j, auxiliar);
-						}				
-					break;
-				case "descendente":
-					if (elementoLista.getResultadoIndicador()>lista.get(j).getResultadoIndicador()) {
-						auxiliar=elementoLista;
-						lista.set(i, lista.get(j));
-						lista.set(j, auxiliar);
-					}	
-				}
-				break;
-			}
-		}
-		
-		return lista;
-		
-	}
-	*/
-	
-	
-	
-	/////
+	}	
+
 	//Se define nuevamente evaluarCondicion para las condiciones de ordenamiento
 	@Override
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion){
@@ -83,7 +42,6 @@ public class CondicionOrdenamiento extends Condicion {
 		return resultadoCondicionado;
 		
 	}
-
 	public static void reverse(List<ResultadoCondicionado> resultadoCondicion) {
 		if(resultadoCondicion == null || resultadoCondicion.size() <= 1){
 			return;
@@ -94,8 +52,5 @@ public class CondicionOrdenamiento extends Condicion {
 			resultadoCondicion.set(resultadoCondicion.size() - 1 - i, temp);
 		}
 	}
-	
-
-	
-	
+		
 }

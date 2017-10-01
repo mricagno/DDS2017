@@ -14,14 +14,10 @@ public class CondicionFiltro extends Condicion {
 		return this.resultadoCondicion;
 	}
 	
-
-	
-	
 	//Se define nuevamente evaluarCondicion para las condiciones de filtro
 	@Override
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion){
 		double resultadoIndicador;
-		int i=0;
 		switch(condicion.getComparador()){	
 		case "<":
 			for(Empresa empresa : empresas){
@@ -48,7 +44,6 @@ public class CondicionFiltro extends Condicion {
 						resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
 						if(resultadoIndicador > condicion.getValor()){
 							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-							i++;///VA O NO VA????
 						}						
 					}										
 				}			
@@ -75,11 +70,13 @@ public class CondicionFiltro extends Condicion {
 			for(Empresa empresa : empresas){
 				List<String> listaPeriodos=new ArrayList<>();
 				for(Cuenta cuenta : empresa.getCuentas()){
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
-					if(resultadoIndicador <= condicion.getValor()){
+					if (!listaPeriodos.contains(cuenta.getPeriodoAsString())){
+						listaPeriodos.add(cuenta.getPeriodoAsString());
+						resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
+						if(resultadoIndicador <= condicion.getValor()){
 						resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
-						i++;
-					}					
+						}					
+					}
 				}			
 			}
 			return resultadoCondicion;
