@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
 import json.JsonApplication;
@@ -20,11 +21,13 @@ public class Main {
         try {
             final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, new JsonApplication(), false);
             Runtime.getRuntime().addShutdownHook(new Thread(server::shutdownNow));
+            StaticHttpHandler staticHttpHandler = new StaticHttpHandler(".//site//");
+            server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/");
             server.start();
 
             System.out.println(
             		String.format("[INFO] (Grizzly) El servidor está en línea.%n[INFO] (Grizzly) Pruebe ingresar"
-            				+ " a %s.%n[INFO] (Grizzly) Detenga el servidor usando CTRL+C.", BASE_URI));
+            				+ " a %s.%n[INFO] (Grizzly) Detenga el servidor usando CTRL+C.", "http://localhost:8080/index.html"));
             
             Thread.currentThread().join();
         } catch (IOException | InterruptedException ex) {

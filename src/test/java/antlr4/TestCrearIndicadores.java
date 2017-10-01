@@ -12,10 +12,7 @@ import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 
-import fileManagement.FileHandler;
-
-public class TestCrearIndicadores extends FileHandler {
-	String filepath = "C:\\Users\\Patito\\workspace\\DDS_2017-Grupo_8\\files\\cuentas.json";
+public class TestCrearIndicadores {
 	List<Cuenta> listaArchivo = new ArrayList<Cuenta>();
 	static MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	Empresa facebook = new Empresa("Facebook Inc.");
