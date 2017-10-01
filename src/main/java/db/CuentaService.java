@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.text.ParseException;
 import java.util.Collections;
-import java.util.Iterator;
 import org.hibernate.HibernateException;
 import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;

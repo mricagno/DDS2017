@@ -34,23 +34,7 @@ public enum MercadoBursatil {
 		EntityManagerFactory factory = DBManager.getEmf();
 		EntityManager em = factory.createEntityManager();
 		this.init_db(em);
-		this.init_model(em);
-		try {
-			addCuenta("Facebook Inc.", "EBITDA", "20151231", "8162");
-			addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
-			addCuenta("Facebook Inc.", "FCF", "20151231", "3.99");
-			addCuenta("Tesla Inc.", "EBITDA", "20151231", "213");
-			addCuenta("Tesla Inc.", "EBITDA", "20161231", "630");
-			addCuenta("Twitter Inc.", "EBITDA", "20161231", "751");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		addIndicador("Ingreso Neto", "Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-				+ "Ingreso Neto En Operaciones Discontinuadas");
-		addIndicador("Retorno sobre capital total",
-				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total");
-
+		//this.init_model(em);
 	}
 
 	/**
@@ -165,20 +149,23 @@ public enum MercadoBursatil {
 		return getMetodologias().stream().filter(m -> metodologia.equals(m.getNombre())).findFirst().orElse(null);
 	}
 
-	public void addMetodologia(Metodologia metodologia) {
-		if (this.containsMetodologia(metodologia.getNombre())) {
-			System.out.println("Ya existe una metodologia con ese nombre.");
-		} else {
-			this.metodologias.add(metodologia);
-		}
-	}
+	/*
+	 * public void addMetodologia(Metodologia metodologia) { if
+	 * (this.containsMetodologia(metodologia.getNombre())) {
+	 * System.out.println("Ya existe una metodologia con ese nombre."); } else {
+	 * this.metodologias.add(metodologia); } }
+	 */
 
 	/**
 	 * Agrega la metodologia a la lista de metodologias del mercado bursátil.
 	 */
 	public void addMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro,
-			CondicionOrdenamiento condicionOrdenamiento) {
-		getMetodologias().add(new Metodologia(nombre, condicionesFiltro, condicionOrdenamiento));
+			Set<CondicionOrdenamiento> condicionesOrdenamiento) {
+		if (this.containsMetodologia(nombre)) {
+			System.out.println("Ya existe una metodologia con ese nombre.");
+		} else {
+			getMetodologias().add(new Metodologia(nombre, condicionesFiltro, condicionesOrdenamiento));
+		}
 	}
 
 	/**
@@ -203,20 +190,30 @@ public enum MercadoBursatil {
 		Empresa tesla = empresa.getEmpresa_name("Tesla Inc.");
 		cuenta.addCuenta("EBITDA", "20151231", "213", tesla);
 		cuenta.addCuenta("EBITDA", "20161231", "630", tesla);
+		cuenta.addCuenta("FCF", "20151231", "230", tesla);
 		Empresa twitter = empresa.getEmpresa_name("Twitter Inc.");
 		cuenta.addCuenta("EBITDA", "20161231", "751", twitter);
+		cuenta.addCuenta("FCF", "20151231", "1751", twitter);
 		indicador.addIndicador(new Indicador("Ingreso Neto", "Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
 				+ "Ingreso Neto En Operaciones Discontinuadas"));
 		indicador.addIndicador(new Indicador("Retorno sobre capital total",
 				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total"));
+		indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF"));
+		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Continuas", "Ingreso Neto En Operaciones Continuas = EBITDA "));
+		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Discontinuadas", "Ingreso Neto En Operaciones Discontinuas = FCF"));
+		indicador.addIndicador(new Indicador("Dividendos", "Dividendos = EBITDA - FCF"));
+		indicador.addIndicador(new Indicador("Capital Total", "Capital Total = EBITDA + FCF"));
+		indicador.addIndicador(new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total"));
+		indicador.addIndicador(new Indicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )"));
+		indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos"));
+		indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0"));
+
 		em.close();
 	}
 
 	public void init_model(EntityManager em) throws ParseException {
 		MercadoBursatilService modelService = new MercadoBursatilService(em);
 		this.empresas = modelService.generate_empresa_model();
-		//this.modelService.generate_cuentas_model();
 		this.indicadores = modelService.generate_indicador_model();
 	}
-
 }

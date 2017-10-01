@@ -27,6 +27,7 @@ public class Empresa {
 		this.nombre = nombre;
 		this.cuentas = new HashSet<Cuenta>();
 	}
+	
 	public Empresa() {
 	}
 

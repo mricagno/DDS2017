@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import org.hibernate.HibernateException;
-
-import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
 
 public class IndicadorService {

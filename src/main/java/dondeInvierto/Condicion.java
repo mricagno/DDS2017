@@ -1,6 +1,8 @@
 package dondeInvierto;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,10 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Condicion {
 	@Id
+	@GeneratedValue
+	@NotNull
+	@Column(name = "ID")
+	private Long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
 	@Column(name = "COMPARADOR")
@@ -62,5 +68,5 @@ public class Condicion {
 	public List<ResultadoCondicionado> getResultadoCondicion() {
 		return null;
 	}
-
+	
 }

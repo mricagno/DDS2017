@@ -17,7 +17,7 @@ public class DB_Empresa_Test extends DB_jpa_Test {
 		trx.commit();
 		List<Empresa> empresas = em.createNamedQuery("Empresa.getAll", Empresa.class).getResultList();
 		assertNotNull(empresas);
-		assertEquals(1, empresas.size());
+		assertEquals((long)1, empresas.size());
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ public class DB_Empresa_Test extends DB_jpa_Test {
 		trx.commit();
 		List<Empresa> empresas = em.createNamedQuery("Empresa.getAll", Empresa.class).getResultList();
 		assertNotNull(empresas);
-		assertEquals(0, empresas.size());
+		assertEquals((long)0, empresas.size());
 	}
 	
 	@Test

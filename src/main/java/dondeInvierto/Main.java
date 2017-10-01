@@ -5,10 +5,6 @@ import java.net.URI;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 
