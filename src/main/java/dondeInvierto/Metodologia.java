@@ -10,7 +10,6 @@ public class Metodologia{
 	private Set<CondicionFiltro> condicionesFiltro;
 	private Set<CondicionOrdenamiento> condicionesOrdenamiento;
 	private List<ResultadoCondicionado> listaFiltradaUOrdenada=new ArrayList<>();
-	private ResultadoCondicionado elementoListaFiltradaUOrdenada,auxiliar;
 	private List<ResultadoCondicionado> listaOrdenaUnaCondicion=new ArrayList<>();
 
 	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, Set<CondicionOrdenamiento> condicionesOrdenamiento) {

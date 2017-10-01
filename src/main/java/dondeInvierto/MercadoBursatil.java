@@ -182,21 +182,16 @@ public enum MercadoBursatil {
 	}
 	
 	
-	public void addMetodologia(Metodologia metodologia) {
-		if (this.containsMetodologia(metodologia.getNombre())){
-			System.out.println("Ya existe una metodologia con ese nombre.");
-		} else {
-			this.metodologias.add(metodologia);
-		}
-	}
-	
-	
-	
 	/**
 	 * Agrega la metodologia a la lista de metodologias del mercado bursátil.
 	 */
-	public void addMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, Set<CondicionOrdenamiento> condicionesOrdenamiento){
-		getMetodologias().add(new Metodologia(nombre,condicionesFiltro,condicionesOrdenamiento));
+	public void addMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro, Set<CondicionOrdenamiento> orden1){
+		if (this.containsMetodologia(nombre)){
+			System.out.println("Ya existe una metodologia con ese nombre.");
+		} else {
+			getMetodologias().add(new Metodologia(nombre,condicionesFiltro,orden1));
+		}
+		
 	}
 	
 	
