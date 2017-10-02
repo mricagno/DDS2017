@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @NamedQueries(value = { @NamedQuery(name = "Empresa.getAll", query = "SELECT b FROM Empresa b") })
 @Table(name = "empresa")
-public class Empresa {
+public class Empresa implements Comparable<Empresa> {
 	@Id
 	@GeneratedValue
 	@NotNull
@@ -27,7 +27,7 @@ public class Empresa {
 		this.nombre = nombre;
 		this.cuentas = new HashSet<Cuenta>();
 	}
-	
+
 	public Empresa() {
 	}
 
@@ -53,6 +53,18 @@ public class Empresa {
 
 	public void setAntiguedad(int antiguedad) {
 		this.antiguedad = antiguedad;
+	}
+
+	// redefine criterio de comparacion para ordenamiento de arrays
+	@Override
+	public int compareTo(Empresa o) {
+		if (antiguedad > o.antiguedad) {
+			return -1;
+		}
+		if (antiguedad < o.antiguedad) {
+			return 1;
+		}
+		return 0;
 	}
 
 	public Set<Cuenta> getCuentas() {
