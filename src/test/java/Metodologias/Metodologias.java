@@ -27,7 +27,7 @@ public class Metodologias {
 	
 	@BeforeClass
 	public static void inicializar() throws Exception {	
-		mercado.init();
+		//mercado.init();
 		
 		mercado.addEmpresa("Facebook Inc.");
 		mercado.addEmpresa("Tesla Inc.");
@@ -35,25 +35,32 @@ public class Metodologias {
 		
 		mercado.getEmpresa("Facebook Inc.").setAntiguedad(15);
 		mercado.getEmpresa("Tesla Inc.").setAntiguedad(5);
-		mercado.getEmpresa("Twitter Inc.").setAntiguedad(15);
+		mercado.getEmpresa("Twitter Inc.").setAntiguedad(11);
 		
 		
 		mercado.addCuenta("Facebook Inc.", "EBITDA", "20151231", "8162");
+		mercado.addCuenta("Facebook Inc.", "FCF", "20151231", "82");
 		mercado.addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
-		mercado.addCuenta("Facebook Inc.", "FCF", "20151231", "3.99");
-		mercado.addCuenta("Tesla Inc.", "EBITDA", "20151231", "213");
-		mercado.addCuenta("Tesla Inc.", "EBITDA", "20161231", "630");
-		mercado.addCuenta("Tesla Inc.", "FCF", "20151231", "230");
-		mercado.addCuenta("Twitter Inc.", "EBITDA", "20151231", "751");
-		mercado.addCuenta("Twitter Inc.", "FCF", "20151231", "1751");
+		mercado.addCuenta("Facebook Inc.", "FCF", "20161231", "399");
 		
-		mercado.addIndicador("Ingreso Neto", "A = BB + CC");
-		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC");
+		mercado.addCuenta("Tesla Inc.", "EBITDA", "20151231", "213");		
+		mercado.addCuenta("Tesla Inc.", "FCF", "20151231", "230");
+		mercado.addCuenta("Tesla Inc.", "EBITDA", "20161231", "630");
+		mercado.addCuenta("Tesla Inc.", "FCF", "20161231", "50");
+
+		mercado.addCuenta("Twitter Inc.", "EBITDA", "20161231", "751");
+		mercado.addCuenta("Twitter Inc.", "FCF", "20161231", "11");		
+		mercado.addCuenta("Twitter Inc.", "EBITDA", "20151231", "8551");
+		mercado.addCuenta("Twitter Inc.", "FCF", "20151231", "111");
+		
+		mercado.addIndicador("Ingreso Neto", "Ingreso Neto = EBITDA");
+		//mercado.addIndicador("Ingreso Neto", "A=BB+C");
+
 		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF");
 		mercado.addIndicador("Ingreso Neto En Operaciones Continuas", "Ingreso Neto En Operaciones Continuas = EBITDA ");
 		mercado.addIndicador("Ingreso Neto En Operaciones Discontinuadas", "Ingreso Neto En Operaciones Discontinuas = FCF");
 		mercado.addIndicador("Ingreso Neto","Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-				+ "Ingreso Neto En Operaciones Discontinuadas");
+				+ "Ingreso Neto En Ope0raciones Discontinuadas");
 		mercado.addIndicador("Dividendos", "Dividendos = EBITDA - FCF");
 		mercado.addIndicador("Capital Total", "Capital Total = EBITDA + FCF");
 		mercado.addIndicador("Roe", "Roe = ( Ingreso Neto - Dividendos) / Capital Total");
@@ -77,7 +84,7 @@ public class Metodologias {
 		//condicionesFiltro.add(filtro3);
 		//condicionesFiltro.add(filtro4);
 		
-		CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe","ascendente",0,mercado.getIndicador("Roe"));
+		CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe","ascendente",10,mercado.getIndicador("Roe"));
 		CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda","descendente",0,mercado.getIndicador("Proporcion De Deuda"));
 
 		condicionesOrdenamiento.add(orden1);

@@ -44,28 +44,36 @@ public class Metodologia{
 	 * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
 	 */
 	public void calcularMetodologia(Metodologia metodologia){
-		
-		System.out.println("calcular metodologia");
-		
+		int posicion=0;
+		ResultadoCondicionado resultado;
+
 		for(CondicionFiltro condicion : metodologia.getCondicionesFiltro()){
 			listaFiltradaUOrdenada=condicion.evaluarCondicion(condicion);
 		}
 		
-		for(CondicionOrdenamiento condicion : metodologia.getCondicionesOrdenamiento()){
-			listaOrdenaUnaCondicion=condicion.evaluarCondicion(condicion,listaFiltradaUOrdenada);
-			for(int i=0;i<listaOrdenaUnaCondicion.size();i++) {
-				listaOrdenaUnaCondicion.get(i).setPosicionPonderable(i);
+		List<String> listaNombres=new ArrayList<>();
+		for (int j=0;j<listaFiltradaUOrdenada.size();j++) {
+			listaNombres.add(listaFiltradaUOrdenada.get(j).getNombre());
+		}
+		
+		for(CondicionOrdenamiento condicion : metodologia.getCondicionesOrdenamiento()){		
+			listaOrdenaUnaCondicion=condicion.evaluarCondicion(condicion,listaFiltradaUOrdenada);		
+			for(int i=0;i<listaOrdenaUnaCondicion.size();i++) {					
+				resultado=listaOrdenaUnaCondicion.get(i);				
+				posicion=listaNombres.indexOf(resultado.getNombre());
+				listaFiltradaUOrdenada.get(posicion).setPosicionPonderable(i);				
 			}
 		}
 		
 		Collections.sort(listaFiltradaUOrdenada);		
-
+		System.out.println("Resultado aplicacion de metodología: ");
 		for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
 		{
-			System.out.println(listaFiltradaUOrdenada.get(i).getNombre());			
-			//System.out.println(listaFiltradaUOrdenada.get(i).getResultadoIndicador());		
-
-		}
+			System.out.println(i+1+"-"+listaFiltradaUOrdenada.get(i).getNombre());			
+			//System.out.println(listaFiltradaUOrdenada.get(i).getPosicionPonderable());
+			listaFiltradaUOrdenada.get(i).setPosicionPonderableEmpty();	
+		}		
+	
 	}
 }
 	
