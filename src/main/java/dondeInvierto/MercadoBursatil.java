@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import db.CuentaService;
@@ -102,6 +104,13 @@ public enum MercadoBursatil {
 	public Indicador getIndicador(String nombre) {
 		return getIndicadores().stream().filter(i -> (nombre.equals(i.getNombre()))).findFirst().orElse(null);
 	}
+	
+	/**
+	 * Devuelve los indicadores buscados para un usuario.
+	 */
+	public List<Indicador> getIndicadorUsuario(String usuario) {
+		return getIndicadores().stream().filter(i -> (usuario.equals(i.getCreador()))).collect(Collectors.toList());
+	}
 
 	/**
 	 * Devuelve true si el mercado bursátil tiene algún indicador con el nombre
@@ -114,10 +123,10 @@ public enum MercadoBursatil {
 	/**
 	 * Agrega el indicador en la lista de indicadores del mercado bursátil.
 	 */
-	public void addIndicador(String nombre, String formula) {
+	public void addIndicador(String nombre, String formula, String creador) {
 		if (!containsIndicador(nombre)) {
 			try {
-				getIndicadores().add(new Indicador(nombre, formula));
+				getIndicadores().add(new Indicador(nombre, formula, creador));
 			} catch (IllegalStateException e) {
 				System.err.println("[ERROR] (ANTLR) " + e.getMessage() + ". "
 						+ "Se produjo un error al intentar parsear la expresión ingresada (" + nombre + " = " + formula
@@ -153,11 +162,11 @@ public enum MercadoBursatil {
 	 * Agrega la metodologia a la lista de metodologias del mercado bursátil.
 	 */
 	public void addMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro,
-			Set<CondicionOrdenamiento> condicionesOrdenamiento) {
+			Set<CondicionOrdenamiento> condicionesOrdenamiento, String usuario) {
 		if (this.containsMetodologia(nombre)) {
 			System.out.println("Ya existe una metodologia con ese nombre.");
 		} else {
-			getMetodologias().add(new Metodologia(nombre, condicionesFiltro, condicionesOrdenamiento));
+			getMetodologias().add(new Metodologia(nombre, condicionesFiltro, condicionesOrdenamiento, usuario));
 		}
 	}
 
@@ -188,18 +197,18 @@ public enum MercadoBursatil {
 		cuenta.addCuenta("EBITDA", "20161231", "751", twitter);
 		cuenta.addCuenta("FCF", "20151231", "1751", twitter);
 		indicador.addIndicador(new Indicador("Ingreso Neto", "Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-				+ "Ingreso Neto En Operaciones Discontinuadas"));
+				+ "Ingreso Neto En Operaciones Discontinuadas","DEFAULT"));
 		indicador.addIndicador(new Indicador("Retorno sobre capital total",
-				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total"));
-		indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF"));
-		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Continuas", "Ingreso Neto En Operaciones Continuas = EBITDA "));
-		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Discontinuadas", "Ingreso Neto En Operaciones Discontinuas = FCF"));
-		indicador.addIndicador(new Indicador("Dividendos", "Dividendos = EBITDA - FCF"));
-		indicador.addIndicador(new Indicador("Capital Total", "Capital Total = EBITDA + FCF"));
-		indicador.addIndicador(new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total"));
-		indicador.addIndicador(new Indicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )"));
-		indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos"));
-		indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0"));
+				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total","DEFAULT"));
+		indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF","DEFAULT"));
+		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Continuas", "Ingreso Neto En Operaciones Continuas = EBITDA ","DEFAULT"));
+		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Discontinuadas", "Ingreso Neto En Operaciones Discontinuas = FCF","DEFAULT"));
+		indicador.addIndicador(new Indicador("Dividendos", "Dividendos = EBITDA - FCF","DEFAULT"));
+		indicador.addIndicador(new Indicador("Capital Total", "Capital Total = EBITDA + FCF","DEFAULT"));
+		indicador.addIndicador(new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total","DEFAULT"));
+		indicador.addIndicador(new Indicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )","DEFAULT"));
+		indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos","DEFAULT"));
+		indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0","DEFAULT"));
 		em.close();
 	}
 

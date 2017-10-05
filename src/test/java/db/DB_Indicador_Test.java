@@ -13,7 +13,7 @@ public class DB_Indicador_Test extends DB_jpa_Test {
 		EntityTransaction trx = em.getTransaction();
 		final Indicador indicador = new Indicador("Ingreso Neto", 
 				"Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-				+ "Ingreso Neto En Operaciones Discontinuadas");
+				+ "Ingreso Neto En Operaciones Discontinuadas", "mricagno");
 		trx.begin();
 		em.persist(indicador);
 		trx.commit();

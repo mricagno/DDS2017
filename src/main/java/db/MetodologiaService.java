@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import org.hibernate.HibernateException;
 import dondeInvierto.CondicionFiltro;
 import dondeInvierto.CondicionOrdenamiento;
-import dondeInvierto.Empresa;
 import dondeInvierto.Metodologia;
 
 public class MetodologiaService {
@@ -20,8 +19,8 @@ public class MetodologiaService {
 	
 	// Crear Metodologia en DB
 	public void setMetodologia(String nombre, Set<CondicionFiltro> condicionesFiltro,
-			Set<CondicionOrdenamiento> condicionesOrdenamiento) {
-		Metodologia metodologia = new Metodologia(nombre, condicionesFiltro, condicionesOrdenamiento);
+			Set<CondicionOrdenamiento> condicionesOrdenamiento,String usuario) {
+		Metodologia metodologia = new Metodologia(nombre, condicionesFiltro, condicionesOrdenamiento,usuario);
 		// Get a new transaction
 		EntityTransaction trx = em.getTransaction();
 		try {

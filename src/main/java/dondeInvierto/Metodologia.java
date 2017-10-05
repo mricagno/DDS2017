@@ -29,6 +29,8 @@ public class Metodologia {
 	private Long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
+	@Column(name = "CREADOR")
+	private String creadoPor;
 	@ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "metodologia_Filtro", joinColumns = @JoinColumn(name = "metodologia_id"),
     inverseJoinColumns = @JoinColumn(name = "condicionFiltro_id"))
@@ -43,10 +45,11 @@ public class Metodologia {
 	private List<ResultadoCondicionado> listaOrdenaUnaCondicion = new ArrayList<>();
 
 	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro,
-			Set<CondicionOrdenamiento> condicionesOrdenamiento) {
+			Set<CondicionOrdenamiento> condicionesOrdenamiento, String creador) {
 		this.nombre = nombre;
 		this.condicionesFiltro = condicionesFiltro;
 		this.condicionesOrdenamiento = condicionesOrdenamiento;
+		this.creadoPor = creador;
 	}
 
 	public Metodologia() {

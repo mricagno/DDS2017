@@ -43,19 +43,19 @@ public class Metodologias {
 		mercado.addCuenta("Twitter Inc.", "EBITDA", "20151231", "751");
 		mercado.addCuenta("Twitter Inc.", "FCF", "20151231", "1751");
 		
-		mercado.addIndicador("Ingreso Neto", "A = BB + CC");
-		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC");
-		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF");
-		mercado.addIndicador("Ingreso Neto En Operaciones Continuas", "Ingreso Neto En Operaciones Continuas = EBITDA ");
-		mercado.addIndicador("Ingreso Neto En Operaciones Discontinuadas", "Ingreso Neto En Operaciones Discontinuas = FCF");
+		mercado.addIndicador("Ingreso Neto", "A = BB + CC","mricagno");
+		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC","mricagno");
+		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF","mricagno");
+		mercado.addIndicador("Ingreso Neto En Operaciones Continuas", "Ingreso Neto En Operaciones Continuas = EBITDA ","mricagno");
+		mercado.addIndicador("Ingreso Neto En Operaciones Discontinuadas", "Ingreso Neto En Operaciones Discontinuas = FCF","mricagno");
 		mercado.addIndicador("Ingreso Neto","Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-				+ "Ingreso Neto En Operaciones Discontinuadas");
-		mercado.addIndicador("Dividendos", "Dividendos = EBITDA - FCF");
-		mercado.addIndicador("Capital Total", "Capital Total = EBITDA + FCF");
-		mercado.addIndicador("Roe", "Roe = ( Ingreso Neto - Dividendos) / Capital Total");
-		mercado.addIndicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )");
-		mercado.addIndicador("Margen", "Margen = Capital Total - Dividendos");
-		mercado.addIndicador("Indicador Vacio", "Indicador Vacio = 0");
+				+ "Ingreso Neto En Operaciones Discontinuadas","mricagno");
+		mercado.addIndicador("Dividendos", "Dividendos = EBITDA - FCF","mricagno");
+		mercado.addIndicador("Capital Total", "Capital Total = EBITDA + FCF","mricagno");
+		mercado.addIndicador("Roe", "Roe = ( Ingreso Neto - Dividendos) / Capital Total","mricagno");
+		mercado.addIndicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )","mricagno");
+		mercado.addIndicador("Margen", "Margen = Capital Total - Dividendos","mricagno");
+		mercado.addIndicador("Indicador Vacio", "Indicador Vacio = 0","mricagno");
 		
 		
 		//Indicador indicador = mercado.getIndicador("Indicador");
@@ -77,7 +77,7 @@ public class Metodologias {
 		
 		condicionesOrdenamiento.add(orden1);
 		
-		mercado.addMetodologia("metodologia1", condicionesFiltro , condicionesOrdenamiento);
+		mercado.addMetodologia("metodologia1", condicionesFiltro , condicionesOrdenamiento,"mricagno");
 		//mercado.addMetodologia("metodologiaWarrenBuffet", condicionesFiltro , condicionesOrdenamiento);
 		//Metodologia metodologia1 = new Metodologia("metodologia1", condicionesFiltro , orden);
 	

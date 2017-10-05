@@ -24,9 +24,9 @@ public class TestCrearIndicadores extends FileHandler {
 	public static void inicializar() throws Exception {	
 		mercado.init();
 		
-		mercado.addIndicador("Ingreso Neto", "A = BB + CC");
-		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC");
-		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF");
+		mercado.addIndicador("Ingreso Neto", "A = BB + CC","mricagno");
+		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC","mricagno");
+		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF","mricagno");
 	}
 	
 	@Test

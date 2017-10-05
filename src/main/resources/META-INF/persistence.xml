@@ -14,6 +14,7 @@
 		<class>dondeInvierto.CondicionFiltro</class>
 		<class>dondeInvierto.CondicionOrdenamiento</class>
 		<class>dondeInvierto.Metodologia</class>
+		<class>dondeInvierto.Usuario</class>
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

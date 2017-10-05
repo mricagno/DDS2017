@@ -13,7 +13,7 @@ public class DB_Condicion_Test extends DB_jpa_Test {
 	public void test_condicion() {
 		EntityTransaction trx = em.getTransaction();
 		Indicador indicador = new Indicador("Retorno sobre capital total",
-				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total");
+				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total","mricagno");
 		final Condicion condicion = new CondicionOrdenamiento("TEST_ORD", "<", (double) 100, indicador);
 		// Start the transaction
 		trx.begin();
@@ -30,7 +30,7 @@ public class DB_Condicion_Test extends DB_jpa_Test {
 	public void test_filtro() {
 		EntityTransaction trx = em.getTransaction();
 		Indicador indicador = new Indicador("Retorno sobre capital total",
-				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total");
+				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total","mricagno");
 		final Condicion condicion = new CondicionFiltro("TEST_FILTRO", "<", (double) 100, indicador);
 		// Start the transaction
 		trx.begin();

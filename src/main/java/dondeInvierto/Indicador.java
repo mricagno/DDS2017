@@ -15,11 +15,14 @@ public class Indicador {
 	private String nombre;
 	@Column(name = "FORMULA")
 	private String formula;
+	@Column(name = "CREADOR")
+	private String creadoPor;
 
-	public Indicador(String nombre, String formula) throws IllegalStateException {
+	public Indicador(String nombre, String formula, String creador) throws IllegalStateException {
 		if (Antlr.parseString(formula)) {
 			this.nombre = nombre;
 			this.formula = formula;
+			this.creadoPor = creador;
 		}
 	}
 
@@ -28,6 +31,10 @@ public class Indicador {
 
 	public String getNombre() {
 		return this.nombre;
+	}
+	
+	public String getCreador() {
+		return this.creadoPor;
 	}
 
 	public String getFormula() {

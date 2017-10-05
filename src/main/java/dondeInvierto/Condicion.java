@@ -25,6 +25,7 @@ public class Condicion {
 	private double valor;
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Indicador indicador;
+	@Transient
 	MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	@Transient
 	List<Empresa> empresas = mercado.getEmpresas();
