@@ -90,14 +90,34 @@ public class Metodologias {
 		condicionesOrdenamiento.add(orden1);
 		condicionesOrdenamiento.add(orden2);
 				
-		mercado.addMetodologia("metodologiaWarrenBuffet", condicionesFiltro , condicionesOrdenamiento);
+		mercado.addMetodologia("metodologia1", condicionesFiltro , condicionesOrdenamiento);
+		//mercado.addMetodologia("metodologiaWarrenBuffet", condicionesFiltro , condicionesOrdenamiento);
+		//Metodologia metodologia1 = new Metodologia("metodologia1", condicionesFiltro , orden);
+		
+		Set<CondicionFiltro> condicionesFiltro1 = new HashSet<>();
+		Set<CondicionOrdenamiento> condicionesOrdenamiento1 = new HashSet<>();
+		
+		CondicionFiltro filtro10 = new CondicionFiltro("margenCrecienteUltimosAnios", "margenCrecienteUltimosAnios", 1.00, mercado.getIndicador("Margen"));
+		//CondicionOrdenamiento orden10 = new CondicionOrdenamiento("CondOrdAscendente","ascendente",0,mercado.getIndicador("Indicador Vacio"));
+		
+		condicionesFiltro1.add(filtro10);
+		//condicionesOrdenamiento1.add(orden10);
+		
+		mercado.addMetodologia("pruebaCondicionMargen", condicionesFiltro1, condicionesOrdenamiento1);
+		
+		
+	
 	}
 	
-	@Test		
+	
+	@Test
+		
 	public void test() {
+		
+		mercado.getMetodologia("pruebaCondicionMargen").calcularMetodologia(mercado.getMetodologia("pruebaCondicionMargen"));
 		//fail("Not yet implemented");
 	
-		mercado.getMetodologia("metodologiaWarrenBuffet").calcularMetodologia(mercado.getMetodologia("metodologiaWarrenBuffet"));
+		//mercado.getMetodologia("metodologiaWarrenBuffet").calcularMetodologia(mercado.getMetodologia("metodologiaWarrenBuffet"));
 			/*
 		mercado.getMetodologia("metodologia1").calcularMetodologia(mercado.getMetodologia("metodologia1"));
 		

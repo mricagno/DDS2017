@@ -126,6 +126,47 @@ public class CondicionFiltro extends Condicion {
 				}			
 			}
 			return resultadoCondicion;
+		
+		case "margenCrecienteUltimosAnios":
+			double x = 0;
+			for(Empresa empresa: empresas){
+				int flag = 0;
+				List<String> listaPeriodos=new ArrayList<>();
+				//asumiendo que las cuentas ingresan ordenadas de mas nueva a mas antigua por periodo
+				List<Cuenta> cuentasOrdenadasDescendientemente = empresa.getCuentas();
+				//Collections.sort(cuentasOrdenadasDescendientemente);
+				for(Cuenta cuenta : cuentasOrdenadasDescendientemente){
+					if (!listaPeriodos.contains(cuenta.getPeriodoAsString())){
+						listaPeriodos.add(cuenta.getPeriodoAsString());
+						//resultadoIndicador = condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());					
+						//if(resultadoIndicador != condicion.getValor()){
+							//resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(),resultadoIndicador));
+											
+						 if(x == 0){
+								x = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
+							}
+							else{
+								if(x < condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString())){
+									flag = 0;
+								}
+								else{
+							 flag = 1;
+									break;
+								}
+							}
+						 //}
+					}
+					
+				}
+				if(flag ==0){
+					System.out.println("El margen de "+empresa.getNombre()+"es consistentemente creciente en los ultimos años");
+				}
+				else{
+					System.out.println("El margen de "+empresa.getNombre()+"no es consistentemente creciente en los ultimos años");
+				}
+				
+				
+			}
 			
 		//case "anios":
 			
