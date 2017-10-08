@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
+import dondeInvierto.Usuario;
 
 public class MercadoBursatilService {
 	protected EntityManager em;
@@ -23,6 +24,12 @@ public class MercadoBursatilService {
 		IndicadorService indicador = new IndicadorService(em);
 		List<Indicador> indicadores = indicador.listIndicadores();
 		return indicadores;
+	}
+	
+	public List<Usuario> generate_usuario_model() {
+		UsuarioService usuario = new UsuarioService(em);
+		List<Usuario> usuarios = usuario.listUsuarios();
+		return usuarios;
 	}
 	
 }

@@ -47,7 +47,7 @@ public class IndicadorResource {
         		.build().toString();
     }
     
-    @Path("/nuevo")
+    @Path("/nuevo")	
     @POST
 	@Consumes("application/json")
     public Response createIndicador(String indicador) {

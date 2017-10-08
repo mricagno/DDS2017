@@ -5,11 +5,9 @@ import java.net.URI;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-
 import json.JsonApplication;
 
 public class Main {

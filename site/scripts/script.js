@@ -78,17 +78,18 @@ function hideConds(x) {
 }
 
 $(function() {
-$("#btn-login-usr")
-		.click(
-				function() {
-					$
-							.ajax({
+$("#btn-login-usr").click(function() {
+    var data = {};
+    data.usuario = $("#usuario").val();
+    data.password = $("#password").val();
+					$.ajax({
 								type : 'GET',
-								url : "http://localhost:8080/dondeInvierto/usuarios/",
+								url : "http://localhost:8080/dondeInvierto/login/",
 								dataType : "json",
+								contentType: "application/json",
+								data: JSON.stringify(data),
 								beforeSend : function() {
-									console
-											.log("[INFO] (AJAX) Buscando información de usuarios...");
+									console.log("[INFO] (AJAX) Buscando información de usuarios...");
 								},
 								success : function(response) {
 									$("#login").html(

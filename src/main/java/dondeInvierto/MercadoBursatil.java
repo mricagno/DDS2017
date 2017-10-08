@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import db.CuentaService;
@@ -47,6 +46,20 @@ public enum MercadoBursatil {
 	public Usuario getUsuario(String userID, String password) {
 		return this.usuarios.stream().filter(u -> userID.equals(u.getId())).filter(u1 -> password.equals(u1.getPass()))
 				.findFirst().orElse(null);
+	}
+	
+	/**
+	 * Devuelve todos los usuarios que existen en el mercado bursátil.
+	 */
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+	
+	/**
+	 * Agrega el usuario a la lista de usuarios del mercado bursátil.
+	 */
+	public void addUsuario(Long id, String nombre, String password, int cant_int) {
+		getUsuarios().add(new Usuario(id, nombre, password, cant_int));
 	}
 
 	/**
@@ -229,6 +242,7 @@ public enum MercadoBursatil {
 		MercadoBursatilService modelService = new MercadoBursatilService(em);
 		this.empresas = modelService.generate_empresa_model();
 		this.indicadores = modelService.generate_indicador_model();
+		this.usuarios = modelService.generate_usuario_model();
 	}
 
 	public void close() {
