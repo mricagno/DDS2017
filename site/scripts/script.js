@@ -17,7 +17,13 @@ function toggleFileUploadSuccess() {
 }
 
 function toggleRegistrySuccess() {
-    $("#registrySuccess").fadeToggle();
+    $("#registrySuccess").fadeIn(200);
+    $("#registrySuccess").delay(5000).fadeOut(200);
+}
+
+function registryError() {
+    $("#registryError").fadeIn(200);
+    $("#registryError").delay(5000).fadeOut(200);
 }
 
 function uploadSuccess() {
@@ -137,7 +143,7 @@ $(function () {
         $.ajax({
             type: 'POST',
             url: "http://localhost:8080/dondeInvierto/indicadores/nuevo",
-            dataType: "application/json",
+            dataType: "text",
             contentType: "application/json",
             data: JSON.stringify(data),
             beforeSend: function () {
@@ -145,6 +151,7 @@ $(function () {
             },
             success: function () {
                 console.log("Success!");
+                toggleRegistrySuccess();
             },
             error: function (jqXHR, exception) {
                 var msg = '';
@@ -166,6 +173,7 @@ $(function () {
                     msg = 'Uncaught Error.\n' + jqXHR.responseText + '.\n' + jqXHR.status + '.';
                 }
                 console.log(msg);
+                registryError();
             }
         });
     });

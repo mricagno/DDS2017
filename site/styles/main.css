@@ -117,6 +117,10 @@ form>.col-lg-6 {
   display: none;
 }
 
+#registryError {
+  display: none;
+}
+
 .empresa-logo {
   width: 32px;
   margin-right: 5px;

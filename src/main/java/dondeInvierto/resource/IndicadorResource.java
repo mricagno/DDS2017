@@ -50,6 +50,7 @@ public class IndicadorResource {
     @Path("/nuevo")
     @POST
 	@Consumes("application/json")
+    @Produces("text/plain")
     public Response createIndicador(String indicador) {
     	JsonObject json = (JsonObject) Json.createReader(new StringReader(indicador)).read();
     	String formula = json.getString("nombre") + " = " + json.getString("formula"); 	
