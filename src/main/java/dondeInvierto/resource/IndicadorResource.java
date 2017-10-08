@@ -2,12 +2,10 @@ package dondeInvierto.resource;
 
 import java.io.StringReader;
 import java.net.URI;
-
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -29,17 +27,15 @@ public class IndicadorResource {
 	@Produces("application/json")
 	public String getIndicadores() {	
 		JsonArrayBuilder jsonArrBuilder = Json.createArrayBuilder();   
-		
+		EntityManager em = mercado.getFactory().createEntityManager();
+		IndicadorService indicador_DB = new IndicadorService(em);
+		mercado.setIndicadores(indicador_DB.listIndicadores());
+		em.close();
 		for(Indicador ind : mercado.getIndicadores()) {
 			jsonArrBuilder.add(Json.createObjectBuilder()
 					.add("nombre", ind.getNombre())
 					.add("formula", ind.getFormula()));
 		}
-		EntityManager em = mercado.getFactory().createEntityManager();
-		IndicadorService indicador_DB = new IndicadorService(em);
-		mercado.setIndicadores(indicador_DB.listIndicadores());
-		em.close();
-		
 		return jsonArrBuilder.build().toString();
 	}
     
