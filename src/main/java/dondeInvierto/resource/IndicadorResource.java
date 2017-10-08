@@ -70,7 +70,6 @@ public class IndicadorResource {
 			indicador_DB.addIndicador(
 					new Indicador(json.getString("nombre"), formula, mercado.getUsuarioLog().getUsuario()));
 			em.close();
-    		 
     	}
     	return Response.created(URI.create(json.getString("nombre"))).build();
     }
