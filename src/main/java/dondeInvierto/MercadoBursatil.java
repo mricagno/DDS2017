@@ -20,11 +20,12 @@ import db.MercadoBursatilService;
  */
 public enum MercadoBursatil {
 	INSTANCE;
-
+	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
 	private List<Metodologia> metodologias = new ArrayList<Metodologia>();
 	EntityManagerFactory factory;
+
 	/**
 	 * Agrega datos de prueba (empresas, cuentas e indicadores) al mercado bursátil.
 	 * 
@@ -35,8 +36,17 @@ public enum MercadoBursatil {
 		DB_Manager DBManager = DB_Manager.getSingletonInstance();
 		factory = DBManager.getEmf();
 		EntityManager em = factory.createEntityManager();
-		//this.init_db(em);
+//		this.init_db(em);
 		this.init_model(em);
+	}
+
+	/**
+	 * Devuelve el usuario con el nombre buscado.
+	 */
+	@SuppressWarnings("unlikely-arg-type")
+	public Usuario getUsuario(String userID, String password) {
+		return this.usuarios.stream().filter(u -> userID.equals(u.getId())).filter(u1 -> password.equals(u1.getPass()))
+				.findFirst().orElse(null);
 	}
 
 	/**
@@ -104,7 +114,7 @@ public enum MercadoBursatil {
 	public Indicador getIndicador(String nombre) {
 		return getIndicadores().stream().filter(i -> (nombre.equals(i.getNombre()))).findFirst().orElse(null);
 	}
-	
+
 	/**
 	 * Devuelve los indicadores buscados para un usuario.
 	 */
@@ -197,18 +207,21 @@ public enum MercadoBursatil {
 		cuenta.addCuenta("EBITDA", "20161231", "751", twitter);
 		cuenta.addCuenta("FCF", "20151231", "1751", twitter);
 		indicador.addIndicador(new Indicador("Ingreso Neto", "Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-				+ "Ingreso Neto En Operaciones Discontinuadas","DEFAULT"));
+				+ "Ingreso Neto En Operaciones Discontinuadas", "DEFAULT"));
 		indicador.addIndicador(new Indicador("Retorno sobre capital total",
-				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total","DEFAULT"));
-		indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF","DEFAULT"));
-		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Continuas", "Ingreso Neto En Operaciones Continuas = EBITDA ","DEFAULT"));
-		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Discontinuadas", "Ingreso Neto En Operaciones Discontinuas = FCF","DEFAULT"));
-		indicador.addIndicador(new Indicador("Dividendos", "Dividendos = EBITDA - FCF","DEFAULT"));
-		indicador.addIndicador(new Indicador("Capital Total", "Capital Total = EBITDA + FCF","DEFAULT"));
-		indicador.addIndicador(new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total","DEFAULT"));
-		indicador.addIndicador(new Indicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )","DEFAULT"));
-		indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos","DEFAULT"));
-		indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0","DEFAULT"));
+				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Continuas",
+				"Ingreso Neto En Operaciones Continuas = EBITDA ", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Discontinuadas",
+				"Ingreso Neto En Operaciones Discontinuas = FCF", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Dividendos", "Dividendos = EBITDA - FCF", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Capital Total", "Capital Total = EBITDA + FCF", "DEFAULT"));
+		indicador.addIndicador(new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Proporcion De Deuda",
+				"Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
 		em.close();
 	}
 
@@ -217,7 +230,7 @@ public enum MercadoBursatil {
 		this.empresas = modelService.generate_empresa_model();
 		this.indicadores = modelService.generate_indicador_model();
 	}
-	
+
 	public void close() {
 		DB_Manager DBManager = DB_Manager.getSingletonInstance();
 		DBManager.closeEmf(factory);

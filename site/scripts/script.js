@@ -77,6 +77,27 @@ function hideConds(x) {
   $(".condicion4").fadeOut(x);
 }
 
+$(function() {
+$("#btn-login-usr")
+		.click(
+				function() {
+					$
+							.ajax({
+								type : 'GET',
+								url : "http://localhost:8080/dondeInvierto/usuarios/",
+								dataType : "json",
+								beforeSend : function() {
+									console
+											.log("[INFO] (AJAX) Buscando información de usuarios...");
+								},
+								success : function(response) {
+									$("#login").html(
+											"You are now logged in!");
+								}
+							});
+				});
+});
+
 $(function () {
     $("#btn-buscar-cuentas").click(function () {
         $("#tabla-resultados").show();
