@@ -12,6 +12,7 @@ import db.DB_Manager;
 import db.EmpresaService;
 import db.IndicadorService;
 import db.MercadoBursatilService;
+import db.UsuarioService;
 
 /**
  * Contiene todas las empresas, cuentas, identificadores y metodologías del
@@ -23,6 +24,7 @@ public enum MercadoBursatil {
 	private List<Empresa> empresas = new ArrayList<Empresa>();
 	private List<Indicador> indicadores = new ArrayList<Indicador>();
 	private List<Metodologia> metodologias = new ArrayList<Metodologia>();
+	private Usuario usuario_logueado;
 	EntityManagerFactory factory;
 
 	/**
@@ -33,21 +35,21 @@ public enum MercadoBursatil {
 	public void init() throws ParseException {
 
 		DB_Manager DBManager = DB_Manager.getSingletonInstance();
-		factory = DBManager.getEmf();
+		this.factory = DBManager.getEmf();
 		EntityManager em = factory.createEntityManager();
-//		this.init_db(em);
+		//this.init_db(em);
 		this.init_model(em);
 	}
 
 	/**
 	 * Devuelve el usuario con el nombre buscado.
 	 */
-	@SuppressWarnings("unlikely-arg-type")
-	public Usuario getUsuario(String userID, String password) {
-		return this.usuarios.stream().filter(u -> userID.equals(u.getId())).filter(u1 -> password.equals(u1.getPass()))
+
+	public Usuario getUsuario(String usuario, String password) {
+		return this.usuarios.stream().filter(u -> usuario.equals(u.getUsuario())).filter(u1 -> password.equals(u1.getPass()))
 				.findFirst().orElse(null);
 	}
-	
+
 	/**
 	 * Devuelve todos los usuarios que existen en el mercado bursátil.
 	 */
@@ -55,11 +57,30 @@ public enum MercadoBursatil {
 		return this.usuarios;
 	}
 	
+	public void setIndicadores(List<Indicador> indicadores) {
+		this.indicadores = indicadores;
+	}
+	
+	/**
+	 * Setea el usuario logeado en el mercado bursátil.
+	 */
+	public void setUsuario(Usuario usuario) {
+		this.usuario_logueado = usuario;
+	}
+
 	/**
 	 * Agrega el usuario a la lista de usuarios del mercado bursátil.
 	 */
-	public void addUsuario(Long id, String nombre, String password, int cant_int) {
-		getUsuarios().add(new Usuario(id, nombre, password, cant_int));
+	public void addUsuario(String nombre, String password, int cant_int) {
+		getUsuarios().add(new Usuario(nombre, password, cant_int));
+	}
+	
+
+	/**
+	 * Devuelve la empresa con el nombre buscado.
+	 */
+	public Usuario getUsuarioLog() {
+		return this.usuario_logueado;
 	}
 
 	/**
@@ -146,16 +167,21 @@ public enum MercadoBursatil {
 	/**
 	 * Agrega el indicador en la lista de indicadores del mercado bursátil.
 	 */
-	public void addIndicador(String nombre, String formula, String creador) {
+	public boolean addIndicador(String nombre, String formula, String usuario) {
+		boolean added = false;
+
 		if (!containsIndicador(nombre)) {
 			try {
-				getIndicadores().add(new Indicador(nombre, formula, creador));
+				getIndicadores().add(new Indicador(nombre, formula, usuario));
+				added = true;
 			} catch (IllegalStateException e) {
 				System.err.println("[ERROR] (ANTLR) " + e.getMessage() + ". "
-						+ "Se produjo un error al intentar parsear la expresión ingresada (" + nombre + " = " + formula
+						+ "Se produjo un error al intentar parsear la expresión ingresada (" + formula
 						+ "). El indicador no ha sido creado. Por favor, revísela e intente nuevamente.");
 			}
 		}
+
+		return added;
 	}
 
 	/**
@@ -172,6 +198,9 @@ public enum MercadoBursatil {
 
 	public List<Metodologia> getMetodologias() {
 		return this.metodologias;
+	}
+	public EntityManagerFactory getFactory() {
+		return this.factory;
 	}
 
 	/**
@@ -205,6 +234,11 @@ public enum MercadoBursatil {
 		EmpresaService empresa = new EmpresaService(em);
 		CuentaService cuenta = new CuentaService(em);
 		IndicadorService indicador = new IndicadorService(em);
+		UsuarioService usuario = new UsuarioService(em);
+		usuario.addUsuario("gonzalo", "gonzalo", 0);
+		usuario.addUsuario("patricio", "patricio", 0);
+		usuario.addUsuario("gian", "gian", 0);
+		usuario.addUsuario("maxi", "maxi", 0);
 		empresa.addEmpresa("Facebook Inc.");
 		empresa.addEmpresa("Tesla Inc.");
 		empresa.addEmpresa("Twitter Inc.");
@@ -243,6 +277,7 @@ public enum MercadoBursatil {
 		this.empresas = modelService.generate_empresa_model();
 		this.indicadores = modelService.generate_indicador_model();
 		this.usuarios = modelService.generate_usuario_model();
+		//this.usuario_logueado = new Usuario((long)1, "TEST" , "test", 0);
 	}
 
 	public void close() {

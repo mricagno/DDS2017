@@ -82,6 +82,12 @@
       <strong>E&#769;xito!</strong> La cuenta se registro&#769; correctamente.
     </div>
 
+    <div class="alert alert-danger alert-dismissible" role="alert" id="registryError">
+      <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
+        <span aria-hidden="true">&times;</span></button>
+      <strong>Error!</strong> La cuenta no se registro&#769;.
+    </div>
+
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-body centered">
@@ -97,7 +103,7 @@
               <input type="text" class="form-control" placeholder="Fo&#769;rmula" id="formula">
             </div>
             <div class="container-fluid confirm-buttons">
-              <button type="button" class="btn btn-success" id="btn-registro-ind" onClick="registrySuccess()">Registrar</button>
+              <button type="button" class="btn btn-success" id="btn-registro-ind">Registrar</button>
             </div>
           </div>
         </div>

@@ -25,9 +25,8 @@ public class Usuario {
 	@Column(name = "CANT_INTENTOS")
 	private int cant_intentos;
 	
-	public Usuario(Long id, String usuario, String pass, int cant_intentos) {
+	public Usuario(String usuario, String pass, int cant_intentos) {
 		super();
-		this.id = id;
 		this.usuario = usuario;
 		this.pass = pass;
 		this.cant_intentos = cant_intentos;
