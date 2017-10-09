@@ -11,9 +11,11 @@ import java.util.GregorianCalendar;
 @Entity
 @DiscriminatorValue(value = "Ordenamiento")
 public class CondicionOrdenamiento extends Condicion {
-
+	@Transient
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+	@Transient
 	LocalDate localDate = LocalDate.now();
+	@Transient
 	double resultadoIndicador;
 
 	public CondicionOrdenamiento(String nombre, String comparador, double valor, Indicador indicador) {
