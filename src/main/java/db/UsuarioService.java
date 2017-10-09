@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.Collections;
 import org.hibernate.HibernateException;
-import dondeInvierto.Empresa;
 import dondeInvierto.Usuario;
 
 public class UsuarioService {

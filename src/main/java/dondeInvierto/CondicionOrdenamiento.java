@@ -3,10 +3,18 @@ package dondeInvierto;
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Entity
 @DiscriminatorValue(value = "Ordenamiento")
 public class CondicionOrdenamiento extends Condicion {
+
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+	LocalDate localDate = LocalDate.now();
+	double resultadoIndicador;
 
 	public CondicionOrdenamiento(String nombre, String comparador, double valor, Indicador indicador) {
 		super(nombre, comparador, valor, indicador);
@@ -17,30 +25,6 @@ public class CondicionOrdenamiento extends Condicion {
 		return this.resultadoCondicion;
 	}
 
-	/// FIELD//
-
-	/*
-	 * public List<ResultadoCondicionado>
-	 * evaluarCondicion2(List<ResultadoCondicionado> lista,Condicion condicion){
-	 * ResultadoCondicionado elementoLista, auxiliar;
-	 * 
-	 * for(int i=0; i<lista.size();i++) { elementoLista=lista.get(i); for (int j=0;
-	 * j<lista.size()-1;j++) {
-	 * 
-	 * switch(condicion.getComparador()){ case "ascendente": if
-	 * (elementoLista.getResultadoIndicador()<lista.get(j).getResultadoIndicador())
-	 * { auxiliar=elementoLista; lista.set(i, lista.get(j)); lista.set(j, auxiliar);
-	 * } break; case "descendente": if
-	 * (elementoLista.getResultadoIndicador()>lista.get(j).getResultadoIndicador())
-	 * { auxiliar=elementoLista; lista.set(i, lista.get(j)); lista.set(j, auxiliar);
-	 * } } break; } }
-	 * 
-	 * return lista;
-	 * 
-	 * }
-	 */
-
-	/////
 	// Se define nuevamente evaluarCondicion para las condiciones de ordenamiento
 	@Override
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion) {
@@ -58,13 +42,45 @@ public class CondicionOrdenamiento extends Condicion {
 
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion,
 			List<ResultadoCondicionado> resultadoCondicionado) {
+		Calendar calendar = new GregorianCalendar();
+		double contador = 0;
 
-		Collections.sort(resultadoCondicionado);
+		if (condicion.getValor() == 0) {
+			String empresaNombre;
+			Empresa empresa = null;
+			for (int i = 0; i < resultadoCondicionado.size(); i++) {
+				empresaNombre = resultadoCondicionado.get(i).getNombre();
+				empresa = mercado.getEmpresa(empresaNombre);
+				for (Cuenta cuenta : empresa.getCuentas()) {
+					resultadoIndicador = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
+					contador += resultadoIndicador;
+				}
+				resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));
+
+			}
+		} else {
+			String empresaNombre;
+			Empresa empresa;
+			for (int i = 0; i < resultadoCondicionado.size(); i++) {
+				empresaNombre = resultadoCondicionado.get(i).getNombre();
+				empresa = mercado.getEmpresa(empresaNombre);
+				for (Cuenta cuenta : empresa.getCuentas()) {
+					calendar.setTime(cuenta.getPeriodo());
+					if (localDate.getYear() - calendar.get(Calendar.YEAR) <= condicion.getValor()) {
+						resultadoIndicador = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
+						contador += resultadoIndicador;
+					}
+				}
+				resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));
+			}
+		}
+
+		Collections.sort(resultadoCondicion);
 
 		if (condicion.getComparador() == "descendente") {
-			Collections.reverse(resultadoCondicionado);
+			Collections.reverse(resultadoCondicion);
 		}
-		return resultadoCondicionado;
+		return resultadoCondicion;
 
 	}
 
@@ -78,4 +94,5 @@ public class CondicionOrdenamiento extends Condicion {
 			resultadoCondicion.set(resultadoCondicion.size() - 1 - i, temp);
 		}
 	}
+
 }

@@ -1,11 +1,13 @@
 package db;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import java.util.List;
 import javax.persistence.EntityTransaction;
 import org.junit.Test;
-import dondeInvierto.*;
+import dondeInvierto.Condicion;
+import dondeInvierto.Indicador;
+import dondeInvierto.CondicionFiltro;
+import dondeInvierto.CondicionOrdenamiento;
 
 public class DB_Condicion_Test extends DB_jpa_Test {
 
@@ -42,5 +44,5 @@ public class DB_Condicion_Test extends DB_jpa_Test {
 		assertNotNull(condicion_test);
 		assertEquals("TEST_FILTRO", condicion_test.getNombre());
 	}
-
+	
 }

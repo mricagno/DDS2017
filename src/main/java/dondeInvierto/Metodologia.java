@@ -61,14 +61,14 @@ public class Metodologia {
 	public String getNombre() {
 		return this.nombre;
 	}
-
+	
 	/**
 	 * Devuelve el indicador de la metodologia.
 	 */
 	public Set<CondicionFiltro> getCondicionesFiltro() {
 		return this.condicionesFiltro;
 	}
-
+	
 	/**
 	 * Devuelve la tupla de comparado y valor a comparar de la metodologia.
 	 */
@@ -76,45 +76,40 @@ public class Metodologia {
 		return this.condicionesOrdenamiento;
 	}
 	
-	/**
-	 * Devuelve la tupla de comparado y valor a comparar de la metodologia.
-	 */
-	public void setCondicionesFiltro(Set<CondicionFiltro> condiciones) {
-		this.condicionesFiltro = condiciones;
-	}
-	
-	/**
-	 * Devuelve la tupla de comparado y valor a comparar de la metodologia.
-	 */
-	public void setCondicionesOrdenamiento(Set<CondicionOrdenamiento> condiciones) {
-		this.condicionesOrdenamiento = condiciones;
-	}
 
 	/**
-	 * Calcula el valor de una metodologia para una determinada empresa, en un
-	 * periodo dado.
+	 * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
 	 */
-	public void calcularMetodologia(Metodologia metodologia) {
+	public void calcularMetodologia(Metodologia metodologia){
+		int posicion=0;
+		ResultadoCondicionado resultado;
 
-		System.out.println("calcular metodologia");
-
-		for (CondicionFiltro condicion : metodologia.getCondicionesFiltro()) {
-			listaFiltradaUOrdenada = condicion.evaluarCondicion(condicion);
+		for(CondicionFiltro condicion : metodologia.getCondicionesFiltro()){
+			listaFiltradaUOrdenada=condicion.evaluarCondicion(condicion);
 		}
-
-		for (CondicionOrdenamiento condicion : metodologia.getCondicionesOrdenamiento()) {
-			listaOrdenaUnaCondicion = condicion.evaluarCondicion(condicion, listaFiltradaUOrdenada);
-			for (int i = 0; i < listaOrdenaUnaCondicion.size(); i++) {
-				listaOrdenaUnaCondicion.get(i).setPosicionPonderable(i);
+		
+		List<String> listaNombres=new ArrayList<>();
+		for (int j=0;j<listaFiltradaUOrdenada.size();j++) {
+			listaNombres.add(listaFiltradaUOrdenada.get(j).getNombre());
+		}
+		
+		for(CondicionOrdenamiento condicion : metodologia.getCondicionesOrdenamiento()){		
+			listaOrdenaUnaCondicion=condicion.evaluarCondicion(condicion,listaFiltradaUOrdenada);		
+			for(int i=0;i<listaOrdenaUnaCondicion.size();i++) {					
+				resultado=listaOrdenaUnaCondicion.get(i);				
+				posicion=listaNombres.indexOf(resultado.getNombre());
+				listaFiltradaUOrdenada.get(posicion).setPosicionPonderable(i);				
 			}
 		}
-
-		Collections.sort(listaFiltradaUOrdenada);
-
-		for (int i = 0; i < listaFiltradaUOrdenada.size(); i++) {
-			System.out.println(listaFiltradaUOrdenada.get(i).getNombre());
-			System.out.println(listaFiltradaUOrdenada.get(i).getResultadoIndicador());
-		}
-		// volver a poner en cero los ponderable??
+		
+		Collections.sort(listaFiltradaUOrdenada);		
+		System.out.println("Resultado aplicacion de metodología: ");
+		for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
+		{
+			System.out.println(i+1+"-"+listaFiltradaUOrdenada.get(i).getNombre());			
+			//System.out.println(listaFiltradaUOrdenada.get(i).getPosicionPonderable());
+			listaFiltradaUOrdenada.get(i).setPosicionPonderableEmpty();	
+		}		
+	
 	}
 }

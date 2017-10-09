@@ -15,8 +15,11 @@ public class ResultadoCondicionado implements Comparable<ResultadoCondicionado> 
 		this.resultadoIndicador = resultadoIndicador;
 		this.posicionPonderable=0;
 	}
-
-
+	
+	public void setPosicionPonderableEmpty() {
+		posicionPonderable=0;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -45,6 +48,7 @@ public class ResultadoCondicionado implements Comparable<ResultadoCondicionado> 
 	}
 	
 	
+	
 	@Override	
 	public int compareTo(ResultadoCondicionado o) {
 		if (resultadoIndicador > o.resultadoIndicador) {
@@ -55,4 +59,7 @@ public class ResultadoCondicionado implements Comparable<ResultadoCondicionado> 
 		}
 		return 0;
 	}
+
+	
+
 }
