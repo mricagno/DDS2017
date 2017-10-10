@@ -16,7 +16,6 @@ public class Main {
 	public static void main(String[] args) throws ParseException {
 		MercadoBursatil mercado = MercadoBursatil.INSTANCE;	
 		mercado.init();
-		
         try {
             final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, new JsonApplication(), false);
             Runtime.getRuntime().addShutdownHook(new Thread(server::shutdownNow));

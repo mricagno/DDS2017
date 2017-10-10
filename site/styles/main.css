@@ -6,190 +6,209 @@ del texto
   background-color: #337ab7;
   background-image: linear-gradient(to bottom,#2e6da4 0,#337ab7 100%)
 }*/
-
 .navbar>.container-fluid .navbar-brand {
-  margin-left: 0;
+	margin-left: 0;
 }
 
 .navbar-nav .navbar-brand {
-  padding-left: 0;
+	padding-left: 0;
+}
+
+#platformRating {
+	display: inline-block;
+}
+
+#block_container
+{
+    text-align:center;
+}
+#bloc1, #bloc2
+{
+    display:inline;
 }
 
 form>.col-lg-6 {
-  width: 100%;
-  padding-right: 0;
+	width: 100%;
+	padding-right: 0;
 }
 
+.dynamic-content {
+    display:none;
+}
+<style type="text/css">
+div#dropdown1 {        /* this will hide div with id div_id_name */
+  display:none;
+}
+</style>
 .panel-body {
-  text-align: left;
+	text-align: left;
 }
 
 .panel-body.centered>nav {
-  text-align: center;
+	text-align: center;
 }
 
 .panel.criterios-seleccionables {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 
 .panel-body>.page-header {
-  text-align: left;
+	text-align: left;
 }
 
 .panel-body>.buttons {
-  text-align: center;
+	text-align: center;
 }
 
 .popup-bg {
-  display: none;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 0;
-  margin: 0;
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	padding: 0;
+	margin: 0;
 }
 
 .file-upload {
-  display: none;
-  position: fixed;
-  width: 50%;
-  top: 25%;
-  left: 25%;
+	display: none;
+	position: fixed;
+	width: 50%;
+	top: 25%;
+	left: 25%;
 }
 
 .manual-entry {
-  display: none;
-  position: fixed;
-  width: 75%;
-  top: 25%;
-  left: 12.5%;
+	display: none;
+	position: fixed;
+	width: 75%;
+	top: 25%;
+	left: 12.5%;
 }
 
 .fields>input {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 #file-upload-input {
-  padding-top: 5px;
-  padding-bottom: 15px;
+	padding-top: 5px;
+	padding-bottom: 15px;
 }
 
 .panel-body>.btn {
-  margin:  10px;
+	margin: 10px;
 }
 
 #brand-logo {
-  padding: 5px;
+	padding: 5px;
 }
 
 #brand-logo img {
-  height: 40px;
+	height: 40px;
 }
 
 .confirm-buttons {
-  text-align: right;
+	text-align: right;
 }
 
 .confirm-buttons>.btn {
-  margin: 5px;
+	margin: 5px;
 }
 
 .container-fluid.confirm-buttons {
-  padding-right: 0;
+	padding-right: 0;
 }
 
 .container-fluid.confirm-buttons>button {
-  margin-right: 0;
+	margin-right: 0;
 }
 
 .alert {
-  margin-top: -20px;
+	margin-top: -20px;
 }
 
 #uploadSuccess {
-  display: none;
+	display: none;
 }
 
 #registrySuccess {
-  display: none;
+	display: none;
 }
 
 #registryError {
-  display: none;
+	display: none;
 }
 
- 
 .empresa-logo {
-  width: 32px;
-  margin-right: 5px;
+	width: 32px;
+	margin-right: 5px;
 }
 
 .container-fluid.no-padding {
-  margin: 15px 0 0 0;
-  padding: 0;
+	margin: 15px 0 0 0;
+	padding: 0;
 }
 
 .container-fluid.right-aligned {
-  text-align: right;
+	text-align: right;
 }
 
 .table>thead>tr>td {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .table>thead>tr>th {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .table>tbody>tr>td {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .table>tbody>tr>th {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .cuentaValor {
-  text-align: right;
+	text-align: right;
 }
 
 #filters>.panel-body>.input-group {
-  margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 .panel-body>#btn-buscar {
-  text-align: right;
-  margin: 5px 0;
+	text-align: right;
+	margin: 5px 0;
 }
 
 body {
-  padding-top: 70px;
-  background-color: #fafafa;
+	padding-top: 70px;
+	background-color: #fafafa;
 }
 
 .condicion-metodologia {
-  display: table;
+	display: table;
 }
 
 .condicion1 {
-  display: none;
+	display: none;
 }
 
 .condicion2 {
-  display: none;
+	display: none;
 }
 
 .condicion3 {
-  display: none;
+	display: none;
 }
 
 .condicion4 {
-  display: none;
+	display: none;
 }
 
 .tabla-resultados {
-  display: none;
+	display: none;
 }

@@ -100,6 +100,8 @@ $(function() {
 									},
 									success : function(response) {
 										console.log("Success!");
+										var y = document.getElementById("dropdown1");
+										y.style.display = "block";
 										toggleRegistrySuccess();
 									}
 								});
@@ -212,6 +214,57 @@ $(function() {
 									dataType : "text",
 									contentType : "application/json",
 									data : JSON.stringify(data),
+									beforeSend : function() {
+										console
+												.log("[INFO] (AJAX) Enviando información del indicador...");
+									},
+									success : function() {
+										console.log("Success!");
+										toggleRegistrySuccess();
+									},
+									error : function(jqXHR, exception) {
+										var msg = '';
+										if (jqXHR.status === 0) {
+											msg = 'Not connect.\n Verify Network.';
+										} else if (jqXHR.status == 400) {
+											msg = 'Bad request. [400]';
+										} else if (jqXHR.status == 404) {
+											msg = 'Requested page not found. [404].';
+										} else if (jqXHR.status == 500) {
+											msg = 'Internal Server Error [500].';
+										} else if (exception === 'parsererror') {
+											msg = 'Requested JSON parse failed.\n'
+													+ jqXHR.responseText
+													+ '.\n'
+													+ jqXHR.status
+													+ '.';
+										} else if (exception === 'timeout') {
+											msg = 'Time out error.';
+										} else if (exception === 'abort') {
+											msg = 'Ajax request aborted.';
+										} else {
+											msg = 'Uncaught Error.\n'
+													+ jqXHR.responseText
+													+ '.\n' + jqXHR.status
+													+ '.';
+										}
+										console.log(msg);
+										registryError();
+									}
+								});
+					});
+});
+
+$(function() {
+	$("#btn-borrar-ind")
+			.click(
+					function() {
+						var nombre = $("#nombre").val();
+						$
+								.ajax({
+									type : 'DELETE',
+									url : "http://localhost:8080/dondeInvierto/indicadores/borrar/" + nombre,
+									contentType : "application/json",
 									beforeSend : function() {
 										console
 												.log("[INFO] (AJAX) Enviando información del indicador...");

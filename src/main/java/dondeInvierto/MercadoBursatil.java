@@ -2,6 +2,7 @@ package dondeInvierto;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -61,6 +62,9 @@ public enum MercadoBursatil {
 		this.indicadores = indicadores;
 	}
 	
+	public void setMetodlogias(List<Metodologia> metodologias) {
+		this.metodologias = metodologias;
+	}
 	/**
 	 * Setea el usuario logeado en el mercado bursátil.
 	 */
@@ -147,6 +151,21 @@ public enum MercadoBursatil {
 	 */
 	public Indicador getIndicador(String nombre) {
 		return getIndicadores().stream().filter(i -> (nombre.equals(i.getNombre()))).findFirst().orElse(null);
+	}
+	
+	/**
+	 * Borra el indicador deseado.
+	 */
+	public boolean delete_Indicador(String nombre) {
+		boolean borrado_exitoso = false;
+		for (Iterator<Indicador> iter = this.indicadores.listIterator(); iter.hasNext(); ) {
+		    Indicador a = iter.next();
+		    if (nombre.equals(a.getNombre())) {
+		        iter.remove();
+		        borrado_exitoso = true;
+		    }
+		}
+	return borrado_exitoso;
 	}
 
 	/**
