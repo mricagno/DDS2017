@@ -113,6 +113,10 @@ form>.col-lg-6 {
   display: none;
 }
 
+#uploadError {
+  display: none;
+}
+
 #registrySuccess {
   display: none;
 }

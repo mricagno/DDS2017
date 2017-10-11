@@ -17,6 +17,11 @@ function toggleFileUploadSuccess() {
     $("#uploadSuccess").delay(5000).fadeOut(200);
 }
 
+function toggleFileUploadError() {
+    $("#uploadError").fadeIn(200);
+    $("#uploadError").delay(5000).fadeOut(200);
+}
+
 function toggleRegistrySuccess() {
     $("#registrySuccess").fadeIn(200);
     $("#registrySuccess").delay(5000).fadeOut(200);
@@ -226,7 +231,8 @@ $(function () {
                         msg = 'Uncaught Error.\n' + jqXHR.responseText + '.\n' + jqXHR.status + '.';
                     }
                     console.log(msg);
-                    //registryError();
+                    toggleFileUploadPrompt();
+                    toggleFileUploadError();
                 }
             });
         }
