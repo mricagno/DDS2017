@@ -13,7 +13,8 @@ function toggleFileUploadPrompt() {
 }
 
 function toggleFileUploadSuccess() {
-    $("#uploadSuccess").fadeToggle();
+    $("#uploadSuccess").fadeIn(200);
+    $("#uploadSuccess").delay(5000).fadeOut(200);
 }
 
 function toggleRegistrySuccess() {
@@ -176,5 +177,58 @@ $(function () {
                 registryError();
             }
         });
+    });
+});
+
+$(function () {
+    $("#file-upload-btn").click(function () {
+        if (document.getElementById("archivo-cuentas").files.length == 0) {
+            console.log("[INFO] (AJAX) No hay archivo seleccionado.");
+        } else {
+            var formData = new FormData();
+            jQuery.each(jQuery('#archivo-cuentas')[0].files, function(i, file) {
+                formData.append('file-'+i, file);
+            });
+
+            $.ajax({
+                method: 'POST',
+                type: 'POST',
+                url: "http://localhost:8080/dondeInvierto/cuentas/subirArchivo",
+                dataType: "text",
+                contentType: false,
+                processData: false,
+                data: formData,
+                beforeSend: function () {
+                    console.log("[INFO] (AJAX) Enviando archivo de cuentas...");
+                },
+                success: function () {
+                    console.log("File received!");
+                    toggleFileUploadPrompt();
+                    toggleFileUploadSuccess();
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 400) {
+                        msg = 'Bad request. [400]';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404].';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.\n' + jqXHR.responseText + '.\n' + jqXHR.status + '.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText + '.\n' + jqXHR.status + '.';
+                    }
+                    console.log(msg);
+                    //registryError();
+                }
+            });
+        }
     });
 });

@@ -1,0 +1,16 @@
+[
+  {
+    "nombre": "Twitter Inc.",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "111"
+  },
+  {
+    "nombre": "Twitter Inc.",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "222"
+  }
+]

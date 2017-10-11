@@ -9,6 +9,7 @@ import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 import fileManagement.FileHandler;
 
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -26,7 +27,11 @@ public class TestFileUpload extends FileHandler {
 	
 	@Before
 	public void loadCuentas() throws ParseException {
-		listaArchivo = dispatchParser(readFile(filepath));
+		try {
+			listaArchivo = dispatchParser(readFile(filepath));
+		} catch (FileNotFoundException e) {
+			System.err.println("El archivo no pudo ser encontrado.");
+		}
 		
 		for (int i = 0; i < listaArchivo.size(); i++) {
 			cuentaActual = listaArchivo.get(i);

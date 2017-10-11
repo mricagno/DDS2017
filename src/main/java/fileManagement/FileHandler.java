@@ -7,16 +7,12 @@ import java.util.List;
 
 public class FileHandler extends GSONParser {
 	
-	public BufferedReader readFile(String filepath) {
+	public FileHandler() {
+	}
+	
+	public BufferedReader readFile(String filepath) throws FileNotFoundException {
 		BufferedReader br = null;
-		
-		try {
-			br = new BufferedReader(new FileReader(filepath));
-		} catch (FileNotFoundException e) {
-			System.out.println("El archivo especificado no pudo ser encontrado.");
-			e.printStackTrace();
-		}
-		
+		br = new BufferedReader(new FileReader(filepath));		
 		return br;
 	}
 	

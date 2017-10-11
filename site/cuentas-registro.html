@@ -115,12 +115,14 @@
             <div class="container-fluid">
               Elija el archivo de cuentas a subir:
             </div>
-            <div class="container-fluid" id="file-upload-input">
-              <input type="file" name="archivo-cuentas">
-            </div>
+            <form enctype="multipart/form-data" method="post" name="file-cuentas">
+              <div class="form-group" id="file-upload-input">
+                <input type="file" class="form-control-file" name="cuentas_file" id="archivo-cuentas" accept=".json">
+              </div>
+            </form>
             <div class="container-fluid confirm-buttons">
              <button type="button" class="btn btn-danger" onClick="toggleFileUploadPrompt()">Volver</button>
-             <button type="button" class="btn btn-success" onClick="uploadSuccess()">Subir</button>
+             <button type="button" class="btn btn-success" id="file-upload-btn">Subir</button>
            </div>
           </div>
         </div>
