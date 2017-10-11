@@ -3,7 +3,9 @@ package dondeInvierto;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,11 +23,11 @@ public class Empresa implements Comparable<Empresa> {
 	private int antiguedad;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "empresa_id")
-	private Set<Cuenta> cuentas;
+	private List<Cuenta> cuentas;
 
 	public Empresa(String nombre) {
 		this.nombre = nombre;
-		this.cuentas = new HashSet<Cuenta>();
+		this.cuentas = new ArrayList<Cuenta>();//new HashSet<Cuenta>();
 	}
 
 	public Empresa() {
@@ -67,11 +69,11 @@ public class Empresa implements Comparable<Empresa> {
 		return 0;
 	}
 
-	public Set<Cuenta> getCuentas() {
+	public List<Cuenta> getCuentas() {
 		if (this.cuentas != null) {
 			return this.cuentas;
 		} else {
-			Set<Cuenta> cuenta = new HashSet<Cuenta>();
+			List<Cuenta> cuenta = new ArrayList<Cuenta>();//new HashSet<Cuenta>();
 			this.cuentas = cuenta;
 			return this.cuentas;
 		}

@@ -18,13 +18,20 @@ del texto
 	display: inline-block;
 }
 
-#block_container
-{
-    text-align:center;
+#uploadError {
+	display: none;
 }
-#bloc1, #bloc2
-{
-    display:inline;
+
+#loginError {
+	display: none;
+}
+
+#block_container {
+	text-align: center;
+}
+
+#bloc1, #bloc2 {
+	display: inline;
 }
 
 form>.col-lg-6 {
@@ -33,14 +40,17 @@ form>.col-lg-6 {
 }
 
 .dynamic-content {
-    display:none;
+	display: none;
 }
-<style type="text/css">
-div#dropdown1 {        /* this will hide div with id div_id_name */
-  display:none;
+
+<
+style type ="text/css">div#dropdown1 {
+	/* this will hide div with id div_id_name */
+	display: none;
 }
-</style>
-.panel-body {
+
+</
+style>.panel-body {
 	text-align: left;
 }
 
@@ -130,6 +140,10 @@ div#dropdown1 {        /* this will hide div with id div_id_name */
 }
 
 #uploadSuccess {
+	display: none;
+}
+
+#loginSuccess {
 	display: none;
 }
 

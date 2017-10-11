@@ -16,14 +16,14 @@ public class CuentaService {
 		this.em = em;
 	};
 
-	// Crear cuenta en DB
+	// Crear cuenta en DB de empresa nueva
 	public Long addCuenta(String tipo, String periodo, String valor, Empresa empresa) throws ParseException {
-		empresa.addCuenta(new Cuenta(tipo, periodo, valor));
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
 		Long cuentaID = null;
 		try {
 			trx.begin();
+			empresa.addCuenta(new Cuenta(tipo, periodo, valor));
 			this.em.persist(empresa);
 			trx.commit();
 		} catch (HibernateException e) {
@@ -33,6 +33,30 @@ public class CuentaService {
 		}
 		return cuentaID;
 	}
+	
+	// Crear cuenta en DB de empresa existente
+	public void addCuenta_existCompany(String tipo, String periodo, String valor, Empresa empresa) throws ParseException {
+		
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		Empresa empresa_db = null;
+		//Long cuentaID = null;
+		try {
+			trx.begin();
+			List<Empresa> empresas = this.em
+					.createQuery("Select e FROM Empresa e WHERE e.nombre = :nombre", Empresa.class)
+					.setParameter("nombre", empresa.getNombre()).getResultList();
+			empresa_db = empresas.stream().findFirst().get();
+			empresa_db.addCuenta(new Cuenta(tipo, periodo, valor));
+			trx.commit();
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	// Devuelve todas las cuentas
 	public List<Cuenta> listCuentasAll() {

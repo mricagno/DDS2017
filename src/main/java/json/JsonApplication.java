@@ -2,6 +2,7 @@ package json;
 
 import javax.ws.rs.ApplicationPath;
 
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import dondeInvierto.resource.CuentaResource;
@@ -18,5 +19,6 @@ public class JsonApplication extends ResourceConfig {
         register(CuentaResource.class);
         register(UsuarioResource.class);
         register(MetodologiaResource.class);
+        register(MultiPartFeature.class);
 	}
 }

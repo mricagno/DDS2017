@@ -13,7 +13,16 @@ function toggleFileUploadPrompt() {
 }
 
 function toggleFileUploadSuccess() {
-	$("#uploadSuccess").fadeToggle();
+	$("#uploadSuccess").fadeIn(200);
+	$("#uploadSuccess").delay(5000).fadeOut(200);
+}
+function uploadSuccess() {
+	toggleFileUploadPrompt();
+	toggleFileUploadSuccess();
+}
+function toggleFileUploadError() {
+	$("#uploadError").fadeIn(200);
+	$("#uploadError").delay(5000).fadeOut(200);
 }
 
 function toggleRegistrySuccess() {
@@ -24,14 +33,21 @@ function registryError() {
 	$("#registryError").fadeIn(200);
 	$("#registryError").delay(5000).fadeOut(200);
 }
-function uploadSuccess() {
-	toggleFileUploadPrompt();
-	toggleFileUploadSuccess();
-}
 
 function registrySuccess() {
 	toggleManualEntryPrompt();
 	toggleRegistrySuccess();
+}
+function toggleLoginSuccess() {
+	$("#loginSuccess").fadeIn(200);
+	$("#loginSuccess").delay(5000).fadeOut(200);
+}
+function toggleLoginError() {
+	$("#loginError").fadeIn(200);
+	$("#loginError").delay(5000).fadeOut(200);
+}
+function loginSuccess() {
+	toggleLoginSuccess()
 }
 
 function toggleMetodologiaPrompt() {
@@ -96,13 +112,44 @@ $(function() {
 									contentType : "application/json",
 									data : JSON.stringify(data),
 									beforeSend : function() {
-										console.log("[INFO] (AJAX) Buscando información de usuarios...");
+										console
+												.log("[INFO] (AJAX) Buscando información de usuarios...");
 									},
 									success : function(response) {
 										console.log("Success!");
-										var y = document.getElementById("dropdown1");
+										var y = document
+												.getElementById("dropdown1");
 										y.style.display = "block";
-										toggleRegistrySuccess();
+										toggleLoginSuccess();
+									},
+									error : function(jqXHR, exception) {
+										var msg = '';
+										if (jqXHR.status === 0) {
+											msg = 'Not connect.\n Verify Network.';
+										} else if (jqXHR.status == 400) {
+											msg = 'Bad request. [400]';
+										} else if (jqXHR.status == 404) {
+											msg = 'Requested page not found. [404].';
+										} else if (jqXHR.status == 500) {
+											msg = 'Internal Server Error [500].';
+										} else if (exception === 'parsererror') {
+											msg = 'Requested JSON parse failed.\n'
+													+ jqXHR.responseText
+													+ '.\n'
+													+ jqXHR.status
+													+ '.';
+										} else if (exception === 'timeout') {
+											msg = 'Time out error.';
+										} else if (exception === 'abort') {
+											msg = 'Ajax request aborted.';
+										} else {
+											msg = 'Uncaught Error.\n'
+													+ jqXHR.responseText
+													+ '.\n' + jqXHR.status
+													+ '.';
+										}
+										console.log(msg);
+										toggleLoginError();
 									}
 								});
 					});
@@ -263,7 +310,8 @@ $(function() {
 						$
 								.ajax({
 									type : 'DELETE',
-									url : "http://localhost:8080/dondeInvierto/indicadores/borrar/" + nombre,
+									url : "http://localhost:8080/dondeInvierto/indicadores/borrar/"
+											+ nombre,
 									contentType : "application/json",
 									beforeSend : function() {
 										console
@@ -306,8 +354,6 @@ $(function() {
 					});
 });
 
-
-
 $(function() {
 	$("#btn-buscar-meto")
 			.click(
@@ -325,21 +371,90 @@ $(function() {
 												.log("[INFO] (AJAX) Buscando información de metodologias...");
 									},
 									success : function(response) {
-										$.each(response, function(index,
-												element) {
-											$('#tabla-metodologias').append(
-													$('<tr><th scope="row">'
-															+ (index + 1)
-															+ '</th><td>'
-															+ element.nombre
-															+ '</td><td>'
-															+ element.condicionesFiltro
-															+ '</td></tr>'
-															+ element.condicionesOrdenamiento
-															+ '</td></tr>'
-													));
-										});
+										$
+												.each(
+														response,
+														function(index, element) {
+															$(
+																	'#tabla-metodologias')
+																	.append(
+																			$('<tr><th scope="row">'
+																					+ (index + 1)
+																					+ '</th><td>'
+																					+ element.nombre
+																					+ '</td><td>'
+																					+ element.condicionesFiltro
+																					+ '</td></tr>'
+																					+ element.condicionesOrdenamiento
+																					+ '</td></tr>'));
+														});
 									}
 								});
+					});
+});
+$(function() {
+	$("#file-upload-btn")
+			.click(
+					function() {
+						if (document.getElementById("archivo-cuentas").files.length == 0) {
+							console
+									.log("[INFO] (AJAX) No hay archivo seleccionado.");
+						} else {
+							var formData = new FormData();
+							jQuery.each(jQuery('#archivo-cuentas')[0].files,
+									function(i, file) {
+										formData.append('file-' + i, file);
+									});
+
+							$
+									.ajax({
+										method : 'POST',
+										type : 'POST',
+										url : "http://localhost:8080/dondeInvierto/cuentas/subirArchivo",
+										dataType : "text",
+										contentType : false,
+										processData : false,
+										data : formData,
+										beforeSend : function() {
+											console
+													.log("[INFO] (AJAX) Enviando archivo de cuentas...");
+										},
+										success : function() {
+											console.log("File received!");
+											toggleFileUploadPrompt();
+											toggleFileUploadSuccess();
+										},
+										error : function(jqXHR, exception) {
+											var msg = '';
+											if (jqXHR.status === 0) {
+												msg = 'Not connect.\n Verify Network.';
+											} else if (jqXHR.status == 400) {
+												msg = 'Bad request. [400]';
+											} else if (jqXHR.status == 404) {
+												msg = 'Requested page not found. [404].';
+											} else if (jqXHR.status == 500) {
+												msg = 'Internal Server Error [500].';
+											} else if (exception === 'parsererror') {
+												msg = 'Requested JSON parse failed.\n'
+														+ jqXHR.responseText
+														+ '.\n'
+														+ jqXHR.status
+														+ '.';
+											} else if (exception === 'timeout') {
+												msg = 'Time out error.';
+											} else if (exception === 'abort') {
+												msg = 'Ajax request aborted.';
+											} else {
+												msg = 'Uncaught Error.\n'
+														+ jqXHR.responseText
+														+ '.\n' + jqXHR.status
+														+ '.';
+											}
+											console.log(msg);
+											toggleFileUploadPrompt();
+											toggleFileUploadError();
+										}
+									});
+						}
 					});
 });
