@@ -1,19 +1,16 @@
 package dondeInvierto.resource;
 
-import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 import javax.persistence.EntityManager;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 import db.MetodologiaService;
 import dondeInvierto.Metodologia;
+import dondeInvierto.CondicionFiltro;
+import dondeInvierto.CondicionOrdenamiento;
 import dondeInvierto.MercadoBursatil;
 
 @Path("metodologias")
@@ -22,18 +19,31 @@ public class MetodologiaResource {
 
 	@GET
 	@Produces("application/json")
-	public String getIndicadores() {	
+	public String getMetodologias() {	
 		JsonArrayBuilder jsonArrBuilder = Json.createArrayBuilder();   
+		System.out.println("test");
 		EntityManager em = mercado.getFactory().createEntityManager();
 		MetodologiaService metodologias_DB = new MetodologiaService(em);
-		mercado.setMetodlogias(metodologias_DB.getMetodologias());
+		mercado.setMetodologias(metodologias_DB.getMetodologias());
 		em.close();
 		for(Metodologia met : mercado.getMetodologias()) {
 			jsonArrBuilder.add(Json.createObjectBuilder()
 					.add("nombre", met.getNombre())
-/*					.add("CondicionesFiltro", (JsonValue) met.getCondicionesFiltro())
-					.add("CondicionesOrdenamiento", (JsonValue) met.getCondicionesOrdenamiento()*/
 					);
+			System.out.println(met.getNombre());
+			/*for(CondicionFiltro filt : met.getCondicionesFiltro()) {	
+				jsonArrBuilder.add(Json.createObjectBuilder()
+						.add("condicionesFiltro", filt.getNombre())
+						);	
+				System.out.println(filt.getNombre());
+					}	
+			for(CondicionOrdenamiento Ord : met.getCondicionesOrdenamiento()) {	
+				jsonArrBuilder.add(Json.createObjectBuilder()
+						.add("condicionesOrdenamiento", Ord.getNombre())
+						);	
+				System.out.println(Ord.getNombre());
+					}*/
+			
 		}
 		return jsonArrBuilder.build().toString();
 	}
@@ -50,7 +60,7 @@ public class MetodologiaResource {
         		.build().toString();
     }
     
-    @Path("/nuevo")
+    /*@Path("/nuevo")
     @POST
 	@Consumes("application/json")
     @Produces("text/plain")
@@ -68,6 +78,8 @@ public class MetodologiaResource {
     	}
     	return Response.created(URI.create(json.getString("nombre"))).build();
     }*/
-	return null;
+	//return null;
     
-}}
+//}
+    
+}

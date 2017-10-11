@@ -7,6 +7,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import dondeInvierto.resource.CuentaResource;
 import dondeInvierto.resource.EmpresaResource;
 import dondeInvierto.resource.IndicadorResource;
+import dondeInvierto.resource.MetodologiaResource;
 import dondeInvierto.resource.UsuarioResource;
 
 @ApplicationPath("/")
@@ -16,5 +17,6 @@ public class JsonApplication extends ResourceConfig {
         register(EmpresaResource.class);
         register(CuentaResource.class);
         register(UsuarioResource.class);
+        register(MetodologiaResource.class);
 	}
 }

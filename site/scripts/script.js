@@ -305,3 +305,41 @@ $(function() {
 								});
 					});
 });
+
+
+
+$(function() {
+	$("#btn-buscar-meto")
+			.click(
+					function() {
+						$("#tabla-resultados").show();
+						$('#tabla-metodologias').replaceWith(
+								$('<tbody id="tabla-metodologias"></tbody>'));
+						$
+								.ajax({
+									type : 'GET',
+									url : "http://localhost:8080/dondeInvierto/metodologias/",
+									dataType : "json",
+									beforeSend : function() {
+										console
+												.log("[INFO] (AJAX) Buscando información de metodologias...");
+									},
+									success : function(response) {
+										$.each(response, function(index,
+												element) {
+											$('#tabla-metodologias').append(
+													$('<tr><th scope="row">'
+															+ (index + 1)
+															+ '</th><td>'
+															+ element.nombre
+															+ '</td><td>'
+															+ element.condicionesFiltro
+															+ '</td></tr>'
+															+ element.condicionesOrdenamiento
+															+ '</td></tr>'
+													));
+										});
+									}
+								});
+					});
+});

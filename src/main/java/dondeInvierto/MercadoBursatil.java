@@ -2,17 +2,21 @@ package dondeInvierto;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import db.CondicionService;
 import db.CuentaService;
 import db.DB_Manager;
 import db.EmpresaService;
 import db.IndicadorService;
 import db.MercadoBursatilService;
+import db.MetodologiaService;
 import db.UsuarioService;
 
 /**
@@ -38,7 +42,7 @@ public enum MercadoBursatil {
 		DB_Manager DBManager = DB_Manager.getSingletonInstance();
 		this.factory = DBManager.getEmf();
 		EntityManager em = factory.createEntityManager();
-		//this.init_db(em);
+		// this.init_db(em);
 		this.init_model(em);
 	}
 
@@ -47,8 +51,8 @@ public enum MercadoBursatil {
 	 */
 
 	public Usuario getUsuario(String usuario, String password) {
-		return this.usuarios.stream().filter(u -> usuario.equals(u.getUsuario())).filter(u1 -> password.equals(u1.getPass()))
-				.findFirst().orElse(null);
+		return this.usuarios.stream().filter(u -> usuario.equals(u.getUsuario()))
+				.filter(u1 -> password.equals(u1.getPass())).findFirst().orElse(null);
 	}
 
 	/**
@@ -57,14 +61,15 @@ public enum MercadoBursatil {
 	public List<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
-	
+
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
-	
-	public void setMetodlogias(List<Metodologia> metodologias) {
+
+	public void setMetodologias(List<Metodologia> metodologias) {
 		this.metodologias = metodologias;
 	}
+
 	/**
 	 * Setea el usuario logeado en el mercado bursátil.
 	 */
@@ -78,7 +83,6 @@ public enum MercadoBursatil {
 	public void addUsuario(String nombre, String password, int cant_int) {
 		getUsuarios().add(new Usuario(nombre, password, cant_int));
 	}
-	
 
 	/**
 	 * Devuelve la empresa con el nombre buscado.
@@ -152,20 +156,20 @@ public enum MercadoBursatil {
 	public Indicador getIndicador(String nombre) {
 		return getIndicadores().stream().filter(i -> (nombre.equals(i.getNombre()))).findFirst().orElse(null);
 	}
-	
+
 	/**
 	 * Borra el indicador deseado.
 	 */
 	public boolean delete_Indicador(String nombre) {
 		boolean borrado_exitoso = false;
-		for (Iterator<Indicador> iter = this.indicadores.listIterator(); iter.hasNext(); ) {
-		    Indicador a = iter.next();
-		    if (nombre.equals(a.getNombre())) {
-		        iter.remove();
-		        borrado_exitoso = true;
-		    }
+		for (Iterator<Indicador> iter = this.indicadores.listIterator(); iter.hasNext();) {
+			Indicador a = iter.next();
+			if (nombre.equals(a.getNombre())) {
+				iter.remove();
+				borrado_exitoso = true;
+			}
 		}
-	return borrado_exitoso;
+		return borrado_exitoso;
 	}
 
 	/**
@@ -218,6 +222,7 @@ public enum MercadoBursatil {
 	public List<Metodologia> getMetodologias() {
 		return this.metodologias;
 	}
+
 	public EntityManagerFactory getFactory() {
 		return this.factory;
 	}
@@ -254,6 +259,8 @@ public enum MercadoBursatil {
 		CuentaService cuenta = new CuentaService(em);
 		IndicadorService indicador = new IndicadorService(em);
 		UsuarioService usuario = new UsuarioService(em);
+		MetodologiaService metodologia = new MetodologiaService(em);
+		CondicionService condicion = new CondicionService(em);
 		usuario.addUsuario("gonzalo", "gonzalo", 0);
 		usuario.addUsuario("patricio", "patricio", 0);
 		usuario.addUsuario("gian", "gian", 0);
@@ -288,15 +295,32 @@ public enum MercadoBursatil {
 				"Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
 		indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos", "DEFAULT"));
 		indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+		CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10,
+				new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+		CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10,
+				new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
+		CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0,
+				new Indicador("Proporcion De Deuda",
+						"Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
+		Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
+		Set<CondicionOrdenamiento> condicionesOrdenamiento = new HashSet<>();
+		condicionesFiltro.add(filtro1);
+		condicionesOrdenamiento.add(orden1);
+		condicionesOrdenamiento.add(orden2);
+		metodologia.setMetodologia("metodologia1", condicionesFiltro, condicionesOrdenamiento, "DEFAULT");
 		em.close();
 	}
 
 	public void init_model(EntityManager em) throws ParseException {
 		MercadoBursatilService modelService = new MercadoBursatilService(em);
 		this.empresas = modelService.generate_empresa_model();
+		if (this.empresas.isEmpty()) {
+			this.init_db(em);
+		}
+		this.empresas = modelService.generate_empresa_model();
 		this.indicadores = modelService.generate_indicador_model();
 		this.usuarios = modelService.generate_usuario_model();
-		//this.usuario_logueado = new Usuario((long)1, "TEST" , "test", 0);
+		this.metodologias = modelService.generate_metodologias_model();
 	}
 
 	public void close() {

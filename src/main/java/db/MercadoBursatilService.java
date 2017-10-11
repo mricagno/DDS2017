@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
+import dondeInvierto.Metodologia;
 import dondeInvierto.Usuario;
 
 public class MercadoBursatilService {
@@ -30,6 +31,12 @@ public class MercadoBursatilService {
 		UsuarioService usuario = new UsuarioService(em);
 		List<Usuario> usuarios = usuario.listUsuarios();
 		return usuarios;
+	}
+	
+	public List<Metodologia> generate_metodologias_model() {
+		MetodologiaService metodologia = new MetodologiaService(em);
+		List<Metodologia> metodologias = metodologia.getMetodologias();
+		return metodologias;
 	}
 	
 }
