@@ -9,8 +9,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import db.MetodologiaService;
 import dondeInvierto.Metodologia;
-import dondeInvierto.CondicionFiltro;
-import dondeInvierto.CondicionOrdenamiento;
 import dondeInvierto.MercadoBursatil;
 
 @Path("metodologias")

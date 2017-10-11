@@ -40,9 +40,9 @@ public class Metodologia {
     inverseJoinColumns = @JoinColumn(name = "condicionOrdenamiento_id"))
 	private Set<CondicionOrdenamiento> condicionesOrdenamiento;
 	@Transient
-	private List<ResultadoCondicionado> listaFiltradaUOrdenada = new ArrayList<>();
+	private List<ResultadoCondicionado> listaFiltradaUOrdenada;
 	@Transient
-	private List<ResultadoCondicionado> listaOrdenaUnaCondicion = new ArrayList<>();
+	private List<ResultadoCondicionado> listaOrdenaUnaCondicion;
 
 	public Metodologia(String nombre, Set<CondicionFiltro> condicionesFiltro,
 			Set<CondicionOrdenamiento> condicionesOrdenamiento, String creador) {

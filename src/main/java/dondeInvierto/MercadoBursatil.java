@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import db.CondicionService;
 import db.CuentaService;
 import db.DB_Manager;
 import db.EmpresaService;
@@ -260,7 +259,6 @@ public enum MercadoBursatil {
 		IndicadorService indicador = new IndicadorService(em);
 		UsuarioService usuario = new UsuarioService(em);
 		MetodologiaService metodologia = new MetodologiaService(em);
-		CondicionService condicion = new CondicionService(em);
 		usuario.addUsuario("gonzalo", "gonzalo", 0);
 		usuario.addUsuario("patricio", "patricio", 0);
 		usuario.addUsuario("gian", "gian", 0);
@@ -308,7 +306,7 @@ public enum MercadoBursatil {
 		condicionesOrdenamiento.add(orden1);
 		condicionesOrdenamiento.add(orden2);
 		metodologia.setMetodologia("metodologia1", condicionesFiltro, condicionesOrdenamiento, "DEFAULT");
-		em.close();
+		//em.close();
 	}
 
 	public void init_model(EntityManager em) throws ParseException {
