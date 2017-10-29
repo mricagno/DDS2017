@@ -17,7 +17,7 @@ public class TestIndicadorSegundoParse extends FileHandler {
 	private Empresa facebook;
 	
 	@Before
-	public void inicializar() {
+	public void inicializar() throws Exception {
 		try {
 			mercado.init();
 		} catch (ParseException e) {

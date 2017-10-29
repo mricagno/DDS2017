@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
 import db.CuentaService;
 import db.DB_Manager;
 import db.EmpresaService;
@@ -33,15 +32,13 @@ public enum MercadoBursatil {
 
 	/**
 	 * Agrega datos de prueba (empresas, cuentas e indicadores) al mercado bursátil.
-	 * 
-	 * @throws ParseException
+	 * @throws Exception 
 	 */
-	public void init() throws ParseException {
+	public void init() throws Exception {
 
 		DB_Manager DBManager = DB_Manager.getSingletonInstance();
 		this.factory = DBManager.getEmf();
 		EntityManager em = factory.createEntityManager();
-		// this.init_db(em);
 		this.init_model(em);
 	}
 
@@ -50,6 +47,7 @@ public enum MercadoBursatil {
 	 */
 
 	public Usuario getUsuario(String usuario, String password) {
+		
 		return this.usuarios.stream().filter(u -> usuario.equals(u.getUsuario()))
 				.filter(u1 -> password.equals(u1.getPass())).findFirst().orElse(null);
 	}
@@ -253,7 +251,7 @@ public enum MercadoBursatil {
 		return getMetodologias().stream().anyMatch(m -> nombre.equals(m.getNombre()));
 	}
 
-	public void init_db(EntityManager em) throws ParseException {
+	public void init_db(EntityManager em) throws Exception {
 		EmpresaService empresa = new EmpresaService(em);
 		CuentaService cuenta = new CuentaService(em);
 		IndicadorService indicador = new IndicadorService(em);
@@ -309,7 +307,7 @@ public enum MercadoBursatil {
 		//em.close();
 	}
 
-	public void init_model(EntityManager em) throws ParseException {
+	public void init_model(EntityManager em) throws Exception {
 		MercadoBursatilService modelService = new MercadoBursatilService(em);
 		this.empresas = modelService.generate_empresa_model();
 		if (this.empresas.isEmpty()) {

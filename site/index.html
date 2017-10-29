@@ -77,6 +77,24 @@
       </div>
     </nav>
 
+	<div class="alert alert-success alert-dismissible" role="alert"
+		id="loginSuccess">
+		<button type="button" class="close" aria-label="Close"
+			onClick="toggleLoginSuccess()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>E&#769;xito!</strong> Se ha iniciado sesio&#769;n.
+	</div>
+
+	<div class="alert alert-danger alert-dismissible" role="alert"
+		id="loginError">
+		<button type="button" class="close" aria-label="Close"
+			onClick="toggleLoginError()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<strong>Error!</strong> Error al loguearse.
+	</div>
+
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-body">
@@ -95,25 +113,7 @@
         </div>
       </div>
     </div>
-    <div class="alert alert-success alert-dismissible" role="alert"
-		id="loginSuccess">
-		<button type="button" class="close" aria-label="Close"
-			onClick="toggleLoginSuccess()">
-			<span aria-hidden="true">&times;</span>
-		</button>
-		<strong>E&#769;xito!</strong> Se ha iniciado sesio&#769;n.
-	</div>
-	+
-	<div class="alert alert-danger alert-dismissible" role="alert"
-		id="loginError">
-		+
-		<button type="button" class="close" aria-label="Close"
-			onClick="toggleLoginError()">
-			+ <span aria-hidden="true">&times;</span>
-		</button>
-		+ <strong>Error!</strong> Error al loguearse.
-		+
-	</div>
+    
 <div class="container" style="margin-top: 30px">
 		<br>
 		<div class="col-md-12">
@@ -154,6 +154,8 @@
 	</div>
     <script src="scripts/jquery-3.2.0.js"></script>
     	<script src="scripts/script.js"></script>
+    	<script src="https://apis.google.com/js/platform.js" async defer></script>
+    	<meta name="google-signin-client_id" content="tp-dds-184118.apps.googleusercontent.com">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>

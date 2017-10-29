@@ -24,8 +24,6 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import db.CuentaService;
-import db.EmpresaService;
-import db.IndicadorService;
 import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;

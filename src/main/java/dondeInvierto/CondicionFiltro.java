@@ -136,7 +136,6 @@ public class CondicionFiltro extends Condicion {
 				int flag = 0;
 				List<String> listaPeriodos=new ArrayList<>();
 				//asumiendo que las cuentas ingresan ordenadas de mas nueva a mas antigua por periodo
-				@SuppressWarnings("unchecked")
 				List<Cuenta> cuentasOrdenadasDescendientemente = (List<Cuenta>) empresa.getCuentas();
 				//Collections.sort(cuentasOrdenadasDescendientemente);
 				for(Cuenta cuenta : cuentasOrdenadasDescendientemente){
@@ -171,8 +170,6 @@ public class CondicionFiltro extends Condicion {
 				
 				
 			}
-			
-		//case "anios":
 			
 		}
 		return resultadoCondicion;

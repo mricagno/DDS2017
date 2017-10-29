@@ -4,9 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NamedQueries(value = { @NamedQuery(name = "Empresa.getAll", query = "SELECT b FROM Empresa b") })
