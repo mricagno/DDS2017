@@ -41,6 +41,9 @@ public class Condicion {
 		this.indicador = indicador;
 	}
 
+	public Condicion() {
+	}
+
 	public List<ResultadoCondicionado> getVectorCondicion() {
 		return resultadoCondicion;
 	}
