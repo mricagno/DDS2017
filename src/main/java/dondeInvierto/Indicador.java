@@ -1,44 +1,54 @@
 package dondeInvierto;
 
+import javax.persistence.*;
+
 import antlr4.Antlr;
 
-/**
- * El indicador está definido por un nombre y la fórmula para calcularlo.
- */
+@Entity
+@NamedQueries(value = { @NamedQuery(name = "Indicador.getAll", query = "SELECT b FROM Indicador b") })
+@Table(name = "indicador")
 public class Indicador {
+	@Id
+	@GeneratedValue
+	private Long id;
+	@Column(name = "NOMBRE")
 	private String nombre;
+	@Column(name = "FORMULA")
 	private String formula;
-	
-	/**
-	 * Constructor del indicador. Valida que la fórmula tenga una estructura aritmética
-	 * lógica; de no ser así, devuelve un error.
-	 * 
-	 * @throws Exception 
-	 */
-	public Indicador(String nombre, String formula) throws IllegalStateException {
+	@Column(name = "CREADOR")
+	private String creadoPor;
+
+	public Indicador(String nombre, String formula, String creador) throws IllegalStateException {
 		if (Antlr.parseString(formula)) {
 			this.nombre = nombre;
 			this.formula = formula;
+			this.creadoPor = creador;
 		}
 	}
-	
-	/**
-	 * Devuelve el nombre del indicador.
-	 */
+
+	public Indicador() {
+	};
+
 	public String getNombre() {
 		return this.nombre;
 	}
 	
-	/**
-	 * Devuelve la fórmula del indicador.
-	 */
+	public String getCreador() {
+		return this.creadoPor;
+	}
+
 	public String getFormula() {
 		return this.formula;
-	}	
-	
-	/**
-	 * Calcula el valor de un indicador para una determinada empresa, en un periodo dado.
-	 */
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Double getValorFor(Empresa empresa, String periodo) {
 		return Antlr.calculate(this.getFormula(), empresa, periodo);
 	}

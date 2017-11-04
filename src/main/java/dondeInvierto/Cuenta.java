@@ -1,51 +1,66 @@
 package dondeInvierto;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * La cuenta está definida por un tipo, un periodo y un valor
- */
+@Entity
+@NamedQueries(value = {
+	    @NamedQuery(name = "Cuenta.getAll", query = "SELECT b FROM Cuenta b")
+	})
+@Table(name = "cuenta")
 public class Cuenta {
+	@Id
+	@GeneratedValue
+	@NotNull
+	private Long cuentaID;
+	@Column(name = "TIPO")
 	private String tipo;
+	@Column(name = "PERIODO")
 	private Date periodo;
+	@Column(name = "VALOR")
 	private double valor;
 
-	/**
-	 * Constructor de la cuenta.
-	 */
-	public Cuenta (String tipo, String periodo, String valor) throws ParseException {
+	public Cuenta(String tipo, String periodo, String valor) throws ParseException {
 		this.tipo = tipo;
 		this.periodo = new SimpleDateFormat("yyyyMMdd").parse(periodo);
 		this.valor = Double.parseDouble(valor);
 	}
+
+	public Cuenta() {
+	};
+
 	
-	/**
-	 * Devuelve el tipo de la cuenta.
-	 */
 	public String getTipo() {
 		return this.tipo;
 	}
+
 	
-	/**
-	 * Devuelve el periodo de la cuenta.
-	 */
 	public Date getPeriodo() {
 		return this.periodo;
 	}
-	
-	/**
-	 * Devuelve el periodo de la cuenta como un string.
-	 */
+
 	public String getPeriodoAsString() {
 		return new SimpleDateFormat("yyyyMMdd").format(this.periodo);
 	}
+
 	
-	/**
-	 * Devuelve el valor de la cuenta.
-	 */
 	public double getValor() {
 		return this.valor;
 	}
+
+	public Long getId() {
+		return this.cuentaID;
+	}
+
+	public void setId(Long id) {
+		this.cuentaID = id;
+	}
+	
+	public void setValor(Double valor) {
+		this.valor = valor;
+	};
+
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
+		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>dondeInvierto.Empresa</class>
+		<class>dondeInvierto.Cuenta</class>
+		<class>dondeInvierto.Indicador</class>
+		<class>dondeInvierto.Condicion</class>
+		<class>dondeInvierto.CondicionFiltro</class>
+		<class>dondeInvierto.CondicionOrdenamiento</class>
+		<class>dondeInvierto.Metodologia</class>
+		<class>dondeInvierto.Usuario</class>
+		<properties>
+			<property name="hibernate.archive.autodetection" value="class" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/DDS_2017_TP" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="dds2017" ></property>
+			<property name="connection.pool_size" value="5" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+
+			<property name="hibernate.show_sql" value="true" ></property>
+			<property name="hibernate.format_sql" value="true" />
+			<property name="use_sql_comments" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+		</properties>
+	</persistence-unit>
+</persistence> 

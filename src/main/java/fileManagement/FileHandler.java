@@ -7,23 +7,18 @@ import java.util.List;
 
 public class FileHandler extends GSONParser {
 	
-	public BufferedReader readFile(String filepath) {
+	public FileHandler() {
+	}
+	
+	public BufferedReader readFile(String filepath) throws FileNotFoundException {
 		BufferedReader br = null;
-		
-		try {
-			br = new BufferedReader(new FileReader(filepath));
-		} catch (FileNotFoundException e) {
-			System.out.println("El archivo especificado no pudo ser encontrado.");
-			e.printStackTrace();
-		}
-		
+		br = new BufferedReader(new FileReader(filepath));		
 		return br;
 	}
 	
 	/* public String determineType(String filepath) {
 		return filepath.substring(filepath.indexOf('.', 0));
 	}
-
 	public List<Empresa> dispatchParser(String extension, BufferedReader br) {
 	
 		List<Empresa> cuentas = new ArrayList<Empresa>();

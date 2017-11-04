@@ -56,7 +56,11 @@ public class Antlr {
 			System.err.println("[ERROR] (ANTLR) No existe la empresa especificada.");
 		} else {
 			EvalVisitor evaluador = new EvalVisitor(empresa, periodo);
-			resultado = evaluador.visit(arbol);
+			try {
+				resultado = evaluador.visit(arbol);
+			} catch (Exception e) {
+				System.out.println(e.getMessage().toString());
+			}
 		}
 			
 		return resultado;

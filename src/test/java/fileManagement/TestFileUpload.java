@@ -9,6 +9,7 @@ import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 import fileManagement.FileHandler;
 
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class TestFileUpload extends FileHandler {
 	Empresa twitter = new Empresa("Twitter Inc.");
 	
 	@Before
-	public void loadCuentas() throws ParseException {
+	public void loadCuentas() throws ParseException, FileNotFoundException {
 		listaArchivo = dispatchParser(readFile(filepath));
 		
 		for (int i = 0; i < listaArchivo.size(); i++) {

@@ -32,7 +32,7 @@
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" id="dropdown1">
               <li><a href="index.html">Inicio <span class="sr-only">(current)</span></a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuentas <span class="caret"></span></a>
@@ -46,6 +46,7 @@
                 <ul class="dropdown-menu">
                   <li><a href="#">Registro</a></li>
                   <li><a href="indicadores-consulta.html">Consulta</a></li>
+                  <li><a href="indicadores-borrar.html">Borrar</a></li>
                 </ul>
               </li>
               <li class="dropdown">
@@ -79,7 +80,13 @@
     <div class="alert alert-success alert-dismissible" role="alert" id="registrySuccess">
       <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
         <span aria-hidden="true">&times;</span></button>
-      <strong>E&#769;xito!</strong> La cuenta se registro&#769; correctamente.
+      <strong>E&#769;xito!</strong> El indicador se registro&#769; correctamente.
+    </div>
+
+    <div class="alert alert-danger alert-dismissible" role="alert" id="registryError">
+      <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
+        <span aria-hidden="true">&times;</span></button>
+      <strong>Error!</strong> El indicador no se registro&#769;.
     </div>
 
     <div class="container">
@@ -97,7 +104,7 @@
               <input type="text" class="form-control" placeholder="Fo&#769;rmula" id="formula">
             </div>
             <div class="container-fluid confirm-buttons">
-              <button type="button" class="btn btn-success" id="btn-registro-ind" onClick="registrySuccess()">Registrar</button>
+              <button type="button" class="btn btn-success" id="btn-registro-ind">Registrar</button>
             </div>
           </div>
         </div>
@@ -105,7 +112,7 @@
     </div>
 
     <script src="scripts/jquery-3.2.0.js"></script>
-    <script src="scripts/script.js"></script>
+    <script src="scripts/script.js?t=1505655903377"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
