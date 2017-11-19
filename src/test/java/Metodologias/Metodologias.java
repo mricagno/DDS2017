@@ -101,24 +101,39 @@ public class Metodologias {
 		
 		// TEST METODOLOGIA WARREN BUFFET
 		
-		Set<CondicionFiltro> condicionesFiltroWB = new HashSet<>();
-		Set<CondicionOrdenamiento> condicionesOrdenamientoWB = new HashSet<>();
-		CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen"));
-		CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio"));
-		
-		CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe","ascendente",10,mercado.getIndicador("Roe"));
-		CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda","descendente",0,mercado.getIndicador("Proporcion De Deuda"));
+				Set<CondicionFiltro> condicionesFiltroWB = new HashSet<>();
+				Set<CondicionOrdenamiento> condicionesOrdenamientoWB = new HashSet<>();
+				CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen"));
+				CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Roe"));
+				
+				CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe","ascendente",10,mercado.getIndicador("Roe"));
+				CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda","descendente",0,mercado.getIndicador("Proporcion De Deuda"));
 
-		//CondicionFiltro condFiltroWB1 = new CondicionFiltro("ROEMejorUltimosAnios", "ROEMejorUltimosAnios", 1.00, mercado.getIndicador("Margen"));
-		//ondicionOrdenamiento condOrdenamientoWB1= new CondicionOrdenamiento("CondOrdAscendente","ascendente",0,mercado.getIndicador("Indicador Vacio"));		
-		
-		condicionesOrdenamientoWB.add(ordenWB1);
-		condicionesOrdenamientoWB.add(ordenWB2);
-		condicionesFiltroWB.add(filtroWB3);
-		condicionesFiltroWB.add(filtroWB4);
-		
-		mercado.addMetodologia("warrenBuffet", condicionesFiltroWB, condicionesOrdenamientoWB,"DEFAULT");
-		
+				//CondicionFiltro condFiltroWB1 = new CondicionFiltro("ROEMejorUltimosAnios", "ROEMejorUltimosAnios", 1.00, mercado.getIndicador("Margen"));
+				//ondicionOrdenamiento condOrdenamientoWB1= new CondicionOrdenamiento("CondOrdAscendente","ascendente",0,mercado.getIndicador("Indicador Vacio"));		
+				
+				condicionesOrdenamientoWB.add(ordenWB1);
+				condicionesOrdenamientoWB.add(ordenWB2);
+				condicionesFiltroWB.add(filtroWB3);
+				condicionesFiltroWB.add(filtroWB4);
+				
+				mercado.addMetodologia("warrenBuffet", condicionesFiltroWB, condicionesOrdenamientoWB,"DEFAULT");
+				
+				// TEST METODOLOGIA TEST METODOLOGIA
+				
+						Set<CondicionFiltro> condicionesFiltroTM = new HashSet<>();
+						Set<CondicionOrdenamiento> condicionesOrdenamientoTM = new HashSet<>();
+						CondicionFiltro filtroTM = new CondicionFiltro("MenorQue8000", "<", 8000.00, mercado.getIndicador("Margen"));
+						CondicionFiltro filtroTM2= new CondicionFiltro("CondMayorRoe", ">", 8, mercado.getIndicador("Indicador Vacio"));
+						
+						CondicionOrdenamiento ordenTM = new CondicionOrdenamiento("CondOrdDividendos","descendente",5,mercado.getIndicador("Dividendos"));
+										
+						condicionesOrdenamientoTM.add(ordenTM);
+						condicionesFiltroTM.add(filtroTM);
+						condicionesFiltroTM.add(filtroTM2);
+						
+						mercado.addMetodologia("TestMetodologia", condicionesFiltroTM, condicionesOrdenamientoTM,"DEFAULT");
+						
 		
 	
 	}
