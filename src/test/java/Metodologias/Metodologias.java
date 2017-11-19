@@ -43,15 +43,15 @@ public class Metodologias {
 		mercado.addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
 		mercado.addCuenta("Facebook Inc.", "FCF", "20161231", "399");
 		
-		mercado.addCuenta("Tesla Inc.", "EBITDA", "20151231", "213");		
-		mercado.addCuenta("Tesla Inc.", "FCF", "20151231", "230");
-		mercado.addCuenta("Tesla Inc.", "EBITDA", "20161231", "630");
-		mercado.addCuenta("Tesla Inc.", "FCF", "20161231", "50");
+		mercado.addCuenta("Tesla Inc.", "EBITDA", "20151231", "751");		
+		mercado.addCuenta("Tesla Inc.", "FCF", "20151231", "11");
+		mercado.addCuenta("Tesla Inc.", "EBITDA", "20161231", "8551");
+		mercado.addCuenta("Tesla Inc.", "FCF", "20161231", "111");
 
-		mercado.addCuenta("Twitter Inc.", "EBITDA", "20161231", "751");
-		mercado.addCuenta("Twitter Inc.", "FCF", "20161231", "11");		
-		mercado.addCuenta("Twitter Inc.", "EBITDA", "20151231", "8551");
-		mercado.addCuenta("Twitter Inc.", "FCF", "20151231", "111");
+		mercado.addCuenta("Twitter Inc.", "EBITDA", "20161231", "213");
+		mercado.addCuenta("Twitter Inc.", "FCF", "20161231", "230");		
+		mercado.addCuenta("Twitter Inc.", "EBITDA", "20151231", "630");
+		mercado.addCuenta("Twitter Inc.", "FCF", "20151231", "50");
 		
 		mercado.addIndicador("Ingreso Neto", "Ingreso Neto = EBITDA","DEFAULT");
 		//mercado.addIndicador("Ingreso Neto", "A=BB+C");
@@ -104,7 +104,7 @@ public class Metodologias {
 		Set<CondicionFiltro> condicionesFiltroWB = new HashSet<>();
 		Set<CondicionOrdenamiento> condicionesOrdenamientoWB = new HashSet<>();
 		CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen"));
-		CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio"));
+		CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Roe"));
 		
 		CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe","ascendente",10,mercado.getIndicador("Roe"));
 		CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda","descendente",0,mercado.getIndicador("Proporcion De Deuda"));
@@ -119,8 +119,20 @@ public class Metodologias {
 		
 		mercado.addMetodologia("warrenBuffet", condicionesFiltroWB, condicionesOrdenamientoWB,"DEFAULT");
 		
+		// TEST METODOLOGIA TEST METODOLOGIA
 		
-	
+				Set<CondicionFiltro> condicionesFiltroTM = new HashSet<>();
+				Set<CondicionOrdenamiento> condicionesOrdenamientoTM = new HashSet<>();
+				CondicionFiltro filtroTM = new CondicionFiltro("MenorQue8000", "<", 8000.00, mercado.getIndicador("Margen"));
+				CondicionFiltro filtroTM2= new CondicionFiltro("CondMayorRoe", ">", 8, mercado.getIndicador("Indicador Vacio"));
+				
+				CondicionOrdenamiento ordenTM = new CondicionOrdenamiento("CondOrdDividendos","descendente",5,mercado.getIndicador("Dividendos"));
+								
+				condicionesOrdenamientoTM.add(ordenTM);
+				condicionesFiltroTM.add(filtroTM);
+				condicionesFiltroTM.add(filtroTM2);
+				
+				mercado.addMetodologia("TestMetodologia", condicionesFiltroTM, condicionesOrdenamientoTM,"DEFAULT");
 	}
 	
 	
