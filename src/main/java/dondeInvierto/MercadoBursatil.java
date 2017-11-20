@@ -1,33 +1,19 @@
 package dondeInvierto;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
 import batch.Job_fileLoad;
-import db.CuentaService;
-import db.DB_Manager;
-import db.EmpresaService;
-import db.IndicadorService;
-import db.MercadoBursatilService;
-import db.MetodologiaService;
-import db.UsuarioService;
+import db.*;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
-import static org.quartz.JobBuilder.*;
-import static org.quartz.JobDetail.*;
-import static org.quartz.SimpleScheduleBuilder.*;
-import static org.quartz.CronScheduleBuilder.*;
-import static org.quartz.CalendarIntervalScheduleBuilder.*;
-import static org.quartz.TriggerBuilder.*;
-import static org.quartz.DateBuilder.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.text.ParseException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
+import static org.quartz.TriggerBuilder.newTrigger;
 
 
 /**
@@ -55,6 +41,7 @@ public enum MercadoBursatil {
         this.factory = DBManager.getEmf();
         EntityManager em = factory.createEntityManager();
         this.init_model(em);
+        this.set_job();
     }
 
     /**
@@ -348,7 +335,6 @@ public enum MercadoBursatil {
         this.usuarios = modelService.generate_usuario_model();
         this.metodologias = modelService.generate_metodologias_model();
 
-        this.set_job();
 
     }
 
