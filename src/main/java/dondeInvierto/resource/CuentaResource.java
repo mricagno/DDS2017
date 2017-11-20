@@ -32,83 +32,170 @@ import fileManagement.FileHandler;
 
 @Path("cuentas")
 public class CuentaResource {
-	private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
+    private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 
-	@GET
-	@Produces("application/json")
-	public String getCuentas() {
-		JsonArrayBuilder cuentasBuilder = Json.createArrayBuilder();
+    @GET
+    @Produces("application/json")
+    public String getCuentas() {
+        JsonArrayBuilder cuentasBuilder = Json.createArrayBuilder();
 
-		for (Empresa emp : mercado.getEmpresas()) {
-			for (Cuenta c : emp.getCuentas()) {
-				cuentasBuilder.add(Json.createObjectBuilder().add("empresa", emp.getNombre()).add("tipo", c.getTipo())
-						.add("periodo", c.getPeriodoAsString()).add("valor", c.getValor()));
-			}
-		}
-		return cuentasBuilder.build().toString();
-	}
+        for (Empresa emp : mercado.getEmpresas()) {
+            for (Cuenta c : emp.getCuentas()) {
+                cuentasBuilder.add(Json.createObjectBuilder().add("empresa", emp.getNombre()).add("tipo", c.getTipo())
+                        .add("periodo", c.getPeriodoAsString()).add("valor", c.getValor()));
+            }
+        }
+        return cuentasBuilder.build().toString();
+    }
 
-	@Path("/subirArchivo")
-	@POST
-	@Consumes("multipart/form-data")
-	@Produces("text/plain")
-	public Response recibirArchivo(@FormDataParam("file-0") InputStream uploadedInputStream,
-			@FormDataParam("file-0") FormDataContentDisposition fileDetail) throws FileNotFoundException {
+    /**
+     * Clase para cargar archivo desde web
+     */
+    @Path("/subirArchivo")
+    @POST
+    @Consumes("multipart/form-data")
+    @Produces("text/plain")
+    public Response recibirArchivo(@FormDataParam("file-0") InputStream uploadedInputStream,
+                                   @FormDataParam("file-0") FormDataContentDisposition fileDetail) throws Exception {
 
-		CuentaFromFile cuentaActual;
-		String uploadedFileLocation = ".//downloaded//" + fileDetail.getFileName();
+        CuentaFromFile cuentaActual;
+        String uploadedFileLocation = ".//downloaded//" + fileDetail.getFileName();
 
-		try {
-			grabarArchivo(uploadedInputStream, uploadedFileLocation);
-		} catch (IOException e1) {
-			throw new BadRequestException("No ha sido posible grabar el archivo en el disco.");
-		}
+        try {
+            grabarArchivo(uploadedInputStream, uploadedFileLocation);
+        } catch (IOException e1) {
+            throw new BadRequestException("No ha sido posible grabar el archivo en el disco.");
+        }
 
-		FileHandler fh = new FileHandler();
-		List<CuentaFromFile> listaArchivo;
+        FileHandler fh = new FileHandler();
+        List<CuentaFromFile> listaArchivo;
 
-		listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
+        listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
+/**
+ * Se recorren las cuentas que se obtuvieron
+ */
+        EntityManager em = mercado.getFactory().createEntityManager();
+        mercado.set_lastFileLoaded(fileDetail.getFileName());
+        for (int i = 0; i < listaArchivo.size(); i++) {
+            cuentaActual = listaArchivo.get(i);
 
-		for (int i = 0; i < listaArchivo.size(); i++) {
-			cuentaActual = listaArchivo.get(i);
+            try {
+                /**
+                 * Se agrega la cuenta a la empresa
+                 * El nombre de la empresa se obtiene desde el metodo getNombre()
+                 */
 
-			try {
-				mercado.addCuenta(cuentaActual.getNombre(), cuentaActual.getTipo(), cuentaActual.getPeriodo(),
-						cuentaActual.getValor());
-				EntityManager em = mercado.getFactory().createEntityManager();
-				CuentaService cuenta_DB = new CuentaService(em);
-				if ( null != mercado.getEmpresa(cuentaActual.getNombre()).getId()) {
-					System.out.println(mercado.getEmpresa(cuentaActual.getNombre()).getNombre());
-					System.out.println(mercado.getEmpresa(cuentaActual.getNombre()).getId());
-					System.out.println(cuentaActual.getNombre() + "existe");
-					cuenta_DB.addCuenta_existCompany(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
-							mercado.getEmpresa(cuentaActual.getNombre()));
-				} else {
-					System.out.println(cuentaActual.getNombre() + "no existe");
-					System.out.println(cuentaActual.getNombre());
-					cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
-							new Empresa(cuentaActual.getNombre()));	
-				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
 
-		return Response.status(200).build();
-	}
+                CuentaService cuenta_DB = new CuentaService(em);
+                mercado.addCuenta(cuentaActual.getNombre(), cuentaActual.getTipo(), cuentaActual.getPeriodo(),
+                        cuentaActual.getValor());
+                if (mercado.getEmpresa(cuentaActual.getNombre()).getId() != null) {
+                    /**
+                     * Si la cuenta pertenece a una empresa que ya esta creada
+                     * se agrega en caso de no existir o se actualiza el valor
+                     */
+                    if (mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
+                            mercado.getEmpresa(cuentaActual.getNombre())).getId() != null) {
+                        /**
+                         * En caso de existir la cuenta, se actualiza su valor
+                         */
+                        cuenta_DB.updateCuenta2(mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
+                                mercado.getEmpresa(cuentaActual.getNombre())).getId(), Double.parseDouble(cuentaActual.getValor()));
+                    } else {
+                        /**
+                         * En caso de no existir la cuenta, se agrega a la empresa
+                         */
+                        cuenta_DB.addCuenta_existCompany(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
+                                mercado.getEmpresa(cuentaActual.getNombre()));
+                    }
+                } else {
+                    cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
+                            new Empresa(cuentaActual.getNombre()));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            mercado.init_model(em);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.status(200).build();
+    }
 
-	private void grabarArchivo(InputStream uploadedInputStream, String uploadedFileLocation)
-			throws FileNotFoundException, IOException {
+    private void grabarArchivo(InputStream uploadedInputStream, String uploadedFileLocation)
+            throws FileNotFoundException, IOException {
 
-		OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
-		int read = 0;
-		byte[] bytes = new byte[1024];
+        OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
+        int read = 0;
+        byte[] bytes = new byte[1024];
 
-		out = new FileOutputStream(new File(uploadedFileLocation));
-		while ((read = uploadedInputStream.read(bytes)) != -1) {
-			out.write(bytes, 0, read);
-		}
-		out.flush();
-		out.close();
-	}
+        out = new FileOutputStream(new File(uploadedFileLocation));
+        while ((read = uploadedInputStream.read(bytes)) != -1) {
+            out.write(bytes, 0, read);
+        }
+        out.flush();
+        out.close();
+    }
+
+    public Response read_file() throws Exception {
+
+        FileHandler fh = new FileHandler();
+        List<CuentaFromFile> listaArchivo;
+        String uploadedFileLocation = ".//downloaded//" + "cuentas2.json";
+        CuentaFromFile cuentaActual;
+        listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
+/**
+ * Se recorren las cuentas que se obtuvieron
+ */
+        EntityManager em = mercado.getFactory().createEntityManager();
+        mercado.set_lastFileLoaded("cuenta2.json");
+        for (int i = 0; i < listaArchivo.size(); i++) {
+            cuentaActual = listaArchivo.get(i);
+
+            try {
+                /**
+                 * Se agrega la cuenta a la empresa
+                 * El nombre de la empresa se obtiene desde el metodo getNombre()
+                 */
+
+
+                CuentaService cuenta_DB = new CuentaService(em);
+                mercado.addCuenta(cuentaActual.getNombre(), cuentaActual.getTipo(), cuentaActual.getPeriodo(),
+                        cuentaActual.getValor());
+                if (mercado.getEmpresa(cuentaActual.getNombre()).getId() != null) {
+                    /**
+                     * Si la cuenta pertenece a una empresa que ya esta creada
+                     * se agrega en caso de no existir o se actualiza el valor
+                     */
+                    if (mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
+                            mercado.getEmpresa(cuentaActual.getNombre())).getId() != null) {
+                        /**
+                         * En caso de existir la cuenta, se actualiza su valor
+                         */
+                        cuenta_DB.updateCuenta2(mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
+                                mercado.getEmpresa(cuentaActual.getNombre())).getId(), Double.parseDouble(cuentaActual.getValor()));
+                    } else {
+                        /**
+                         * En caso de no existir la cuenta, se agrega a la empresa
+                         */
+                        cuenta_DB.addCuenta_existCompany(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
+                                mercado.getEmpresa(cuentaActual.getNombre()));
+                    }
+                } else {
+                    cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
+                            new Empresa(cuentaActual.getNombre()));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            mercado.init_model(em);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.status(200).build();
+    }
 }

@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.hibernate.envers.*;
+
 @Entity
 @NamedQueries(value = {
 	    @NamedQuery(name = "Cuenta.getAll", query = "SELECT b FROM Cuenta b")
@@ -17,10 +19,13 @@ public class Cuenta {
 	@NotNull
 	private Long cuentaID;
 	@Column(name = "TIPO")
+	@Audited
 	private String tipo;
 	@Column(name = "PERIODO")
+	@Audited
 	private Date periodo;
 	@Column(name = "VALOR")
+	@Audited
 	private double valor;
 
 	public Cuenta(String tipo, String periodo, String valor) throws ParseException {

@@ -20,11 +20,11 @@
     "periodo": "20161231",
     "valor": "333"
   },
-  {
-    "nombre": "Apple Inc.",
-    "sigla": "TWTR",
-    "tipo": "FCF",
-    "periodo": "20161231",
-    "valor": "444"
-  }
+    {
+      "nombre": "Apple Inc.",
+      "sigla": "TWTR",
+      "tipo": "FCF",
+      "periodo": "20161231",
+      "valor": "448"
+    }
 ]

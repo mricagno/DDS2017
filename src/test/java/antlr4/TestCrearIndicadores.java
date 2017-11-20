@@ -31,8 +31,8 @@ public class TestCrearIndicadores extends FileHandler {
 	
 	@Test
 	public void testCantidadDeIndicadores() {
-		assertEquals(3, mercado.getIndicadores().size());
-	}
+        assertEquals(14, mercado.getIndicadores().size());
+    }
 	
 	@Test
 	public void testCalculoIndicador() throws Exception {		

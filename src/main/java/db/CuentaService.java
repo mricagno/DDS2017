@@ -55,8 +55,6 @@ public class CuentaService {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 	// Devuelve todas las cuentas
 	public List<Cuenta> listCuentasAll() {
@@ -76,13 +74,13 @@ public class CuentaService {
 	}
 
 	// Lee las cuentas de una empresa
-	public List<Cuenta> listCuentas(Empresa empresa) {
+	public List<Cuenta> listaCuentas(Empresa empresa) {
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
-			List<Cuenta> cuentas = this.em.createQuery("FROM Cuenta WHERE empresa_id = :eid", Cuenta.class)
-					.setParameter("eid", empresa).getResultList();
+			List<Cuenta> cuentas = this.em.createQuery("FROM Cuenta WHERE id = :eid", Cuenta.class)
+					.setParameter("eid", empresa.getId()).getResultList();
 			trx.commit();
 			return cuentas;
 		} catch (HibernateException e) {
@@ -94,14 +92,19 @@ public class CuentaService {
 	}
 
 	// Actualizar Cuenta
-	public void updateCuenta(Long id, Double valor) {
+	public void updateCuenta2(Long id, Double valor) {
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
+		Cuenta cuenta_db = null;
 		try {
-
-			Cuenta cuenta = this.em.find(Cuenta.class, id);
 			trx.begin();
-			cuenta.setValor(valor);
+			//Cuenta cuenta = this.em.find(Cuenta.class, id);
+			List<Cuenta> cuentas = this.em
+					.createQuery("Select c FROM Cuenta c WHERE c.cuentaID = :cid", Cuenta.class)
+					.setParameter("cid", id).getResultList();
+			cuenta_db = cuentas.stream().findFirst().get();
+			System.out.println(valor + "existeeeee");
+			cuenta_db.setValor(valor);
 			trx.commit();
 		} catch (HibernateException e) {
 			if (trx != null)
@@ -109,6 +112,30 @@ public class CuentaService {
 			e.printStackTrace();
 		}
 	}
+
+/*	// Actualizar Cuenta
+	public void updateCuenta(String tipo, String periodo, String valor, Empresa empresa) {
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		Cuenta cuenta_db = null;
+		Empresa empresa_db = null;
+		try {
+			List<Empresa> empresas = this.em
+					.createQuery("Select e FROM Empresa e WHERE e.nombre = :nombre", Empresa.class)
+					.setParameter("nombre", empresa.getNombre()).getResultList();
+			empresa_db = empresas.stream().findFirst().get();
+			System.out.println(empresa_db.getNombre() + "existeeeee");
+			List<Cuenta> cuentas = this.listaCuentas(empresa_db);
+			cuenta_db = cuentas.stream().findFirst().get();
+			trx.begin();
+			cuenta_db.setValor(Double.parseDouble(valor));
+			trx.commit();
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+		}
+	}*/
 
 	// Borrar Cuenta
 	public void deleteCuenta(Long id) {
