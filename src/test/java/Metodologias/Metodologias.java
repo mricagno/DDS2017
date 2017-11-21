@@ -146,6 +146,8 @@ public class Metodologias {
 	//	mercado.getMetodologia("pruebaCondicionMargen").calcularMetodologia(mercado.getMetodologia("pruebaCondicionMargen"));
 		
 		mercado.getMetodologia("warrenBuffet").calcularMetodologia(mercado.getMetodologia("warrenBuffet"));
+		mercado.getMetodologia("TestMetodologia").calcularMetodologia(mercado.getMetodologia("TestMetodologia"));
+
 		//fail("Not yet implemented");
 	
 		//mercado.getMetodologia("metodologiaWarrenBuffet").calcularMetodologia(mercado.getMetodologia("metodologiaWarrenBuffet"));
