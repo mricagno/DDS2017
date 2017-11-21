@@ -15,6 +15,8 @@
 		<class>dondeInvierto.CondicionOrdenamiento</class>
 		<class>dondeInvierto.Metodologia</class>
 		<class>dondeInvierto.Usuario</class>
+        <class>seguridad.CustomRevEntity</class>
+        <class>dondeInvierto.IndicadorCalculado</class>
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

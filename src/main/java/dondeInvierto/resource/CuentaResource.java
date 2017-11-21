@@ -192,6 +192,7 @@ public class CuentaResource {
             }
         }
         try {
+            mercado.preCalculo_indicadores();
             mercado.init_model(em);
         } catch (Exception e) {
             e.printStackTrace();

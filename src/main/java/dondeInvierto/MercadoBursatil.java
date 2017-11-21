@@ -26,6 +26,7 @@ public enum MercadoBursatil {
     private List<Empresa> empresas = new ArrayList<Empresa>();
     private List<Indicador> indicadores = new ArrayList<Indicador>();
     private List<Metodologia> metodologias = new ArrayList<Metodologia>();
+    private List<IndicadorCalculado> indicadorCalculado = new ArrayList<>();
     private Usuario usuario_logueado;
     String last_file_loaded;
     EntityManagerFactory factory;
@@ -369,5 +370,54 @@ public enum MercadoBursatil {
         // Tell quartz to schedule the job using our trigger
         scheduler.scheduleJob(job, trigger);
         scheduler.start();
+    }
+
+    public void setIndicadorCalculado(List<IndicadorCalculado> indicadoresCalculados) {
+        this.indicadorCalculado = indicadoresCalculados;
+    }
+
+    public List<IndicadorCalculado> setIndicadorCalculado() {
+        return this.indicadorCalculado;
+    }
+
+    public void preCalculo_indicadores() {
+        /**
+         * Se recorren los indicadores y se calculan por cada empresa y periodo
+         */
+        List<Indicador> indicadores = new ArrayList<Indicador>();
+        List<Empresa> empresas = new ArrayList<Empresa>();
+        List<IndicadorCalculado> calculados = new ArrayList<IndicadorCalculado>();
+        empresas = this.getEmpresas();
+        indicadores = this.getIndicadores();
+        final Double[] valor = new Double[1];
+
+        List<String> periodos_aux = new ArrayList<String>();
+        empresas.forEach(empresa -> empresa.getCuentas().forEach(cuenta -> periodos_aux.add(cuenta.getPeriodoAsString())));
+
+
+        List<String> periodos = new ArrayList<>(new HashSet<>(periodos_aux));
+
+        List<Empresa> finalEmpresas = empresas;
+        indicadores.forEach((Indicador indicador) -> {
+            finalEmpresas.forEach((Empresa empresa) -> {
+                periodos.forEach(periodo -> {
+                    valor[0] = indicador.getValorFor(empresa, periodo);
+                    IndicadorCalculado indicadorCalculado = null;
+                    try {
+                        indicadorCalculado = new IndicadorCalculado(indicador, empresa, periodo, valor[0]);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    calculados.add(indicadorCalculado);
+                });
+            });
+
+        });
+        this.setIndicadorCalculado(calculados);
+        EntityManager em = this.factory.createEntityManager();
+        IndicadorCalculadoService indicadorCalculado_DB = new IndicadorCalculadoService(em);
+        indicadorCalculado_DB.addIndicadoresCalculado(calculados);
+        em.close();
+
     }
 }
