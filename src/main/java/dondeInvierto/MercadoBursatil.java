@@ -42,7 +42,7 @@ public enum MercadoBursatil {
         this.factory = DBManager.getEmf();
         EntityManager em = factory.createEntityManager();
         this.init_model(em);
-        this.set_job();
+        //this.set_job();
     }
 
     /**
@@ -335,8 +335,7 @@ public enum MercadoBursatil {
         this.indicadores = modelService.generate_indicador_model();
         this.usuarios = modelService.generate_usuario_model();
         this.metodologias = modelService.generate_metodologias_model();
-
-
+        this.indicadorCalculado = modelService.generate_indicadoresCalculados_model();
     }
 
     public void close() {
@@ -352,6 +351,9 @@ public enum MercadoBursatil {
         this.last_file_loaded = file;
     }
 
+    /**
+     * Se configura y se lanza el job de lectura de archivo de cuentas
+     */
     public void set_job() throws SchedulerException {
         SchedulerFactory sf = new StdSchedulerFactory();
         Scheduler scheduler = sf.getScheduler();
@@ -361,10 +363,11 @@ public enum MercadoBursatil {
         // Trigger the job to run now, and then repeat every 40 seconds
         Trigger trigger = newTrigger()
                 .withIdentity("trigger1", "group1")
-                .startNow()
+                .startAt(DateBuilder.evenMinuteDateAfterNow())
                 .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(40)
+                        .withIntervalInSeconds(60)
                         .repeatForever())
+                //.forJob(job)
                 .build();
 
         // Tell quartz to schedule the job using our trigger
@@ -416,8 +419,15 @@ public enum MercadoBursatil {
         this.setIndicadorCalculado(calculados);
         EntityManager em = this.factory.createEntityManager();
         IndicadorCalculadoService indicadorCalculado_DB = new IndicadorCalculadoService(em);
+        indicadorCalculado_DB.borrar_indicadores();
         indicadorCalculado_DB.addIndicadoresCalculado(calculados);
         em.close();
 
+    }
+
+    public Double getIndicadorCalculado(Empresa empresa, Indicador indicador, String periodo) {
+        return this.indicadorCalculado.stream().filter(i -> i.getEmpresa().getId().equals(empresa.getId())).
+                filter(i -> i.getIndicador().getId().equals(indicador.getId())).findFirst().filter(i -> i.getPeriodo().toString().equals(periodo))
+                .orElse(null).getValor();
     }
 }

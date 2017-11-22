@@ -19,7 +19,6 @@ public class Job_fileLoad implements org.quartz.Job {
     }
 
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        //System.err.println("Hello World!  Job_fileLoad is executing.");
         CuentaResource cuentaResource = new CuentaResource();
         try {
             cuentaResource.read_file();

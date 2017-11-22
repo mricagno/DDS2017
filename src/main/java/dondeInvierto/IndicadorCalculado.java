@@ -1,9 +1,6 @@
 package dondeInvierto;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,9 +13,9 @@ public class IndicadorCalculado {
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
-    @OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Indicador indicador;
-    @OneToOne(cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Empresa empresa;
     @Column(name = "PERIODO")
     private Date periodo;
@@ -74,4 +71,5 @@ public class IndicadorCalculado {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
 }

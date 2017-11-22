@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 @RevisionEntity(CustomListener.class)
 public class CustomRevEntity extends DefaultRevisionEntity {
     private String used_file;
+    private String usuario;
 
     public String getUsed_file() {
         return used_file;
@@ -18,4 +19,11 @@ public class CustomRevEntity extends DefaultRevisionEntity {
         this.used_file = file;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 }

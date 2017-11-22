@@ -76,46 +76,7 @@ public class CuentaResource {
  */
         EntityManager em = mercado.getFactory().createEntityManager();
         mercado.set_lastFileLoaded(fileDetail.getFileName());
-        for (int i = 0; i < listaArchivo.size(); i++) {
-            cuentaActual = listaArchivo.get(i);
-
-            try {
-                /**
-                 * Se agrega la cuenta a la empresa
-                 * El nombre de la empresa se obtiene desde el metodo getNombre()
-                 */
-
-
-                CuentaService cuenta_DB = new CuentaService(em);
-                mercado.addCuenta(cuentaActual.getNombre(), cuentaActual.getTipo(), cuentaActual.getPeriodo(),
-                        cuentaActual.getValor());
-                if (mercado.getEmpresa(cuentaActual.getNombre()).getId() != null) {
-                    /**
-                     * Si la cuenta pertenece a una empresa que ya esta creada
-                     * se agrega en caso de no existir o se actualiza el valor
-                     */
-                    if (mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
-                            mercado.getEmpresa(cuentaActual.getNombre())).getId() != null) {
-                        /**
-                         * En caso de existir la cuenta, se actualiza su valor
-                         */
-                        cuenta_DB.updateCuenta2(mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
-                                mercado.getEmpresa(cuentaActual.getNombre())).getId(), Double.parseDouble(cuentaActual.getValor()));
-                    } else {
-                        /**
-                         * En caso de no existir la cuenta, se agrega a la empresa
-                         */
-                        cuenta_DB.addCuenta_existCompany(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
-                                mercado.getEmpresa(cuentaActual.getNombre()));
-                    }
-                } else {
-                    cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
-                            new Empresa(cuentaActual.getNombre()));
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
+        this.cargar_cuentas(em, listaArchivo);
         try {
             mercado.init_model(em);
         } catch (Exception e) {
@@ -151,6 +112,24 @@ public class CuentaResource {
  */
         EntityManager em = mercado.getFactory().createEntityManager();
         mercado.set_lastFileLoaded("cuenta2.json");
+        this.cargar_cuentas(em, listaArchivo);
+        try {
+            if (!mercado.getEmpresas().isEmpty()) {
+                mercado.preCalculo_indicadores();
+            }
+            mercado.init_model(em);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.status(200).build();
+    }
+
+    public void cargar_cuentas(EntityManager em, List<CuentaFromFile> listaArchivo) {
+
+        /**
+         * Se recorren las cuentas que se obtuvieron
+         */
+        CuentaFromFile cuentaActual;
         for (int i = 0; i < listaArchivo.size(); i++) {
             cuentaActual = listaArchivo.get(i);
 
@@ -159,8 +138,6 @@ public class CuentaResource {
                  * Se agrega la cuenta a la empresa
                  * El nombre de la empresa se obtiene desde el metodo getNombre()
                  */
-
-
                 CuentaService cuenta_DB = new CuentaService(em);
                 mercado.addCuenta(cuentaActual.getNombre(), cuentaActual.getTipo(), cuentaActual.getPeriodo(),
                         cuentaActual.getValor());
@@ -191,12 +168,7 @@ public class CuentaResource {
                 e.printStackTrace();
             }
         }
-        try {
-            mercado.preCalculo_indicadores();
-            mercado.init_model(em);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Response.status(200).build();
     }
+
+
 }

@@ -23,6 +23,9 @@ public class CondicionOrdenamiento extends Condicion {
 		// TODO Auto-generated constructor stub
 	}
 
+    public CondicionOrdenamiento() {
+    }
+
 	public List<ResultadoCondicionado> getResultadoCondicion() {
 		return this.resultadoCondicion;
 	}
@@ -54,8 +57,9 @@ public class CondicionOrdenamiento extends Condicion {
 				empresaNombre = resultadoCondicionado.get(i).getNombre();
 				empresa = mercado.getEmpresa(empresaNombre);
 				for (Cuenta cuenta : empresa.getCuentas()) {
-					resultadoIndicador = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
-					contador += resultadoIndicador;
+                    //resultadoIndicador = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
+                    resultadoIndicador = mercado.getIndicadorCalculado(empresa, condicion.getIndicador(), cuenta.getPeriodoAsString());
+                    contador += resultadoIndicador;
 				}
 				resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));
 
@@ -69,8 +73,9 @@ public class CondicionOrdenamiento extends Condicion {
 				for (Cuenta cuenta : empresa.getCuentas()) {
 					calendar.setTime(cuenta.getPeriodo());
 					if (localDate.getYear() - calendar.get(Calendar.YEAR) <= condicion.getValor()) {
-						resultadoIndicador = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
-						contador += resultadoIndicador;
+                        //resultadoIndicador = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
+                        resultadoIndicador = mercado.getIndicadorCalculado(empresa, condicion.getIndicador(), cuenta.getPeriodoAsString());
+                        contador += resultadoIndicador;
 					}
 				}
 				resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));
