@@ -13,10 +13,16 @@ public class IndicadorCalculado {
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
-    @OneToOne(cascade = CascadeType.MERGE)
+    /*@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
     private Indicador indicador;
-    @OneToOne(cascade = CascadeType.MERGE)
-    private Empresa empresa;
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    private Empresa empresa;*/
+    @Column(name = "INDICADOR_ID")
+    private Long indicador_id;
+    @Column(name = "EMPRESA_ID")
+    private Long empresa_id;
     @Column(name = "PERIODO")
     private Date periodo;
     @Column(name = "VALOR")
@@ -25,9 +31,9 @@ public class IndicadorCalculado {
     public IndicadorCalculado() {
     }
 
-    public IndicadorCalculado(Indicador indicador, Empresa empresa, String periodo, Double valor) throws ParseException {
-        this.indicador = indicador;
-        this.empresa = empresa;
+    public IndicadorCalculado(Long indicador_id, Long empresa_id, String periodo, Double valor) throws ParseException {
+        this.indicador_id = indicador_id;
+        this.empresa_id = empresa_id;
         this.periodo = new SimpleDateFormat("yyyyMMdd").parse(periodo);
         this.valor = valor;
     }
@@ -36,12 +42,12 @@ public class IndicadorCalculado {
         return id;
     }
 
-    public Indicador getIndicador() {
-        return indicador;
+    public Long getIndicador() {
+        return indicador_id;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public Long getEmpresa() {
+        return empresa_id;
     }
 
     public Date getPeriodo() {
@@ -52,12 +58,12 @@ public class IndicadorCalculado {
         this.id = id;
     }
 
-    public void setIndicador(Indicador indicador) {
-        this.indicador = indicador;
+    public void setIndicador(Long indicador_id) {
+        this.indicador_id = indicador_id;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setEmpresa(Long empresa_id) {
+        this.empresa_id = empresa_id;
     }
 
     public void setPeriodo(Date periodo) {

@@ -407,7 +407,7 @@ public enum MercadoBursatil {
                     valor[0] = indicador.getValorFor(empresa, periodo);
                     IndicadorCalculado indicadorCalculado = null;
                     try {
-                        indicadorCalculado = new IndicadorCalculado(indicador, empresa, periodo, valor[0]);
+                        indicadorCalculado = new IndicadorCalculado(indicador.getId(), empresa.getId(), periodo, valor[0]);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -425,9 +425,9 @@ public enum MercadoBursatil {
 
     }
 
-    public Double getIndicadorCalculado(Empresa empresa, Indicador indicador, String periodo) {
-        return this.indicadorCalculado.stream().filter(i -> i.getEmpresa().getId().equals(empresa.getId())).
-                filter(i -> i.getIndicador().getId().equals(indicador.getId())).findFirst().filter(i -> i.getPeriodo().toString().equals(periodo))
+    public Double getIndicadorCalculado(Long empresa_id, Long indicador_id, String periodo) {
+        return this.indicadorCalculado.stream().filter(i -> i.getEmpresa().equals(empresa_id)).
+                filter(i -> i.getIndicador().equals(indicador_id)).findFirst().filter(i -> i.getPeriodo().toString().equals(periodo))
                 .orElse(null).getValor();
     }
 }

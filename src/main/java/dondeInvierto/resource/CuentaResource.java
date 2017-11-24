@@ -111,8 +111,10 @@ public class CuentaResource {
  * Se recorren las cuentas que se obtuvieron
  */
         EntityManager em = mercado.getFactory().createEntityManager();
+        //mercado.init_model(em);
         mercado.set_lastFileLoaded("cuenta2.json");
         this.cargar_cuentas(em, listaArchivo);
+        mercado.init_model(em);
         try {
             if (!mercado.getEmpresas().isEmpty()) {
                 mercado.preCalculo_indicadores();

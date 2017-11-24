@@ -58,8 +58,8 @@ public class CondicionOrdenamiento extends Condicion {
 				empresa = mercado.getEmpresa(empresaNombre);
 				for (Cuenta cuenta : empresa.getCuentas()) {
                     //resultadoIndicador = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
-                    resultadoIndicador = mercado.getIndicadorCalculado(empresa, condicion.getIndicador(), cuenta.getPeriodoAsString());
-                    contador += resultadoIndicador;
+					resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(), condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+					contador += resultadoIndicador;
 				}
 				resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));
 
@@ -74,8 +74,8 @@ public class CondicionOrdenamiento extends Condicion {
 					calendar.setTime(cuenta.getPeriodo());
 					if (localDate.getYear() - calendar.get(Calendar.YEAR) <= condicion.getValor()) {
                         //resultadoIndicador = condicion.getIndicador().getValorFor(empresa, cuenta.getPeriodoAsString());
-                        resultadoIndicador = mercado.getIndicadorCalculado(empresa, condicion.getIndicador(), cuenta.getPeriodoAsString());
-                        contador += resultadoIndicador;
+						resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(), condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+						contador += resultadoIndicador;
 					}
 				}
 				resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));

@@ -21,8 +21,8 @@ public class Encriptacion {
 	}
 
 	private Cipher obtieneCipher(boolean paraCifrar) throws Exception {
-		final String frase = "FraseLargaConDiferentesLetrasNumerosYCaracteresEspeciales_áÁéÉíÍóÓúÚüÜñÑ1234567890!#%$&()=%_NO_USAR_ESTA_FRASE!_";
-		final MessageDigest digest = MessageDigest.getInstance("SHA");
+        final String frase = "FraseLargaConDiferentesLetrasNumerosYCaracteresEspeciales_áÁéÉíÍóÓúÚüÜñÑ1234567890!#%$&()=%_";
+        final MessageDigest digest = MessageDigest.getInstance("SHA");
 		digest.update(frase.getBytes("UTF-8"));
 		final SecretKeySpec key = new SecretKeySpec(digest.digest(), 0, 16, "AES");
 
