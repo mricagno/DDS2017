@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -29,6 +32,12 @@ import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 import fileManagement.CuentaFromFile;
 import fileManagement.FileHandler;
+
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.*;
+import org.hibernate.envers.AuditReader.*;
+import seguridad.CustomRevEntity;
 
 @Path("cuentas")
 public class CuentaResource {
@@ -102,28 +111,34 @@ public class CuentaResource {
 
     public Response read_file() throws Exception {
 
-        FileHandler fh = new FileHandler();
-        List<CuentaFromFile> listaArchivo;
-        String uploadedFileLocation = ".//downloaded//" + "cuentas2.json";
-        CuentaFromFile cuentaActual;
-        listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
+
+        EntityManager em = mercado.getFactory().createEntityManager();
+        String fileToRead = this.getFilesFromDirectory(em);
+        if (fileToRead != null) {
+
+            FileHandler fh = new FileHandler();
+            List<CuentaFromFile> listaArchivo;
+            String uploadedFileLocation = ".//downloaded//" + fileToRead;//"cuentas2.json";
+            CuentaFromFile cuentaActual;
+            listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
 /**
  * Se recorren las cuentas que se obtuvieron
  */
-        EntityManager em = mercado.getFactory().createEntityManager();
-        //mercado.init_model(em);
-        mercado.set_lastFileLoaded("cuenta2.json");
-        this.cargar_cuentas(em, listaArchivo);
-        mercado.init_model(em);
-        try {
-            if (!mercado.getEmpresas().isEmpty()) {
-                mercado.preCalculo_indicadores();
-            }
+            //mercado.init_model(em);
+            mercado.set_lastFileLoaded(fileToRead);//"cuenta2.json");
+            this.cargar_cuentas(em, listaArchivo);
             mercado.init_model(em);
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                if (!mercado.getEmpresas().isEmpty()) {
+                    mercado.preCalculo_indicadores();
+                }
+                mercado.init_model(em);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return Response.status(200).build();
+
     }
 
     public void cargar_cuentas(EntityManager em, List<CuentaFromFile> listaArchivo) {
@@ -170,6 +185,36 @@ public class CuentaResource {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String getFilesFromDirectory(EntityManager em) {
+
+        File[] results;
+        File directorio = new File(".//downloaded//");
+        results = directorio.listFiles();
+        List<String> listOfFilesAvailable = new ArrayList<>();
+        for (int i = 0; i < results.length; i++) {
+            if (results[i].isFile()) {
+                listOfFilesAvailable.add(results[i].getName());
+            }
+        }
+
+        AuditReader reader = AuditReaderFactory.get(em);
+        List<Empresa> empresas = mercado.getEmpresas();
+        final List<String> readedFiles = new ArrayList<>();
+        empresas.forEach(empresa -> {
+            empresa.getCuentas().forEach(cuenta -> {
+                List<Number> revisions = reader.getRevisions(Cuenta.class,
+                        cuenta.getId());
+                CustomRevEntity entity = em.find(CustomRevEntity.class, revisions.get(0));
+                readedFiles.add(entity.getUsed_file());
+            });
+        });
+        //readedFiles = new ArrayList<>(new HashSet<>(readedFiles));
+        Set<String> list1 = new HashSet<String>(listOfFilesAvailable);
+        Set<String> list2 = new HashSet<String>(readedFiles);
+        list1.removeAll(list2);
+        return list1.stream().findFirst().orElse(null);
     }
 
 

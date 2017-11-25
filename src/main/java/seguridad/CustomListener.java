@@ -9,5 +9,10 @@ public class CustomListener implements RevisionListener {
     public void newRevision(Object revisionEntity) {
         CustomRevEntity customRevEntity = (CustomRevEntity) revisionEntity;
         customRevEntity.setUsed_file(mercado.get_lastFileLoaded());
+        if (mercado.getUsuarioLog() == null) {
+            customRevEntity.setUsuario("DEFAULT");
+        } else {
+            customRevEntity.setUsuario(mercado.getUsuarioLog().getUsuario());
+        }
     }
 }
