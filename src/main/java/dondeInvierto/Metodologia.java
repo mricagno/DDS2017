@@ -4,18 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -31,12 +20,12 @@ public class Metodologia {
 	private String nombre;
 	@Column(name = "CREADOR")
 	private String creadoPor;
-	@ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "metodologia_Filtro", joinColumns = @JoinColumn(name = "metodologia_id"),
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "metodologia_Filtro", joinColumns = @JoinColumn(name = "metodologia_id"),
     inverseJoinColumns = @JoinColumn(name = "condicionFiltro_id"))
 	private Set<CondicionFiltro> condicionesFiltro;
-	@ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "metodologia_Ordenamiento", joinColumns = @JoinColumn(name = "metodologia_id"),
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "metodologia_Ordenamiento", joinColumns = @JoinColumn(name = "metodologia_id"),
     inverseJoinColumns = @JoinColumn(name = "condicionOrdenamiento_id"))
 	private Set<CondicionOrdenamiento> condicionesOrdenamiento;
 	@Transient
@@ -80,11 +69,11 @@ public class Metodologia {
 	/**
 	 * Calcula el valor de una metodologia para una determinada empresa, en un periodo dado.
 	 */
-	public void calcularMetodologia(Metodologia metodologia){
+	public void calcularMetodologia() {//(Metodologia metodologia){
 		int posicion=0;
 		ResultadoCondicionado resultado;
 
-		for(CondicionFiltro condicion : metodologia.getCondicionesFiltro()){
+		for (CondicionFiltro condicion : this.getCondicionesFiltro()) {
 			listaFiltradaUOrdenada=condicion.evaluarCondicion(condicion);
 		}
 		
@@ -92,8 +81,8 @@ public class Metodologia {
 		for (int j=0;j<listaFiltradaUOrdenada.size();j++) {
 			listaNombres.add(listaFiltradaUOrdenada.get(j).getNombre());
 		}
-		
-		for(CondicionOrdenamiento condicion : metodologia.getCondicionesOrdenamiento()){		
+
+		for (CondicionOrdenamiento condicion : this.getCondicionesOrdenamiento()) {
 			listaOrdenaUnaCondicion=condicion.evaluarCondicion(condicion,listaFiltradaUOrdenada);		
 			for(int i=0;i<listaOrdenaUnaCondicion.size();i++) {					
 				resultado=listaOrdenaUnaCondicion.get(i);				
@@ -102,14 +91,20 @@ public class Metodologia {
 			}
 		}
 		
-		Collections.sort(listaFiltradaUOrdenada);		
-		System.out.println("Resultado aplicacion de metodología: ");
-		for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
+		Collections.sort(listaFiltradaUOrdenada);
+		//System.out.println("Resultado aplicacion de metodología: ");
+		/*for(int i=0; i<this.listaFiltradaUOrdenada.size();i++)
 		{
-			System.out.println(i+1+"-"+listaFiltradaUOrdenada.get(i).getNombre());			
-			//System.out.println(listaFiltradaUOrdenada.get(i).getPosicionPonderable());
-			listaFiltradaUOrdenada.get(i).setPosicionPonderableEmpty();	
-		}		
-	
+			//System.out.println(i+1+"-"+this.listaFiltradaUOrdenada.get(i).getNombre());
+			this.listaFiltradaUOrdenada.get(i).setPosicionPonderableEmpty();
+		}	*/
+	}
+
+	public List<ResultadoCondicionado> getListaFiltradaUOrdenada() {
+		return listaFiltradaUOrdenada;
+	}
+
+	public void setListaFiltradaUOrdenada(List<ResultadoCondicionado> listaFiltradaUOrdenada) {
+		this.listaFiltradaUOrdenada = listaFiltradaUOrdenada;
 	}
 }

@@ -42,7 +42,6 @@ public enum MercadoBursatil {
         this.factory = DBManager.getEmf();
         EntityManager em = factory.createEntityManager();
         this.init_model(em);
-        //this.set_job();
     }
 
     /**
@@ -78,6 +77,13 @@ public enum MercadoBursatil {
     }
 
     /**
+     * Setea los usuarios en el mercado bursátil.
+     */
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    /**
      * Agrega el usuario a la lista de usuarios del mercado bursátil.
      */
     public void addUsuario(String nombre, String password, int cant_int) {
@@ -96,6 +102,10 @@ public enum MercadoBursatil {
      */
     public List<Empresa> getEmpresas() {
         return this.empresas;
+    }
+
+    public void setEmpresas(List<Empresa> empresas) {
+        this.empresas = empresas;
     }
 
     /**
@@ -173,6 +183,13 @@ public enum MercadoBursatil {
     }
 
     /**
+     * Devuelve el indicador buscado por id
+     */
+    public Indicador getIndicadorPorId(Long id) {
+        return getIndicadores().stream().filter(i -> (id.equals(i.getId()))).findFirst().orElse(null);
+    }
+
+    /**
      * Borra el indicador deseado.
      */
     public boolean delete_Indicador(String nombre) {
@@ -242,6 +259,10 @@ public enum MercadoBursatil {
         return this.factory;
     }
 
+    public void setFactory(EntityManagerFactory fact) {
+        this.factory = fact;
+    }
+
     /**
      * Devuelve la metodologia con el nombre buscado.
      */
@@ -282,6 +303,7 @@ public enum MercadoBursatil {
         empresa.addEmpresa("Facebook Inc.");
         empresa.addEmpresa("Tesla Inc.");
         empresa.addEmpresa("Twitter Inc.");
+        this.empresas = empresa.listEmpresas();
         Empresa facebook = empresa.getEmpresa_name("Facebook Inc.");
         cuenta.addCuenta("EBITDA", "20151231", "8162", facebook);
         cuenta.addCuenta("EBITDA", "20161231", "14870", facebook);
@@ -318,10 +340,28 @@ public enum MercadoBursatil {
                         "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
         Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
         Set<CondicionOrdenamiento> condicionesOrdenamiento = new HashSet<>();
+        filtro1.setEmpresas(this.getEmpresas());
+        orden1.setEmpresas(this.getEmpresas());
+        orden2.setEmpresas(this.getEmpresas());
         condicionesFiltro.add(filtro1);
         condicionesOrdenamiento.add(orden1);
         condicionesOrdenamiento.add(orden2);
         metodologia.setMetodologia("metodologia1", condicionesFiltro, condicionesOrdenamiento, "DEFAULT");
+        Set<CondicionFiltro> condicionesFiltroWB = new HashSet<>();
+        Set<CondicionOrdenamiento> condicionesOrdenamientoWB = new HashSet<>();
+        CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, this.getIndicador("Margen"));
+        CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, this.getIndicador("Indicador Vacio"));
+        CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, this.getIndicador("ROE"));
+        CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, this.getIndicador("Proporcion De Deuda"));
+        filtroWB3.setEmpresas(this.getEmpresas());
+        filtroWB4.setEmpresas(this.getEmpresas());
+        ordenWB1.setEmpresas(this.getEmpresas());
+        ordenWB2.setEmpresas(this.getEmpresas());
+        condicionesOrdenamientoWB.add(ordenWB1);
+        condicionesOrdenamientoWB.add(ordenWB2);
+        condicionesFiltroWB.add(filtroWB3);
+        condicionesFiltroWB.add(filtroWB4);
+        metodologia.setMetodologia("warrenBuffet", condicionesFiltroWB, condicionesOrdenamientoWB, "DEFAULT");
         //em.close();
     }
 
@@ -426,8 +466,14 @@ public enum MercadoBursatil {
     }
 
     public Double getIndicadorCalculado(Long empresa_id, Long indicador_id, String periodo) {
-        return this.indicadorCalculado.stream().filter(i -> i.getEmpresa().equals(empresa_id)).
-                filter(i -> i.getIndicador().equals(indicador_id)).findFirst().filter(i -> i.getPeriodo().toString().equals(periodo))
-                .orElse(null).getValor();
+        IndicadorCalculado indiCalc = this.indicadorCalculado.stream().filter(i -> i.getEmpresa().equals(empresa_id) &&
+                i.getIndicador().equals(indicador_id) && i.getPeriodo().toString().equals(periodo)).findFirst()
+                .orElse(null);
+
+        if (indiCalc == null) {
+            return (double) 0;
+        } else {
+            return indiCalc.getValor();
+        }
     }
 }

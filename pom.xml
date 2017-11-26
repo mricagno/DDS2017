@@ -27,7 +27,7 @@
 						<id>antlr</id>
 						<configuration>
 							<listener>false</listener>
-							<outputDirectory>src/main/java/antlr4</outputDirectory>
+                            <outputDirectory>src/main/java</outputDirectory>
 							<visitor>true</visitor>
 						</configuration>
 						<goals>

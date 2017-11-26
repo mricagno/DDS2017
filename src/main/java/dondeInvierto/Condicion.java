@@ -27,8 +27,8 @@ public class Condicion {
 	@Transient
 	MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	@Transient
-	List<Empresa> empresas = mercado.getEmpresas();
-	@Transient
+    List<Empresa> empresas;//= mercado.getEmpresas();
+    @Transient
 	List<ResultadoCondicionado> resultadoCondicion = new ArrayList<>();
 	@Column(insertable = false, updatable = false) 
 	private String tipo;  //Para poder filtrar por la columna discriminadora
@@ -39,7 +39,8 @@ public class Condicion {
 		this.comparador = comparador;
 		this.valor = valor;
 		this.indicador = indicador;
-	}
+        this.empresas = mercado.getEmpresas();
+    }
 
 	public Condicion() {
 	}
@@ -63,6 +64,10 @@ public class Condicion {
 	public Indicador getIndicador() {
 		return this.indicador;
 	}
+
+    public void setEmpresas(List<Empresa> empresas) {
+        this.empresas = empresas;
+    }
 
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion) {
 		return null;
