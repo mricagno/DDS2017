@@ -7,6 +7,7 @@ import javax.json.JsonObject;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
@@ -36,4 +37,30 @@ public class UsuarioResource {
 		return Response.accepted().build();
 	}
 
+	@Path("/out")
+	@GET
+	@Produces("text/plain")
+	public Response isUsuarioLog() throws ParseException {
+		System.out.println("test");
+		if (mercado.getUsuarioLog() == null) {
+			throw new BadRequestException("No hay usuario logueado");
+		} else {
+			return Response.accepted().build();
+		}
+
+	}
+
+	@Path("/out")
+	@POST
+	@Consumes("application/json")
+	@Produces("text/plain")
+	public Response setlogout() throws ParseException {
+
+		if (mercado.getUsuarioLog() == null) {
+			throw new BadRequestException("No hay usuario logueado");
+		}
+		//Usuario user = mercado.getUsuario(usuario, password);
+		mercado.setUsuario(null);
+		return Response.accepted().build();
+	}
 }

@@ -300,6 +300,7 @@ public enum MercadoBursatil {
         usuario.addUsuario("patricio", "patricio", 0);
         usuario.addUsuario("gian", "gian", 0);
         usuario.addUsuario("maxi", "maxi", 0);
+        usuario.addUsuario("DEFAULT", "DEFAULT", 0);
         empresa.addEmpresa("Facebook Inc.");
         empresa.addEmpresa("Tesla Inc.");
         empresa.addEmpresa("Twitter Inc.");

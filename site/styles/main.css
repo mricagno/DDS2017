@@ -147,6 +147,10 @@ style>.panel-body {
 	display: none;
 }
 
+#logOutSuccess {
+	display: none;
+}
+
 #registrySuccess {
 	display: none;
 }

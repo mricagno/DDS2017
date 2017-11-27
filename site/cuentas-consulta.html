@@ -1,135 +1,146 @@
 <!DOCTYPE html>
 <html lang="es">
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cuentas - &#191;Do&#769;nde invierto?</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" id="brand-logo" href="#">
-              <img alt="&#191;Do&#769;nde invierto?" src="img/logo.png">
-            </a>
-            <a class="navbar-brand" href="index.html">&#191;Do&#769;nde invierto?</a>
-          </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="brand-logo" href="#">
+                    <img alt="&#191;Do&#769;nde invierto?" src="img/logo.png">
+                </a>
+                <a class="navbar-brand" href="index.html">&#191;Do&#769;nde invierto?</a>
+            </div>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav" id="dropdown1">
-              <li><a href="index.html">Inicio <span class="sr-only">(current)</span></a></li>
-              <li class="dropdown active">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuentas <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="cuentas-registro.html">Registro</a></li>
-                  <li><a href="#">Consulta</a></li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" id="dropdown1">
+                    <li><a href="index.html">Inicio <span class="sr-only">(current)</span></a></li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Cuentas <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="cuentas-registro.html">Registro</a></li>
+                            <li><a href="#">Consulta</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Indicadores <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="indicadores-registro.html">Registro</a></li>
+                            <li><a href="indicadores-consulta.html">Consulta</a></li>
+                            <li><a href="indicadores-borrar.html">Borrar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Metodologi&#769;as <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="metodologias-registro.html">Registro</a></li>
+                            <li><a href="metodologias-consulta.html">Consulta</a></li>
+                            <!-- Se pueden usar separadores
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li> -->
+                        </ul>
+                    </li>
+                    <li
+                            button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
+                    </li>
                 </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Indicadores <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="indicadores-registro.html">Registro</a></li>
-                  <li><a href="indicadores-consulta.html">Consulta</a></li>
-                  <li><a href="indicadores-borrar.html">Borrar</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Metodologi&#769;as <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="metodologias-registro.html">Registro</a></li>
-                  <li><a href="metodologias-consulta.html">Consulta</a></li>
-                  <!-- Se pueden usar separadores
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">Separated link</a></li> -->
-                </ul>
-              </li>
-            </ul>
-            <!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
-            porque no escala bien al achicar la ventana)
-            <form class="navbar-form navbar-right">
-              <div class="col-lg-6">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Buscar...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                  </span>
-                </div>
-              </div>
-            </form> -->
-          </div><!-- /.navbar-collapse -->
+                <!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
+                porque no escala bien al achicar la ventana)
+                <form class="navbar-form navbar-right">
+                  <div class="col-lg-6">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Buscar...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                      </span>
+                    </div>
+                  </div>
+                </form> -->
+            </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
-      </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="container">
-      <div class="panel panel-default">
+<div class="container">
+    <div class="panel panel-default">
         <div class="panel-body centered">
-          <div class="page-header">
-            <h1>Consulta de cuentas</h1>
-          </div>
-          <div class="panel panel-default" id="filters">
-            <div class="panel-heading">Criterios de bu&#769;squeda</div>
-            <div class="panel-body">
-              <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3">Empresa</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon3">
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3">Periodo desde</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon3">
-                <span class="input-group-addon" id="basic-addon3">Periodo hasta</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon3">
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3">Cuenta</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon3">
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3">Valor desde</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon3">
-                <span class="input-group-addon" id="basic-addon3">Valor hasta</span>
-                <input type="text" class="form-control" aria-describedby="basic-addon3">
-              </div>
-              <div class="container-fluid no-padding right-aligned">
-                <button type="button" class="btn btn-default btn-lg" id="btn-buscar-cuentas">Buscar</button>
+            <div class="page-header">
+                <h1>Consulta de cuentas</h1>
             </div>
+            <div class="panel panel-default" id="filters">
+                <div class="panel-heading">Criterios de bu&#769;squeda</div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Empresa</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Periodo desde</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon3">
+                        <span class="input-group-addon" id="basic-addon3">Periodo hasta</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Cuenta</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Valor desde</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon3">
+                        <span class="input-group-addon" id="basic-addon3">Valor hasta</span>
+                        <input type="text" class="form-control" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="container-fluid no-padding right-aligned">
+                        <button type="button" class="btn btn-default btn-lg" id="btn-buscar-cuentas">Buscar</button>
+                    </div>
+                </div>
             </div>
-          </div>
-          <table class="table" id="tabla-resultados">
-            <thead>
-              <th>#</th>
-              <th>Empresa</th>
-              <th>Periodo</th>
-              <th>Cuenta</th>
-              <th class="cuentaValor">Valor</th>
-            </thead>
-            <tbody id="tabla-cuentas">
-            </tbody>
-          </table>
+            <table class="table" id="tabla-resultados">
+                <thead>
+                <th>#</th>
+                <th>Empresa</th>
+                <th>Periodo</th>
+                <th>Cuenta</th>
+                <th class="cuentaValor">Valor</th>
+                </thead>
+                <tbody id="tabla-cuentas">
+                </tbody>
+            </table>
 
         </div>
-      </div>
     </div>
+</div>
 
-    <script src="scripts/jquery-3.2.0.js"></script>
-    <script src="scripts/script.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </body>
+<script src="scripts/jquery-3.2.0.js"></script>
+<script src="scripts/script.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
 </html>
