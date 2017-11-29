@@ -1,6 +1,7 @@
 package dondeInvierto.resource;
 
 import java.io.StringReader;
+import java.net.URI;
 import java.text.ParseException;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -37,14 +38,14 @@ public class UsuarioResource {
 		return Response.accepted().build();
 	}
 
-	@Path("/out")
+	@Path("/logged")
 	@GET
-	@Produces("text/plain")
-	public Response isUsuarioLog() throws ParseException {
+	@Produces("application/json")
+	public String isUsuarioLog() throws ParseException {
 		if (mercado.getUsuarioLog() == null) {
-			throw new BadRequestException("No hay usuario logueado");
+			return Json.createObjectBuilder().add("usuario", "").build().toString();
 		} else {
-			return Response.accepted().build();
+			return Json.createObjectBuilder().add("usuario", mercado.getUsuarioLog().getUsuario()).build().toString();
 		}
 	}
 	

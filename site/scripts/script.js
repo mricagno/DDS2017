@@ -97,6 +97,22 @@ function hideConds(x) {
 	$(".condicion4").fadeOut(x);
 }
 
+function hideLogin() {
+	$("#login-box").hide();
+}
+
+function showNav() {
+	console.log(document.getElementById("dropdown1"));
+	console.log($(document.getElementById("dropdown1")));
+	$(document.getElementById("dropdown1")).css("display","block");
+}
+
+function hideNav() {
+	console.log(document.getElementById("dropdown1"));
+	console.log($(document.getElementById("dropdown1")));
+	$(document.getElementById("dropdown1")).hide();
+}
+
 function validateLogin() {
 	var data = {};
 	data.usuario = $("#usuario").val();
@@ -114,10 +130,9 @@ function validateLogin() {
 				},
 				success : function(response) {
 					console.log("Success!");
-					var y = document
-							.getElementById("dropdown1");
-					y.style.display = "block";
 					toggleLoginSuccess();
+					showNav();
+					hideLogin();
 				},
 				error : function(jqXHR, exception) {
 					var msg = '';
@@ -383,13 +398,14 @@ $(function() {
 									},
 									success : function(response) {
 										$.each(response, function(index, element) {
+											var cantCond = Object.keys(element.condiciones).length + 1;
 											$('#tabla-metodologias').append(
 												$('<tr><th scope="row" rowspan="'
-													+ Object.keys(element.condiciones).length
+													+ cantCond
 													+ '">'
 													+ (index+1)
 													+ '</th><td rowspan="'
-													+ Object.keys(element.condiciones).length
+													+ cantCond
 													+ '">'
 													+ element.nombre
 													+ '</td>'));
@@ -529,48 +545,20 @@ $(document).ready(function () {
     if (window.location.pathname == "/index.html") {
         $.ajax({
             type: 'GET',
-            url: "http://localhost:8080/dondeInvierto/login/out",
-            dataType: "text",
-            //contentType: "application/json",
-            //data: JSON.stringify(data),
+            url: "http://localhost:8080/dondeInvierto/login/logged",
+            dataType : "json",
             beforeSend: function () {
                 console
                     .log("[INFO] (AJAX) Buscando información de usuario logueado...");
             },
             success: function (response) {
-                console.log("Success!");
-                var y = document
-                    .getElementById("dropdown1");
-                y.style.display = "block";
-
-            }, error: function (jqXHR, exception) {
-                var msg = '';
-                if (jqXHR.status === 0) {
-                    msg = 'Not connect.\n Verify Network.';
-                } else if (jqXHR.status == 400) {
-                    msg = 'Bad request. [400]';
-                } else if (jqXHR.status == 404) {
-                    msg = 'Requested page not found. [404].';
-                } else if (jqXHR.status == 500) {
-                    msg = 'Internal Server Error [500].';
-                } else if (exception === 'parsererror') {
-                    msg = 'Requested JSON parse failed.\n'
-                        + jqXHR.responseText
-                        + '.\n'
-                        + jqXHR.status
-                        + '.';
-                } else if (exception === 'timeout') {
-                    msg = 'Time out error.';
-                } else if (exception === 'abort') {
-                    msg = 'Ajax request aborted.';
-                } else {
-                    msg = 'Uncaught Error.\n'
-                        + jqXHR.responseText
-                        + '.\n' + jqXHR.status
-                        + '.';
-                }
-                console.log(msg);
-                //toggleLoginError();
+				if(response.usuario === "") {
+					console.log("[INFO] (AJAX) No hay usuario logueado.");
+				} else {
+					console.log("[INFO] (AJAX) El usuario sigue logueado.");
+					hideLogin();
+					showNav();
+				}
             }
         });
     }
@@ -587,18 +575,14 @@ $(function btnLogin() {
                         url: "http://localhost:8080/dondeInvierto/login/out",
                         dataType: "text",
                         contentType: "application/json",
-                        //data: JSON.stringify(data),
                         beforeSend: function () {
                             console
                                 .log("[INFO] (AJAX) Buscando información de usuario logueado...");
                         },
                         success: function (response) {
                             console.log("Success!");
-                            var y = document
-                                .getElementById("dropdown1");
-                            y.style.display = "none";
                             document.location.href = "index.html";
-                            togglelogOutSuccess();
+                            $(document).ready(hideNav());
                         },
                     });
             });
