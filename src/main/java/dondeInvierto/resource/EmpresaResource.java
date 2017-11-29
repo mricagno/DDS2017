@@ -61,11 +61,4 @@ public class EmpresaResource {
 				.build().toString();
     }
 	
-	/*@Path("/{empresa}/{cuenta}/{periodo}/")
-	@GET
-	@Produces("application/json")
-    public Empresa getCuenta(@PathParam("empresa") final String empresa) {
-        Jsonb jsonb = JsonbBuilder.create(config);
-        return jsonb.toJson(mercado.getEmpresa(empresa.replaceAll("%20", " ")));
-    }*/
 }

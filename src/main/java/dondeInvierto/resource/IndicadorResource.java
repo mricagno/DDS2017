@@ -61,11 +61,15 @@ public class IndicadorResource {
 		if (!mercado.addIndicador(json.getString("nombre"), formula, mercado.getUsuarioLog().getUsuario())) {
 			throw new BadRequestException("El indicador no ha sido creado.");
 		} else {
-			EntityManager em = mercado.getFactory().createEntityManager();
-			IndicadorService indicador_DB = new IndicadorService(em);
-			indicador_DB.addIndicador(
-					new Indicador(json.getString("nombre"), formula, mercado.getUsuarioLog().getUsuario()));
-			em.close();
+			try {
+				EntityManager em = mercado.getFactory().createEntityManager();
+				IndicadorService indicador_DB = new IndicadorService(em);
+				indicador_DB.addIndicador(
+						new Indicador(json.getString("nombre"), formula, mercado.getUsuarioLog().getUsuario()));
+				em.close();
+			} catch (Exception e) {
+				e.getMessage();
+			}
 		}
 		return Response.created(URI.create(json.getString("nombre"))).build();
 	}

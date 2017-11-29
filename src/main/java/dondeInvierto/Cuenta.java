@@ -6,10 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.hibernate.envers.*;
+
 @Entity
-@NamedQueries(value = {
-	    @NamedQuery(name = "Cuenta.getAll", query = "SELECT b FROM Cuenta b")
-	})
+@NamedQueries(value = { @NamedQuery(name = "Cuenta.getAll", query = "SELECT b FROM Cuenta b") })
 @Table(name = "cuenta")
 public class Cuenta {
 	@Id
@@ -17,10 +17,13 @@ public class Cuenta {
 	@NotNull
 	private Long cuentaID;
 	@Column(name = "TIPO")
+	@Audited
 	private String tipo;
 	@Column(name = "PERIODO")
+	@Audited
 	private Date periodo;
 	@Column(name = "VALOR")
+	@Audited
 	private double valor;
 
 	public Cuenta(String tipo, String periodo, String valor) throws ParseException {
@@ -32,12 +35,10 @@ public class Cuenta {
 	public Cuenta() {
 	};
 
-	
 	public String getTipo() {
 		return this.tipo;
 	}
 
-	
 	public Date getPeriodo() {
 		return this.periodo;
 	}
@@ -46,7 +47,6 @@ public class Cuenta {
 		return new SimpleDateFormat("yyyyMMdd").format(this.periodo);
 	}
 
-	
 	public double getValor() {
 		return this.valor;
 	}
@@ -58,7 +58,7 @@ public class Cuenta {
 	public void setId(Long id) {
 		this.cuentaID = id;
 	}
-	
+
 	public void setValor(Double valor) {
 		this.valor = valor;
 	};

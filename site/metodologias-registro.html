@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="styles/main.css">
   </head>
 
@@ -59,6 +60,9 @@
                   <li><a href="#">Separated link</a></li> -->
                 </ul>
               </li>
+              <li>
+                <button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
+              </li>
             </ul>
             <!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
             porque no escala bien al achicar la ventana)
@@ -86,44 +90,67 @@
     <div class="alert alert-danger alert-dismissible" role="alert" id="registryError">
       <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
         <span aria-hidden="true">&times;</span></button>
-      <strong>Error!</strong> La metodología no se registro&#769;.
+      <strong>Error!</strong> La metodologi&#769;a no se registro&#769;.
     </div>
 
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-body centered">
           <div class="page-header">
-            <h1>Registro de metodologías</h1>
+            <h1>Registro de metodologi&#769;as</h1>
           </div>
           <div class="container-fluid">
-            <div class="input-group">
-              <div class="col-xl-2">
-                <input type="text" class="form-control" placeholder="Nombre de la metodología" id="nombre">
+            <div class="container-fluid fields">
+              <input type="text" class="form-control" id="nombreMetodologia"
+                placeholder="Nombre de la metodologi&#769;a">
+              <div class="panel panel-default" id="panel-condiciones">
+                <div class="panel-heading">Condiciones</div>
+                  <div class="panel-body">
+                    <select class="selectpicker" title="Tipo de condicio&#769;n" id="tipoCondicion">
+                      <option>Filtro</option>
+                      <option>Ordenamiento</option>
+                    </select>
+                    <input type="text" class="form-control" id="nombreCondicion" placeholder="Nombre de la condicio&#769;n" >
+                    <select class="selectpicker" data-live-search="true" title="Indicador de la condicio&#769;n" id="indicadorCondicion">
+                    </select>
+                    <p>
+                    <select class="selectpicker" title="Criterio" id="criterioCondicion" disabled>
+                    </select>
+                  </div>
+                  <div class="container-fluid right-aligned">
+                    <button type="button" class="btn btn-default" id="btn-agregar-condicion">Agregar condicio&#769;n</button>
+                  </div>
+                  <table class="table table-responsive" id="tabla-resultados">
+                    <thead>
+                      <tr>
+                        <th colspan="4" id="table-header-condiciones">Condiciones</th>
+                      </tr>
+                      <tr>
+                        <th id="table-header-condiciones-tipo">Tipo</th>
+                        <th id="table-header-condiciones-nombre">Nombre</th>
+                        <th id="table-header-condiciones-indicador">Indicador</th>
+                        <th id="table-header-condiciones-criterio">Criterio</th>
+                      </tr>
+                      <!--<th class="cuentaValor">Valor</th> -->
+                    </thead>
+                    <tbody id="tabla-metodologias">
+                    </tbody>
+                  </table>
+                </div>
               </div>
-             <div id="block_container">
-              <div id="bloc1"><p>Comparador</p></div>
-              <div id="bloc2"><select required>
-                <option value="<"><</option>
-                <option value=">">></option>
-                <option value="==">=</option>
-                <option value="<="><=</option>
-                <option value=">=">>=</option>
-                <option value="!=">!=</option>
-              </select></div>
             </div>
-            <input type="text" class="form-control" placeholder="Valor" id="valor">
-            <input type="text" class="form-control" placeholder="Indicador" id="indicador">
-            <div class="container-fluid confirm-buttons">
-              <button type="button" class="btn btn-success" id="btn-registro-ind">Registrar</button>
+            <div class="container-fluid no-padding right-aligned">
+              <button type="button" class="btn btn-default btn-lg" id="btn-registro-meto">Registrar</button>
             </div>
           </div>
-        </div>
       </div>
     </div>
 
     <script src="scripts/jquery-3.2.0.js"></script>
     <script src="scripts/script.js?t=1505655903377"></script>
+    <script src="scripts/metodologias-script.js?t=1505655903377"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
   </body>
 </html>

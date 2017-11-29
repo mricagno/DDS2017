@@ -69,6 +69,9 @@
                   <li role="separator" class="divider"></li>
                   <li><a href="#">Separated link</a></li> -->
 							</ul></li>
+							<li>
+                				<button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
+             				</li>
 					</ul>
 					<!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
             porque no escala bien al achicar la ventana)
@@ -108,12 +111,19 @@
 						</div>
 					</div>
 				</div>
-				<table class="table" id="tabla-resultados">
+				<table class="table table-responsive" id="tabla-resultados">
 					<thead>
-						<th>#</th>
-						<th>nombre</th>
-						<th>condicionesFiltro</th>
-						<th>condicionesOrdenamiento</th>
+						<tr>
+							<th rowspan="2">#</th>
+							<th rowspan="2">Metodologi&#769;a</th>
+							<th colspan="4" id="table-header-condiciones">Condiciones</th>
+						</tr>
+						<tr>
+							<th id="table-header-condiciones-tipo">Tipo</th>
+							<th id="table-header-condiciones-nombre">Nombre</th>
+							<th id="table-header-condiciones-indicador">Indicador</th>
+							<th id="table-header-condiciones-criterio">Criterio</th>
+						</tr>
 						<!--<th class="cuentaValor">Valor</th> -->
 					</thead>
 					<tbody id="tabla-metodologias">
@@ -130,5 +140,7 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
 </body>
 </html>

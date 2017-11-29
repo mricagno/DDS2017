@@ -6,6 +6,7 @@ del texto
   background-color: #337ab7;
   background-image: linear-gradient(to bottom,#2e6da4 0,#337ab7 100%)
 }*/
+
 .navbar>.container-fluid .navbar-brand {
 	margin-left: 0;
 }
@@ -171,10 +172,12 @@ style>.panel-body {
 
 .table>thead>tr>td {
 	vertical-align: middle;
+	text-align: center;
 }
 
 .table>thead>tr>th {
 	vertical-align: middle;
+	text-align: center;
 }
 
 .table>tbody>tr>td {
@@ -237,4 +240,40 @@ row.vdivide [class*='col-']:not(:last-child):after {
   bottom: 0;
   right: 0;
   min-height: 70px;
+}
+
+#table-header-condiciones {
+	border-bottom: none;
+}
+
+#table-header-condiciones-tipo {
+	border-top: none;
+}
+
+#table-header-condiciones-nombre {
+	border-top: none;
+}
+
+#table-header-condiciones-indicador {
+	border-top: none;
+}
+
+#table-header-condiciones-criterio {
+	border-top: none;
+}
+
+#panel-condiciones {
+	padding-bottom: 40px;
+}
+
+#panel-condiciones>.panel-body>input {
+	margin-bottom: 10px;
+}
+
+#panel-condiciones>.panel-body>.bootstrap-select {
+	margin-bottom: 10px;
+}
+
+#panel-condiciones>#tabla-resultados {
+	margin-top: 40px;
 }

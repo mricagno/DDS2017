@@ -33,14 +33,15 @@ public class CuentaService {
 		}
 		return cuentaID;
 	}
-	
+
 	// Crear cuenta en DB de empresa existente
-	public void addCuenta_existCompany(String tipo, String periodo, String valor, Empresa empresa) throws ParseException {
-		
+	public void addCuenta_existCompany(String tipo, String periodo, String valor, Empresa empresa)
+			throws ParseException {
+
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
 		Empresa empresa_db = null;
-		//Long cuentaID = null;
+		// Long cuentaID = null;
 		try {
 			trx.begin();
 			List<Empresa> empresas = this.em
@@ -55,8 +56,6 @@ public class CuentaService {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 	// Devuelve todas las cuentas
 	public List<Cuenta> listCuentasAll() {
@@ -76,13 +75,13 @@ public class CuentaService {
 	}
 
 	// Lee las cuentas de una empresa
-	public List<Cuenta> listCuentas(Empresa empresa) {
+	public List<Cuenta> listaCuentas(Empresa empresa) {
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
-			List<Cuenta> cuentas = this.em.createQuery("FROM Cuenta WHERE empresa_id = :eid", Cuenta.class)
-					.setParameter("eid", empresa).getResultList();
+			List<Cuenta> cuentas = this.em.createQuery("FROM Cuenta WHERE id = :eid", Cuenta.class)
+					.setParameter("eid", empresa.getId()).getResultList();
 			trx.commit();
 			return cuentas;
 		} catch (HibernateException e) {
@@ -94,14 +93,21 @@ public class CuentaService {
 	}
 
 	// Actualizar Cuenta
-	public void updateCuenta(Long id, Double valor) {
+	public void updateCuenta2(Long id, Double valor) {
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
+		Cuenta cuenta_db = null;
 		try {
 
 			Cuenta cuenta = this.em.find(Cuenta.class, id);
 			trx.begin();
 			cuenta.setValor(valor);
+			// Cuenta cuenta = this.em.find(Cuenta.class, id);
+			List<Cuenta> cuentas = this.em.createQuery("Select c FROM Cuenta c WHERE c.cuentaID = :cid", Cuenta.class)
+					.setParameter("cid", id).getResultList();
+			cuenta_db = cuentas.stream().findFirst().get();
+			System.out.println(valor + "existeeeee");
+			cuenta_db.setValor(valor);
 			trx.commit();
 		} catch (HibernateException e) {
 			if (trx != null)

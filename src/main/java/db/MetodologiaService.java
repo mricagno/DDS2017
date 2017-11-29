@@ -39,7 +39,9 @@ public class MetodologiaService {
 		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
-			List<Metodologia> metodologias = this.em.createQuery("FROM Metodologia",Metodologia.class).getResultList();
+			List<Metodologia> metodologias = this.em.createQuery(
+					"FROM Metodologia", Metodologia.class)
+					.getResultList();
 			trx.commit();
 			return metodologias;
 		} catch (HibernateException e) {

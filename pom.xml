@@ -3,11 +3,14 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>donde-invierto</groupId>
-	<artifactId>donde-invierto</artifactId>
+	<groupId>dondeInvierto</groupId>
+	<artifactId>dondeInvierto</artifactId>
 	<version>1.0</version>
 
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -27,7 +30,7 @@
 						<id>antlr</id>
 						<configuration>
 							<listener>false</listener>
-							<outputDirectory>src/main/java/antlr4</outputDirectory>
+							<outputDirectory>src/main/java</outputDirectory>
 							<visitor>true</visitor>
 						</configuration>
 						<goals>
@@ -60,6 +63,42 @@
 					<forkCount>1</forkCount>
 				</configuration>
 			</plugin>
+			<!--
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://localhost:8080/</url>
+					<server>donde-invierto</server>
+					<path>/dondeInvierto</path>
+        			<username>admin</username>
+        			<password>admin</password>
+				</configuration>
+				<executions>
+                        <execution>
+                            <id>start-tomcat</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                           	<configuration>
+             					<fork>true</fork>
+        					</configuration>
+                        </execution>
+                        <execution>
+                            <id>stop-tomcat</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>shutdown</goal>
+                            </goals>
+                            <configuration>
+             					<fork>true</fork>
+        					</configuration>
+                        </execution>
+                    </executions>
+			</plugin>
+			-->
 		</plugins>
 	</build>
 
@@ -101,18 +140,22 @@
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-grizzly2-http</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet -->
+		<dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
-			<version>2.26</version><!--$NO-MVN-MAN-VER$ -->
+			<version>2.26</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
-			<version>2.26</version><!--$NO-MVN-MAN-VER$ -->
+			<version>2.26</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.glassfish.grizzly/grizzly-http-server -->
 		<dependency>
 			<groupId>org.glassfish.grizzly</groupId>
 			<artifactId>grizzly-http-server</artifactId>
@@ -121,25 +164,26 @@
 		<dependency>
 			<groupId>javax.json</groupId>
 			<artifactId>javax.json-api</artifactId>
-			<version>1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.json.bind</groupId>
-			<artifactId>javax.json.bind-api</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.json</artifactId>
-			<version>1.1</version>
+			<version>1.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.11.Final</version>
+			<!--
+			<exclusions>
+                <exclusion>
+                    <groupId>org.javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
+            </exclusions>
+            -->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -150,21 +194,43 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>6.0.6</version>
 		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>1.19.4</version>
-		</dependency>
+	        <dependency>
+        	    <groupId>org.glassfish.jersey.core</groupId>
+	            <artifactId>jersey-server</artifactId>
+	            <version>2.26</version>
+	        </dependency>
+	        <dependency>
+        	    <groupId>org.glassfish.jersey.core</groupId>
+	            <artifactId>jersey-common</artifactId>
+	            <version>2.26</version>
+	        </dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-multipart</artifactId>
-			<version>2.26</version><!--$NO-MVN-MAN-VER$ -->
+			<version>2.26</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
 		<dependency>
 			<groupId>com.google.api-client</groupId>
 			<artifactId>google-api-client</artifactId>
 			<version>1.23.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+			<version>4.3.11.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.2.1</version>
+		</dependency>
 	</dependencies>
+	
+	<packaging>war</packaging>
+	
 </project>

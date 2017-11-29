@@ -10,6 +10,7 @@ import antlr4.Antlr;
 public class Indicador {
 	@Id
 	@GeneratedValue
+	@Column(name = "ID")
 	private Long id;
 	@Column(name = "NOMBRE")
 	private String nombre;
@@ -27,12 +28,12 @@ public class Indicador {
 	}
 
 	public Indicador() {
-	};
+	}
 
 	public String getNombre() {
 		return this.nombre;
 	}
-	
+
 	public String getCreador() {
 		return this.creadoPor;
 	}
@@ -52,4 +53,5 @@ public class Indicador {
 	public Double getValorFor(Empresa empresa, String periodo) {
 		return Antlr.calculate(this.getFormula(), empresa, periodo);
 	}
+
 }

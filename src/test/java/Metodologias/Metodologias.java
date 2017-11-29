@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.*;
 
+import db.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,152 +17,121 @@ import dondeInvierto.MercadoBursatil;
 import dondeInvierto.Metodologia;
 import dondeInvierto.ResultadoCondicionado;
 
+import javax.persistence.EntityManager;
 
 
 public class Metodologias {
-
 	static MercadoBursatil mercado = MercadoBursatil.INSTANCE;
+
 	Empresa facebook = new Empresa("Facebook Inc.");
 	Empresa twitter = new Empresa("Twitter Inc.");
 	Empresa tesla = new Empresa("Tesla Inc.");
-	
+
+
 	@BeforeClass
-	public static void inicializar() throws Exception {	
-		//mercado.init();
-		
-		mercado.addEmpresa("Facebook Inc.");
-		mercado.addEmpresa("Tesla Inc.");
-		mercado.addEmpresa("Twitter Inc.");
-		
+	public static void inicializar() throws Exception {
+		DB_Manager DBManager = DB_Manager.getSingletonInstance();
+		EntityManager em = DBManager.getEmf().createEntityManager();
+		mercado.setFactory(DBManager.getEmf());
+		MercadoBursatilService modelService = new MercadoBursatilService(em);
+
+		EmpresaService empresa = new EmpresaService(em);
+		CuentaService cuenta = new CuentaService(em);
+		IndicadorService indicador = new IndicadorService(em);
+		UsuarioService usuario = new UsuarioService(em);
+		MetodologiaService metodologia = new MetodologiaService(em);
+		usuario.addUsuario("gonzalo", "gonzalo", 0);
+		usuario.addUsuario("patricio", "patricio", 0);
+		usuario.addUsuario("gian", "gian", 0);
+		usuario.addUsuario("maxi", "maxi", 0);
+		empresa.addEmpresa("Facebook Inc.");
+		empresa.addEmpresa("Tesla Inc.");
+		empresa.addEmpresa("Twitter Inc.");
+		mercado.setEmpresas(empresa.listEmpresas());
 		mercado.getEmpresa("Facebook Inc.").setAntiguedad(15);
 		mercado.getEmpresa("Tesla Inc.").setAntiguedad(5);
 		mercado.getEmpresa("Twitter Inc.").setAntiguedad(11);
-		
-		
-		mercado.addCuenta("Facebook Inc.", "EBITDA", "20151231", "8162");
-		mercado.addCuenta("Facebook Inc.", "FCF", "20151231", "82");
-		mercado.addCuenta("Facebook Inc.", "EBITDA", "20161231", "14870");
-		mercado.addCuenta("Facebook Inc.", "FCF", "20161231", "399");
-		
-		mercado.addCuenta("Tesla Inc.", "EBITDA", "20151231", "213");		
-		mercado.addCuenta("Tesla Inc.", "FCF", "20151231", "230");
-		mercado.addCuenta("Tesla Inc.", "EBITDA", "20161231", "630");
-		mercado.addCuenta("Tesla Inc.", "FCF", "20161231", "50");
-
-		mercado.addCuenta("Twitter Inc.", "EBITDA", "20161231", "751");
-		mercado.addCuenta("Twitter Inc.", "FCF", "20161231", "11");		
-		mercado.addCuenta("Twitter Inc.", "EBITDA", "20151231", "8551");
-		mercado.addCuenta("Twitter Inc.", "FCF", "20151231", "111");
-		
-		mercado.addIndicador("Ingreso Neto", "Ingreso Neto = EBITDA","DEFAULT");
-		//mercado.addIndicador("Ingreso Neto", "A=BB+C");
-
-		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF","DEFAULT");
-		mercado.addIndicador("Ingreso Neto En Operaciones Continuas", "Ingreso Neto En Operaciones Continuas = EBITDA ","DEFAULT");
-		mercado.addIndicador("Ingreso Neto En Operaciones Discontinuadas", "Ingreso Neto En Operaciones Discontinuas = FCF","DEFAULT");
-		mercado.addIndicador("Ingreso Neto","Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
-				+ "Ingreso Neto En Ope0raciones Discontinuadas","DEFAULT");
-		mercado.addIndicador("Dividendos", "Dividendos = EBITDA - FCF","DEFAULT");
-		mercado.addIndicador("Capital Total", "Capital Total = EBITDA + FCF","DEFAULT");
-		mercado.addIndicador("Roe", "Roe = ( Ingreso Neto - Dividendos) / Capital Total","DEFAULT");
-		mercado.addIndicador("Proporcion De Deuda", "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )","DEFAULT");
-		mercado.addIndicador("Margen", "Margen = Capital Total - Dividendos","DEFAULT");
-		mercado.addIndicador("Indicador Vacio", "Indicador Vacio = 0","DEFAULT");
-		//Indicador indicador = mercado.getIndicador("Indicador");
-		//CondicionFiltro filtro = new CondicionFiltro("CondFiltroIngNeto", ">", 1.00, indicador);
-		//CondicionOrdenamiento orden = new CondicionOrdenamiento("CondOrdIngNet","ascendente",0,indicador);
-		
-		
-		//condicionesFiltro.add(filtro1);
-		//condicionesFiltro.add(filtro2);
-		//condicionesFiltro.add(filtro3);
-		//condicionesFiltro.add(filtro4);
-			
-//		CondicionFiltro filtroWB1 = new CondicionFiltro("CondFiltroRoe", ">", 1.00, mercado.getIndicador("Roe"));
-//		CondicionFiltro filtroWB2 = new CondicionFiltro("CondFiltroPropDeuda", ">", 1.00, mercado.getIndicador("Proporcion De Deuda"));
-
-//		condicionesOrdenamiento.add(orden1);
-//		condicionesOrdenamiento.add(orden2);
-				
-//		mercado.addMetodologia("metodologia1", condicionesFiltro , condicionesOrdenamiento);
-		//mercado.addMetodologia("metodologiaWarrenBuffet", condicionesFiltro , condicionesOrdenamiento);
-		//Metodologia metodologia1 = new Metodologia("metodologia1", condicionesFiltro , orden);
-		
-		Set<CondicionFiltro> condicionesFiltro1 = new HashSet<>();
-		Set<CondicionOrdenamiento> condicionesOrdenamiento1 = new HashSet<>();
-		
-		CondicionFiltro filtro10 = new CondicionFiltro("margenCrecienteUltimosAnios", "margenCrecienteUltimosAnios", 1.00, mercado.getIndicador("Margen"));
-		//CondicionOrdenamiento orden10 = new CondicionOrdenamiento("CondOrdAscendente","ascendente",0,mercado.getIndicador("Indicador Vacio"));
-		
-		condicionesFiltro1.add(filtro10);
-		//condicionesOrdenamiento1.add(orden10);
-		
-		mercado.addMetodologia("pruebaCondicionMargen", condicionesFiltro1, condicionesOrdenamiento1,"DEFAULT");
-		
-		
-		// TEST METODOLOGIA WARREN BUFFET
-		
+		Empresa facebook = empresa.getEmpresa_name("Facebook Inc.");
+		cuenta.addCuenta("EBITDA", "20151231", "8162", facebook);
+		cuenta.addCuenta("EBITDA", "20161231", "14870", facebook);
+		cuenta.addCuenta("FCF", "20151231", "3.99", facebook);
+		Empresa tesla = empresa.getEmpresa_name("Tesla Inc.");
+		cuenta.addCuenta("EBITDA", "20151231", "213", tesla);
+		cuenta.addCuenta("EBITDA", "20161231", "630", tesla);
+		cuenta.addCuenta("FCF", "20151231", "230", tesla);
+		Empresa twitter = empresa.getEmpresa_name("Twitter Inc.");
+		cuenta.addCuenta("EBITDA", "20161231", "751", twitter);
+		cuenta.addCuenta("FCF", "20151231", "1751", twitter);
+		indicador.addIndicador(new Indicador("Ingreso Neto", "Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
+				+ "Ingreso Neto En Operaciones Discontinuadas", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Retorno sobre capital total",
+				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Continuas",
+				"Ingreso Neto En Operaciones Continuas = EBITDA ", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Discontinuadas",
+				"Ingreso Neto En Operaciones Discontinuas = FCF", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Dividendos", "Dividendos = EBITDA - FCF", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Capital Total", "Capital Total = EBITDA + FCF", "DEFAULT"));
+		indicador.addIndicador(new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Proporcion De Deuda",
+				"Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos", "DEFAULT"));
+		indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+		mercado.setIndicadores(indicador.listIndicadores());
+		CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10,
+				new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+		CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10,
+				new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
+		CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0,
+				new Indicador("Proporcion De Deuda",
+						"Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
+		Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
+		Set<CondicionOrdenamiento> condicionesOrdenamiento = new HashSet<>();
+		filtro1.setEmpresas(mercado.getEmpresas());
+		orden1.setEmpresas(mercado.getEmpresas());
+		orden2.setEmpresas(mercado.getEmpresas());
+		condicionesFiltro.add(filtro1);
+		condicionesOrdenamiento.add(orden1);
+		condicionesOrdenamiento.add(orden2);
+		metodologia.setMetodologia("metodologia1", condicionesFiltro, condicionesOrdenamiento, "DEFAULT");
 		Set<CondicionFiltro> condicionesFiltroWB = new HashSet<>();
 		Set<CondicionOrdenamiento> condicionesOrdenamientoWB = new HashSet<>();
 		CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen"));
 		CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio"));
-		
-		CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe","ascendente",10,mercado.getIndicador("Roe"));
+		CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, mercado.getIndicador("ROE"));
 		CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda","descendente",0,mercado.getIndicador("Proporcion De Deuda"));
-
-		//CondicionFiltro condFiltroWB1 = new CondicionFiltro("ROEMejorUltimosAnios", "ROEMejorUltimosAnios", 1.00, mercado.getIndicador("Margen"));
-		//ondicionOrdenamiento condOrdenamientoWB1= new CondicionOrdenamiento("CondOrdAscendente","ascendente",0,mercado.getIndicador("Indicador Vacio"));		
-		
+		filtroWB3.setEmpresas(mercado.getEmpresas());
+		filtroWB4.setEmpresas(mercado.getEmpresas());
+		ordenWB1.setEmpresas(mercado.getEmpresas());
+		ordenWB2.setEmpresas(mercado.getEmpresas());
 		condicionesOrdenamientoWB.add(ordenWB1);
 		condicionesOrdenamientoWB.add(ordenWB2);
 		condicionesFiltroWB.add(filtroWB3);
 		condicionesFiltroWB.add(filtroWB4);
-		
-		mercado.addMetodologia("warrenBuffet", condicionesFiltroWB, condicionesOrdenamientoWB,"DEFAULT");
-		
-		
-	
+		metodologia.setMetodologia("warrenBuffet", condicionesFiltroWB, condicionesOrdenamientoWB, "DEFAULT");
+
+		//MercadoBursatilService modelService = new MercadoBursatilService(em);
+		mercado.setEmpresas(modelService.generate_empresa_model());
+		mercado.setIndicadores(modelService.generate_indicador_model());
+		mercado.setUsuarios(modelService.generate_usuario_model());
+		mercado.setMetodologias(modelService.generate_metodologias_model());
+		;
+		mercado.setIndicadorCalculado(modelService.generate_indicadoresCalculados_model());
+		;
+		mercado.preCalculo_indicadores();
+
 	}
-	
-	
+
 	@Test
-		
+
 	public void test() {
-		
-	//	mercado.getMetodologia("pruebaCondicionMargen").calcularMetodologia(mercado.getMetodologia("pruebaCondicionMargen"));
-		
-		mercado.getMetodologia("warrenBuffet").calcularMetodologia(mercado.getMetodologia("warrenBuffet"));
-		//fail("Not yet implemented");
-	
-		//mercado.getMetodologia("metodologiaWarrenBuffet").calcularMetodologia(mercado.getMetodologia("metodologiaWarrenBuffet"));
-			/*
-		mercado.getMetodologia("metodologia1").calcularMetodologia(mercado.getMetodologia("metodologia1"));
-		
-		System.out.println(" "+mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getVectorCondicion().size() );
-		
-		//mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().vectorCondicion()[1].setNombre("gonzalo");
-		
-		for(ResultadoCondicionado empresaResultante : mercado.getMetodologia("metodologia1").getCondicionOrdenamiento().getResultadoCondicion()){
-			System.out.println(" "+empresaResultante.getNombre());	
-		}
-		*/
-				
-	
-	/*	for(int i=0; i< 10; i++){
-			System.out.println(" "+metodologia.getCondicionOrdenamiento().getResultadoCondicion()[i].getNombre());
-		}
-	*/
-	
-	// prueba indicadores Metodologia Warren
-	//	double capitalTotalFacebook = mercado.getIndicador("Capital Total").getValorFor(mercado.getEmpresa("Facebook Inc."), "20151231");
-	//	System.out.println("El capital total facebook es: "+capitalTotalFacebook);
-	//	double capitalTotalTwitter = mercado.getIndicador("Capital Total").getValorFor(mercado.getEmpresa("Twitter Inc."), "20151231");
-	//	System.out.println("El capitalTotalTwitter es: "+capitalTotalTwitter);
-	
-		
-		//double x = mercado.getIndicador("Ingreso Neto").getValorFor(mercado.getEmpresa("Facebook Inc."),"20151231");
-		//System.out.println(x);
-		
+		mercado.getMetodologia("warrenBuffet").calcularMetodologia();//mercado.getMetodologia("warrenBuffet"));
+		List<ResultadoCondicionado> listaFiltradaUOrdenada2 = mercado.getMetodologia("warrenBuffet").getListaFiltradaUOrdenada();
+		System.out.println("Resultado aplicacion de metodología: ");
+		listaFiltradaUOrdenada2.forEach(l -> {
+			System.out.println(l.getNombre());
+		});
 	}
 
 }

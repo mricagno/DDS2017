@@ -2,19 +2,30 @@ package dondeInvierto;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
+
+import dondeInvierto.resource.*;
 import json.JsonApplication;
 
-public class Main {
+public class Main extends Application {
 	private static final URI BASE_URI = URI.create("http://localhost:8080/dondeInvierto/");
 	
 	public static void main(String[] args) throws Exception {
 		MercadoBursatil mercado = MercadoBursatil.INSTANCE;	
 		mercado.init();
+		mercado.set_job();
+
         try {
             final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, new JsonApplication(), false);
             Runtime.getRuntime().addShutdownHook(new Thread(server::shutdownNow));
@@ -31,4 +42,19 @@ public class Main {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
 	}
+	
+//	@Override
+//	public Set<Class<?>> getClasses() {
+//        final Set<Class<?>> resources = new HashSet<Class<?>>();
+//
+//        resources.add(CuentaResource.class);
+//        resources.add(EmpresaResource.class);
+//        resources.add(IndicadorResource.class);
+//        resources.add(MetodologiaResource.class);
+//        resources.add(UsuarioResource.class);
+//
+//        resources.add(MultiPartFeature.class);
+//
+//        return resources;
+//    }
 }

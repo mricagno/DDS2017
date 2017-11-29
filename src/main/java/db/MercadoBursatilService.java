@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
+import dondeInvierto.IndicadorCalculado;
 import dondeInvierto.Metodologia;
 import dondeInvierto.Usuario;
 
@@ -38,5 +39,12 @@ public class MercadoBursatilService {
 		List<Metodologia> metodologias = metodologia.getMetodologias();
 		return metodologias;
 	}
+	
+
+    public List<IndicadorCalculado> generate_indicadoresCalculados_model() {
+        IndicadorCalculadoService indicadorCalculadoService = new IndicadorCalculadoService(em);
+        List<IndicadorCalculado> indicadorCalculados = indicadorCalculadoService.listIndicadoresCalculados();
+        return indicadorCalculados;
+    }
 	
 }
