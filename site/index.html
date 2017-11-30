@@ -16,7 +16,12 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
           crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id"
+          content="794407398291-kmpmq9f17d3mk56ddmfdv557kmeurrbe.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
+
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -69,11 +74,15 @@
               <li><a href="#">Separated link</a></li> -->
                         </ul>
                     </li>
-                    <li
-                            button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
+                    <li>
+                        <a href="configuracion.html">
+                            <span class="glyphicon glyphicon-wrench" id="btn-config"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
                     </li>
                 </ul>
-
                 <!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
         porque no escala bien al achicar la ventana)
         <form class="navbar-form navbar-right">
@@ -127,7 +136,7 @@
     </div>
 </div>
 
-<div class="container" style="margin-top: 10px">
+<div class="container" id="login-box" style="margin-top: 10px">
     <br>
     <div class="col-md-12">
         <div class="modal-dialog" style="margin-bottom: 0">
@@ -174,5 +183,6 @@
         src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 </body>
 </html>

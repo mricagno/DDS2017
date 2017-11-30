@@ -12,6 +12,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
+    <script type="text/javascript">
+        function getfolder(e) {
+            var files = e.target.files;
+            var path = files[0].webkitRelativePath;
+            var Folder = path.split("/");
+            alert(Folder[0]);
+        }
+    </script>
 </head>
 
 <body>
@@ -45,11 +53,11 @@
                             <li><a href="cuentas-consulta.html">Consulta</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown active">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Indicadores <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Registro</a></li>
+                            <li><a href="indicadores-registro.html">Registro</a></li>
                             <li><a href="indicadores-consulta.html">Consulta</a></li>
                             <li><a href="indicadores-borrar.html">Borrar</a></li>
                         </ul>
@@ -91,34 +99,28 @@
     </div>
 </nav>
 
-<div class="alert alert-success alert-dismissible" role="alert" id="registrySuccess">
-    <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
-        <span aria-hidden="true">&times;</span></button>
-    <strong>E&#769;xito!</strong> El indicador se registro&#769; correctamente.
-</div>
-
-<div class="alert alert-danger alert-dismissible" role="alert" id="registryError">
-    <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
-        <span aria-hidden="true">&times;</span></button>
-    <strong>Error!</strong> El indicador no se registro&#769;.
-</div>
-
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-body centered">
             <div class="page-header">
-                <h1>Registro de indicadores</h1>
+                <h1>Configuracio&#769;n</h1>
             </div>
-            <div class="container-fluid">
-                <div class="input-group">
-                    <div class="col-xl-2">
-                        <input type="text" class="form-control" placeholder="Nombre del indicador" id="nombre">
+            <div class="panel panel-default" id="filters">
+                <div class="panel-heading">Carga automa&#769;tica de cuentas</div>
+                <div class="panel-body">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Directorio de carga</span>
+                        <input type="file" id="flup" onchange="getfolder(event)" webkitdirectory mozdirectory
+                               msdirectory odirectory directory multiple/>
+                        <!--<input type="file" class="form-control" aria-describedby="basic-addon3">-->
                     </div>
-                    <span class="input-group-addon">=</span>
-                    <input type="text" class="form-control" placeholder="Fo&#769;rmula" id="formula">
-                </div>
-                <div class="container-fluid confirm-buttons">
-                    <button type="button" class="btn btn-success" id="btn-registro-ind">Registrar</button>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Intervalo de carga</span>
+                        <input type="number" aria-describedby="basic-addon3" max="1200">Segundos
+                    </div>
+                    <div class="container-fluid no-padding left-aligned">
+                        <button type="button" class="btn btn-default btn-lg" id="btn-buscar-cuentas">Guardar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,7 +128,7 @@
 </div>
 
 <script src="scripts/jquery-3.2.0.js"></script>
-<script src="scripts/script.js?t=1505655903377"></script>
+<script src="scripts/script.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"

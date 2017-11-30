@@ -1,132 +1,173 @@
 <!DOCTYPE html>
 <html lang="es">
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cuentas - &#191;Do&#769;nde invierto?</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="styles/main.css">
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" id="brand-logo" href="#">
-              <img alt="&#191;Do&#769;nde invierto?" src="img/logo.png">
-            </a>
-            <a class="navbar-brand" href="index.html">&#191;Do&#769;nde invierto?</a>
-          </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="brand-logo" href="#">
+                    <img alt="&#191;Do&#769;nde invierto?" src="img/logo.png">
+                </a>
+                <a class="navbar-brand" href="index.html">&#191;Do&#769;nde invierto?</a>
+            </div>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav" id="dropdown1">
-              <li><a href="index.html">Inicio <span class="sr-only">(current)</span></a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cuentas <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="cuentas-registro.html">Registro</a></li>
-                  <li><a href="cuentas-consulta.html">Consulta</a></li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" id="dropdown1">
+                    <li><a href="index.html">Inicio <span class="sr-only">(current)</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Cuentas <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="cuentas-registro.html">Registro</a></li>
+                            <li><a href="cuentas-consulta.html">Consulta</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Indicadores <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="indicadores-registro.html">Registro</a></li>
+                            <li><a href="indicadores-consulta.html">Consulta</a></li>
+                            <li><a href="indicadores-borrar.html">Borrar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Metodologi&#769;as <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Registro</a></li>
+                            <li>
+                            <li><a href="metodologias-consulta.html">Consulta</a></li>
+                            <!-- Se pueden usar separadores
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li> -->
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="configuracion.html">
+                            <span class="glyphicon glyphicon-wrench" id="btn-config"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
+                    </li>
                 </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Indicadores <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="indicadores-registro.html">Registro</a></li>
-                  <li><a href="indicadores-consulta.html">Consulta</a></li>
-                  <li><a href="indicadores-borrar.html">Borrar</a></li>
-                </ul>
-              </li>
-              <li class="dropdown active">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Metodologi&#769;as <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Registro</a></li><li>
-                  <li><a href="metodologias-consulta.html">Consulta</a></li>
-                  <!-- Se pueden usar separadores
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">Separated link</a></li> -->
-                </ul>
-              </li>
-              <li
-                      button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
-              </li>
-            </ul>
-            <!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
-            porque no escala bien al achicar la ventana)
-            <form class="navbar-form navbar-right">
-              <div class="col-lg-6">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Buscar...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                  </span>
-                </div>
-              </div>
-            </form> -->
-          </div><!-- /.navbar-collapse -->
+                <!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
+                porque no escala bien al achicar la ventana)
+                <form class="navbar-form navbar-right">
+                  <div class="col-lg-6">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Buscar...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                      </span>
+                    </div>
+                  </div>
+                </form> -->
+            </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
-      </div>
-    </nav>
-
-    <div class="alert alert-success alert-dismissible" role="alert" id="registrySuccess">
-      <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
-        <span aria-hidden="true">&times;</span></button>
-      <strong>E&#769;xito!</strong> La metodología se registro&#769; correctamente.
     </div>
+</nav>
 
-    <div class="alert alert-danger alert-dismissible" role="alert" id="registryError">
-      <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
+<div class="alert alert-success alert-dismissible" role="alert" id="registrySuccess">
+    <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
         <span aria-hidden="true">&times;</span></button>
-      <strong>Error!</strong> La metodología no se registro&#769;.
-    </div>
+    <strong>E&#769;xito!</strong> La metodología se registro&#769; correctamente.
+</div>
 
-    <div class="container">
-      <div class="panel panel-default">
+<div class="alert alert-danger alert-dismissible" role="alert" id="registryError">
+    <button type="button" class="close" aria-label="Close" onClick="toggleRegistrySuccess()">
+        <span aria-hidden="true">&times;</span></button>
+    <strong>Error!</strong> La metodologi&#769;a no se registro&#769;.
+</div>
+
+<div class="container">
+    <div class="panel panel-default">
         <div class="panel-body centered">
-          <div class="page-header">
-            <h1>Registro de metodologías</h1>
-          </div>
-          <div class="container-fluid">
-            <div class="input-group">
-              <div class="col-xl-2">
-                <input type="text" class="form-control" placeholder="Nombre de la metodología" id="nombre">
-              </div>
-             <div id="block_container">
-              <div id="bloc1"><p>Comparador</p></div>
-              <div id="bloc2"><select required>
-                <option value="<"><</option>
-                <option value=">">></option>
-                <option value="==">=</option>
-                <option value="<="><=</option>
-                <option value=">=">>=</option>
-                <option value="!=">!=</option>
-              </select></div>
+            <div class="page-header">
+                <h1>Registro de metodologi&#769;as</h1>
             </div>
-            <input type="text" class="form-control" placeholder="Valor" id="valor">
-            <input type="text" class="form-control" placeholder="Indicador" id="indicador">
-            <div class="container-fluid confirm-buttons">
-              <button type="button" class="btn btn-success" id="btn-registro-ind">Registrar</button>
+            <div class="container-fluid">
+                <div class="container-fluid fields">
+                    <input type="text" class="form-control" id="nombreMetodologia"
+                           placeholder="Nombre de la metodologi&#769;a">
+                    <div class="panel panel-default" id="panel-condiciones">
+                        <div class="panel-heading">Condiciones</div>
+                        <div class="panel-body">
+                            <select class="selectpicker" title="Tipo de condicio&#769;n" id="tipoCondicion">
+                                <option>Filtro</option>
+                                <option>Ordenamiento</option>
+                            </select>
+                            <input type="text" class="form-control" id="nombreCondicion"
+                                   placeholder="Nombre de la condicio&#769;n">
+                            <select class="selectpicker" data-live-search="true" title="Indicador de la condicio&#769;n"
+                                    id="indicadorCondicion">
+                            </select>
+                            <p>
+                                <select class="selectpicker" title="Criterio" id="criterioCondicion" disabled>
+                                </select>
+                        </div>
+                        <div class="container-fluid right-aligned">
+                            <button type="button" class="btn btn-default" id="btn-agregar-condicion">Agregar condicio&#769;n</button>
+                        </div>
+                        <table class="table table-responsive" id="tabla-resultados">
+                            <thead>
+                            <tr>
+                                <th colspan="4" id="table-header-condiciones">Condiciones</th>
+                            </tr>
+                            <tr>
+                                <th id="table-header-condiciones-tipo">Tipo</th>
+                                <th id="table-header-condiciones-nombre">Nombre</th>
+                                <th id="table-header-condiciones-indicador">Indicador</th>
+                                <th id="table-header-condiciones-criterio">Criterio</th>
+                            </tr>
+                            <!--<th class="cuentaValor">Valor</th> -->
+                            </thead>
+                            <tbody id="tabla-metodologias">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="container-fluid no-padding right-aligned">
+                <button type="button" class="btn btn-default btn-lg" id="btn-registro-meto">Registrar</button>
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <script src="scripts/jquery-3.2.0.js"></script>
-    <script src="scripts/script.js?t=1505655903377"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </body>
+<script src="scripts/jquery-3.2.0.js"></script>
+<script src="scripts/script.js?t=1505655903377"></script>
+<script src="scripts/metodologias-script.js?t=1505655903377"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+</body>
 </html>

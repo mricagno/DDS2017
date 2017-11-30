@@ -47,18 +47,9 @@ function toggleLoginSuccess() {
     $("#loginSuccess").delay(5000).fadeOut(200);
 }
 
-function togglelogOutSuccess() {
-    $("#logOutSuccess").fadeIn(200);
-    $("#logOutSuccess").delay(5000).fadeOut(200);
-}
-
 function toggleLoginError() {
     $("#loginError").fadeIn(200);
     $("#loginError").delay(5000).fadeOut(200);
-}
-
-function logOutSuccess() {
-    togglelogOutSuccess()
 }
 
 function loginSuccess() {
@@ -112,146 +103,44 @@ function hideConds(x) {
     $(".condicion4").fadeOut(x);
 }
 
-$(function () {
-    $("#btn-login-usr")
-        .click(
-            function () {
-                var data = {};
-                data.usuario = $("#usuario").val();
-                data.password = $("#password").val();
-                $
-                    .ajax({
-                        type: 'POST',
-                        url: "http://localhost:8080/dondeInvierto/login/auth",
-                        dataType: "text",
-                        contentType: "application/json",
-                        data: JSON.stringify(data),
-                        beforeSend: function () {
-                            console
-                                .log("[INFO] (AJAX) Buscando información de usuarios...");
-                        },
-                        success: function (response) {
-                            console.log("Success!");
-                            var y = document
-                                .getElementById("dropdown1");
-                            y.style.display = "block";
-                            toggleLoginSuccess();
-                        },
-                        error: function (jqXHR, exception) {
-                            var msg = '';
-                            if (jqXHR.status === 0) {
-                                msg = 'Not connect.\n Verify Network.';
-                            } else if (jqXHR.status == 400) {
-                                msg = 'Bad request. [400]';
-                            } else if (jqXHR.status == 404) {
-                                msg = 'Requested page not found. [404].';
-                            } else if (jqXHR.status == 500) {
-                                msg = 'Internal Server Error [500].';
-                            } else if (exception === 'parsererror') {
-                                msg = 'Requested JSON parse failed.\n'
-                                    + jqXHR.responseText
-                                    + '.\n'
-                                    + jqXHR.status
-                                    + '.';
-                            } else if (exception === 'timeout') {
-                                msg = 'Time out error.';
-                            } else if (exception === 'abort') {
-                                msg = 'Ajax request aborted.';
-                            } else {
-                                msg = 'Uncaught Error.\n'
-                                    + jqXHR.responseText
-                                    + '.\n' + jqXHR.status
-                                    + '.';
-                            }
-                            console.log(msg);
-                            toggleLoginError();
-                        }
-                    });
-            });
-});
-/*$(function btnLogin() {
-    $("#btn-login")
-        .click(
-            function () {
-                $
-                    .ajax({
-                        type: 'GET',
-                        url: "http://localhost:8080/dondeInvierto/login",
-                        dataType: "text",
-                        contentType: "application/json",
-                        //data: JSON.stringify(data),
-                        beforeSend: function () {
-                            console
-                                .log("[INFO] (AJAX) Buscando información de usuario logueado...");
-                        },
-                        success: function (response) {
-                            console.log("Success!");
-                            var y = document
-                                .getElementById("dropdown1");
-                            y.style.display = "block";
-                            var g = document
-                            // .getElementsByClassName("col-md-12");
+function hideLogin() {
+    $("#login-box").hide();
+}
 
-                                .getElementById("indexl");
-                            g.style.display = "none";
-                            toggleLoginSuccess();
-                        },
+function showNav() {
+    console.log(document.getElementById("dropdown1"));
+    console.log($(document.getElementById("dropdown1")));
+    $(document.getElementById("dropdown1")).css("display", "block");
+}
 
-                        error: function (jqXHR, exception) {
-                            var y = document
-                                .getElementById("dropdown1");
-                            y.style.display = "none";
-                            var msg = '';
-                            if (jqXHR.status === 0) {
-                                msg = 'Not connect.\n Verify Network.';
-                            } else if (jqXHR.status == 400) {
-                                msg = 'Bad request. [400]';
-                            } else if (jqXHR.status == 404) {
-                                msg = 'Requested page not found. [404].';
-                            } else if (jqXHR.status == 500) {
-                                msg = 'Internal Server Error [500].';
-                            } else if (exception === 'parsererror') {
-                                msg = 'Requested JSON parse failed.\n'
-                                    + jqXHR.responseText
-                                    + '.\n'
-                                    + jqXHR.status
-                                    + '.';
-                            } else if (exception === 'timeout') {
-                                msg = 'Time out error.';
-                            } else if (exception === 'abort') {
-                                msg = 'Ajax request aborted.';
-                            } else {
-                                msg = 'Uncaught Error.\n'
-                                    + jqXHR.responseText
-                                    + '.\n' + jqXHR.status
-                                    + '.';
-                            }
-                            console.log(msg);
-                            toggleLoginError();
-                        }
-                    });
-            });
-});*/
+function hideNav() {
+    console.log(document.getElementById("dropdown1"));
+    console.log($(document.getElementById("dropdown1")));
+    $(document.getElementById("dropdown1")).hide();
+}
 
-$(document).ready(function () {
-    if (window.location.pathname == "/index.html") {
-        $.ajax({
-            type: 'GET',
-            url: "http://localhost:8080/dondeInvierto/login/out",
+function validateLogin() {
+    var data = {};
+    data.usuario = $("#usuario").val();
+    data.password = $("#password").val();
+    $
+        .ajax({
+            type: 'POST',
+            url: "http://localhost:8080/dondeInvierto/login/auth",
             dataType: "text",
-            //contentType: "application/json",
-            //data: JSON.stringify(data),
+            contentType: "application/json",
+            data: JSON.stringify(data),
             beforeSend: function () {
                 console
-                    .log("[INFO] (AJAX) Buscando información de usuario logueado...");
+                    .log("[INFO] (AJAX) Buscando información de usuarios...");
             },
             success: function (response) {
                 console.log("Success!");
-                var y = document
-                    .getElementById("dropdown1");
-                y.style.display = "block";
-
-            }, error: function (jqXHR, exception) {
+                toggleLoginSuccess();
+                showNav();
+                hideLogin();
+            },
+            error: function (jqXHR, exception) {
                 var msg = '';
                 if (jqXHR.status === 0) {
                     msg = 'Not connect.\n Verify Network.';
@@ -278,38 +167,24 @@ $(document).ready(function () {
                         + '.';
                 }
                 console.log(msg);
-                //toggleLoginError();
+                toggleLoginError();
             }
         });
-    }
+}
+
+$(function () {
+    $('#login-box').keypress(function (e) {
+        if (e.which == 13) {
+            validateLogin();
+        }
+    });
 });
 
-
-$(function btnLogin() {
-    $("#btn-cerrar-sesion")
-        .click(
-            function () {
-                $
-                    .ajax({
-                        type: 'POST',
-                        url: "http://localhost:8080/dondeInvierto/login/out",
-                        dataType: "text",
-                        contentType: "application/json",
-                        //data: JSON.stringify(data),
-                        beforeSend: function () {
-                            console
-                                .log("[INFO] (AJAX) Buscando información de usuario logueado...");
-                        },
-                        success: function (response) {
-                            console.log("Success!");
-                            var y = document
-                                .getElementById("dropdown1");
-                            y.style.display = "none";
-                            document.location.href = "index.html";
-                            togglelogOutSuccess();
-                        },
-                    });
-            });
+$(function () {
+    $("#btn-login-usr").click(
+        function () {
+            validateLogin();
+        });
 });
 
 $(function () {
@@ -467,7 +342,7 @@ $(function () {
                 $
                     .ajax({
                         type: 'DELETE',
-                        url: "http://localhost:8080/dondeInvierto/indicadores/borrar/"
+                        url: "http://localhost:8080/dondeInvierto/indicadores/borrar"
                         + nombre,
                         contentType: "application/json",
                         beforeSend: function () {
@@ -521,97 +396,201 @@ $(function () {
                 $
                     .ajax({
                         type: 'GET',
-                        url: "http://localhost:8080/dondeInvierto/metodologias/",
+                        url: "http://localhost:8080/dondeInvierto/metodologias",
                         dataType: "json",
                         beforeSend: function () {
                             console
                                 .log("[INFO] (AJAX) Buscando información de metodologias...");
                         },
                         success: function (response) {
-                            $
-                                .each(
-                                    response,
-                                    function (index, element) {
-                                        $(
-                                            '#tabla-metodologias')
-                                            .append(
-                                                $('<tr><th scope="row">'
-                                                    + (index + 1)
-                                                    + '</th><td>'
-                                                    + element.nombre
-                                                    + '</td><td>'
-                                                    + element.condicionesFiltro
-                                                    + '</td></tr>'
-                                                    + element.condicionesOrdenamiento
-                                                    + '</td></tr>'));
-                                    });
+                            $.each(response, function (index, element) {
+                                var cantCond = Object.keys(element.condiciones).length + 1;
+                                $('#tabla-metodologias').append(
+                                    $('<tr><th scope="row" rowspan="'
+                                        + cantCond
+                                        + '">'
+                                        + (index + 1)
+                                        + '</th><td rowspan="'
+                                        + cantCond
+                                        + '">'
+                                        + element.nombre
+                                        + '</td>'));
+                                $.each(element.condiciones, function (index, child) {
+                                    if (child.tipo == "Filtro") {
+                                        $('#tabla-metodologias').append(
+                                            $('<tr><td>'
+                                                + child.tipo
+                                                + '</td><td>'
+                                                + child.nombre
+                                                + '</td><td>'
+                                                + child.indicador
+                                                + '</td><td>'
+                                                + child.filtro
+                                                + '</td>'));
+                                    } else {
+                                        $('#tabla-metodologias').append(
+                                            $('<tr><td>'
+                                                + child.tipo
+                                                + '</td><td>'
+                                                + child.nombre
+                                                + '</td><td>'
+                                                + child.indicador
+                                                + '</td><td>'
+                                                + child.orden
+                                                + '</td>'));
+                                    }
+                                });
+                                $('#tabla-metodologias').append(
+                                    '</tr>');
+                            });
                         }
                     });
             });
 });
+
 $(function () {
-    $("#file-upload-btn")
+    $('#tipoCondicion').on('change', function () {
+        if ($(this).find("option:selected").val() === 'Filtro') {
+            $('#criterioCondicion')
+                .html(
+                    '<option>filtrarAntiguedadMayor</option>')
+                .selectpicker('refresh');
+            $('#criterioCondicion')
+                .prop('disabled', false);
+            $('#criterioCondicion')
+                .selectpicker('refresh');
+        } else {
+            $('#criterioCondicion')
+                .html(
+                    '<option>Ascendente</option>'
+                    + '<option>Descendente</option>')
+                .selectpicker('refresh');
+            $('#criterioCondicion')
+                .prop('disabled', false);
+            $('#criterioCondicion')
+                .selectpicker('refresh');
+        }
+    });
+});
+
+$(function () {
+        $("#btn-agregar-condicion")
+            .click(
+                function () {
+                    $('#tabla-metodologias').append(
+                        $('<tr><td>'
+                            + $('#tipoCondicion').find("option:selected").text()
+                            + '</td><td>'
+                            + $('#nombreCondicion').val()
+                            + '</td><td>'
+                            + $('#indicadorCondicion').find("option:selected").text()
+                            + '</td><td>'
+                            + $('#criterioCondicion').find("option:selected").text()
+                            + '</td>'));
+                }
+            );
+    }
+);
+
+$(function () {
+    $("#btn-registro-meto")
         .click(
             function () {
-                if (document.getElementById("archivo-cuentas").files.length == 0) {
-                    console
-                        .log("[INFO] (AJAX) No hay archivo seleccionado.");
-                } else {
-                    var formData = new FormData();
-                    jQuery.each(jQuery('#archivo-cuentas')[0].files,
-                        function (i, file) {
-                            formData.append('file-' + i, file);
-                        });
+                var data = {};
+                data.nombre = $("#nombreMetodologia").val();
+                data.condiciones.tipo = $("#tipoCondicion").find("option:selected").text().toLowerCase();
 
-                    $
-                        .ajax({
-                            method: 'POST',
-                            type: 'POST',
-                            url: "http://localhost:8080/dondeInvierto/cuentas/subirArchivo",
-                            dataType: "text",
-                            contentType: false,
-                            processData: false,
-                            data: formData,
-                            beforeSend: function () {
-                                console
-                                    .log("[INFO] (AJAX) Enviando archivo de cuentas...");
-                            },
-                            success: function () {
-                                console.log("File received!");
-                                toggleFileUploadPrompt();
-                                toggleFileUploadSuccess();
-                            },
-                            error: function (jqXHR, exception) {
-                                var msg = '';
-                                if (jqXHR.status === 0) {
-                                    msg = 'Not connect.\n Verify Network.';
-                                } else if (jqXHR.status == 400) {
-                                    msg = 'Bad request. [400]';
-                                } else if (jqXHR.status == 404) {
-                                    msg = 'Requested page not found. [404].';
-                                } else if (jqXHR.status == 500) {
-                                    msg = 'Internal Server Error [500].';
-                                } else if (exception === 'parsererror') {
-                                    msg = 'Requested JSON parse failed.\n'
-                                        + jqXHR.responseText
-                                        + '.\n'
-                                        + jqXHR.status
-                                        + '.';
-                                } else if (exception === 'timeout') {
-                                    msg = 'Time out error.';
-                                } else if (exception === 'abort') {
-                                    msg = 'Ajax request aborted.';
-                                } else {
-                                    msg = 'Uncaught Error.\n'
-                                        + jqXHR.responseText
-                                        + '.\n' + jqXHR.status
-                                        + '.';
-                                }
-                                console.log(msg);
-                                toggleFileUploadPrompt();
-                                toggleFileUploadError();
-                            }
-                        });
+
+                $.ajax({
+                    type: 'POST',
+                    url: "http://localhost:8080/dondeInvierto/metodologias/nueva",
+                    dataType: "text",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    beforeSend: function () {
+                        console
+                            .log("[INFO] (AJAX) Enviando información del indicador...");
+                    },
+                    success: function () {
+                        console.log("Success!");
+                        toggleRegistrySuccess();
+                    },
+                    error: function (jqXHR, exception) {
+                        var msg = '';
+                        if (jqXHR.status === 0) {
+                            msg = 'Not connect.\n Verify Network.';
+                        } else if (jqXHR.status == 400) {
+                            msg = 'Bad request. [400]';
+                        } else if (jqXHR.status == 404) {
+                            msg = 'Requested page not found. [404].';
+                        } else if (jqXHR.status == 500) {
+                            msg = 'Internal Server Error [500].';
+                        } else if (exception === 'parsererror') {
+                            msg = 'Requested JSON parse failed.\n'
+                                + jqXHR.responseText
+                                + '.\n'
+                                + jqXHR.status
+                                + '.';
+                        } else if (exception === 'timeout') {
+                            msg = 'Time out error.';
+                        } else if (exception === 'abort') {
+                            msg = 'Ajax request aborted.';
+                        } else {
+                            msg = 'Uncaught Error.\n'
+                                + jqXHR.responseText
+                                + '.\n' + jqXHR.status
+                                + '.';
+                        }
+                        console.log(msg);
+                        registryError();
+                    }
+                });
+            });
+});
+
+$(document).ready(function () {
+    if (window.location.pathname == "/index.html") {
+        $.ajax({
+            type: 'GET',
+            url: "http://localhost:8080/dondeInvierto/login/logged",
+            dataType: "json",
+            beforeSend: function () {
+                console
+                    .log("[INFO] (AJAX) Buscando información de usuario logueado...");
+            },
+            success: function (response) {
+                if (response.usuario === "") {
+                    console.log("[INFO] (AJAX) No hay usuario logueado.");
+                } else {
+                    console.log("[INFO] (AJAX) El usuario sigue logueado.");
+                    hideLogin();
+                    showNav();
                 }
+            }
+        });
+    }
+});
+
+
+$(function btnLogin() {
+    $("#btn-cerrar-sesion")
+        .click(
+            function () {
+                $
+                    .ajax({
+                        type: 'POST',
+                        url: "http://localhost:8080/dondeInvierto/login/out",
+                        dataType: "text",
+                        contentType: "application/json",
+                        beforeSend: function () {
+                            console
+                                .log("[INFO] (AJAX) Buscando información de usuario logueado...");
+                        },
+                        success: function (response) {
+                            console.log("Success!");
+                            document.location.href = "index.html";
+                            $(document).ready(hideNav());
+                        },
+                    });
             });
 });

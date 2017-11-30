@@ -37,17 +37,15 @@ public class UsuarioResource {
 		return Response.accepted().build();
 	}
 
-	@Path("/out")
-	@GET
-	@Produces("text/plain")
-	public Response isUsuarioLog() throws ParseException {
-		System.out.println("test");
-		if (mercado.getUsuarioLog() == null) {
-			throw new BadRequestException("No hay usuario logueado");
-		} else {
-			return Response.accepted().build();
-		}
-
+    @Path("/logged")
+    @GET
+    @Produces("application/json")
+    public String isUsuarioLog() throws ParseException {
+        if (mercado.getUsuarioLog() == null) {
+            return Json.createObjectBuilder().add("usuario", "").build().toString();
+        } else {
+            return Json.createObjectBuilder().add("usuario", mercado.getUsuarioLog().getUsuario()).build().toString();
+        }
 	}
 
 	@Path("/out")
@@ -55,7 +53,6 @@ public class UsuarioResource {
 	@Consumes("application/json")
 	@Produces("text/plain")
 	public Response setlogout() throws ParseException {
-
 		if (mercado.getUsuarioLog() == null) {
 			throw new BadRequestException("No hay usuario logueado");
 		}

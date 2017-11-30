@@ -350,10 +350,11 @@ public enum MercadoBursatil {
         metodologia.setMetodologia("metodologia1", condicionesFiltro, condicionesOrdenamiento, "DEFAULT");
         Set<CondicionFiltro> condicionesFiltroWB = new HashSet<>();
         Set<CondicionOrdenamiento> condicionesOrdenamientoWB = new HashSet<>();
-        CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, this.getIndicador("Margen"));
-        CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, this.getIndicador("Indicador Vacio"));
-        CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, this.getIndicador("ROE"));
-        CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, this.getIndicador("Proporcion De Deuda"));
+        CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, new Indicador("Margen", "Margen = Capital Total - Dividendos", "DEFAULT"));
+        CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+        CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
+        CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, new Indicador("Proporcion De Deuda",
+                "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
         filtroWB3.setEmpresas(this.getEmpresas());
         filtroWB4.setEmpresas(this.getEmpresas());
         ordenWB1.setEmpresas(this.getEmpresas());
@@ -406,7 +407,7 @@ public enum MercadoBursatil {
                 .withIdentity("trigger1", "group1")
                 .startAt(DateBuilder.evenMinuteDateAfterNow())
                 .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(60)
+                        .withIntervalInSeconds(30)
                         .repeatForever())
                 //.forJob(job)
                 .build();
