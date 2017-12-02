@@ -407,7 +407,7 @@ public enum MercadoBursatil {
                 .withIdentity("trigger1", "group1")
                 .startAt(DateBuilder.evenMinuteDateAfterNow())
                 .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(30)
+                        .withIntervalInSeconds(10)
                         .repeatForever())
                 //.forJob(job)
                 .build();

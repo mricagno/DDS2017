@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import java.util.Iterator;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.persistence.EntityManager;
@@ -206,8 +206,11 @@ public class CuentaResource {
             empresa.getCuentas().forEach(cuenta -> {
                 List<Number> revisions = reader.getRevisions(Cuenta.class,
                         cuenta.getId());
-                CustomRevEntity entity = em.find(CustomRevEntity.class, revisions.get(0));
-                readedFiles.add(entity.getUsed_file());
+                Iterator listIterator = revisions.listIterator();
+                while (listIterator.hasNext()) {
+                    CustomRevEntity entity = em.find(CustomRevEntity.class, listIterator.next());
+                    readedFiles.add(entity.getUsed_file());
+                }
             });
         });
         //readedFiles = new ArrayList<>(new HashSet<>(readedFiles));
