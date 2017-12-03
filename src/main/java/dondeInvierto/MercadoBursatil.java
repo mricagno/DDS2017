@@ -28,6 +28,8 @@ public enum MercadoBursatil {
     private List<Metodologia> metodologias = new ArrayList<Metodologia>();
     private List<IndicadorCalculado> indicadorCalculado = new ArrayList<>();
     private Usuario usuario_logueado;
+    private int intervalo_carga_cuentas;
+    private String path_carga_cuentas;
     String last_file_loaded;
     EntityManagerFactory factory;
 
@@ -378,6 +380,8 @@ public enum MercadoBursatil {
         this.usuarios = modelService.generate_usuario_model();
         this.metodologias = modelService.generate_metodologias_model();
         this.indicadorCalculado = modelService.generate_indicadoresCalculados_model();
+        this.setIntervalo_carga_cuentas(10);
+        this.setPath_carga_cuentas(".//downloaded//");
     }
 
     public void close() {
@@ -407,7 +411,8 @@ public enum MercadoBursatil {
                 .withIdentity("trigger1", "group1")
                 .startAt(DateBuilder.evenMinuteDateAfterNow())
                 .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(10)
+                        //.withIntervalInSeconds(10)
+                        .withIntervalInSeconds(this.intervalo_carga_cuentas)
                         .repeatForever())
                 //.forJob(job)
                 .build();
@@ -477,5 +482,21 @@ public enum MercadoBursatil {
         } else {
             return indiCalc.getValor();
         }
+    }
+
+    public int getIntervalo_carga_cuentas() {
+        return intervalo_carga_cuentas;
+    }
+
+    public void setIntervalo_carga_cuentas(int intervalo_carga_cuentas) {
+        this.intervalo_carga_cuentas = intervalo_carga_cuentas;
+    }
+
+    public String getPath_carga_cuentas() {
+        return path_carga_cuentas;
+    }
+
+    public void setPath_carga_cuentas(String path_carga_cuentas) {
+        this.path_carga_cuentas = path_carga_cuentas;
     }
 }

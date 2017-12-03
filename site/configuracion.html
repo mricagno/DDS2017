@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
-    <script type="text/javascript">
-        function getfolder(e) {
-            var files = e.target.files;
-            var path = files[0].webkitRelativePath;
-            var Folder = path.split("/");
-            alert(Folder[0]);
-        }
-    </script>
+    <!--    <script type="text/javascript">
+            function getfolder(e) {
+                var files = e.target.files;
+                var path = files[0].webkitRelativePath;
+                var Folder = path.split("/");
+                alert(Folder[0]);
+            }
+        </script>-->
 </head>
 
 <body>
@@ -110,16 +110,18 @@
                 <div class="panel-body">
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon3">Directorio de carga</span>
-                        <input type="file" id="flup" onchange="getfolder(event)" webkitdirectory mozdirectory
-                               msdirectory odirectory directory multiple/>
-                        <!--<input type="file" class="form-control" aria-describedby="basic-addon3">-->
+                        <!--                        <input type="file" id="flup" onchange="getfolder(event)" webkitdirectory mozdirectory
+                                                       msdirectory odirectory directory multiple/>-->
+                        <input type="text" class="form-control" aria-describedby="basic-addon3" style="width: 700px;"
+                               id="path" required>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon3">Intervalo de carga</span>
-                        <input type="number" aria-describedby="basic-addon3" max="1200">Segundos
+                        <input type="number" aria-describedby="basic-addon3" style="width: 4em;" max="1200"
+                               id="intervalo">Segundos
                     </div>
                     <div class="container-fluid no-padding left-aligned">
-                        <button type="button" class="btn btn-default btn-lg" id="btn-buscar-cuentas">Guardar</button>
+                        <button type="button" class="btn btn-default btn-lg" id="btn-guardar-config">Guardar</button>
                     </div>
                 </div>
             </div>

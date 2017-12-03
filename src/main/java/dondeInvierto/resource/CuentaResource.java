@@ -190,7 +190,8 @@ public class CuentaResource {
     public String getFilesFromDirectory(EntityManager em) {
 
         File[] results;
-        File directorio = new File(".//downloaded//");
+        //File directorio = new File(".//downloaded//");
+        File directorio = new File(mercado.getPath_carga_cuentas());
         results = directorio.listFiles();
         List<String> listOfFilesAvailable = new ArrayList<>();
         for (int i = 0; i < results.length; i++) {
