@@ -18,15 +18,15 @@ public class TestCrearIndicadores extends FileHandler {
 	String filepath = "C:\\Users\\Patito\\workspace\\DDS_2017-Grupo_8\\files\\cuentas.json";
 	List<Cuenta> listaArchivo = new ArrayList<Cuenta>();
 	static MercadoBursatil mercado = MercadoBursatil.INSTANCE;
-	Empresa facebook = new Empresa("Facebook Inc.");
+	Empresa facebook = new Empresa("FACEBOOK INC.");
 	
 	@BeforeClass
 	public static void inicializar() throws Exception {	
 		mercado.init();
-		
-		mercado.addIndicador("Ingreso Neto", "A = BB + CC","mricagno");
-		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC","mricagno");
-		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF","mricagno");
+
+		mercado.addIndicador("Ingreso Neto", "A = BB + CC", "DEFAULT");
+		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC", "DEFAULT");
+		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF", "DEFAULT");
 	}
 	
 	@Test

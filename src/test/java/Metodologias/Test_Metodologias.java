@@ -20,12 +20,12 @@ import dondeInvierto.ResultadoCondicionado;
 import javax.persistence.EntityManager;
 
 
-public class Metodologias {
+public class Test_Metodologias {
 	static MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	//Empresas
-	Empresa facebook = new Empresa("Facebook Inc.");
-	Empresa twitter = new Empresa("Twitter Inc.");
-	Empresa tesla = new Empresa("Tesla Inc.");
+	Empresa facebook = new Empresa("FACEBOOK INC.");
+	Empresa twitter = new Empresa("TWITTER INC.");
+	Empresa tesla = new Empresa("TESLA INC.");
 
 
 	@BeforeClass
@@ -55,25 +55,25 @@ public class Metodologias {
 		/**
 		 * Se cargan empresas
 		 */
-		empresa.addEmpresa("Facebook Inc.");
-		empresa.addEmpresa("Tesla Inc.");
-		empresa.addEmpresa("Twitter Inc.");
+		empresa.addEmpresa("FACEBOOK INC.");
+		empresa.addEmpresa("TESLA INC.");
+		empresa.addEmpresa("TWITTER INC.");
 		mercado.setEmpresas(empresa.listEmpresas());
-		mercado.getEmpresa("Facebook Inc.").setAntiguedad(15);
-		mercado.getEmpresa("Tesla Inc.").setAntiguedad(5);
-		mercado.getEmpresa("Twitter Inc.").setAntiguedad(11);
+		mercado.getEmpresa("FACEBOOK INC.").setAntiguedad(15);
+		mercado.getEmpresa("TESLA INC.").setAntiguedad(5);
+		mercado.getEmpresa("TWITTER INC.").setAntiguedad(11);
 		/**
 		 * Se cargan las cuentas en las respectivas empresas
 		 */
-		Empresa facebook = empresa.getEmpresa_name("Facebook Inc.");
+		Empresa facebook = empresa.getEmpresa_name("FACEBOOK INC.");
 		cuenta.addCuenta("EBITDA", "20151231", "8162", facebook);
 		cuenta.addCuenta("EBITDA", "20161231", "14870", facebook);
 		cuenta.addCuenta("FCF", "20151231", "3.99", facebook);
-		Empresa tesla = empresa.getEmpresa_name("Tesla Inc.");
+		Empresa tesla = empresa.getEmpresa_name("TESLA INC.");
 		cuenta.addCuenta("EBITDA", "20151231", "213", tesla);
 		cuenta.addCuenta("EBITDA", "20161231", "630", tesla);
 		cuenta.addCuenta("FCF", "20151231", "230", tesla);
-		Empresa twitter = empresa.getEmpresa_name("Twitter Inc.");
+		Empresa twitter = empresa.getEmpresa_name("TWITTER INC.");
 		cuenta.addCuenta("EBITDA", "20161231", "751", twitter);
 		cuenta.addCuenta("FCF", "20151231", "1751", twitter);
 		/**
@@ -110,7 +110,7 @@ public class Metodologias {
 				new Indicador("Proporcion De Deuda",
 						"Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
 		/**
-		 * Se cargan indicadores
+		 * Se cargan las empresas en las condiciones
 		 */
 		Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
 		Set<CondicionOrdenamiento> condicionesOrdenamiento = new HashSet<>();
@@ -231,7 +231,7 @@ public class Metodologias {
 		listaFiltradaUOrdenada2.forEach(l -> {
 			System.out.println(l.getNombre());
 		});
-		assertEquals("Facebook Inc.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
+		assertEquals("FACEBOOK INC.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
 	}
 
 	@Test
@@ -242,7 +242,7 @@ public class Metodologias {
 		listaFiltradaUOrdenada2.forEach(l -> {
 			System.out.println(l.getNombre());
 		});
-		assertEquals("Tesla Inc.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
+		assertEquals("TESLA INC.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
 	}
 
 	@Test
@@ -253,7 +253,7 @@ public class Metodologias {
 		listaFiltradaUOrdenada2.forEach(l -> {
 			System.out.println(l.getNombre());
 		});
-		assertNotEquals("Facebook Inc.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
+		assertNotEquals("FACEBOOK INC.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
 	}
 
 	@Test
@@ -264,7 +264,7 @@ public class Metodologias {
 		listaFiltradaUOrdenada2.forEach(l -> {
 			System.out.println(l.getNombre());
 		});
-		assertEquals("Tesla Inc.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
+		assertEquals("TESLA INC.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
 	}
 
 }

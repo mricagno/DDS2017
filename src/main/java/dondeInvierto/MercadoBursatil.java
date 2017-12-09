@@ -49,7 +49,6 @@ public enum MercadoBursatil {
     /**
      * Devuelve el usuario con el nombre buscado.
      */
-
     public Usuario getUsuario(String usuario, String password) {
 
         return this.usuarios.stream().filter(u -> usuario.equals(u.getUsuario()))
@@ -292,32 +291,73 @@ public enum MercadoBursatil {
         return getMetodologias().stream().anyMatch(m -> nombre.equals(m.getNombre()));
     }
 
+    /**
+     * Se inicializa la base de datos
+     */
     public void init_db(EntityManager em) throws Exception {
+
+        /**
+         * Se cargan gestores de DB para cada entidad
+         */
         EmpresaService empresa = new EmpresaService(em);
         CuentaService cuenta = new CuentaService(em);
         IndicadorService indicador = new IndicadorService(em);
         UsuarioService usuario = new UsuarioService(em);
         MetodologiaService metodologia = new MetodologiaService(em);
-        usuario.addUsuario("gonzalo", "gonzalo", 0);
-        usuario.addUsuario("patricio", "patricio", 0);
-        usuario.addUsuario("gian", "gian", 0);
-        usuario.addUsuario("maxi", "maxi", 0);
+
+        /**
+         * Se cargan usuarios
+         */
+        usuario.addUsuario("GONZALO", "gonzalo", 0);
+        usuario.addUsuario("PATRICIO", "patricio", 0);
+        usuario.addUsuario("GIANFRANCO", "gian", 0);
+        usuario.addUsuario("MAXI", "maxi", 0);
+        usuario.addUsuario("CESAR", "cesar", 0);
         usuario.addUsuario("DEFAULT", "DEFAULT", 0);
-        empresa.addEmpresa("Facebook Inc.");
-        empresa.addEmpresa("Tesla Inc.");
-        empresa.addEmpresa("Twitter Inc.");
+
+        /**
+         * Se cargan empresas
+         */
+        empresa.addEmpresa("FACEBOOK INC.");
+        empresa.addEmpresa("TESLA INC.");
+        empresa.addEmpresa("TWITTER INC.");
+        empresa.addEmpresa("YAHOO!");
+        empresa.addEmpresa("MICROSOFT");
+        empresa.addEmpresa("NETFLIX");
+        empresa.addEmpresa("INTEL");
+        empresa.addEmpresa("GOOGLE");
+        empresa.addEmpresa("COCA-COLA");
+        empresa.addEmpresa("CHEVRON");
+        empresa.addEmpresa("BOEING CO.");
+        empresa.addEmpresa("CYSCO SYSTEM");
+        empresa.addEmpresa("IBM");
+        empresa.addEmpresa("NIKE");
+        empresa.addEmpresa("VISA");
+        empresa.addEmpresa("JOHNSON & JOHNSON");
+        empresa.addEmpresa("HOME DEPOT");
+        empresa.addEmpresa("GENERAL ELECTRIC");
+        empresa.addEmpresa("MC DONALD'S CORP");
+        empresa.addEmpresa("AMERICAN EXPRESS");
+        empresa.addEmpresa("3M");
         this.empresas = empresa.listEmpresas();
-        Empresa facebook = empresa.getEmpresa_name("Facebook Inc.");
+        /**
+         * Se cargan las cuentas en las respectivas empresas
+         */
+        Empresa facebook = empresa.getEmpresa_name("FACEBOOK INC.");
         cuenta.addCuenta("EBITDA", "20151231", "8162", facebook);
         cuenta.addCuenta("EBITDA", "20161231", "14870", facebook);
         cuenta.addCuenta("FCF", "20151231", "3.99", facebook);
-        Empresa tesla = empresa.getEmpresa_name("Tesla Inc.");
+        Empresa tesla = empresa.getEmpresa_name("TESLA INC.");
         cuenta.addCuenta("EBITDA", "20151231", "213", tesla);
         cuenta.addCuenta("EBITDA", "20161231", "630", tesla);
         cuenta.addCuenta("FCF", "20151231", "230", tesla);
-        Empresa twitter = empresa.getEmpresa_name("Twitter Inc.");
+        Empresa twitter = empresa.getEmpresa_name("TWITTER INC.");
         cuenta.addCuenta("EBITDA", "20161231", "751", twitter);
         cuenta.addCuenta("FCF", "20151231", "1751", twitter);
+
+        /**
+         * Se cargan indicadores
+         */
         indicador.addIndicador(new Indicador("Ingreso Neto", "Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
                 + "Ingreso Neto En Operaciones Discontinuadas", "DEFAULT"));
         indicador.addIndicador(new Indicador("Retorno sobre capital total",
@@ -334,8 +374,16 @@ public enum MercadoBursatil {
                 "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
         indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos", "DEFAULT"));
         indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+        this.indicadores = indicador.listIndicadores();
+        /**
+         * Se cargan condiciones de filtro
+         */
         CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10,
                 new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+
+        /**
+         * Se cargan condiciones de ordenamiento
+         */
         CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10,
                 new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
         CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0,
@@ -349,11 +397,28 @@ public enum MercadoBursatil {
         condicionesFiltro.add(filtro1);
         condicionesOrdenamiento.add(orden1);
         condicionesOrdenamiento.add(orden2);
+
+        /**
+         * Se carga metodologia1
+         */
         metodologia.setMetodologia("metodologia1", condicionesFiltro, condicionesOrdenamiento, "DEFAULT");
+
+        /**
+         * Se repite el proceso de carga de metodologia
+         * En este caso para WarrenBuffet
+         */
         Set<CondicionFiltro> condicionesFiltroWB = new HashSet<>();
         Set<CondicionOrdenamiento> condicionesOrdenamientoWB = new HashSet<>();
+
+        /**
+         * Se cargan condiciones de filtro
+         */
         CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, new Indicador("Margen", "Margen = Capital Total - Dividendos", "DEFAULT"));
         CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+
+        /**
+         * Se cargan condiciones de ordenamiento
+         */
         CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
         CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, new Indicador("Proporcion De Deuda",
                 "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
@@ -365,8 +430,11 @@ public enum MercadoBursatil {
         condicionesOrdenamientoWB.add(ordenWB2);
         condicionesFiltroWB.add(filtroWB3);
         condicionesFiltroWB.add(filtroWB4);
+
+        /**
+         * Se carga metodologia de WarrenBuffet
+         */
         metodologia.setMetodologia("warrenBuffet", condicionesFiltroWB, condicionesOrdenamientoWB, "DEFAULT");
-        //em.close();
     }
 
     public void init_model(EntityManager em) throws Exception {
@@ -406,15 +474,12 @@ public enum MercadoBursatil {
         JobDetail job = newJob(Job_fileLoad.class)
                 .withIdentity("job1", "group1")
                 .build();
-        // Trigger the job to run now, and then repeat every 40 seconds
         Trigger trigger = newTrigger()
                 .withIdentity("trigger1", "group1")
                 .startAt(DateBuilder.evenMinuteDateAfterNow())
                 .withSchedule(simpleSchedule()
-                        //.withIntervalInSeconds(10)
                         .withIntervalInSeconds(this.intervalo_carga_cuentas)
                         .repeatForever())
-                //.forJob(job)
                 .build();
 
         // Tell quartz to schedule the job using our trigger

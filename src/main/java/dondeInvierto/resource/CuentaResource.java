@@ -118,14 +118,13 @@ public class CuentaResource {
 
             FileHandler fh = new FileHandler();
             List<CuentaFromFile> listaArchivo;
-            String uploadedFileLocation = ".//downloaded//" + fileToRead;//"cuentas2.json";
+            String uploadedFileLocation = ".//downloaded//" + fileToRead;
             CuentaFromFile cuentaActual;
             listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
 /**
  * Se recorren las cuentas que se obtuvieron
  */
-            //mercado.init_model(em);
-            mercado.set_lastFileLoaded(fileToRead);//"cuenta2.json");
+            mercado.set_lastFileLoaded(fileToRead);
             this.cargar_cuentas(em, listaArchivo);
             mercado.init_model(em);
             try {
@@ -190,9 +189,12 @@ public class CuentaResource {
     public String getFilesFromDirectory(EntityManager em) {
 
         File[] results;
-        //File directorio = new File(".//downloaded//");
         File directorio = new File(mercado.getPath_carga_cuentas());
-        results = directorio.listFiles();
+        /**
+         * Se busca la lista de archivos disponibles
+         * Se hace la excepción para archivo .DS_Store (Sistema MAC OSX)
+         */
+        results = directorio.listFiles((dir, name) -> !name.equals(".DS_Store"));
         List<String> listOfFilesAvailable = new ArrayList<>();
         for (int i = 0; i < results.length; i++) {
             if (results[i].isFile()) {
@@ -214,7 +216,6 @@ public class CuentaResource {
                 }
             });
         });
-        //readedFiles = new ArrayList<>(new HashSet<>(readedFiles));
         Set<String> list1 = new HashSet<String>(listOfFilesAvailable);
         Set<String> list2 = new HashSet<String>(readedFiles);
         list1.removeAll(list2);

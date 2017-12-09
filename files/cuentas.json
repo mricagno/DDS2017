@@ -1,41 +1,41 @@
 [
   {
-    "nombre": "Facebook Inc.",
+    "nombre": "FACEBOOK INC.",
     "sigla": "FB",
     "tipo": "EBITDA",
     "periodo": "20151231",
     "valor": "8162"
   },
   {
-    "nombre": "Facebook Inc.",
+    "nombre": "FACEBOOK INC.",
     "sigla": "FB",
     "tipo": "EBITDA",
     "periodo": "20161231",
     "valor": "14870"
   },
   {
-    "nombre": "Facebook Inc.",
+    "nombre": "FACEBOOK INC.",
     "sigla": "FB",
     "tipo": "FCF",
     "periodo": "20151231",
     "valor": "3.99"
   },
   {
-    "nombre": "Tesla Inc.",
+    "nombre": "TESLA INC.",
     "sigla": "TSLA",
     "tipo": "EBITDA",
     "periodo": "20151231",
     "valor": "213"
   },
   {
-    "nombre": "Tesla Inc.",
+    "nombre": "TESLA INC.",
     "sigla": "TSLA",
     "tipo": "EBITDA",
     "periodo": "20161231",
     "valor": "630"
   },
   {
-    "nombre": "Twitter Inc.",
+    "nombre": "TWITTER INC.",
     "sigla": "TWTR",
     "tipo": "EBITDA",
     "periodo": "20161231",

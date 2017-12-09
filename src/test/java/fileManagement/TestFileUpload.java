@@ -20,10 +20,10 @@ public class TestFileUpload extends FileHandler {
 	private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	List<CuentaFromFile> listaArchivo;
 	CuentaFromFile cuentaActual;
-	
-	Empresa facebook = new Empresa("Facebook Inc.");
-	Empresa tesla = new Empresa("Tesla Inc.");
-	Empresa twitter = new Empresa("Twitter Inc.");
+
+    Empresa facebook = new Empresa("FACEBOOK INC.");
+    Empresa tesla = new Empresa("TESLA INC.");
+    Empresa twitter = new Empresa("TWITTER INC.");
 	
 	@Before
 	public void loadCuentas() throws ParseException, FileNotFoundException {

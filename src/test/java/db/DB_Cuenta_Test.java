@@ -15,7 +15,7 @@ public class DB_Cuenta_Test extends DB_jpa_Test {
 	@Test
 	public void guardarCuenta_exitoso() throws Exception {
 		EntityTransaction trx = em.getTransaction();
-		final Empresa empresa = new Empresa("Facebook Inc.");
+        final Empresa empresa = new Empresa("FACEBOOK INC.");
 		empresa.addCuenta(new Cuenta("FCF", "20151231", "3.99"));
 		trx.begin();
 		em.persist(empresa);
@@ -28,7 +28,7 @@ public class DB_Cuenta_Test extends DB_jpa_Test {
 	@Test
 	public void borrarCuenta_exitoso() throws Exception {
 		EntityTransaction trx = em.getTransaction();
-		final Empresa empresa = new Empresa("Facebook Inc.");
+        final Empresa empresa = new Empresa("FACEBOOK INC.");
 		empresa.addCuenta(new Cuenta("FCF", "20151231", "3.99"));
 		trx.begin();
 		em.persist(empresa);

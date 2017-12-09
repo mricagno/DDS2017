@@ -24,8 +24,8 @@ public class TestIndicadorSegundoParse extends FileHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mercado.addIndicador("Indicador de prueba", "Indicador de prueba = EBITDA + FCF","mricagno");
-		facebook = mercado.getEmpresa("Facebook Inc.");
+		mercado.addIndicador("Indicador de prueba", "Indicador de prueba = EBITDA + FCF", "MRICAGNO");
+		facebook = mercado.getEmpresa("FACEBOOK INC.");
 	}
 	
 	@Test
