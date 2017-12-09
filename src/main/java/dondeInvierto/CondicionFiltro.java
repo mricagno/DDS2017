@@ -155,7 +155,7 @@ public class CondicionFiltro extends Condicion {
                 }
                 return resultadoCondicion;
 
-            case "filtrarAntiguedaddiferente":
+            case "filtrarAntiguedadDiferente":
                 for (Empresa empresa : empresas) {
                     if (empresa.getAntiguedad() != condicion.getValor()) {
                         resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), empresa.getAntiguedad()));
@@ -163,7 +163,7 @@ public class CondicionFiltro extends Condicion {
                 }
                 return resultadoCondicion;
 
-            case "filtrarAntiguedadigual":
+            case "filtrarAntiguedadIgual":
                 for (Empresa empresa : empresas) {
                     if (empresa.getAntiguedad() == condicion.getValor()) {
                         resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), empresa.getAntiguedad()));
