@@ -48,7 +48,7 @@ public class UsuarioResource {
 			return Json.createObjectBuilder().add("usuario", mercado.getUsuarioLog().getUsuario()).build().toString();
 		}
 	}
-	
+
 	@Path("/out")
 	@POST
 	@Consumes("application/json")
@@ -57,7 +57,7 @@ public class UsuarioResource {
 		if (mercado.getUsuarioLog() == null) {
 			throw new BadRequestException("No hay usuario logueado");
 		}
-		//Usuario user = mercado.getUsuario(usuario, password);
+		// Usuario user = mercado.getUsuario(usuario, password);
 		mercado.setUsuario(null);
 		return Response.accepted().build();
 	}

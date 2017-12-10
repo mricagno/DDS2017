@@ -1,7 +1,6 @@
 package dondeInvierto.resource;
 
 import java.io.StringReader;
-import java.net.URI;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -59,7 +58,8 @@ public class IndicadorResource {
 		String formula = json.getString("nombre") + " = " + json.getString("formula");
 		System.out.println(mercado.getUsuarioLog().getUsuario());
 		if (!mercado.addIndicador(json.getString("nombre"), formula, mercado.getUsuarioLog().getUsuario())) {
-			throw new BadRequestException("El indicador no ha sido creado.");
+			return Response.serverError().status(Response.Status.BAD_REQUEST)
+					.entity("El indicador ya existe.").build();
 		} else {
 			try {
 				EntityManager em = mercado.getFactory().createEntityManager();
@@ -67,12 +67,34 @@ public class IndicadorResource {
 				indicador_DB.addIndicador(
 						new Indicador(json.getString("nombre"), formula, mercado.getUsuarioLog().getUsuario()));
 				em.close();
+				return Response.accepted(json.getString("nombre")).build();
 			} catch (Exception e) {
 				e.getMessage();
+				e.printStackTrace();
+				return Response.serverError().entity("Se produjo un error al intentar generar la respuesta al cliente.").build();
 			}
-		}
-		return Response.created(URI.create(json.getString("nombre"))).build();
+		}	
 	}
+	
+	@Path("/calcular")
+	@POST
+	@Consumes("application/json")
+	@Produces("text/plain")
+	public Response calcularIndicador(String indicadorPorCalcular) {
+		JsonObject json = (JsonObject) Json.createReader(new StringReader(indicadorPorCalcular)).read();
+		Double result;
+		try {
+			result = mercado.getIndicador(json.getString("indicador"))
+				.getValorFor(
+						mercado.getEmpresa(json.getString("empresa")),
+						json.getString("periodo"));
+			return Response.ok(result).build();
+		} catch (Exception e) {
+			e.getMessage();
+			e.printStackTrace();
+			return Response.serverError().entity("Se produjo un error al intentar generar la respuesta al cliente.").build();
+		}
+	}	
 
 	@Path("/borrar/{nombre}")
 	@DELETE

@@ -15,7 +15,6 @@ import java.util.Set;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.persistence.EntityManager;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -35,187 +34,191 @@ import fileManagement.FileHandler;
 
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
-import org.hibernate.envers.query.*;
-import org.hibernate.envers.AuditReader.*;
 import seguridad.CustomRevEntity;
 
 @Path("cuentas")
 public class CuentaResource {
-    private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
+	private MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 
-    @GET
-    @Produces("application/json")
-    public String getCuentas() {
-        JsonArrayBuilder cuentasBuilder = Json.createArrayBuilder();
+	@GET
+	@Produces("application/json")
+	public String getCuentas() {
+		JsonArrayBuilder cuentasBuilder = Json.createArrayBuilder();
 
-        for (Empresa emp : mercado.getEmpresas()) {
-            for (Cuenta c : emp.getCuentas()) {
-                cuentasBuilder.add(Json.createObjectBuilder().add("empresa", emp.getNombre()).add("tipo", c.getTipo())
-                        .add("periodo", c.getPeriodoAsString()).add("valor", c.getValor()));
-            }
-        }
-        return cuentasBuilder.build().toString();
-    }
+		for (Empresa emp : mercado.getEmpresas()) {
+			for (Cuenta c : emp.getCuentas()) {
+				cuentasBuilder.add(Json.createObjectBuilder().add("empresa", emp.getNombre()).add("tipo", c.getTipo())
+						.add("periodo", c.getPeriodoAsString()).add("valor", c.getValor()));
+			}
+		}
+		return cuentasBuilder.build().toString();
+	}
 
-    /**
-     * Clase para cargar archivo desde web
-     */
-    @Path("/subirArchivo")
-    @POST
-    @Consumes("multipart/form-data")
-    @Produces("text/plain")
-    public Response recibirArchivo(@FormDataParam("file-0") InputStream uploadedInputStream,
-                                   @FormDataParam("file-0") FormDataContentDisposition fileDetail) throws Exception {
+	/**
+	 * Clase para cargar archivo desde web
+	 */
+	@Path("/subirArchivo")
+	@POST
+	@Consumes("multipart/form-data")
+	@Produces("text/plain")
+	public Response recibirArchivo(@FormDataParam("file-0") InputStream uploadedInputStream,
+			@FormDataParam("file-0") FormDataContentDisposition fileDetail) throws Exception {
 
-        CuentaFromFile cuentaActual;
-        String uploadedFileLocation = ".//downloaded//" + fileDetail.getFileName();
+		String uploadedFileLocation = ".//downloaded//" + fileDetail.getFileName();
 
-        try {
-            grabarArchivo(uploadedInputStream, uploadedFileLocation);
-        } catch (IOException e1) {
-            throw new BadRequestException("No ha sido posible grabar el archivo en el disco.");
-        }
+		try {
+			grabarArchivo(uploadedInputStream, uploadedFileLocation);
+		} catch (IOException e1) {
+			return Response.serverError().status(Response.Status.BAD_REQUEST)
+					.entity("Se ha producido un error al intentar grabar el archivo en disco.").build();
+		}
 
-        FileHandler fh = new FileHandler();
-        List<CuentaFromFile> listaArchivo;
+		FileHandler fh = new FileHandler();
+		List<CuentaFromFile> listaArchivo;
 
-        listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
-/**
- * Se recorren las cuentas que se obtuvieron
- */
-        EntityManager em = mercado.getFactory().createEntityManager();
-        mercado.set_lastFileLoaded(fileDetail.getFileName());
-        this.cargar_cuentas(em, listaArchivo);
-        try {
-            mercado.init_model(em);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Response.status(200).build();
-    }
+		listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
+		/**
+		 * Se recorren las cuentas que se obtuvieron
+		 */
+		EntityManager em = mercado.getFactory().createEntityManager();
+		mercado.set_lastFileLoaded(fileDetail.getFileName());
+		this.cargar_cuentas(em, listaArchivo);
+		try {
+			mercado.init_model(em);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Response.serverError().status(Response.Status.BAD_GATEWAY)
+				.entity("Se ha producido un error al intentar obtener la información de la base de datos")
+				.build();
+		}
+		return Response.accepted("El archivo se procesó correctamente.").build();
+	}
 
-    private void grabarArchivo(InputStream uploadedInputStream, String uploadedFileLocation)
-            throws FileNotFoundException, IOException {
+	private void grabarArchivo(InputStream uploadedInputStream, String uploadedFileLocation)
+			throws FileNotFoundException, IOException {
 
-        OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
-        int read = 0;
-        byte[] bytes = new byte[1024];
+		OutputStream out = new FileOutputStream(new File(uploadedFileLocation));
+		int read = 0;
+		byte[] bytes = new byte[1024];
 
-        out = new FileOutputStream(new File(uploadedFileLocation));
-        while ((read = uploadedInputStream.read(bytes)) != -1) {
-            out.write(bytes, 0, read);
-        }
-        out.flush();
-        out.close();
-    }
+		out = new FileOutputStream(new File(uploadedFileLocation));
+		while ((read = uploadedInputStream.read(bytes)) != -1) {
+			out.write(bytes, 0, read);
+		}
+		out.flush();
+		out.close();
+	}
 
-    public Response read_file() throws Exception {
+	public Response read_file() throws Exception {
 
+		EntityManager em = mercado.getFactory().createEntityManager();
+		String fileToRead = this.getFilesFromDirectory(em);
+		if (fileToRead != null) {
 
-        EntityManager em = mercado.getFactory().createEntityManager();
-        String fileToRead = this.getFilesFromDirectory(em);
-        if (fileToRead != null) {
+			FileHandler fh = new FileHandler();
+			List<CuentaFromFile> listaArchivo;
+			String uploadedFileLocation = ".//downloaded//" + fileToRead;// "cuentas2.json";
+			listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
+			/**
+			 * Se recorren las cuentas que se obtuvieron
+			 */
+			mercado.set_lastFileLoaded(fileToRead);// "cuenta2.json");
+			this.cargar_cuentas(em, listaArchivo);
+			mercado.init_model(em);
+			try {
+				if (!mercado.getEmpresas().isEmpty()) {
+					mercado.preCalculo_indicadores();
+				}
+				mercado.init_model(em);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return Response.status(200).build();
 
-            FileHandler fh = new FileHandler();
-            List<CuentaFromFile> listaArchivo;
-            String uploadedFileLocation = ".//downloaded//" + fileToRead;//"cuentas2.json";
-            CuentaFromFile cuentaActual;
-            listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
-/**
- * Se recorren las cuentas que se obtuvieron
- */
-            //mercado.init_model(em);
-            mercado.set_lastFileLoaded(fileToRead);//"cuenta2.json");
-            this.cargar_cuentas(em, listaArchivo);
-            mercado.init_model(em);
-            try {
-                if (!mercado.getEmpresas().isEmpty()) {
-                    mercado.preCalculo_indicadores();
-                }
-                mercado.init_model(em);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return Response.status(200).build();
+	}
 
-    }
+	public void cargar_cuentas(EntityManager em, List<CuentaFromFile> listaArchivo) {
 
-    public void cargar_cuentas(EntityManager em, List<CuentaFromFile> listaArchivo) {
+		/**
+		 * Se recorren las cuentas que se obtuvieron
+		 */
+		CuentaFromFile cuentaActual;
+		for (int i = 0; i < listaArchivo.size(); i++) {
+			cuentaActual = listaArchivo.get(i);
 
-        /**
-         * Se recorren las cuentas que se obtuvieron
-         */
-        CuentaFromFile cuentaActual;
-        for (int i = 0; i < listaArchivo.size(); i++) {
-            cuentaActual = listaArchivo.get(i);
+			try {
+				/**
+				 * Se agrega la cuenta a la empresa El nombre de la empresa se
+				 * obtiene desde el metodo getNombre()
+				 */
+				CuentaService cuenta_DB = new CuentaService(em);
+				mercado.addCuenta(cuentaActual.getNombre(), cuentaActual.getTipo(), cuentaActual.getPeriodo(),
+						cuentaActual.getValor());
+				if (mercado.getEmpresa(cuentaActual.getNombre()).getId() != null) {
+					/**
+					 * Si la cuenta pertenece a una empresa que ya esta creada
+					 * se agrega en caso de no existir o se actualiza el valor
+					 */
+					if (mercado
+							.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(),
+									cuentaActual.getValor()), mercado.getEmpresa(cuentaActual.getNombre()))
+							.getId() != null) {
+						/**
+						 * En caso de existir la cuenta, se actualiza su valor
+						 */
+						cuenta_DB
+								.updateCuenta2(
+										mercado.getCuenta(
+												new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(),
+														cuentaActual.getValor()),
+												mercado.getEmpresa(cuentaActual.getNombre())).getId(),
+										Double.parseDouble(cuentaActual.getValor()));
+					} else {
+						/**
+						 * En caso de no existir la cuenta, se agrega a la
+						 * empresa
+						 */
+						cuenta_DB.addCuenta_existCompany(cuentaActual.getTipo(), cuentaActual.getPeriodo(),
+								cuentaActual.getValor(), mercado.getEmpresa(cuentaActual.getNombre()));
+					}
+				} else {
+					cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
+							new Empresa(cuentaActual.getNombre()));
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-            try {
-                /**
-                 * Se agrega la cuenta a la empresa
-                 * El nombre de la empresa se obtiene desde el metodo getNombre()
-                 */
-                CuentaService cuenta_DB = new CuentaService(em);
-                mercado.addCuenta(cuentaActual.getNombre(), cuentaActual.getTipo(), cuentaActual.getPeriodo(),
-                        cuentaActual.getValor());
-                if (mercado.getEmpresa(cuentaActual.getNombre()).getId() != null) {
-                    /**
-                     * Si la cuenta pertenece a una empresa que ya esta creada
-                     * se agrega en caso de no existir o se actualiza el valor
-                     */
-                    if (mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
-                            mercado.getEmpresa(cuentaActual.getNombre())).getId() != null) {
-                        /**
-                         * En caso de existir la cuenta, se actualiza su valor
-                         */
-                        cuenta_DB.updateCuenta2(mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
-                                mercado.getEmpresa(cuentaActual.getNombre())).getId(), Double.parseDouble(cuentaActual.getValor()));
-                    } else {
-                        /**
-                         * En caso de no existir la cuenta, se agrega a la empresa
-                         */
-                        cuenta_DB.addCuenta_existCompany(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
-                                mercado.getEmpresa(cuentaActual.getNombre()));
-                    }
-                } else {
-                    cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
-                            new Empresa(cuentaActual.getNombre()));
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	public String getFilesFromDirectory(EntityManager em) {
 
-    public String getFilesFromDirectory(EntityManager em) {
+		File[] results;
+		File directorio = new File(".//downloaded//");
+		results = directorio.listFiles();
+		List<String> listOfFilesAvailable = new ArrayList<>();
+		for (int i = 0; i < results.length; i++) {
+			if (results[i].isFile()) {
+				listOfFilesAvailable.add(results[i].getName());
+			}
+		}
 
-        File[] results;
-        File directorio = new File(".//downloaded//");
-        results = directorio.listFiles();
-        List<String> listOfFilesAvailable = new ArrayList<>();
-        for (int i = 0; i < results.length; i++) {
-            if (results[i].isFile()) {
-                listOfFilesAvailable.add(results[i].getName());
-            }
-        }
-
-        AuditReader reader = AuditReaderFactory.get(em);
-        List<Empresa> empresas = mercado.getEmpresas();
-        final List<String> readedFiles = new ArrayList<>();
-        empresas.forEach(empresa -> {
-            empresa.getCuentas().forEach(cuenta -> {
-                List<Number> revisions = reader.getRevisions(Cuenta.class,
-                        cuenta.getId());
-                CustomRevEntity entity = em.find(CustomRevEntity.class, revisions.get(0));
-                readedFiles.add(entity.getUsed_file());
-            });
-        });
-        //readedFiles = new ArrayList<>(new HashSet<>(readedFiles));
-        Set<String> list1 = new HashSet<String>(listOfFilesAvailable);
-        Set<String> list2 = new HashSet<String>(readedFiles);
-        list1.removeAll(list2);
-        return list1.stream().findFirst().orElse(null);
-    }
-
+		AuditReader reader = AuditReaderFactory.get(em);
+		List<Empresa> empresas = mercado.getEmpresas();
+		final List<String> readedFiles = new ArrayList<>();
+		empresas.forEach(empresa -> {
+			empresa.getCuentas().forEach(cuenta -> {
+				List<Number> revisions = reader.getRevisions(Cuenta.class, cuenta.getId());
+				CustomRevEntity entity = em.find(CustomRevEntity.class, revisions.get(0));
+				readedFiles.add(entity.getUsed_file());
+			});
+		});
+		// readedFiles = new ArrayList<>(new HashSet<>(readedFiles));
+		Set<String> list1 = new HashSet<String>(listOfFilesAvailable);
+		Set<String> list2 = new HashSet<String>(readedFiles);
+		list1.removeAll(list2);
+		return list1.stream().findFirst().orElse(null);
+	}
 
 }

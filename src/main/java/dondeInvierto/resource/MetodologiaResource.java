@@ -1,14 +1,11 @@
 package dondeInvierto.resource;
 
 import java.io.StringReader;
-import java.net.URI;
-import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.persistence.EntityManager;
-import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,12 +14,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import db.IndicadorService;
 import db.MetodologiaService;
 import dondeInvierto.Metodologia;
 import dondeInvierto.CondicionFiltro;
 import dondeInvierto.CondicionOrdenamiento;
-import dondeInvierto.Indicador;
 import dondeInvierto.MercadoBursatil;
 
 @Path("metodologias")

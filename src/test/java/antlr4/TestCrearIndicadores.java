@@ -2,21 +2,15 @@ package antlr4;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
 
 import fileManagement.FileHandler;
 
 public class TestCrearIndicadores extends FileHandler {
-	String filepath = "C:\\Users\\Patito\\workspace\\DDS_2017-Grupo_8\\files\\cuentas.json";
-	List<Cuenta> listaArchivo = new ArrayList<Cuenta>();
 	static MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	Empresa facebook = new Empresa("Facebook Inc.");
 	
@@ -31,7 +25,7 @@ public class TestCrearIndicadores extends FileHandler {
 	
 	@Test
 	public void testCantidadDeIndicadores() {
-		assertEquals(14, mercado.getIndicadores().size());
+		assertEquals(18, mercado.getIndicadores().size());
 	}
 	
 	@Test

@@ -40,6 +40,19 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+    			<artifactId>maven-jar-plugin</artifactId>
+    			<version>3.0.2</version>
+    			<configuration>
+			        <archive>
+			          <manifest>
+			          	<addClasspath>true</addClasspath>
+			            <mainClass>dondeInvierto.Main</mainClass>
+			          </manifest>
+			        </archive>
+			      </configuration>
+			</plugin>	
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.6.0</version>
@@ -230,7 +243,5 @@
 			<version>2.2.1</version>
 		</dependency>
 	</dependencies>
-	
-	<packaging>war</packaging>
 	
 </project>

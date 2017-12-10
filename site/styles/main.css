@@ -44,14 +44,11 @@ form>.col-lg-6 {
 	display: none;
 }
 
-<
-style type ="text/css">div#dropdown1 {
-	/* this will hide div with id div_id_name */
+div#dropdown1 {
 	display: none;
 }
 
-</
-style>.panel-body {
+.panel-body {
 	text-align: left;
 }
 
@@ -242,7 +239,7 @@ row.vdivide [class*='col-']:not(:last-child):after {
   min-height: 70px;
 }
 
-#table-header-condiciones {
+/*#table-header-condiciones {
 	border-bottom: none;
 }
 
@@ -260,7 +257,7 @@ row.vdivide [class*='col-']:not(:last-child):after {
 
 #table-header-condiciones-criterio {
 	border-top: none;
-}
+}*/
 
 #panel-condiciones {
 	padding-bottom: 40px;
@@ -276,4 +273,20 @@ row.vdivide [class*='col-']:not(:last-child):after {
 
 #panel-condiciones>#tabla-resultados {
 	margin-top: 40px;
+}
+
+#bs-example-navbar-collapse-1>#btn-cerrar-sesion {
+	float: right;
+}
+
+#div-calculo-indicador {
+	display: inline-flex;
+}
+
+#panel-calculo-indicador>input {
+	margin-bottom: 10px;
+}
+
+#panel-calculo-indicador>.bootstrap-select {
+	margin-bottom: 10px;
 }

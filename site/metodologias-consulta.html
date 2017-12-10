@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cuentas - &#191;Do&#769;nde invierto?</title>
+<title>Metodologi&#769;as - &#191;Do&#769;nde invierto?</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -55,6 +55,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="indicadores-registro.html">Registro</a></li>
 								<li><a href="indicadores-consulta.html">Consulta</a></li>
+								<li><a href="indicadores-calculo.html">Ca&#769;lculo</a></li>
 								<li><a href="indicadores-borrar.html">Borrar</a></li>
 							</ul></li>
 						<li class="dropdown active"><a href="#"
@@ -68,23 +69,10 @@
 								<!-- Se pueden usar separadores
                   <li role="separator" class="divider"></li>
                   <li><a href="#">Separated link</a></li> -->
-							</ul></li>
-							<li>
-                				<button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
-             				</li>
+							</ul>
+						</li>
 					</ul>
-					<!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
-            porque no escala bien al achicar la ventana)
-            <form class="navbar-form navbar-right">
-              <div class="col-lg-6">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Buscar...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                  </span>
-                </div>
-              </div>
-            </form> -->
+					<button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
 				</div>
 				<!-- /.navbar-collapse -->
 			</div>
@@ -111,7 +99,7 @@
 						</div>
 					</div>
 				</div>
-				<table class="table table-responsive" id="tabla-resultados">
+				<table class="table table-responsive table-bordered" id="tabla-resultados">
 					<thead>
 						<tr>
 							<th rowspan="2">#</th>
