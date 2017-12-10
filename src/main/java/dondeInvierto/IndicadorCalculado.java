@@ -13,12 +13,6 @@ public class IndicadorCalculado {
     @GeneratedValue
     @Column(name = "ID")
     private Long id;
-    /*@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn
-    private Indicador indicador;
-    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-    @PrimaryKeyJoinColumn
-    private Empresa empresa;*/
     @Column(name = "INDICADOR_ID")
     private Long indicador_id;
     @Column(name = "EMPRESA_ID")

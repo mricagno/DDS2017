@@ -127,14 +127,14 @@ public class CuentaResource {
             mercado.set_lastFileLoaded(fileToRead);
             this.cargar_cuentas(em, listaArchivo);
             mercado.init_model(em);
-            try {
-                if (!mercado.getEmpresas().isEmpty()) {
+            //try {
+            //    if (!mercado.getEmpresas().isEmpty()) {
                     mercado.preCalculo_indicadores();
-                }
-                mercado.init_model(em);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            //    }
+            //    mercado.init_model(em);
+            //} catch (Exception e) {
+            //    e.printStackTrace();
+            //}
         }
         return Response.status(200).build();
 

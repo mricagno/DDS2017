@@ -44,6 +44,7 @@ public enum MercadoBursatil {
         this.factory = DBManager.getEmf();
         EntityManager em = factory.createEntityManager();
         this.init_model(em);
+        this.preCalculo_indicadores();
     }
 
     /**
@@ -339,6 +340,7 @@ public enum MercadoBursatil {
         empresa.addEmpresa("MC DONALD'S CORP");
         empresa.addEmpresa("AMERICAN EXPRESS");
         empresa.addEmpresa("3M");
+        empresa.addEmpresa("APPLE INC.");
         this.empresas = empresa.listEmpresas();
         /**
          * Se cargan las cuentas en las respectivas empresas
@@ -362,7 +364,7 @@ public enum MercadoBursatil {
                 + "Ingreso Neto En Operaciones Discontinuadas", "DEFAULT"));
         indicador.addIndicador(new Indicador("Retorno sobre capital total",
                 "Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total", "DEFAULT"));
-        indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF", "DEFAULT"));
+        //indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF", "DEFAULT"));
         indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Continuas",
                 "Ingreso Neto En Operaciones Continuas = EBITDA ", "DEFAULT"));
         indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Discontinuadas",
@@ -375,20 +377,17 @@ public enum MercadoBursatil {
         indicador.addIndicador(new Indicador("Margen", "Margen = Capital Total - Dividendos", "DEFAULT"));
         indicador.addIndicador(new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
         this.indicadores = indicador.listIndicadores();
+
         /**
          * Se cargan condiciones de filtro
          */
-        CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10,
-                new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+        CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, this.getIndicador("Indicador Vacio"));
 
         /**
          * Se cargan condiciones de ordenamiento
          */
-        CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10,
-                new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
-        CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0,
-                new Indicador("Proporcion De Deuda",
-                        "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
+        CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, this.getIndicador("ROE"));
+        CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, this.getIndicador("Proporcion De Deuda"));
         Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
         Set<CondicionOrdenamiento> condicionesOrdenamiento = new HashSet<>();
         filtro1.setEmpresas(this.getEmpresas());
@@ -413,15 +412,13 @@ public enum MercadoBursatil {
         /**
          * Se cargan condiciones de filtro
          */
-        CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, new Indicador("Margen", "Margen = Capital Total - Dividendos", "DEFAULT"));
-        CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
-
+        CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, this.getIndicador("Margen"));
+        CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, this.getIndicador("Indicador Vacio"));
         /**
          * Se cargan condiciones de ordenamiento
          */
-        CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
-        CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, new Indicador("Proporcion De Deuda",
-                "Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
+        CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, this.getIndicador("ROE"));
+        CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, this.getIndicador("Proporcion De Deuda"));
         filtroWB3.setEmpresas(this.getEmpresas());
         filtroWB4.setEmpresas(this.getEmpresas());
         ordenWB1.setEmpresas(this.getEmpresas());
@@ -533,7 +530,7 @@ public enum MercadoBursatil {
         IndicadorCalculadoService indicadorCalculado_DB = new IndicadorCalculadoService(em);
         indicadorCalculado_DB.borrar_indicadores();
         indicadorCalculado_DB.addIndicadoresCalculado(calculados);
-        em.close();
+        //em.close();
 
     }
 
