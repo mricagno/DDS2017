@@ -314,7 +314,7 @@ public enum MercadoBursatil {
         usuario.addUsuario("GIANFRANCO", "gian", 0);
         usuario.addUsuario("MAXI", "maxi", 0);
         usuario.addUsuario("CESAR", "cesar", 0);
-        usuario.addUsuario("DEFAULT", "DEFAULT", 0);
+        usuario.addUsuario("DEFAULT", "default", 0);
 
         /**
          * Se cargan empresas

@@ -83,7 +83,7 @@ public class IndicadorResource {
 			indicador_DB.deleteIndicador(indicador_borrar.getId());
 			em.close();
 		} else {
-			throw new BadRequestException("El indicador no ha sido creado.");
+			throw new BadRequestException("El indicador no ha sido borrado.");
 		}
 		return Response.noContent().build();  
 	}

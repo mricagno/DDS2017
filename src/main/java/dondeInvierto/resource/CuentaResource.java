@@ -23,6 +23,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import db.EmpresaService;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
@@ -142,6 +143,7 @@ public class CuentaResource {
 
     public void cargar_cuentas(EntityManager em, List<CuentaFromFile> listaArchivo) {
 
+        EmpresaService empresa = new EmpresaService(em);
         /**
          * Se recorren las cuentas que se obtuvieron
          */
@@ -177,8 +179,10 @@ public class CuentaResource {
                                 mercado.getEmpresa(cuentaActual.getNombre()));
                     }
                 } else {
+                    empresa.addEmpresa(cuentaActual.getNombre());
+                    mercado.setEmpresas(empresa.listEmpresas());
                     cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
-                            new Empresa(cuentaActual.getNombre()));
+                            mercado.getEmpresa(cuentaActual.getNombre()));
                 }
             } catch (ParseException e) {
                 e.printStackTrace();

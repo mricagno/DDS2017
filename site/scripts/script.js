@@ -342,7 +342,7 @@ $(function () {
                 $
                     .ajax({
                         type: 'DELETE',
-                        url: "http://localhost:8080/dondeInvierto/indicadores/borrar"
+                        url: "http://localhost:8080/dondeInvierto/indicadores/borrar/"
                         + nombre,
                         contentType: "application/json",
                         beforeSend: function () {
