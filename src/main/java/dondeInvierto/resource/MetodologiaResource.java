@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import db.MetodologiaService;
 import dondeInvierto.Metodologia;
+import dondeInvierto.ResultadoCondicionado;
 import dondeInvierto.CondicionFiltro;
 import dondeInvierto.CondicionOrdenamiento;
 import dondeInvierto.MercadoBursatil;
@@ -31,6 +32,14 @@ public class MetodologiaResource {
 		EntityManager em = mercado.getFactory().createEntityManager();
 		MetodologiaService metodologias_DB = new MetodologiaService(em);
 		mercado.setMetodologias(metodologias_DB.getMetodologias());
+		for (Metodologia m : mercado.getMetodologias()) {
+			for (CondicionFiltro f : m.getCondicionesFiltro()) {
+				f.setEmpresas(mercado.getEmpresas());
+			}
+			for (CondicionOrdenamiento o : m.getCondicionesOrdenamiento()) {
+				o.setEmpresas(mercado.getEmpresas());
+			}
+		}
 		em.close();
 		for(Metodologia met : mercado.getMetodologias()) {
 			JsonArrayBuilder condArrBuilder = Json.createArrayBuilder();
@@ -55,7 +64,6 @@ public class MetodologiaResource {
 						Json.createObjectBuilder().add("nombre", met.getNombre()).add("condiciones", condArrBuilder));
 			}
 		}
-		System.out.println(metArrBuilder.build().toString());
 		return metArrBuilder.build().toString();
 	}
     
@@ -105,6 +113,21 @@ public class MetodologiaResource {
 			return Response.created(URI.create(json.getString("nombre"))).build();
 	    */
 		return null;
+    }
+    
+    @Path("/evaluar/{metodologia}")
+    @GET
+    @Produces("application/json")
+    public String evaluateMetodologia(@PathParam("metodologia") final String metodologia) {
+    	JsonArrayBuilder empresasArrBuilder = Json.createArrayBuilder();
+	    Metodologia metodologiaEvaluada = mercado.getMetodologia(metodologia);
+	    metodologiaEvaluada.calcularMetodologia();
+	    for (ResultadoCondicionado rc : metodologiaEvaluada.getListaFiltradaUOrdenada()) {
+	    	empresasArrBuilder.add(
+	    			Json.createObjectBuilder()
+						.add("nombre", rc.getNombre()));
+	    }
+	    return empresasArrBuilder.build().toString();
     }
     
 }

@@ -14,6 +14,9 @@ public class GSONParser {
 		Gson gson = new Gson();
 		Type type = new TypeToken<List<CuentaFromFile>>(){}.getType();
 		List<CuentaFromFile> cuentas = gson.fromJson(br, type);
+		for (CuentaFromFile c : cuentas) {
+			c.setNombre(c.getNombre().toUpperCase());
+		}
 
 		try {
 			br.close();

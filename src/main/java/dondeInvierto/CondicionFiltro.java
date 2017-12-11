@@ -134,6 +134,14 @@ public class CondicionFiltro extends Condicion {
 			}
 			return resultadoCondicion;
 
+		case "filtrarAntiguedadMenoroigual":
+			for (Empresa empresa : empresas) {
+				if (empresa.getAntiguedad() <= condicion.getValor()) {
+					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), empresa.getAntiguedad()));
+				}
+			}
+			return resultadoCondicion;
+
 		case "filtrarAntiguedadMenor":
 			for (Empresa empresa : empresas) {
 				if (empresa.getAntiguedad() < condicion.getValor()) {
@@ -145,6 +153,30 @@ public class CondicionFiltro extends Condicion {
 		case "filtrarAntiguedadMayor":
 			for (Empresa empresa : empresas) {
 				if (empresa.getAntiguedad() > condicion.getValor()) {
+					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), empresa.getAntiguedad()));
+				}
+			}
+			return resultadoCondicion;
+
+		case "filtrarAntiguedadMayoroigual":
+			for (Empresa empresa : empresas) {
+				if (empresa.getAntiguedad() >= condicion.getValor()) {
+					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), empresa.getAntiguedad()));
+				}
+			}
+			return resultadoCondicion;
+
+		case "filtrarAntiguedadDiferente":
+			for (Empresa empresa : empresas) {
+				if (empresa.getAntiguedad() != condicion.getValor()) {
+					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), empresa.getAntiguedad()));
+				}
+			}
+			return resultadoCondicion;
+
+		case "filtrarAntiguedadIgual":
+			for (Empresa empresa : empresas) {
+				if (empresa.getAntiguedad() == condicion.getValor()) {
 					resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), empresa.getAntiguedad()));
 				}
 			}

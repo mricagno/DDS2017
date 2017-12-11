@@ -11,7 +11,7 @@ public class DB_Empresa_Test extends DB_jpa_Test {
 	@Test
 	public void guardarEmpresa_exitoso() {
 		EntityTransaction trx = em.getTransaction();
-		final Empresa empresa = new Empresa("Facebook Inc.");
+		final Empresa empresa = new Empresa("FACEBOOK INC.");
 		trx.begin();
 		em.persist(empresa);
 		trx.commit();
@@ -25,11 +25,11 @@ public class DB_Empresa_Test extends DB_jpa_Test {
 		Empresa empresa = em.find(Empresa.class, new Long(1));
 		EntityTransaction trx = em.getTransaction();
 		trx.begin();
-		empresa.setNombre("Google");
+		empresa.setNombre("GOOGLE");
 		trx.commit();
 		List<Empresa> empresas = em.createNamedQuery("Empresa.getAll", Empresa.class).getResultList();
 		assertNotNull(empresas);
-		assertEquals("Google", empresas.stream().findFirst().get().getNombre());
+		assertEquals("GOOGLE", empresas.stream().findFirst().get().getNombre());
 	}
 	
 	@Test
@@ -49,11 +49,11 @@ public class DB_Empresa_Test extends DB_jpa_Test {
 		EntityTransaction trx = em.getTransaction();
 		trx.begin();
 		List<Empresa> empresas = em.createQuery("Select e FROM Empresa e WHERE e.nombre = :nombre",Empresa.class)
-                .setParameter("nombre", "Facebook Inc.").getResultList();
+                .setParameter("nombre", "FACEBOOK INC.").getResultList();
 		Empresa empresa = empresas.stream().findFirst().get();
 		trx.commit();
 		assertNotNull(empresa);
-		assertEquals("Facebook Inc.", empresa.getNombre());
+		assertEquals("FACEBOOK INC.", empresa.getNombre());
 		
 	}
 

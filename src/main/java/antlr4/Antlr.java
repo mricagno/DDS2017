@@ -62,7 +62,6 @@ public class Antlr {
 				System.out.println(e.getMessage().toString());
 			}
 		}
-			
 		return resultado;
 	}
 }

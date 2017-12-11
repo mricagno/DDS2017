@@ -336,7 +336,7 @@ $(function() {
 			$
 			.ajax({
 				type : 'DELETE',
-				url : "http://localhost:8080/dondeInvierto/indicadores/borrar"
+				url : "http://localhost:8080/dondeInvierto/indicadores/borrar/"
 				+ nombre,
 				contentType : "application/json",
 				beforeSend : function() {
@@ -403,7 +403,7 @@ $(function() {
 
 						html += '<tr><td rowspan="' + cantCond + '">' + (index+1) + '</td>'
 						html += '<td rowspan="'	+ cantCond + '">' + element.nombre + '</td>';
- 
+
 						$.each(element.condiciones, function(index, child) {
 							if(child.tipo == "Filtro") {
 								html += '<td>' + child.tipo + '</td>';
@@ -604,76 +604,155 @@ $(document).ready(function () {
 		});
 	} else {
 		if (window.location.pathname == "/metodologias-registro.html") {
-		$.ajax({
-			type : 'GET',
-			url : "http://localhost:8080/dondeInvierto/indicadores/",
-			dataType : "json",
-			beforeSend : function() {
-				console
-						.log("[INFO] (AJAX) Buscando información de indicadores...");
-			},
-			success : function(response) {
-				var selectOptionsHtml;
-				$.each(response, function(index,
+			$.ajax({
+				type : 'GET',
+				url : "http://localhost:8080/dondeInvierto/indicadores/",
+				dataType : "json",
+				beforeSend : function() {
+					console
+					.log("[INFO] (AJAX) Buscando información de indicadores...");
+				},
+				success : function(response) {
+					var selectOptionsHtml;
+					$.each(response, function(index,
 						element) {
-					selectOptionsHtml = selectOptionsHtml
+						selectOptionsHtml = selectOptionsHtml
 						+ '<option>'
 						+ element.nombre
 						+ '</option>';
 					});
 					$('#indicadorCondicion')
-						.html(selectOptionsHtml)
-						.selectpicker('refresh');
-			}
-		});
-	} else {
-		if (window.location.pathname == "/indicadores-calculo.html") {
-		$.ajax({
-			type : 'GET',
-			url : "http://localhost:8080/dondeInvierto/indicadores/",
-			dataType : "json",
-			beforeSend : function() {
-				console
+					.html(selectOptionsHtml)
+					.selectpicker('refresh');
+				}
+			});
+		} else {
+			if (window.location.pathname == "/indicadores-calculo.html") {
+				$.ajax({
+					type : 'GET',
+					url : "http://localhost:8080/dondeInvierto/indicadores/",
+					dataType : "json",
+					beforeSend : function() {
+						console
 						.log("[INFO] (AJAX) Buscando información de indicadores...");
-			},
-			success : function(response) {
-				var selectOptionsHtml;
-				$.each(response, function(index,
-						element) {
-					selectOptionsHtml = selectOptionsHtml
-						+ '<option>'
-						+ element.nombre
-						+ '</option>';
-					});
-					$('#indicadorCalculo')
+					},
+					success : function(response) {
+						var selectOptionsHtml;
+						$.each(response, function(index,
+							element) {
+							selectOptionsHtml = selectOptionsHtml
+							+ '<option>'
+							+ element.nombre
+							+ '</option>';
+						});
+						$('#indicadorCalculo')
 						.html(selectOptionsHtml)
 						.selectpicker('refresh');
-			}
-		});
-		$.ajax({
-			type : 'GET',
-			url : "http://localhost:8080/dondeInvierto/empresas/",
-			dataType : "json",
-			beforeSend : function() {
-				console
+					}
+				});
+				$.ajax({
+					type : 'GET',
+					url : "http://localhost:8080/dondeInvierto/empresas/",
+					dataType : "json",
+					beforeSend : function() {
+						console
 						.log("[INFO] (AJAX) Buscando información de indicadores...");
-			},
-			success : function(response) {
-				var selectOptionsHtml;
-				$.each(response, function(index,
-						element) {
-					selectOptionsHtml = selectOptionsHtml
-						+ '<option>'
-						+ element.nombre
-						+ '</option>';
-					});
-					$('#empresaCalculo')
+					},
+					success : function(response) {
+						var selectOptionsHtml;
+						$.each(response, function(index,
+							element) {
+							selectOptionsHtml = selectOptionsHtml
+							+ '<option>'
+							+ element.nombre
+							+ '</option>';
+						});
+						$('#empresaCalculo')
 						.html(selectOptionsHtml)
 						.selectpicker('refresh');
+					}
+				});
+			} else {
+				if (window.location.pathname == "/configuracion.html") {
+					$.ajax({
+						type: 'GET',
+						url: "http://localhost:8080/dondeInvierto/config/getData",
+						dataType: "json",
+						beforeSend: function () {
+							console
+							.log("[INFO] (AJAX) Buscando información de configuracion...");
+						},
+						success: function (response) {
+							$.each(response, function (index,
+								element) {
+								document.getElementById("path").value = element.path;
+								document.getElementById("intervalo").value = element.intervalo;
+							});
+							console.log("Success!");
+							toggleRegistrySuccess();
+						},
+						error: function (jqXHR, exception) {
+							var msg = '';
+							if (jqXHR.status === 0) {
+								msg = 'Not connect.\n Verify Network.';
+							} else if (jqXHR.status == 400) {
+								msg = 'Bad request. [400]';
+							} else if (jqXHR.status == 404) {
+								msg = 'Requested page not found. [404].';
+							} else if (jqXHR.status == 500) {
+								msg = 'Internal Server Error [500].';
+							} else if (exception === 'parsererror') {
+								msg = 'Requested JSON parse failed.\n'
+								+ jqXHR.responseText
+								+ '.\n'
+								+ jqXHR.status
+								+ '.';
+							} else if (exception === 'timeout') {
+								msg = 'Time out error.';
+							} else if (exception === 'abort') {
+								msg = 'Ajax request aborted.';
+							} else {
+								msg = 'Uncaught Error.\n'
+								+ jqXHR.responseText
+								+ '.\n' + jqXHR.status
+								+ '.';
+							}
+							console.log(msg);
+							toggleLoginError();
+						}
+					});
+				} else {
+					if (window.location.pathname == "/metodologias-calculo.html") {
+						$.ajax({
+							type : 'GET',
+							url : "http://localhost:8080/dondeInvierto/metodologias",
+							dataType : "json",
+							beforeSend : function() {
+								console
+								.log("[INFO] (AJAX) Buscando información de metodologias...");
+							},
+							success : function(response) {
+								var selectOptionsHtml;
+								$.each(response, function(index, element) {
+									selectOptionsHtml = selectOptionsHtml
+									+ '<option>'
+									+ element.nombre
+									+ '</option>';
+								});
+								$('#metodologia')
+								.html(selectOptionsHtml)
+								.selectpicker('refresh');
+							}
+						});
+					}
+				}
 			}
-		});
+		}
 	}}
-}});
+	)
+;
+
+
 
 $(function btnLogin() {
 	$("#btn-cerrar-sesion")
@@ -694,6 +773,89 @@ $(function btnLogin() {
 					document.location.href = "index.html";
 					$(document).ready(hideNav());
 				},
+			});
+		});
+});
+
+$(function () {
+	$("#btn-guardar-config")
+	.click(
+		function () {
+			var data = {};
+			data.path_cuentas = $("#path").val();
+			data.intervalo_cuentas = $("#intervalo").val();
+			$.ajax({
+				type: 'POST',
+				url: "http://localhost:8080/dondeInvierto/config/setData",
+				dataType: "text",
+				contentType: "application/json",
+				data: JSON.stringify(data),
+				beforeSend: function () {
+					console
+					.log("[INFO] (AJAX) Buscando información de configuracion ...");
+				},
+				success: function (response) {
+					console.log("Success!");
+					toggleRegistrySuccess();
+				},
+				error: function (jqXHR, exception) {
+					var msg = '';
+					if (jqXHR.status === 0) {
+						msg = 'Not connect.\n Verify Network.';
+					} else if (jqXHR.status == 400) {
+						msg = 'Bad request. [400]';
+					} else if (jqXHR.status == 404) {
+						msg = 'Requested page not found. [404].';
+					} else if (jqXHR.status == 500) {
+						msg = 'Internal Server Error [500].';
+					} else if (exception === 'parsererror') {
+						msg = 'Requested JSON parse failed.\n'
+						+ jqXHR.responseText
+						+ '.\n'
+						+ jqXHR.status
+						+ '.';
+					} else if (exception === 'timeout') {
+						msg = 'Time out error.';
+					} else if (exception === 'abort') {
+						msg = 'Ajax request aborted.';
+					} else {
+						msg = 'Uncaught Error.\n'
+						+ jqXHR.responseText
+						+ '.\n' + jqXHR.status
+						+ '.';
+					}
+					console.log(msg);
+					toggleLoginError();
+				}
+			});
+		});
+});
+
+$(function() {
+	$("#btn-calcular-meto")
+	.click(
+		function() {
+			var metodologia = $("#metodologia").find("option:selected").text();
+
+			$.ajax({
+				type : 'GET',
+				url : "http://localhost:8080/dondeInvierto/metodologias/evaluar/" + metodologia,
+				dataType : "json",
+				beforeSend : function() {
+					console
+					.log("[INFO] (AJAX) Enviando información del indicador...");
+				},
+				success : function(response) {
+					console.log("Success!");
+					$.each(response, function(index, element) {
+						$('#tabla-empresas').append(
+							$('<tr><th scope="row">'
+								+ (index + 1)
+								+ '</th><td>'
+								+ element.nombre
+								+ '</td></tr>'));
+					});
+				}
 			});
 		});
 });

@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import db.CuentaService;
+import db.EmpresaService;
 import dondeInvierto.Cuenta;
 import dondeInvierto.Empresa;
 import dondeInvierto.MercadoBursatil;
@@ -117,22 +119,22 @@ public class CuentaResource {
 
 			FileHandler fh = new FileHandler();
 			List<CuentaFromFile> listaArchivo;
-			String uploadedFileLocation = ".//downloaded//" + fileToRead;// "cuentas2.json";
+			String uploadedFileLocation = ".//downloaded//" + fileToRead;
 			listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
 			/**
 			 * Se recorren las cuentas que se obtuvieron
 			 */
-			mercado.set_lastFileLoaded(fileToRead);// "cuenta2.json");
+			mercado.set_lastFileLoaded(fileToRead);
 			this.cargar_cuentas(em, listaArchivo);
 			mercado.init_model(em);
-			try {
-				if (!mercado.getEmpresas().isEmpty()) {
+			/*try {
+				if (!mercado.getEmpresas().isEmpty()) {*/
 					mercado.preCalculo_indicadores();
-				}
+				/*}
 				mercado.init_model(em);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 		return Response.status(200).build();
 
@@ -140,6 +142,7 @@ public class CuentaResource {
 
 	public void cargar_cuentas(EntityManager em, List<CuentaFromFile> listaArchivo) {
 
+		EmpresaService empresa = new EmpresaService(em);
 		/**
 		 * Se recorren las cuentas que se obtuvieron
 		 */
@@ -183,8 +186,14 @@ public class CuentaResource {
 								cuentaActual.getValor(), mercado.getEmpresa(cuentaActual.getNombre()));
 					}
 				} else {
+					
+					/**
+					 * En caso de no existir la empresa, se persiste antes
+					 */
+					empresa.addEmpresa(cuentaActual.getNombre());
+					mercado.setEmpresas(empresa.listEmpresas());
 					cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
-							new Empresa(cuentaActual.getNombre()));
+							mercado.getEmpresa(cuentaActual.getNombre()));
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -195,8 +204,13 @@ public class CuentaResource {
 	public String getFilesFromDirectory(EntityManager em) {
 
 		File[] results;
-		File directorio = new File(".//downloaded//");
+		File directorio = new File(mercado.getPath_carga_cuentas());
 		results = directorio.listFiles();
+		/**
+		 * Se busca la lista de archivos disponibles
+		 * Se hace la excepción para archivo .DS_Store (Sistema MAC OSX)  
+		 */
+		results = directorio.listFiles((dir, name) -> !name.equals(".DS_Store"));
 		List<String> listOfFilesAvailable = new ArrayList<>();
 		for (int i = 0; i < results.length; i++) {
 			if (results[i].isFile()) {
@@ -210,11 +224,13 @@ public class CuentaResource {
 		empresas.forEach(empresa -> {
 			empresa.getCuentas().forEach(cuenta -> {
 				List<Number> revisions = reader.getRevisions(Cuenta.class, cuenta.getId());
-				CustomRevEntity entity = em.find(CustomRevEntity.class, revisions.get(0));
-				readedFiles.add(entity.getUsed_file());
+				Iterator listIterator = revisions.listIterator();
+				while (listIterator.hasNext()) {
+					CustomRevEntity entity = em.find(CustomRevEntity.class, listIterator.next());
+					readedFiles.add(entity.getUsed_file());
+				}
 			});
 		});
-		// readedFiles = new ArrayList<>(new HashSet<>(readedFiles));
 		Set<String> list1 = new HashSet<String>(listOfFilesAvailable);
 		Set<String> list2 = new HashSet<String>(readedFiles);
 		list1.removeAll(list2);

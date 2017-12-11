@@ -26,4 +26,8 @@ public class CuentaFromFile {
 	public String getValor() {
 		return this.valor;
 	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 }

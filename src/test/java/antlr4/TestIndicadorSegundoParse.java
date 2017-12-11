@@ -24,8 +24,8 @@ public class TestIndicadorSegundoParse extends FileHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mercado.addIndicador("Indicador de prueba", "Indicador de prueba = EBITDA + FCF","mricagno");
-		facebook = mercado.getEmpresa("Facebook Inc.");
+		mercado.addIndicador("Indicador de prueba", "Indicador de prueba = EBITDA + FCF","DEFAULT");
+		facebook = mercado.getEmpresa("FACEBOOK INC.");
 	}
 	
 	@Test
@@ -75,4 +75,10 @@ public class TestIndicadorSegundoParse extends FileHandler {
 		double resultado = Antlr.calculate("Indicador = Indicador de prueba - EBITDA", facebook, "20151231");
 		assertEquals(3.99, resultado, 0.01);
 	}
+	
+	/*@Test
+	public void testIndicadorConCuentasQueNoExisten() throws ParseException {
+		double resultado = Antlr.calculate("Indicador = EBITDA - FCF", facebook, "20161231");
+		assertEquals(3.99, resultado, 0.01);
+	}*/
 }

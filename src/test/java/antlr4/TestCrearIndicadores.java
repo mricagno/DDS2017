@@ -12,15 +12,15 @@ import fileManagement.FileHandler;
 
 public class TestCrearIndicadores extends FileHandler {
 	static MercadoBursatil mercado = MercadoBursatil.INSTANCE;
-	Empresa facebook = new Empresa("Facebook Inc.");
+	Empresa facebook = new Empresa("FACEBOOK INC.");
 	
 	@BeforeClass
 	public static void inicializar() throws Exception {	
 		mercado.init();
 		
-		mercado.addIndicador("Ingreso Neto", "A = BB + CC","mricagno");
-		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC","mricagno");
-		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF","mricagno");
+		mercado.addIndicador("Ingreso Neto", "A = BB + CC","DEFAULT");
+		mercado.addIndicador("Ingreso Neto", "A = BB -/+ CC","DEFAULT");
+		mercado.addIndicador("Indicador", "Indicador = EBITDA + FCF","DEFAULT");
 	}
 	
 	@Test
