@@ -183,7 +183,7 @@ public class CuentaResource {
                     /**
                      * En caso de no existir la empresa, se persiste antes
                      */
-                    empresa.addEmpresa(cuentaActual.getNombre().toUpperCase());
+                    empresa.addEmpresa(cuentaActual.getNombre());
                     mercado.setEmpresas(empresa.listEmpresas());
                     cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
                             mercado.getEmpresa(cuentaActual.getNombre()));

@@ -330,7 +330,7 @@ public enum MercadoBursatil {
         empresa.addEmpresa("COCA-COLA");
         empresa.addEmpresa("CHEVRON");
         empresa.addEmpresa("BOEING CO.");
-        empresa.addEmpresa("CYSCO SYSTEM");
+        empresa.addEmpresa("CISCO SYSTEM");
         empresa.addEmpresa("IBM");
         empresa.addEmpresa("NIKE");
         empresa.addEmpresa("VISA");
@@ -444,6 +444,14 @@ public enum MercadoBursatil {
         this.indicadores = modelService.generate_indicador_model();
         this.usuarios = modelService.generate_usuario_model();
         this.metodologias = modelService.generate_metodologias_model();
+        for (Metodologia m : this.metodologias) {
+            for (CondicionFiltro f : m.getCondicionesFiltro()) {
+                f.setEmpresas(this.getEmpresas());
+            }
+            for (CondicionOrdenamiento o : m.getCondicionesOrdenamiento()) {
+                o.setEmpresas(this.getEmpresas());
+            }
+        }
         this.indicadorCalculado = modelService.generate_indicadoresCalculados_model();
         this.setIntervalo_carga_cuentas(10);
         this.setPath_carga_cuentas(".//downloaded//");

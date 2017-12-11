@@ -8,6 +8,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import db.MetodologiaService;
+import dondeInvierto.CondicionFiltro;
+import dondeInvierto.CondicionOrdenamiento;
 import dondeInvierto.Metodologia;
 import dondeInvierto.MercadoBursatil;
 
@@ -23,6 +25,14 @@ public class MetodologiaResource {
 		EntityManager em = mercado.getFactory().createEntityManager();
 		MetodologiaService metodologias_DB = new MetodologiaService(em);
 		mercado.setMetodologias(metodologias_DB.getMetodologias());
+		for (Metodologia m : mercado.getMetodologias()) {
+			for (CondicionFiltro f : m.getCondicionesFiltro()) {
+				f.setEmpresas(mercado.getEmpresas());
+			}
+			for (CondicionOrdenamiento o : m.getCondicionesOrdenamiento()) {
+				o.setEmpresas(mercado.getEmpresas());
+			}
+		}
 		em.close();
 		for(Metodologia met : mercado.getMetodologias()) {
 			jsonArrBuilder.add(Json.createObjectBuilder()
