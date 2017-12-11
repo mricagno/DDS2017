@@ -342,6 +342,29 @@ public enum MercadoBursatil {
         empresa.addEmpresa("3M");
         empresa.addEmpresa("APPLE INC.");
         this.empresas = empresa.listEmpresas();
+        empresa.setAntiguedad(this.getEmpresa("FACEBOOK INC.").getId(), 15);
+        empresa.setAntiguedad(this.getEmpresa("TESLA INC.").getId(), 7);
+        empresa.setAntiguedad(this.getEmpresa("TWITTER INC.").getId(), 8);
+        empresa.setAntiguedad(this.getEmpresa("YAHOO!").getId(), 4);
+        empresa.setAntiguedad(this.getEmpresa("MICROSOFT").getId(), 11);
+        empresa.setAntiguedad(this.getEmpresa("NETFLIX").getId(), 3);
+        empresa.setAntiguedad(this.getEmpresa("INTEL").getId(), 25);
+        empresa.setAntiguedad(this.getEmpresa("GOOGLE").getId(), 8);
+        empresa.setAntiguedad(this.getEmpresa("COCA-COLA").getId(), 9);
+        empresa.setAntiguedad(this.getEmpresa("CHEVRON").getId(), 7);
+        empresa.setAntiguedad(this.getEmpresa("BOEING CO.").getId(), 10);
+        empresa.setAntiguedad(this.getEmpresa("CISCO SYSTEM").getId(), 1);
+        empresa.setAntiguedad(this.getEmpresa("IBM").getId(), 2);
+        empresa.setAntiguedad(this.getEmpresa("NIKE").getId(), 3);
+        empresa.setAntiguedad(this.getEmpresa("VISA").getId(), 4);
+        empresa.setAntiguedad(this.getEmpresa("JOHNSON & JOHNSON").getId(), 5);
+        empresa.setAntiguedad(this.getEmpresa("HOME DEPOT").getId(), 6);
+        empresa.setAntiguedad(this.getEmpresa("GENERAL ELECTRIC").getId(), 7);
+        empresa.setAntiguedad(this.getEmpresa("MC DONALD'S CORP").getId(), 8);
+        empresa.setAntiguedad(this.getEmpresa("AMERICAN EXPRESS").getId(), 9);
+        empresa.setAntiguedad(this.getEmpresa("3M").getId(), 8);
+        empresa.setAntiguedad(this.getEmpresa("APPLE INC.").getId(), 7);
+        this.empresas = empresa.listEmpresas();
         /**
          * Se cargan las cuentas en las respectivas empresas
          */
@@ -453,8 +476,6 @@ public enum MercadoBursatil {
             }
         }
         this.indicadorCalculado = modelService.generate_indicadoresCalculados_model();
-        this.setIntervalo_carga_cuentas(10);
-        this.setPath_carga_cuentas(".//downloaded//");
     }
 
     public void close() {

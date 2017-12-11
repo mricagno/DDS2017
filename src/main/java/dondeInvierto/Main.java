@@ -15,6 +15,8 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		MercadoBursatil mercado = MercadoBursatil.INSTANCE;	
 		mercado.init();
+        mercado.setIntervalo_carga_cuentas(10);
+        mercado.setPath_carga_cuentas(".//downloaded//");
         mercado.set_job();
         try {
             final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, new JsonApplication(), false);

@@ -1,6 +1,7 @@
 package dondeInvierto.resource;
 
 import java.io.StringReader;
+import java.net.URI;
 import java.text.ParseException;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -56,7 +57,7 @@ public class UsuarioResource {
 		if (mercado.getUsuarioLog() == null) {
 			throw new BadRequestException("No hay usuario logueado");
 		}
-		//Usuario user = mercado.getUsuario(usuario, password);
+        // Usuario user = mercado.getUsuario(usuario, password);
 		mercado.setUsuario(null);
 		return Response.accepted().build();
 	}

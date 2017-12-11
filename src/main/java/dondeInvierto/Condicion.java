@@ -76,5 +76,8 @@ public class Condicion {
 	public List<ResultadoCondicionado> getResultadoCondicion() {
 		return null;
 	}
-	
+
+	public void setResultadoCondicion(List<ResultadoCondicionado> resultadoCondicion) {
+		this.resultadoCondicion = resultadoCondicion;
+	}
 }

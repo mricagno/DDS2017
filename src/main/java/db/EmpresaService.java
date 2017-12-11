@@ -120,4 +120,20 @@ public class EmpresaService {
 		}
 	}
 
+	// Setear antiguedad
+	public void setAntiguedad(Long id, int antiguedad) {
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		try {
+			Empresa empresa = this.em.find(Empresa.class, id);
+			trx.begin();
+			empresa.setAntiguedad(antiguedad);
+			trx.commit();
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+		}
+	}
+
 }

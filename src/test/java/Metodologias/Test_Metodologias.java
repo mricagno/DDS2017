@@ -259,6 +259,7 @@ public class Test_Metodologias {
 	@Test
 	public void testantiguedadIgual() {
 		mercado.getMetodologia("antiguedadIgual").calcularMetodologia();
+		mercado.getMetodologia("antiguedadIgual").calcularMetodologia();
 		List<ResultadoCondicionado> listaFiltradaUOrdenada2 = mercado.getMetodologia("antiguedadIgual").getListaFiltradaUOrdenada();
 		System.out.println("Resultado aplicacion de metodología: ");
 		listaFiltradaUOrdenada2.forEach(l -> {

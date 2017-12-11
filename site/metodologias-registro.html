@@ -4,11 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cuentas - &#191;Do&#769;nde invierto?</title>
-    <!-- Latest compiled and minified CSS -->
+    <title>Metodologi&#769;as - &#191;Do&#769;nde invierto?</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet"
@@ -53,6 +51,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="indicadores-registro.html">Registro</a></li>
                             <li><a href="indicadores-consulta.html">Consulta</a></li>
+                            <li><a href="indicadores-calculo.html">Ca&#769;lculo</a></li>
                             <li><a href="indicadores-borrar.html">Borrar</a></li>
                         </ul>
                     </li>
@@ -63,6 +62,7 @@
                             <li><a href="#">Registro</a></li>
                             <li>
                             <li><a href="metodologias-consulta.html">Consulta</a></li>
+                            <li><a href="metodologias-calculo.html">Ca&#769;lculo</a></li>
                             <!-- Se pueden usar separadores
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Separated link</a></li> -->
@@ -73,22 +73,8 @@
                             <span class="glyphicon glyphicon-wrench" id="btn-config"></span>
                         </a>
                     </li>
-                    <li>
-                        <button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
-                    </li>
                 </ul>
-                <!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
-                porque no escala bien al achicar la ventana)
-                <form class="navbar-form navbar-right">
-                  <div class="col-lg-6">
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Buscar...">
-                      <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Go!</button>
-                      </span>
-                    </div>
-                  </div>
-                </form> -->
+                <button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </div>
@@ -125,12 +111,13 @@
                             </select>
                             <input type="text" class="form-control" id="nombreCondicion"
                                    placeholder="Nombre de la condicio&#769;n">
-                            <select class="selectpicker" data-live-search="true" title="Indicador de la condicio&#769;n"
+                            <select class="selectpicker" data-live-search="true" title="Indicador o atributo"
                                     id="indicadorCondicion">
+                                <option>Antiguedad</option>
                             </select>
-                            <p>
-                                <select class="selectpicker" title="Criterio" id="criterioCondicion" disabled>
-                                </select>
+                            <br>
+                            <select class="selectpicker" title="Criterio" id="criterioCondicion" disabled>
+                            </select>
                         </div>
                         <div class="container-fluid right-aligned">
                             <button type="button" class="btn btn-default" id="btn-agregar-condicion">Agregar condicio&#769;n</button>
@@ -163,8 +150,6 @@
 
 <script src="scripts/jquery-3.2.0.js"></script>
 <script src="scripts/script.js?t=1505655903377"></script>
-<script src="scripts/metodologias-script.js?t=1505655903377"></script>
-<!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
