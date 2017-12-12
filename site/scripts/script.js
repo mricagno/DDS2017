@@ -746,6 +746,32 @@ $(document).ready(function () {
                             }
                         });
                     }
+                    else {
+                        if (window.location.pathname == "/log_procesados.html") {
+                            $("#tabla-resultados").show();
+                            $('#tabla-archivos').replaceWith(
+                                $('<tbody id="tabla-archivos"></tbody>'));
+                            $
+                                .ajax({
+                                    type: 'GET',
+                                    url: "http://localhost:8080/dondeInvierto/config/getLog",
+                                    dataType: "json",
+                                    beforeSend: function () {
+                                        console
+                                            .log("[INFO] (AJAX) Buscando información de archivos");
+                                    },
+                                    success: function (response) {
+                                        $.each(response, function (index,
+                                                                   element) {
+                                            $('#tabla-archivos').append(
+                                                $('<tr><th scope="row">'
+                                                    + element.archivo
+                                                    + '</td><td>'));
+                                        });
+                                    }
+                                });
+                        }
+                    }
                 }
             }
         }
@@ -858,5 +884,28 @@ $(function () {
                         });
                     }
                 });
+            });
+});
+
+$(function () {
+    $("#btn-visualizar_log")
+        .click(
+            function () {
+                $
+                    .ajax({
+                        type: 'POST',
+                        url: "http://localhost:8080/dondeInvierto/config/log",
+                        dataType: "text",
+                        contentType: "application/json",
+                        beforeSend: function () {
+                            console
+                                .log("[INFO] (AJAX) Buscando información de archivos procesados");
+                        },
+                        success: function (response) {
+                            console.log("Success!");
+                            document.location.href = "log_procesados.html";
+                            $(document).ready(hideNav());
+                        },
+                    });
             });
 });
