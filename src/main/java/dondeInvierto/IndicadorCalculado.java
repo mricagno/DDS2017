@@ -72,4 +72,7 @@ public class IndicadorCalculado {
         this.valor = valor;
     }
 
+    public String getPeriodoAsString() {
+        return new SimpleDateFormat("yyyyMMdd").format(this.periodo);
+    }
 }

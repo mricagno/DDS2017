@@ -564,9 +564,10 @@ public enum MercadoBursatil {
     }
 
     public Double getIndicadorCalculado(Long empresa_id, Long indicador_id, String periodo) {
-        IndicadorCalculado indiCalc = this.indicadorCalculado.stream().filter(i -> i.getEmpresa().equals(empresa_id) &&
-                i.getIndicador().equals(indicador_id) && i.getPeriodo().toString().equals(periodo)).findFirst()
-                .orElse(null);
+        IndicadorCalculado indiCalc = this.indicadorCalculado.stream().filter(
+                i -> i.getEmpresa().equals(empresa_id) &&
+                        i.getIndicador().equals(indicador_id) &&
+                        i.getPeriodoAsString().equals(periodo)).findFirst().orElse(null);
 
         if (indiCalc == null) {
             return (double) 0;
