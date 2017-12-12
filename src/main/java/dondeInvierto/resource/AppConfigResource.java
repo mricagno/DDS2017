@@ -83,13 +83,11 @@ public class AppConfigResource {
                 }
             });
         });
-        //Set<String> list2 = new HashSet<String>(readedFiles);
         List<String> list3 = new ArrayList<>(new HashSet<>(readedFiles));
         JsonArrayBuilder jsonArrBuilder = Json.createArrayBuilder();
         for (int i = 1; i < list3.size(); i++) {
             jsonArrBuilder.add(Json.createObjectBuilder().add("archivo", list3.get(i)));
         }
-        System.out.println("teasfgasssdasds");
         em.close();
         return jsonArrBuilder.build().toString();
     }

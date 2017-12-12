@@ -200,9 +200,10 @@ public class CuentaResource {
         File directorio = new File(mercado.getPath_carga_cuentas());
         /**
          * Se busca la lista de archivos disponibles
-         * Se hace la excepción para archivo .DS_Store (Sistema MAC OSX)
+         * Se leen unicamente los archivos .json
          */
-        results = directorio.listFiles((dir, name) -> !name.equals(".DS_Store"));
+        results = directorio.listFiles((dir, name) -> name.endsWith(".json"));
+        //!name.equals(".DS_Store"));
         List<String> listOfFilesAvailable = new ArrayList<>();
         for (int i = 0; i < results.length; i++) {
             if (results[i].isFile()) {
