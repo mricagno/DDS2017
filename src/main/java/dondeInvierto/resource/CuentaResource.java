@@ -119,7 +119,7 @@ public class CuentaResource {
 
             FileHandler fh = new FileHandler();
             List<CuentaFromFile> listaArchivo;
-            String uploadedFileLocation = ".//downloaded//" + fileToRead;
+            String uploadedFileLocation = mercado.getPath_carga_cuentas() + fileToRead;
             CuentaFromFile cuentaActual;
             listaArchivo = fh.dispatchParser(fh.readFile(uploadedFileLocation));
 /**

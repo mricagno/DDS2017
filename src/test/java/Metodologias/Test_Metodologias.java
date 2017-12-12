@@ -44,10 +44,10 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan usuarios
 		 */
-		usuario.addUsuario("gonzalo", "gonzalo", 0);
-		usuario.addUsuario("patricio", "patricio", 0);
-		usuario.addUsuario("gian", "gian", 0);
-		usuario.addUsuario("maxi", "maxi", 0);
+		usuario.addUsuario("GONZALO", "gonzalo", 0);
+		usuario.addUsuario("PATRICIO", "patricio", 0);
+		usuario.addUsuario("GIAN", "gian", 0);
+		usuario.addUsuario("MAXI", "maxi", 0);
 		/**
 		 * Se cargan empresas
 		 */

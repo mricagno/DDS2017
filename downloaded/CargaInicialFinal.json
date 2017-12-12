@@ -1,0 +1,968 @@
+[
+  {
+    "nombre": "YAHOO!",
+    "sigla": "YH",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "15811"
+  },
+  {
+    "nombre": "YAHOO!",
+    "sigla": "YH",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "22882"
+  },
+  {
+    "nombre": "YAHOO!",
+    "sigla": "YH",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "33973"
+  },
+  {
+    "nombre": "YAHOO!",
+    "sigla": "YH",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "47488"
+  },
+  {
+    "nombre": "YAHOO!",
+    "sigla": "YH",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "24898"
+  },
+  {
+    "nombre": "YAHOO!",
+    "sigla": "YH",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "79180"
+  },
+  {
+    "nombre": "INTEL",
+    "sigla": "IL",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "6841"
+  },
+  {
+    "nombre": "INTEL",
+    "sigla": "IL",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "6848"
+  },
+  {
+    "nombre": "INTEL",
+    "sigla": "IL",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "1658"
+  },
+  {
+    "nombre": "INTEL",
+    "sigla": "IL",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "3201"
+  },
+  {
+    "nombre": "INTEL",
+    "sigla": "IL",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "4589"
+  },
+  {
+    "nombre": "INTEL",
+    "sigla": "IL",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "3548"
+  },
+  {
+    "nombre": "GOOGLE",
+    "sigla": "GGLE",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "5486"
+  },
+  {
+    "nombre": "GOOGLE",
+    "sigla": "GGLE",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "5746"
+  },
+  {
+    "nombre": "GOOGLE",
+    "sigla": "GGLE",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "6548"
+  },
+  {
+    "nombre": "GOOGLE",
+    "sigla": "GGLE",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "5214"
+  },
+  {
+    "nombre": "GOOGLE",
+    "sigla": "GGLE",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "6458"
+  },
+  {
+    "nombre": "GOOGLE",
+    "sigla": "GGLE",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "6984"
+  },
+  {
+    "nombre": "BOEING CO.",
+    "sigla": "BONG",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "1868"
+  },
+  {
+    "nombre": "BOEING CO.",
+    "sigla": "BONG",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "1898"
+  },
+  {
+    "nombre": "BOEING CO.",
+    "sigla": "BONG",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "4898"
+  },
+  {
+    "nombre": "BOEING CO.",
+    "sigla": "BONG",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "5988"
+  },
+  {
+    "nombre": "BOEING CO.",
+    "sigla": "BONG",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "5678"
+  },
+  {
+    "nombre": "BOEING CO.",
+    "sigla": "BONG",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "6684"
+  },
+  {
+    "nombre": "MICROSOFT",
+    "sigla": "MSFT",
+    "tipo": "CF",
+    "periodo": "20141231",
+    "valor": "6849"
+  },
+  {
+    "nombre": "MICROSOFT",
+    "sigla": "MSFT",
+    "tipo": "CF",
+    "periodo": "20151231",
+    "valor": "7358"
+  },
+  {
+    "nombre": "MICROSOFT",
+    "sigla": "MSFT",
+    "tipo": "CF",
+    "periodo": "20161231",
+    "valor": "1548"
+  },
+  {
+    "nombre": "MICROSOFT",
+    "sigla": "MSFT",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "4982"
+  },
+  {
+    "nombre": "MICROSOFT",
+    "sigla": "MSFT",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "4358"
+  },
+  {
+    "nombre": "MICROSOFT",
+    "sigla": "MSFT",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "1576"
+  },
+  {
+    "nombre": "NETFLIX",
+    "sigla": "NFTX",
+    "tipo": "CF",
+    "periodo": "20141231",
+    "valor": "6894"
+  },
+  {
+    "nombre": "NETFLIX",
+    "sigla": "NFTX",
+    "tipo": "CF",
+    "periodo": "20151231",
+    "valor": "6848"
+  },
+  {
+    "nombre": "NETFLIX",
+    "sigla": "NFTX",
+    "tipo": "CF",
+    "periodo": "20161231",
+    "valor": "1897"
+  },
+  {
+    "nombre": "NETFLIX",
+    "sigla": "NFTX",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "4982"
+  },
+  {
+    "nombre": "NETFLIX",
+    "sigla": "NFTX",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "6180"
+  },
+  {
+    "nombre": "NETFLIX",
+    "sigla": "NFTX",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "4198"
+  },
+  {
+    "nombre": "COCA-COLA",
+    "sigla": "COCA",
+    "tipo": "CF",
+    "periodo": "20141231",
+    "valor": "25156"
+  },
+  {
+    "nombre": "COCA-COLA",
+    "sigla": "COCA",
+    "tipo": "CF",
+    "periodo": "20151231",
+    "valor": "165148"
+  },
+  {
+    "nombre": "COCA-COLA",
+    "sigla": "COCA",
+    "tipo": "CF",
+    "periodo": "20161231",
+    "valor": "81818"
+  },
+  {
+    "nombre": "COCA-COLA",
+    "sigla": "COCA",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "64818"
+  },
+  {
+    "nombre": "COCA-COLA",
+    "sigla": "COCA",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "18147"
+  },
+  {
+    "nombre": "COCA-COLA",
+    "sigla": "COCA",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "16828"
+  },
+  {
+    "nombre": "CHEVRON",
+    "sigla": "CHVN",
+    "tipo": "CF",
+    "periodo": "20141231",
+    "valor": "18928"
+  },
+  {
+    "nombre": "CHEVRON",
+    "sigla": "CHVN",
+    "tipo": "CF",
+    "periodo": "20151231",
+    "valor": "16548"
+  },
+  {
+    "nombre": "CHEVRON",
+    "sigla": "CHVN",
+    "tipo": "CF",
+    "periodo": "20161231",
+    "valor": "19688"
+  },
+  {
+    "nombre": "CHEVRON",
+    "sigla": "CHVN",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "26488"
+  },
+  {
+    "nombre": "CHEVRON",
+    "sigla": "CHVN",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "54684"
+  },
+  {
+    "nombre": "CHEVRON",
+    "sigla": "CHVN",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "49698"
+  },
+  {
+    "nombre": "CISCO SYSTEM",
+    "sigla": "CSSY",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "15788"
+  },
+  {
+    "nombre": "CISCO SYSTEM",
+    "sigla": "CSSY",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "18684"
+  },
+  {
+    "nombre": "CISCO SYSTEM",
+    "sigla": "FCF",
+    "tipo": "CF",
+    "periodo": "20161231",
+    "valor": "13684"
+  },
+  {
+    "nombre": "CISCO SYSTEM",
+    "sigla": "CSSY",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "18188"
+  },
+  {
+    "nombre": "CISCO SYSTEM",
+    "sigla": "CSSY",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "13469"
+  },
+  {
+    "nombre": "CISCO SYSTEM",
+    "sigla": "CSSY",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "19797"
+  },
+  {
+    "nombre": "IBM",
+    "sigla": "IBM",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "18798"
+  },
+  {
+    "nombre": "IBM",
+    "sigla": "IBM",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "12487"
+  },
+  {
+    "nombre": "IBM",
+    "sigla": "IBM",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "19678"
+  },
+  {
+    "nombre": "IBM",
+    "sigla": "IBM",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "79419"
+  },
+  {
+    "nombre": "IBM",
+    "sigla": "IBM",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "13468"
+  },
+  {
+    "nombre": "IBM",
+    "sigla": "IBM",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "18967"
+  },
+  {
+    "nombre": "3M",
+    "sigla": "3M",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "1547"
+  },
+  {
+    "nombre": "3M",
+    "sigla": "3M",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "1447"
+  },
+  {
+    "nombre": "3M",
+    "sigla": "3M",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "1582"
+  },
+  {
+    "nombre": "3M",
+    "sigla": "3M",
+    "tipo": "CF",
+    "periodo": "20141231",
+    "valor": "1245"
+  },
+  {
+    "nombre": "3M",
+    "sigla": "3M",
+    "tipo": "CF",
+    "periodo": "20151231",
+    "valor": "1679"
+  },
+  {
+    "nombre": "3M",
+    "sigla": "3M",
+    "tipo": "CF",
+    "periodo": "20161231",
+    "valor": "6491"
+  },
+  {
+    "nombre": "AMERICAN EXPRESS",
+    "sigla": "AMEX",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "97649"
+  },
+  {
+    "nombre": "AMERICAN EXPRESS",
+    "sigla": "AMEX",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "45158"
+  },
+  {
+    "nombre": "AMERICAN EXPRESS",
+    "sigla": "AMEX",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "165846"
+  },
+  {
+    "nombre": "AMERICAN EXPRESS",
+    "sigla": "AMEX",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "15846"
+  },
+  {
+    "nombre": "AMERICAN EXPRESS",
+    "sigla": "AMEX",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "126548"
+  },
+  {
+    "nombre": "AMERICAN EXPRESS",
+    "sigla": "AMEX",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "26854"
+  },
+  {
+    "nombre": "MC DONALD'S CORP",
+    "sigla": "MCDS",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "15684"
+  },
+  {
+    "nombre": "MC DONALD'S CORP",
+    "sigla": "MCDS",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "194878"
+  },
+  {
+    "nombre": "MC DONALD'S CORP",
+    "sigla": "MCDS",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "64896"
+  },
+  {
+    "nombre": "MC DONALD'S CORP",
+    "sigla": "MCDS",
+    "tipo": "CF",
+    "periodo": "20141231",
+    "valor": "64929"
+  },
+  {
+    "nombre": "MC DONALD'S CORP",
+    "sigla": "MCDS",
+    "tipo": "CF",
+    "periodo": "20151231",
+    "valor": "1358496"
+  },
+  {
+    "nombre": "MC DONALD'S CORP",
+    "sigla": "MCDS",
+    "tipo": "CF",
+    "periodo": "20161231",
+    "valor": "1358496"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "101"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "202"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "303"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20141231",
+    "valor": "099"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20151231",
+    "valor": "200"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20161231",
+    "valor": "301"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "100"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "201"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "302"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "1004"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "2005"
+  },
+  {
+    "nombre": "NIKE",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "3006"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "107"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "208"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "309"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20141231",
+    "valor": "105"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20151231",
+    "valor": "206"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20161231",
+    "valor": "307"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "106"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "207"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "308"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "1010"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "2011"
+  },
+  {
+    "nombre": "GENERAL ELECTRIC",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "3012"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "113"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "214"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "315"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20141231",
+    "valor": "111"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20151231",
+    "valor": "212"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20161231",
+    "valor": "313"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "112"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "213"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "314"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "1016"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "2017"
+  },
+  {
+    "nombre": "VISA",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "3018"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "119"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "220"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "321"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20141231",
+    "valor": "117"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20151231",
+    "valor": "218"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20161231",
+    "valor": "319"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "118"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "219"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "320"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "1022"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "2023"
+  },
+  {
+    "nombre": "JOHNSON & JOHNSON",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "3024"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20141231",
+    "valor": "125"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20151231",
+    "valor": "226"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "FCF",
+    "periodo": "20161231",
+    "valor": "327"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20141231",
+    "valor": "123"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20151231",
+    "valor": "224"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "FC",
+    "periodo": "20161231",
+    "valor": "325"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20141231",
+    "valor": "124"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20151231",
+    "valor": "225"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "UFCF",
+    "periodo": "20161231",
+    "valor": "326"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20141231",
+    "valor": "1028"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20151231",
+    "valor": "2029"
+  },
+  {
+    "nombre": "HOME DEPOT",
+    "sigla": "TWTR",
+    "tipo": "EBITDA",
+    "periodo": "20161231",
+    "valor": "3030"
+  }
+]
