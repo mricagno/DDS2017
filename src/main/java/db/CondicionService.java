@@ -5,6 +5,8 @@ import javax.persistence.EntityTransaction;
 import org.hibernate.HibernateException;
 import dondeInvierto.*;
 
+import java.util.List;
+
 public class CondicionService {
 	protected EntityManager em;
 
@@ -45,10 +47,14 @@ public class CondicionService {
     public CondicionFiltro getCondicionFiltro(Long id) {
         // Get a new transaction
         EntityTransaction trx = em.getTransaction();
-        Condicion condicion = null;
+        Condicion condicion = new Condicion();
         try {
             trx.begin();
-            condicion = this.em.find(Condicion.class, id);
+            //condicion = this.em.find(Condicion.class, id);
+            List<Condicion> condiciones = this.em
+                    .createQuery("Select c FROM Condicion c WHERE c.tipo = :tipo and c.indicador = :id", Condicion.class)
+                    .setParameter("tipo", "Filtro").setParameter("id",id).getResultList();
+            condicion = condiciones.stream().findFirst().get();
             trx.commit();
         } catch (HibernateException e) {
             if (trx != null)
@@ -62,10 +68,13 @@ public class CondicionService {
     public CondicionOrdenamiento getCondicionOrdenamiento(Long id) {
         // Get a new transaction
         EntityTransaction trx = em.getTransaction();
-        Condicion condicion = null;
+        Condicion condicion = new Condicion();
         try {
             trx.begin();
-            condicion = this.em.find(Condicion.class, id);
+            List<Condicion> condiciones = this.em
+                    .createQuery("Select c FROM Condicion c WHERE c.tipo = :tipo and c.indicador = :id", Condicion.class)
+                    .setParameter("tipo", "Ordenamiento").setParameter("id",id).getResultList();
+            condicion = condiciones.stream().findFirst().get();
             trx.commit();
         } catch (HibernateException e) {
             if (trx != null)

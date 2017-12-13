@@ -49,7 +49,7 @@ public class MetodologiaResource {
 				o.setEmpresas(mercado.getEmpresas());
 			}
 		}
-		em.close();
+		//em.close();
 		for(Metodologia met : mercado.getMetodologias()) {
 			JsonArrayBuilder condArrBuilder = Json.createArrayBuilder();
 			if (mercado.getUsuarioLog().getUsuario().equals(met.getCreador()) || met.getCreador().equals("DEFAULT")) {
@@ -171,7 +171,7 @@ public class MetodologiaResource {
 					condicionesFiltro,
 					condicionesOrdenamiento,
 					mercado.getUsuarioLog().getUsuario());
-			em.close();
+			//em.close();
 			return Response.accepted(json.getString("nombre")).build();
     	} catch (Exception e) {
     		e.printStackTrace();
