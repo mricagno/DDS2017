@@ -14,8 +14,8 @@ public class IndicadorService {
 	public IndicadorService(EntityManager em) {
 		this.em = em;
 	};
-	
-	//Crear indicador en DB
+
+	// Crear indicador en DB
 	public Long addIndicador(Indicador indicador) {
 		// Get a new transaction
 		EntityTransaction trx = em.getTransaction();
@@ -32,8 +32,8 @@ public class IndicadorService {
 		}
 		return indicadorID;
 	};
-	
-	//Borrar indicador en DB
+
+	// Borrar indicador en DB
 	public void deleteIndicador(Long id) {
 		// Get a new transaction
 		EntityTransaction trx = em.getTransaction();
@@ -46,16 +46,16 @@ public class IndicadorService {
 			if (trx != null)
 				trx.rollback();
 			e.printStackTrace();
-		} 
+		}
 	}
-	
+
 	// Lee todos los indicadores
 	public List<Indicador> listIndicadores() {
 		// Get a new transaction
 		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
-			List<Indicador> indicadores = this.em.createQuery("FROM Indicador",Indicador.class).getResultList();
+			List<Indicador> indicadores = this.em.createQuery("FROM Indicador", Indicador.class).getResultList();
 			trx.commit();
 			return indicadores;
 		} catch (HibernateException e) {
@@ -64,6 +64,23 @@ public class IndicadorService {
 			e.printStackTrace();
 			return Collections.emptyList();
 		}
+	}
+
+	// Lee un indicador por ID
+	public Indicador getIndicador(Long indicador_id) {
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		Indicador indicador = null;
+		try {
+			trx.begin();
+			indicador = this.em.find(Indicador.class, indicador_id);
+			trx.commit();
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+		}
+		return indicador;
 	}
 
 }

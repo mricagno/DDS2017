@@ -39,7 +39,7 @@ public class MetodologiaResource {
 		JsonArrayBuilder metArrBuilder = Json.createArrayBuilder();
 		EntityManager em = mercado.getFactory().createEntityManager();
 		MetodologiaService metodologias_DB = new MetodologiaService(em);
-		CondicionService condicion_DB = new CondicionService(em);
+		IndicadorService indicador_DB = new IndicadorService(em);
 		mercado.setMetodologias(metodologias_DB.getMetodologias());
 		for (Metodologia m : mercado.getMetodologias()) {
 			for (CondicionFiltro f : m.getCondicionesFiltro()) {
@@ -88,7 +88,7 @@ public class MetodologiaResource {
 								Json.createObjectBuilder()
 										.add("tipo", "Filtro")
 										.add("nombre", cf.getNombre())
-										.add("indicador", condicion_DB.getCondicionFiltro(cf.getIndicador()).getNombre())
+										.add("indicador", indicador_DB.getIndicador(cf.getIndicador()).getNombre())
 										.add("filtro", cf.getComparador() + " " + (int) cf.getValor() ));
 					}	
 				}
@@ -97,7 +97,7 @@ public class MetodologiaResource {
 							Json.createObjectBuilder()
 									.add("tipo", "Ordenamiento")
 									.add("nombre", co.getNombre())
-									.add("indicador", condicion_DB.getCondicionOrdenamiento(co.getIndicador()).getNombre())
+									.add("indicador", indicador_DB.getIndicador(co.getIndicador()).getNombre())
 									.add("orden", co.getComparador()));
 				}
 				metArrBuilder.add(
