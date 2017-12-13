@@ -141,13 +141,15 @@
             </div>
             <div class="panel-body">
                 <div class="container-fluid fields">
-                    <input type="text" class="form-control" id="nombreEmpresa" placeholder="Nombre de la empresa">
-                    <input type="text" class="form-control" id="tipoCuenta" placeholder="Tipo de cuenta">
-                    <input type="text" class="form-control" id="periodoCuenta" placeholder="Periodo (AAAAMMDD)"> <input
+                    <input type="text" class="form-control" id="nombreEmpresa" placeholder="Nombre de la empresa"
+                           required>
+                    <input type="text" class="form-control" id="tipoCuenta" placeholder="Tipo de cuenta" required>
+                    <input type="text" class="form-control" id="periodoCuenta" placeholder="Periodo (AAAAMMDD)"
+                           required> <input
                         type="text"
                         class="form-control"
                         id="valorCuenta"
-                        placeholder="Valor">
+                        placeholder="Valor" required>
                 </div>
                 <div class="container-fluid confirm-buttons">
                     <button type="button" class="btn btn-danger" onClick="toggleManualEntryPrompt()">Volver</button>
