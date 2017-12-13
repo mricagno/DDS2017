@@ -1,6 +1,7 @@
 /*Mantengo los colores default por ahora; cambiar los colores implica
 cambiar todos los background-color, border-color, highlights y color
 del texto
+
 .navbar-default {
   background-color: #337ab7;
   background-image: linear-gradient(to bottom,#2e6da4 0,#337ab7 100%)
@@ -43,19 +44,11 @@ form > .col-lg-6 {
     display: none;
 }
 
-<
-style type
-
-=
-"text/css"
-> div#dropdown1 {
-    /* this will hide div with id div_id_name */
+div#dropdown1 {
     display: none;
 }
 
-<
-/
-style > .panel-body {
+.panel-body {
     text-align: left;
 }
 
@@ -246,25 +239,25 @@ row.vdivide [class*='col-']:not(:last-child):after {
     min-height: 70px;
 }
 
-#table-header-condiciones {
-    border-bottom: none;
+/*#table-header-condiciones {
+	border-bottom: none;
 }
 
 #table-header-condiciones-tipo {
-    border-top: none;
+	border-top: none;
 }
 
 #table-header-condiciones-nombre {
-    border-top: none;
+	border-top: none;
 }
 
 #table-header-condiciones-indicador {
-    border-top: none;
+	border-top: none;
 }
 
 #table-header-condiciones-criterio {
-    border-top: none;
-}
+	border-top: none;
+}*/
 
 #panel-condiciones {
     padding-bottom: 40px;
@@ -280,4 +273,20 @@ row.vdivide [class*='col-']:not(:last-child):after {
 
 #panel-condiciones > #tabla-resultados {
     margin-top: 40px;
+}
+
+#bs-example-navbar-collapse-1 > #btn-cerrar-sesion {
+    float: right;
+}
+
+#div-calculo-indicador {
+    display: inline-flex;
+}
+
+#panel-calculo-indicador > input {
+    margin-bottom: 10px;
+}
+
+#panel-calculo-indicador > .bootstrap-select {
+    margin-bottom: 10px;
 }
