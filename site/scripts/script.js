@@ -16,10 +16,12 @@ function toggleFileUploadSuccess() {
     $("#uploadSuccess").fadeIn(200);
     $("#uploadSuccess").delay(5000).fadeOut(200);
 }
+
 function uploadSuccess() {
     toggleFileUploadPrompt();
     toggleFileUploadSuccess();
 }
+
 function toggleFileUploadError() {
     $("#uploadError").fadeIn(200);
     $("#uploadError").delay(5000).fadeOut(200);
@@ -29,6 +31,7 @@ function toggleRegistrySuccess() {
     $("#registrySuccess").fadeIn(200);
     $("#registrySuccess").delay(5000).fadeOut(200);
 }
+
 function registryError() {
     $("#registryError").fadeIn(200);
     $("#registryError").delay(5000).fadeOut(200);
@@ -38,14 +41,17 @@ function registrySuccess() {
     toggleManualEntryPrompt();
     toggleRegistrySuccess();
 }
+
 function toggleLoginSuccess() {
     $("#loginSuccess").fadeIn(200);
     $("#loginSuccess").delay(5000).fadeOut(200);
 }
+
 function toggleLoginError() {
     $("#loginError").fadeIn(200);
     $("#loginError").delay(5000).fadeOut(200);
 }
+
 function loginSuccess() {
     toggleLoginSuccess()
 }
@@ -387,6 +393,7 @@ $(function () {
                 $("#tabla-resultados").show();
                 $('#tabla-metodologias').replaceWith(
                     $('<tbody id="tabla-metodologias"></tbody>'));
+
                 $
                     .ajax({
                         type: 'GET',
@@ -432,12 +439,23 @@ $(function () {
         if ($(this).find("option:selected").val() === 'Filtro') {
             $('#criterioCondicion')
                 .html(
-                    '<option>filtrarAntiguedadMayor</option>')
+                    '<option>&lt;</option>' +
+                    '<option>&gt;</option>' +
+                    '<option>&lt;=</option>' +
+                    '<option>&gt;=</option>' +
+                    '<option>&lt;&gt;</option>' +
+                    '<option>=</option>')
                 .selectpicker('refresh');
             $('#criterioCondicion')
                 .prop('disabled', false);
             $('#criterioCondicion')
                 .selectpicker('refresh');
+            $('#indicadorCondicion')
+                .append(
+                    '<option value="antiguedad">Antig&uuml;edad</option>');
+            $('#indicadorCondicion')
+                .selectpicker('refresh');
+            $('#valorCondicion').css('display', 'block');
         } else {
             $('#criterioCondicion')
                 .html(
@@ -448,6 +466,12 @@ $(function () {
                 .prop('disabled', false);
             $('#criterioCondicion')
                 .selectpicker('refresh');
+            $('#indicadorCondicion')
+                .find('[value=antiguedad]')
+                .remove();
+            $('#indicadorCondicion')
+                .selectpicker('refresh');
+            $('#valorCondicion').css('display', 'none');
         }
     });
 });
@@ -465,6 +489,8 @@ $(function () {
                             + $('#indicadorCondicion').find("option:selected").text()
                             + '</td><td>'
                             + $('#criterioCondicion').find("option:selected").text()
+                            + '</td><td>'
+                            + $('#valorCondicion').val()
                             + '</td>'));
                 }
             );
@@ -477,7 +503,43 @@ $(function () {
             function () {
                 var data = {};
                 data.nombre = $("#nombreMetodologia").val();
-                data.condiciones.tipo = $("#tipoCondicion").find("option:selected").text().toLowerCase();
+                data.condiciones = [];
+
+                var rows = $('#tabla-metodologias').find('tr');
+                for (var i = 0; i < rows.length; i++) {
+                    var cols = $(rows[i]).find('td');
+                    data.condiciones[i] = '';
+                    data.condiciones[i] += '{"tipo":"' + cols[0].innerText;
+                    data.condiciones[i] += '","nombre":"' + cols[1].innerText;
+                    if (cols[2].innerText === "Antigüedad") {
+                        data.condiciones[i] += '","indicador":"Indicador Vacio';
+                        switch (cols[3].innerText) {
+                            case '<=':
+                                data.condiciones[i] += '","criterio":"filtrarAntiguedadMenoroigual';
+                                break;
+                            case '<':
+                                data.condiciones[i] += '","criterio":"filtrarAntiguedadMenor';
+                                break;
+                            case '>=':
+                                data.condiciones[i] += '","criterio":"filtrarAntiguedadMayoroigual';
+                                break;
+                            case '>':
+                                data.condiciones[i] += '","criterio":"filtrarAntiguedadMayor';
+                                break;
+                            case '<>':
+                                data.condiciones[i] += '","criterio":"filtrarAntiguedadDiferente';
+                                break;
+                            case '=':
+                                data.condiciones[i] += '","criterio":"filtrarAntiguedadIgual';
+                                break;
+                        }
+                        data.condiciones[i] += '","valor":"10"}';
+                    } else {
+                        data.condiciones[i] += '","indicador":"' + cols[2].innerText;
+                        data.condiciones[i] += '","criterio":"' + cols[3].innerText.toLowerCase();
+                        data.condiciones[i] += '","valor":"0"}';
+                    }
+                }
 
 
                 $.ajax({
@@ -864,29 +926,33 @@ $(function () {
             function () {
                 var metodologia = $("#metodologia").find("option:selected").text();
 
-                $.ajax({
-                    type: 'GET',
-                    url: "http://localhost:8080/dondeInvierto/metodologias/evaluar/" + metodologia,
-                    dataType: "json",
-                    beforeSend: function () {
-                        console
-                            .log("[INFO] (AJAX) Enviando información del indicador...");
-                    },
-                    success: function (response) {
-                        console.log("Success!");
-                        $.each(response, function (index, element) {
-                            $('#tabla-empresas').append(
-                                $('<tr><th scope="row">'
-                                    + (index + 1)
-                                    + '</th><td>'
-                                    + element.nombre
-                                    + '</td></tr>'));
-                        });
-                    }
-                });
+                if (metodologia === "Metodología a evaluar") {
+                    console.log("Debe seleccionar una metodología para continuar.");
+                } else {
+                    $('#tabla-empresas').html('');
+                    $.ajax({
+                        type: 'GET',
+                        url: "http://localhost:8080/dondeInvierto/metodologias/evaluar/" + metodologia,
+                        dataType: "json",
+                        beforeSend: function () {
+                            console
+                                .log("[INFO] (AJAX) Enviando información del indicador...");
+                        },
+                        success: function (response) {
+                            console.log("Success!");
+                            $.each(response, function (index, element) {
+                                $('#tabla-empresas').append(
+                                    $('<tr><th scope="row">'
+                                        + (index + 1)
+                                        + '</th><td>'
+                                        + element.nombre
+                                        + '</td></tr>'));
+                            });
+                        }
+                    });
+                }
             });
 });
-
 $(function () {
     $("#btn-visualizar_log")
         .click(

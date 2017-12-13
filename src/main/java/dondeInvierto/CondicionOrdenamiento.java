@@ -1,9 +1,12 @@
 package dondeInvierto;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Entity
 @DiscriminatorValue(value = "Ordenamiento")
@@ -15,7 +18,7 @@ public class CondicionOrdenamiento extends Condicion {
     @Transient
     double resultadoIndicador;
 
-    public CondicionOrdenamiento(String nombre, String comparador, double valor, Indicador indicador) {
+    public CondicionOrdenamiento(String nombre, String comparador, double valor, Long indicador) {
         super(nombre, comparador, valor, indicador);
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +30,8 @@ public class CondicionOrdenamiento extends Condicion {
         return this.resultadoCondicion;
     }
 
-    // Se define nuevamente evaluarCondicion para las condiciones de ordenamiento
+    // Se define nuevamente evaluarCondicion para las condiciones de
+    // ordenamiento
     @Override
     public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion) {
 
@@ -53,16 +57,15 @@ public class CondicionOrdenamiento extends Condicion {
             for (int i = 0; i < resultadoCondicionado.size(); i++) {
                 empresaNombre = resultadoCondicionado.get(i).getNombre();
                 empresa = mercado.getEmpresa(empresaNombre);
-                List<String> listaPeriodos = new ArrayList<>();
                 for (Cuenta cuenta : empresa.getCuentas()) {
-                    if (!listaPeriodos.contains(cuenta.getPeriodoAsString())) {
-                        listaPeriodos.add(cuenta.getPeriodoAsString());
-                        resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(), condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
-                        contador += resultadoIndicador;
-                    }
+                    // resultadoIndicador =
+                    // condicion.getIndicador().getValorFor(empresa,
+                    // cuenta.getPeriodoAsString());
+                    resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
+                            condicion.getIndicador(), cuenta.getPeriodoAsString());
+                    contador += resultadoIndicador;
                 }
                 resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));
-                contador = 0;
 
             }
         } else {
@@ -71,25 +74,24 @@ public class CondicionOrdenamiento extends Condicion {
             for (int i = 0; i < resultadoCondicionado.size(); i++) {
                 empresaNombre = resultadoCondicionado.get(i).getNombre();
                 empresa = mercado.getEmpresa(empresaNombre);
-                List<String> listaPeriodos = new ArrayList<>();
                 for (Cuenta cuenta : empresa.getCuentas()) {
-                    if (!listaPeriodos.contains(cuenta.getPeriodoAsString())) {
-                        listaPeriodos.add(cuenta.getPeriodoAsString());
-                        calendar.setTime(cuenta.getPeriodo());
-                        if (localDate.getYear() - calendar.get(Calendar.YEAR) <= condicion.getValor()) {
-                            resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(), condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
-                            contador += resultadoIndicador;
-                        }
+                    calendar.setTime(cuenta.getPeriodo());
+                    if (localDate.getYear() - calendar.get(Calendar.YEAR) <= condicion.getValor()) {
+                        // resultadoIndicador =
+                        // condicion.getIndicador().getValorFor(empresa,
+                        // cuenta.getPeriodoAsString());
+                        resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
+                                condicion.getIndicador(), cuenta.getPeriodoAsString());
+                        contador += resultadoIndicador;
                     }
                 }
                 resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));
-                contador = 0;
             }
         }
 
         Collections.sort(resultadoCondicion);
 
-        if (condicion.getComparador() == "ascendente") {
+        if (condicion.getComparador() == "descendente") {
             Collections.reverse(resultadoCondicion);
         }
         return resultadoCondicion;

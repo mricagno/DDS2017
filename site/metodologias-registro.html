@@ -113,11 +113,14 @@
                                    placeholder="Nombre de la condicio&#769;n">
                             <select class="selectpicker" data-live-search="true" title="Indicador o atributo"
                                     id="indicadorCondicion">
-                                <option>Antiguedad</option>
                             </select>
                             <br>
                             <select class="selectpicker" title="Criterio" id="criterioCondicion" disabled>
                             </select>
+                            <br>
+                            <div class="btn-group bootstrap-select" id="div-valorCondicion">
+                                <input type="text" class="form-control" id="valorCondicion" placeholder="Valor">
+                            </div>
                         </div>
                         <div class="container-fluid right-aligned">
                             <button type="button" class="btn btn-default" id="btn-agregar-condicion">Agregar condicio&#769;n</button>
@@ -132,6 +135,7 @@
                                 <th id="table-header-condiciones-nombre">Nombre</th>
                                 <th id="table-header-condiciones-indicador">Indicador</th>
                                 <th id="table-header-condiciones-criterio">Criterio</th>
+                                <th id="table-header-condiciones-valor">Valor</th>
                             </tr>
                             <!--<th class="cuentaValor">Valor</th> -->
                             </thead>

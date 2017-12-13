@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+
+import com.sun.org.apache.bcel.internal.generic.IndexedInstruction;
 import org.hibernate.HibernateException;
 import dondeInvierto.Indicador;
 
@@ -64,6 +66,23 @@ public class IndicadorService {
 			e.printStackTrace();
 			return Collections.emptyList();
 		}
+	}
+
+	// Lee un indicador por ID
+	public Indicador getIndicador(Long indicador_id) {
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		Indicador indicador = null;
+		try {
+			trx.begin();
+			indicador = this.em.find(Indicador.class, indicador_id);
+			trx.commit();
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+		}
+		return indicador;
 	}
 
 }

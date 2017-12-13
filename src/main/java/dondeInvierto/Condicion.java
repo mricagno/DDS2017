@@ -22,25 +22,27 @@ public class Condicion {
 	private String comparador;
 	@Column(name = "VALOR")
 	private double valor;
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	private Indicador indicador;
+	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+	//private Indicador indicador;
+	@Column(name = "INDICADOR")
+	Long indicador;
 	@Transient
 	MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 	@Transient
-    List<Empresa> empresas;//= mercado.getEmpresas();
-    @Transient
+	List<Empresa> empresas; //= mercado.getEmpresas();
+	@Transient
 	List<ResultadoCondicionado> resultadoCondicion = new ArrayList<>();
-	@Column(insertable = false, updatable = false) 
+	@Column(insertable = false, updatable = false)
 	private String tipo;  //Para poder filtrar por la columna discriminadora
 
 	// Constructor de la condición.
-	public Condicion(String nombre, String comparador, double valor, Indicador indicador) {
+	public Condicion(String nombre, String comparador, double valor, Long indicador) {
 		this.nombre = nombre;
 		this.comparador = comparador;
 		this.valor = valor;
 		this.indicador = indicador;
-        this.empresas = mercado.getEmpresas();
-    }
+		this.empresas = mercado.getEmpresas();
+	}
 
 	public Condicion() {
 	}
@@ -61,13 +63,17 @@ public class Condicion {
 		return this.valor;
 	}
 
-	public Indicador getIndicador() {
+	public Long getIndicador() {
 		return this.indicador;
 	}
 
-    public void setEmpresas(List<Empresa> empresas) {
-        this.empresas = empresas;
-    }
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
+	}
+
+	public void setResultadoCondicion(List<ResultadoCondicionado> resultadoCondicion) {
+		this.resultadoCondicion = resultadoCondicion;
+	}
 
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion) {
 		return null;
@@ -77,7 +83,4 @@ public class Condicion {
 		return null;
 	}
 
-	public void setResultadoCondicion(List<ResultadoCondicionado> resultadoCondicion) {
-		this.resultadoCondicion = resultadoCondicion;
-	}
 }

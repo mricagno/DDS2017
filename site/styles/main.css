@@ -290,3 +290,15 @@ row.vdivide [class*='col-']:not(:last-child):after {
 #panel-calculo-indicador > .bootstrap-select {
     margin-bottom: 10px;
 }
+
+.panel-body > .form-row > .form-group {
+    padding-left: 0;
+}
+
+#div-valorCondicion {
+    padding: 0;
+}
+
+#valorCondicion {
+    display: none;
+}

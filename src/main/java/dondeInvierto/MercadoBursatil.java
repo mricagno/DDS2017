@@ -404,13 +404,13 @@ public enum MercadoBursatil {
         /**
          * Se cargan condiciones de filtro
          */
-        CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, this.getIndicador("Indicador Vacio"));
+        CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, this.getIndicador("Indicador Vacio").getId());
 
         /**
          * Se cargan condiciones de ordenamiento
          */
-        CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, this.getIndicador("ROE"));
-        CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, this.getIndicador("Proporcion De Deuda"));
+        CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, this.getIndicador("ROE").getId());
+        CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, this.getIndicador("Proporcion De Deuda").getId());
         Set<CondicionFiltro> condicionesFiltro = new HashSet<>();
         Set<CondicionOrdenamiento> condicionesOrdenamiento = new HashSet<>();
         filtro1.setEmpresas(this.getEmpresas());
@@ -435,13 +435,13 @@ public enum MercadoBursatil {
         /**
          * Se cargan condiciones de filtro
          */
-        CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, this.getIndicador("Margen"));
-        CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, this.getIndicador("Indicador Vacio"));
+        CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, this.getIndicador("Margen").getId());
+        CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, this.getIndicador("Indicador Vacio").getId());
         /**
          * Se cargan condiciones de ordenamiento
          */
-        CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, this.getIndicador("ROE"));
-        CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, this.getIndicador("Proporcion De Deuda"));
+        CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, this.getIndicador("ROE").getId());
+        CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, this.getIndicador("Proporcion De Deuda").getId());
         filtroWB3.setEmpresas(this.getEmpresas());
         filtroWB4.setEmpresas(this.getEmpresas());
         ordenWB1.setEmpresas(this.getEmpresas());
