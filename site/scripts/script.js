@@ -511,39 +511,40 @@ $(function() {
 			var rows = $('#tabla-metodologias').find('tr');
 			for (var i = 0; i < rows.length; i++) {
 				var cols = $(rows[i]).find('td');
-				data.condiciones[i] = '';
-				data.condiciones[i] += '{"tipo":"' + cols[0].innerText;
-				data.condiciones[i] += '","nombre":"' + cols[1].innerText;
+				var condicion = {};
+
+				condicion.tipo = cols[0].innerText;
+				condicion.nombre = cols[1].innerText;
 				if (cols[2].innerText === "Antigüedad") {
-					data.condiciones[i] += '","indicador":"Indicador Vacio';
+					condicion.indicador = 'Indicador Vacio';
 					switch (cols[3].innerText) {
 						case '<=':
-						data.condiciones[i] += '","criterio":"filtrarAntiguedadMenoroigual';
+						condicion.criterio = 'filtrarAntiguedadMenoroigual';
 						break;
 						case '<':
-						data.condiciones[i] += '","criterio":"filtrarAntiguedadMenor';
+						condicion.criterio = 'filtrarAntiguedadMenor';
 						break;
 						case '>=':
-						data.condiciones[i] += '","criterio":"filtrarAntiguedadMayoroigual';
+						condicion.criterio = 'filtrarAntiguedadMayoroigual';
 						break;
 						case '>':
-						data.condiciones[i] += '","criterio":"filtrarAntiguedadMayor';
+						condicion.criterio = 'filtrarAntiguedadMayor';
 						break;
 						case '<>':
-						data.condiciones[i] += '","criterio":"filtrarAntiguedadDiferente';
+						condicion.criterio = 'filtrarAntiguedadDiferente';
 						break;
 						case '=':
-						data.condiciones[i] += '","criterio":"filtrarAntiguedadIgual';
+						condicion.criterio = 'filtrarAntiguedadIgual';
 						break;
 					}
-					data.condiciones[i] += '","valor":"' + cols[4].innerText + '}';
+					condicion.valor = cols[4].innerText;
 				} else {
-					data.condiciones[i] += '","indicador":"' + cols[2].innerText;
-					data.condiciones[i] += '","criterio":"' + cols[3].innerText.toLowerCase();
-					data.condiciones[i] += '","valor":"0"}';
+					condicion.indicador = cols[2].innerText;
+					condicion.criterio = cols[3].innerText.toLowerCase();
+					condicion.valor = '0';
 				}
+				data.condiciones[i] = condicion;
 			}
-
 
 			$.ajax({
 				type : 'POST',
@@ -554,6 +555,7 @@ $(function() {
 				beforeSend : function() {
 					console
 					.log("[INFO] (AJAX) Enviando información del indicador...");
+					console.log(data);
 				},
 				success : function() {
 					console.log("Success!");
@@ -652,7 +654,7 @@ $(function () {
 });
 
 $(document).ready(function () {
-	if (window.location.pathname == "/index.html") {
+	if (window.location.pathname == "/dondeInvierto/index.html") {
 		$.ajax({
 			type: 'GET',
 			url: "http://localhost:8080/dondeInvierto/resource/login/logged",
@@ -672,7 +674,7 @@ $(document).ready(function () {
 			}
 		});
 	} else {
-		if (window.location.pathname == "/metodologias-registro.html") {
+		if (window.location.pathname == "/dondeInvierto/metodologias-registro.html") {
 			$.ajax({
 				type : 'GET',
 				url : "http://localhost:8080/dondeInvierto/resource/indicadores/",
@@ -696,7 +698,7 @@ $(document).ready(function () {
 				}
 			});
 		} else {
-			if (window.location.pathname == "/indicadores-calculo.html") {
+			if (window.location.pathname == "/dondeInvierto/indicadores-calculo.html") {
 				$.ajax({
 					type : 'GET',
 					url : "http://localhost:8080/dondeInvierto/resource/indicadores/",
@@ -742,7 +744,7 @@ $(document).ready(function () {
 					}
 				});
 			} else {
-				if (window.location.pathname == "/configuracion.html") {
+				if (window.location.pathname == "/dondeInvierto/configuracion.html") {
 					$.ajax({
 						type: 'GET',
 						url: "http://localhost:8080/dondeInvierto/resource/config/getData",
@@ -791,7 +793,7 @@ $(document).ready(function () {
 						}
 					});
 				} else {
-					if (window.location.pathname == "/metodologias-calculo.html") {
+					if (window.location.pathname == "/dondeInvierto/metodologias-calculo.html") {
 						$.ajax({
 							type : 'GET',
 							url : "http://localhost:8080/dondeInvierto/resource/metodologias",
@@ -814,7 +816,7 @@ $(document).ready(function () {
 							}
 						});
 					} else {
-						if (window.location.pathname == "/log_procesados.html") {
+						if (window.location.pathname == "/dondeInvierto/log_procesados.html") {
 							$("#tabla-resultados").show();
 							$('#tabla-archivos').replaceWith(
 								$('<tbody id="tabla-archivos"></tbody>'));

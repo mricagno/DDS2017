@@ -37,7 +37,7 @@ public class Main extends Application {
 
             System.out.println(
             		String.format("[INFO] (Grizzly) El servidor está en línea.%n[INFO] (Grizzly) Pruebe ingresar"
-            				+ " a %s.%n[INFO] (Grizzly) Detenga el servidor usando CTRL+C.", "http://localhost:8080/index.html"));
+            				+ " a %s.%n[INFO] (Grizzly) Detenga el servidor usando CTRL+C.", "http://localhost:8080/dondeInvierto/index.html"));
             
             Thread.currentThread().join();
         } catch (IOException | InterruptedException ex) {
