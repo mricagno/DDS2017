@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import db.IndicadorService;
+import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
 import dondeInvierto.MercadoBursatil;
 
@@ -114,4 +115,20 @@ public class IndicadorResource {
 		return Response.noContent().build();
 	}
 
+	@Path("/indicadorCalculado")
+	@GET
+	@Consumes("application/json")
+	@Produces("application/json")
+	public String getIndicadorCalculado(String jsonInput) {
+		JsonObject json = (JsonObject) Json.createReader(new StringReader(jsonInput)).read();
+		System.out.println("ansofnoa");
+		String empresaCalculo = json.getString("empresaCalculo");
+		String periodoCalculo = json.getString("periodoCalculo");
+		String indicadorCalculo = json.getString("indicadorCalculo");
+		Empresa empresa = mercado.getEmpresa(empresaCalculo);
+		Indicador indicador = mercado.getIndicador(indicadorCalculo);
+		double valor_indicador = mercado.getIndicadorCalculado(empresa.getId(), indicador.getId(), periodoCalculo);
+		return Json.createObjectBuilder().add("valor_indicador", valor_indicador).build()
+				.toString();
+	}
 }

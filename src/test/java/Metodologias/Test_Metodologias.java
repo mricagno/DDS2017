@@ -22,10 +22,6 @@ import javax.persistence.EntityManager;
 
 public class Test_Metodologias {
 	static MercadoBursatil mercado = MercadoBursatil.INSTANCE;
-	//Empresas
-	Empresa facebook = new Empresa("FACEBOOK INC.");
-	Empresa twitter = new Empresa("TWITTER INC.");
-	Empresa tesla = new Empresa("TESLA INC.");
 
 
 	@BeforeClass
@@ -49,15 +45,15 @@ public class Test_Metodologias {
 		 * Se cargan usuarios
 		 */
 		usuario.addUsuario("GONZALO", "gonzalo", 0);
-		usuario.addUsuario("PATO", "patricio", 0);
+        usuario.addUsuario("PATRICIO", "patricio", 0);
 		usuario.addUsuario("GIAN", "gian", 0);
 		usuario.addUsuario("MAXI", "maxi", 0);
 		/**
 		 * Se cargan empresas
 		 */
+        empresa.addEmpresa("TWITTER INC.");
 		empresa.addEmpresa("FACEBOOK INC.");
 		empresa.addEmpresa("TESLA INC.");
-		empresa.addEmpresa("TWITTER INC.");
 		mercado.setEmpresas(empresa.listEmpresas());
 		mercado.getEmpresa("FACEBOOK INC.").setAntiguedad(15);
 		mercado.getEmpresa("TESLA INC.").setAntiguedad(5);
@@ -81,8 +77,6 @@ public class Test_Metodologias {
 		 */
 		indicador.addIndicador(new Indicador("Ingreso Neto", "Ingreso Neto = Ingreso Neto En Operaciones Continuas + "
 				+ "Ingreso Neto En Operaciones Discontinuadas", "DEFAULT"));
-		indicador.addIndicador(new Indicador("Retorno sobre capital total",
-				"Retorno sobre capital total = (Ingreso Neto - Dividendos) " + "/ Capital Total", "DEFAULT"));
 		indicador.addIndicador(new Indicador("Indicador", "Indicador = EBITDA + FCF", "DEFAULT"));
 		indicador.addIndicador(new Indicador("Ingreso Neto En Operaciones Continuas",
 				"Ingreso Neto En Operaciones Continuas = EBITDA ", "DEFAULT"));
@@ -100,14 +94,14 @@ public class Test_Metodologias {
 		 * Se cargan condiciones de filtro
 		 */
 		CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10,
-				mercado.getIndicador("Indicador Vacio").getId());
+                mercado.getIndicador("Indicador Vacio").getId());
 		/**
 		 * Se cargan condiciones de ordenamiento
 		 */
 		CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10,
-				mercado.getIndicador("ROE").getId());
+                mercado.getIndicador("ROE").getId());
 		CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0,
-				mercado.getIndicador("Proporcion De Deuda").getId());
+                mercado.getIndicador("Proporcion De Deuda").getId());
 		/**
 		 * Se cargan las empresas en las condiciones
 		 */
@@ -132,13 +126,13 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen").getId());
-		CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio").getId());
+        CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen").getId());
+        CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio").getId());
 		/**
 		 * Se cargan condiciones de ordenamiento
 		 */
-		CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, mercado.getIndicador("ROE").getId());
-		CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, mercado.getIndicador("Proporcion De Deuda").getId());
+        CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, mercado.getIndicador("ROE").getId());
+        CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, mercado.getIndicador("Proporcion De Deuda").getId());
 		filtroWB3.setEmpresas(mercado.getEmpresas());
 		filtroWB4.setEmpresas(mercado.getEmpresas());
 		ordenWB1.setEmpresas(mercado.getEmpresas());
@@ -157,7 +151,7 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtro = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio").getId());
+        CondicionFiltro filtro = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio").getId());
 		filtro.setEmpresas(mercado.getEmpresas());
 		condicionesFiltroAM.add(filtro);
 		metodologia.setMetodologia("antiguedadMayor", condicionesFiltroAM, condicionesOrdenamientoAM, "DEFAULT");
@@ -170,7 +164,7 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtrome = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMenor", 10, mercado.getIndicador("Indicador Vacio").getId());
+        CondicionFiltro filtrome = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMenor", 10, mercado.getIndicador("Indicador Vacio").getId());
 		filtrome.setEmpresas(mercado.getEmpresas());
 		condicionesFiltroAMe.add(filtrome);
 		metodologia.setMetodologia("antiguedadMenor", condicionesFiltroAMe, condicionesOrdenamientoAMe, "DEFAULT");
@@ -183,7 +177,7 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtrodif = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadDiferente", 15, mercado.getIndicador("Indicador Vacio").getId());
+        CondicionFiltro filtrodif = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadDiferente", 15, mercado.getIndicador("Indicador Vacio").getId());
 		filtrodif.setEmpresas(mercado.getEmpresas());
 		condicionesFiltrodif.add(filtrodif);
 		metodologia.setMetodologia("antiguedadDiferente", condicionesFiltrodif, condicionesOrdenamientodif, "DEFAULT");
@@ -196,13 +190,40 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtroig = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadIgual", 5, mercado.getIndicador("Indicador Vacio").getId());
+        CondicionFiltro filtroig = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadIgual", 5, mercado.getIndicador("Indicador Vacio").getId());
 		filtroig.setEmpresas(mercado.getEmpresas());
 		condicionesFiltroig.add(filtroig);
 		metodologia.setMetodologia("antiguedadIgual", condicionesFiltroig, condicionesOrdenamientoig, "DEFAULT");
 		/**
-		 * Se carga el mercado bursatil con todos los datos
-		 */
+         * Se repite el proceso de carga de metodologia
+         * En este caso para Condición ordenamiento ROE
+         */
+        Set<CondicionFiltro> condicionesFiltroroe = new HashSet<>();
+        Set<CondicionOrdenamiento> condicionesOrdenamientoroe = new HashSet<>();
+        /**
+         * Se cargan condiciones de filtro
+         */
+        CondicionOrdenamiento ordenROE = new CondicionOrdenamiento("CondOrdMaximizarRoe", "descendente", 10, mercado.getIndicador("ROE").getId());
+        ordenROE.setEmpresas(mercado.getEmpresas());
+        condicionesOrdenamientoroe.add(ordenROE);
+        metodologia.setMetodologia("CondOrdROE", condicionesFiltroroe, condicionesOrdenamientoroe, "DEFAULT");
+        /**
+         * Se repite el proceso de carga de metodologia
+         * En este caso para antiguedadMayor ordenada
+         */
+        Set<CondicionFiltro> condicionesFiltroAMord = new HashSet<>();
+        Set<CondicionOrdenamiento> condicionesOrdenamientoAMord = new HashSet<>();
+        /**
+         * Se cargan condiciones de filtro
+         */
+        CondicionFiltro filtroord = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio").getId());
+        filtroord.setEmpresas(mercado.getEmpresas());
+        condicionesFiltroAMord.add(filtroord);
+        condicionesOrdenamientoAMord.add(ordenROE);
+        metodologia.setMetodologia("antiguedadMayorOrd", condicionesFiltroAMord, condicionesOrdenamientoAMord, "DEFAULT");
+        /**
+         * Se carga el mercado bursatil con todos los datos
+         */
 		mercado.setEmpresas(modelService.generate_empresa_model());
 		mercado.setIndicadores(modelService.generate_indicador_model());
 		mercado.setUsuarios(modelService.generate_usuario_model());
@@ -265,8 +286,8 @@ public class Test_Metodologias {
 		});
 		assertEquals("TESLA INC.", listaFiltradaUOrdenada2.stream().findFirst().get().getNombre());
 	}
-	
-	@Test
+
+    @Test
 	public void test_OrdenamientoROE() {
 		mercado.getMetodologia("CondOrdROE").calcularMetodologia();
 		List<ResultadoCondicionado> listaFiltradaUOrdenada2 = mercado.getMetodologia("CondOrdROE").getListaFiltradaUOrdenada();
