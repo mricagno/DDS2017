@@ -48,6 +48,7 @@ public class Antlr {
 		CharStream input = CharStreams.fromString(string); 
 		IndicadorLexer lexer = new IndicadorLexer(input);
 		IndicadorParser parser = new IndicadorParser(new CommonTokenStream(lexer));
+		boolean lv_noreturn = false;
 		ParseTree arbol = parser.asign();
 		
 		Double resultado = 0.0;
@@ -59,9 +60,15 @@ public class Antlr {
 			try {
 				resultado = evaluador.visit(arbol);
 			} catch (Exception e) {
+				lv_noreturn = true;
+				resultado = (double) (0);
 				System.out.println(e.getMessage().toString());
 			}
 		}
-		return resultado;
+		if (lv_noreturn == true) {
+			return resultado = (double) (0);
+		} else {
+			return resultado;
+		}
 	}
 }

@@ -1,9 +1,6 @@
 package dondeInvierto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -79,10 +76,12 @@ public class Metodologia {
 	public void calcularMetodologia() { //Metodologia metodologia){
 		int posicion=0;
 		ResultadoCondicionado resultado;
+		MercadoBursatil mercado = MercadoBursatil.INSTANCE;
 
 		/**
          *Inicializo datos
          */
+		List<String> listaNombres = new ArrayList<>();
 		this.listaFiltradaUOrdenada = new ArrayList<ResultadoCondicionado>();
         this.listaOrdenaUnaCondicion = new ArrayList<ResultadoCondicionado>();
         for (CondicionFiltro condicion_limpiar_fil : this.getCondicionesFiltro()) {
@@ -93,14 +92,18 @@ public class Metodologia {
             condicion_limpiar_ord.setResultadoCondicion(new ArrayList<ResultadoCondicionado>());
         }
         
-		for(CondicionFiltro condicion : this.getCondicionesFiltro()){
-			listaFiltradaUOrdenada=condicion.evaluarCondicion(condicion);
-		}
-		
-		List<String> listaNombres=new ArrayList<>();
-		for (int j=0;j<listaFiltradaUOrdenada.size();j++) {
-			listaNombres.add(listaFiltradaUOrdenada.get(j).getNombre());
-		}
+        if (this.getCondicionesFiltro().size() == 0) {
+        	mercado.getEmpresas().forEach(empresa -> listaNombres.add(empresa.getNombre()));
+            mercado.getEmpresas().forEach(empresa -> listaFiltradaUOrdenada.add(new ResultadoCondicionado(empresa.getNombre(), 0)));
+        } else {
+        	for(CondicionFiltro condicion : this.getCondicionesFiltro()){
+    			listaFiltradaUOrdenada=condicion.evaluarCondicion(condicion);
+    		}
+    		
+    		for (int j=0;j<listaFiltradaUOrdenada.size();j++) {
+    			listaNombres.add(listaFiltradaUOrdenada.get(j).getNombre());
+    		}
+        }
 		
 		for(CondicionOrdenamiento condicion : this.getCondicionesOrdenamiento()){		
 			listaOrdenaUnaCondicion=condicion.evaluarCondicion(condicion,listaFiltradaUOrdenada);		
@@ -111,14 +114,7 @@ public class Metodologia {
 			}
 		}
 		
-		Collections.sort(listaFiltradaUOrdenada);		
-		//System.out.println("Resultado aplicacion de metodología: ");
-		/*for(int i=0; i<listaFiltradaUOrdenada.size();i++)			
-		{
-			System.out.println(i+1+"-"+listaFiltradaUOrdenada.get(i).getNombre());			
-			//System.out.println(listaFiltradaUOrdenada.get(i).getPosicionPonderable());
-			listaFiltradaUOrdenada.get(i).setPosicionPonderableEmpty();	
-		}*/
+		listaFiltradaUOrdenada.sort(Comparator.comparing(ResultadoCondicionado::getPosicionPonderable));	
 	}
 		
 	public List<ResultadoCondicionado> getListaFiltradaUOrdenada() {

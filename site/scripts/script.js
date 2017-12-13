@@ -498,31 +498,31 @@ $(function() {
 			data.nombre = $("#nombreMetodologia").val();
 			data.condiciones = [];
 
-		    var rows = $('#tabla-metodologias').find('tr');
-		    for (var i = 0; i < rows.length; i++) {
-		        var cols = $(rows[i]).find('td');
-		        data.condiciones[i] = '';
+			var rows = $('#tabla-metodologias').find('tr');
+			for (var i = 0; i < rows.length; i++) {
+				var cols = $(rows[i]).find('td');
+				data.condiciones[i] = '';
 				data.condiciones[i] += '{"tipo":"' + cols[0].innerText;
 				data.condiciones[i] += '","nombre":"' + cols[1].innerText;
 				if (cols[2].innerText === "Antigüedad") {
 					data.condiciones[i] += '","indicador":"Indicador Vacio';
 					switch (cols[3].innerText) {
-					case '<=':
+						case '<=':
 						data.condiciones[i] += '","criterio":"filtrarAntiguedadMenoroigual';
 						break;
-					case '<':
+						case '<':
 						data.condiciones[i] += '","criterio":"filtrarAntiguedadMenor';
 						break;
-					case '>=':
+						case '>=':
 						data.condiciones[i] += '","criterio":"filtrarAntiguedadMayoroigual';
 						break;
-					case '>':
+						case '>':
 						data.condiciones[i] += '","criterio":"filtrarAntiguedadMayor';
 						break;
-					case '<>':
+						case '<>':
 						data.condiciones[i] += '","criterio":"filtrarAntiguedadDiferente';
 						break;
-					case '=':
+						case '=':
 						data.condiciones[i] += '","criterio":"filtrarAntiguedadIgual';
 						break;
 					}
@@ -533,7 +533,7 @@ $(function() {
 					data.condiciones[i] += '","valor":"0"}';
 				}
 			}
-		    
+
 
 			$.ajax({
 				type : 'POST',
@@ -543,7 +543,7 @@ $(function() {
 				data : JSON.stringify(data),
 				beforeSend : function() {
 					console
-						.log("[INFO] (AJAX) Enviando información del indicador...");
+					.log("[INFO] (AJAX) Enviando información del indicador...");
 				},
 				success : function() {
 					console.log("Success!");
@@ -800,6 +800,31 @@ $(document).ready(function () {
 								.selectpicker('refresh');
 							}
 						});
+					} else {
+						if (window.location.pathname == "/log_procesados.html") {
+							$("#tabla-resultados").show();
+							$('#tabla-archivos').replaceWith(
+								$('<tbody id="tabla-archivos"></tbody>'));
+							$
+							.ajax({
+								type: 'GET',
+								url: "http://localhost:8080/dondeInvierto/config/getLog",
+								dataType: "json",
+								beforeSend: function () {
+									console
+									.log("[INFO] (AJAX) Buscando información de archivos");
+								},
+								success: function (response) {
+									$.each(response, function (index,
+										element) {
+										$('#tabla-archivos').append(
+											$('<tr><th scope="row">'
+												+ element.archivo
+												+ '</td><td>'));
+									});
+								}
+							});
+						}						
 					}
 				}
 			}
@@ -918,4 +943,84 @@ $(function() {
 					}
 				});
 			}});
+});
+
+$(function () {
+	$("#btn-visualizar_log")
+	.click(
+		function () {
+			$
+			.ajax({
+				type: 'POST',
+				url: "http://localhost:8080/dondeInvierto/config/log",
+				dataType: "text",
+				contentType: "application/json",
+				beforeSend: function () {
+					console
+					.log("[INFO] (AJAX) Buscando información de archivos procesados");
+				},
+				success: function (response) {
+					console.log("Success!");
+					document.location.href = "log_procesados.html";
+					$(document).ready(hideNav());
+				},
+			});
+		});
+});
+
+$(function () {
+	$("#account-upload-btn")
+	.click(
+		function () {
+			var data = {};
+			data.nombreEmpresa = $("#nombreEmpresa").val();
+			data.tipoCuenta = $("#tipoCuenta").val();
+			data.periodoCuenta = $("#periodoCuenta").val();
+			data.valorCuenta = $("#valorCuenta").val();
+			$
+			.ajax({
+				type: 'POST',
+				url: "http://localhost:8080/dondeInvierto/cuentas/nuevaCuenta",
+				dataType: "text",
+				contentType: "application/json",
+				data: JSON.stringify(data),
+				beforeSend: function () {
+					console
+					.log("[INFO] (AJAX) Enviando información de cuenta");
+				},
+				success: function (response) {
+					console.log("Success!");
+					console.log(response);
+				},
+				error: function (jqXHR, exception) {
+					var msg = '';
+					if (jqXHR.status === 0) {
+						msg = 'Not connect.\n Verify Network.';
+					} else if (jqXHR.status == 400) {
+						msg = 'Bad request. [400]';
+					} else if (jqXHR.status == 404) {
+						msg = 'Requested page not found. [404].';
+					} else if (jqXHR.status == 500) {
+						msg = 'Internal Server Error [500].';
+					} else if (exception === 'parsererror') {
+						msg = 'Requested JSON parse failed.\n'
+						+ jqXHR.responseText
+						+ '.\n'
+						+ jqXHR.status
+						+ '.';
+					} else if (exception === 'timeout') {
+						msg = 'Time out error.';
+					} else if (exception === 'abort') {
+						msg = 'Ajax request aborted.';
+					} else {
+						msg = 'Uncaught Error.\n'
+						+ jqXHR.responseText
+						+ '.\n' + jqXHR.status
+						+ '.';
+					}
+					console.log(msg);
+					registryError();
+				}
+			});
+		});
 });

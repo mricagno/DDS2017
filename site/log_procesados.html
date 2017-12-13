@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cuentas - &#191;Do&#769;nde invierto?</title>
+    <title>Indicadores - &#191;Do&#769;nde invierto?</title>
+    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
     integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/main.css">
@@ -70,68 +72,36 @@
                             <span class="glyphicon glyphicon-wrench" id="btn-config"></span>
                         </a>
                     </li>
-                    <li
-                    button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
-                </li>
-            </ul>
-                <!-- Agregar barra de búsqueda y su lógica correspondiente (OJO
-                porque no escala bien al achicar la ventana)
-                <form class="navbar-form navbar-right">
-                  <div class="col-lg-6">
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Buscar...">
-                      <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Go!</button>
-                      </span>
-                    </div>
-                  </div>
-              </form> -->
-          </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-  </div>
+                </ul>
+                <button class="btn btn-danger navbar-btn" id="btn-cerrar-sesion">Cerrar Sesio&#769;n</button>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </div>
 </nav>
 
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-body centered">
             <div class="page-header">
-                <h1>Configuracio&#769;n</h1>
+                <h1>Archivos procesados</h1>
             </div>
-            <div class="panel panel-default" id="filters">
-                <div class="panel-heading">Carga automa&#769;tica de cuentas</div>
-                <div class="panel-body">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">Directorio de carga</span>
-                        <!--                        <input type="file" id="flup" onchange="getfolder(event)" webkitdirectory mozdirectory
-                           msdirectory odirectory directory multiple/>-->
-                           <input type="text" class="form-control" aria-describedby="basic-addon3" style="width: 700px;"
-                           id="path" required>
-                       </div>
-                       <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">Intervalo de carga</span>
-                        <input type="number" aria-describedby="basic-addon3" style="width: 4em;" max="1200"
-                        id="intervalo">Segundos
-                    </div>
-                    <div class="container-fluid no-padding left-aligned">
-                        <button type="button" class="btn btn-default btn-lg" id="btn-guardar-config">Guardar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default" id="filters">
-                <div class="panel-heading">Log</div>
-                <div class="panel-body">
-                  <div class="container-fluid no-padding left-aligned">
-                    <button type="button" class="btn btn-info" id="btn-visualizar_lo">Archivos Procesados</button>
-                </div>
-            </div>
+            <table class="table table-responsive table-bordered" id="tabla-resultados">
+                <thead>
+                    <th>Archivo</th>
+                </thead>
+                <tbody id="tabla-archivos">
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
 <script src="scripts/jquery-3.2.0.js"></script>
 <script src="scripts/script.js"></script>
+<!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 </body>
 </html>
