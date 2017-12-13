@@ -489,8 +489,14 @@ $(function() {
 			}
 			html += '</td>';
 
-			console.log(html);
 			$('#tabla-metodologias').append(html);
+
+			$('#tipoCondicion').selectpicker('val', '');
+			$('#nombreCondicion').val('');
+			$('#indicadorCondicion').selectpicker('val', '');
+			$('#criterioCondicion').selectpicker('val', '');
+			$('#valorCondicion').val('');
+			$('#valorCondicion').css('display', 'none');
 		});
 });
 
@@ -586,30 +592,33 @@ $(function() {
 		});
 });
 
-$(function() {
+$(function () {
 	$("#btn-calcular-ind")
 	.click(
-		function() {
+		function () {
 			var data = {};
-			data.indicador = $("#indicadorCalculo").find("option:selected").text();
-			data.empresa = $("#empresaCalculo").find("option:selected").text();
-			data.periodo = $("#peridioCalculo").val();
-
+			data.empresaCalculo = $("#empresaCalculo").find("option:selected").text();
+			data.periodoCalculo = $("#periodoCalculo").val();
+			data.indicadorCalculo = $("#indicadorCalculo").find("option:selected").text();
 			$.ajax({
-				type : 'POST',
-				url : "http://localhost:8080/dondeInvierto/indicadores/calcular",
-				dataType : "text",
-				contentType : "application/json",
-				data : JSON.stringify(data),
-				beforeSend : function() {
+				type: 'POST',
+				url: "http://localhost:8080/dondeInvierto/indicadores/indicadorCalculado",
+				dataType: "text",
+				contentType: "application/json",
+				data: JSON.stringify(data),
+				beforeSend: function () {
 					console
 					.log("[INFO] (AJAX) Enviando información del indicador...");
 				},
-				success : function(response) {
+				success: function (response) {
+					$.each(response, function (index,
+						element) {
+						document.getElementById("valor_indicador").value = element.valor_indicador;
+					});
 					console.log("Success!");
-					console.log(response);
+					toggleRegistrySuccess();
 				},
-				error : function(jqXHR, exception) {
+				error: function (jqXHR, exception) {
 					var msg = '';
 					if (jqXHR.status === 0) {
 						msg = 'Not connect.\n Verify Network.';
