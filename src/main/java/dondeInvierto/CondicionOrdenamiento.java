@@ -18,7 +18,7 @@ public class CondicionOrdenamiento extends Condicion {
 	@Transient
 	double resultadoIndicador;
 
-	public CondicionOrdenamiento(String nombre, String comparador, double valor, Indicador indicador) {
+	public CondicionOrdenamiento(String nombre, String comparador, double valor, Long indicador) {
 		super(nombre, comparador, valor, indicador);
 		// TODO Auto-generated constructor stub
 	}
@@ -62,7 +62,7 @@ public class CondicionOrdenamiento extends Condicion {
 					// condicion.getIndicador().getValorFor(empresa,
 					// cuenta.getPeriodoAsString());
 					resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
-							condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+							condicion.getIndicador(), cuenta.getPeriodoAsString());
 					contador += resultadoIndicador;
 				}
 				resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), contador));
@@ -81,7 +81,7 @@ public class CondicionOrdenamiento extends Condicion {
 						// condicion.getIndicador().getValorFor(empresa,
 						// cuenta.getPeriodoAsString());
 						resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
-								condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+								condicion.getIndicador(), cuenta.getPeriodoAsString());
 						contador += resultadoIndicador;
 					}
 				}

@@ -100,15 +100,14 @@ public class Test_Metodologias {
 		 * Se cargan condiciones de filtro
 		 */
 		CondicionFiltro filtro1 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10,
-				new Indicador("Indicador Vacio", "Indicador Vacio = 0", "DEFAULT"));
+				mercado.getIndicador("Indicador Vacio").getId());
 		/**
 		 * Se cargan condiciones de ordenamiento
 		 */
 		CondicionOrdenamiento orden1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10,
-				new Indicador("ROE", "ROE = ( Ingreso Neto - Dividendos) / Capital Total", "DEFAULT"));
+				mercado.getIndicador("ROE").getId());
 		CondicionOrdenamiento orden2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0,
-				new Indicador("Proporcion De Deuda",
-						"Proporcion De Deuda = Dividendos / ( Capital Total - Dividendos )", "DEFAULT"));
+				mercado.getIndicador("Proporcion De Deuda").getId());
 		/**
 		 * Se cargan las empresas en las condiciones
 		 */
@@ -133,13 +132,13 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen"));
-		CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio"));
+		CondicionFiltro filtroWB3 = new CondicionFiltro("CondFiltroMargen", ">", 1.00, mercado.getIndicador("Margen").getId());
+		CondicionFiltro filtroWB4 = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio").getId());
 		/**
 		 * Se cargan condiciones de ordenamiento
 		 */
-		CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, mercado.getIndicador("ROE"));
-		CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda","descendente",0,mercado.getIndicador("Proporcion De Deuda"));
+		CondicionOrdenamiento ordenWB1 = new CondicionOrdenamiento("CondOrdMaximizarRoe", "ascendente", 10, mercado.getIndicador("ROE").getId());
+		CondicionOrdenamiento ordenWB2 = new CondicionOrdenamiento("CondOrdMinimizarNivelDeuda", "descendente", 0, mercado.getIndicador("Proporcion De Deuda").getId());
 		filtroWB3.setEmpresas(mercado.getEmpresas());
 		filtroWB4.setEmpresas(mercado.getEmpresas());
 		ordenWB1.setEmpresas(mercado.getEmpresas());
@@ -158,7 +157,7 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtro = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio"));
+		CondicionFiltro filtro = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMayor", 10, mercado.getIndicador("Indicador Vacio").getId());
 		filtro.setEmpresas(mercado.getEmpresas());
 		condicionesFiltroAM.add(filtro);
 		metodologia.setMetodologia("antiguedadMayor", condicionesFiltroAM, condicionesOrdenamientoAM, "DEFAULT");
@@ -171,7 +170,7 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtrome = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMenor", 10, mercado.getIndicador("Indicador Vacio"));
+		CondicionFiltro filtrome = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadMenor", 10, mercado.getIndicador("Indicador Vacio").getId());
 		filtrome.setEmpresas(mercado.getEmpresas());
 		condicionesFiltroAMe.add(filtrome);
 		metodologia.setMetodologia("antiguedadMenor", condicionesFiltroAMe, condicionesOrdenamientoAMe, "DEFAULT");
@@ -184,7 +183,7 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtrodif = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadDiferente", 15, mercado.getIndicador("Indicador Vacio"));
+		CondicionFiltro filtrodif = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadDiferente", 15, mercado.getIndicador("Indicador Vacio").getId());
 		filtrodif.setEmpresas(mercado.getEmpresas());
 		condicionesFiltrodif.add(filtrodif);
 		metodologia.setMetodologia("antiguedadDiferente", condicionesFiltrodif, condicionesOrdenamientodif, "DEFAULT");
@@ -197,7 +196,7 @@ public class Test_Metodologias {
 		/**
 		 * Se cargan condiciones de filtro
 		 */
-		CondicionFiltro filtroig = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadIgual", 5, mercado.getIndicador("Indicador Vacio"));
+		CondicionFiltro filtroig = new CondicionFiltro("CondFiltroLongevidad", "filtrarAntiguedadIgual", 5, mercado.getIndicador("Indicador Vacio").getId());
 		filtroig.setEmpresas(mercado.getEmpresas());
 		condicionesFiltroig.add(filtroig);
 		metodologia.setMetodologia("antiguedadIgual", condicionesFiltroig, condicionesOrdenamientoig, "DEFAULT");

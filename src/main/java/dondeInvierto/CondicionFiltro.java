@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @DiscriminatorValue(value = "Filtro")
 public class CondicionFiltro extends Condicion {
-	public CondicionFiltro(String nombre, String comparador, double valor, Indicador indicador) {
+	public CondicionFiltro(String nombre, String comparador, double valor, Long indicador) {
 		super(nombre, comparador, valor, indicador);
 		// TODO Auto-generated constructor stub
 	}
@@ -34,7 +34,7 @@ public class CondicionFiltro extends Condicion {
 						// resultadoIndicador =
 						// condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 						resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
-								condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+								condicion.getIndicador(), cuenta.getPeriodoAsString());
 						if (resultadoIndicador < condicion.getValor()) {
 							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), resultadoIndicador));
 						}
@@ -52,7 +52,7 @@ public class CondicionFiltro extends Condicion {
 						// resultadoIndicador =
 						// condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 						resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
-								condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+								condicion.getIndicador(), cuenta.getPeriodoAsString());
 						if (resultadoIndicador > condicion.getValor()) {
 							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), resultadoIndicador));
 						}
@@ -71,7 +71,7 @@ public class CondicionFiltro extends Condicion {
 						// resultadoIndicador =
 						// condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 						resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
-								condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+								condicion.getIndicador(), cuenta.getPeriodoAsString());
 						if (resultadoIndicador == valorCondicion) {
 							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), resultadoIndicador));
 						}
@@ -89,7 +89,7 @@ public class CondicionFiltro extends Condicion {
 						// resultadoIndicador =
 						// condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 						resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
-								condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+								condicion.getIndicador(), cuenta.getPeriodoAsString());
 						if (resultadoIndicador <= condicion.getValor()) {
 							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), resultadoIndicador));
 						}
@@ -107,7 +107,7 @@ public class CondicionFiltro extends Condicion {
 						// resultadoIndicador =
 						// condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 						resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
-								condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+								condicion.getIndicador(), cuenta.getPeriodoAsString());
 						if (resultadoIndicador >= condicion.getValor()) {
 							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), resultadoIndicador));
 						}
@@ -125,7 +125,7 @@ public class CondicionFiltro extends Condicion {
 						// resultadoIndicador =
 						// condicion.getIndicador().getValorFor(empresa,cuenta.getPeriodoAsString());
 						resultadoIndicador = mercado.getIndicadorCalculado(empresa.getId(),
-								condicion.getIndicador().getId(), cuenta.getPeriodoAsString());
+								condicion.getIndicador(), cuenta.getPeriodoAsString());
 						if (resultadoIndicador != condicion.getValor()) {
 							resultadoCondicion.add(new ResultadoCondicionado(empresa.getNombre(), resultadoIndicador));
 						}
@@ -196,13 +196,13 @@ public class CondicionFiltro extends Condicion {
 						if (x == 0) {
 							// x = condicion.getIndicador().getValorFor(empresa,
 							// cuenta.getPeriodoAsString());
-							x = mercado.getIndicadorCalculado(empresa.getId(), condicion.getIndicador().getId(),
+							x = mercado.getIndicadorCalculado(empresa.getId(), condicion.getIndicador(),
 									cuenta.getPeriodoAsString());
 						} else {
 							// if(x <
 							// condicion.getIndicador().getValorFor(empresa,
 							// cuenta.getPeriodoAsString())){
-							if (x < mercado.getIndicadorCalculado(empresa.getId(), condicion.getIndicador().getId(),
+							if (x < mercado.getIndicadorCalculado(empresa.getId(), condicion.getIndicador(),
 									cuenta.getPeriodoAsString())) {
 								flag = 0;
 							} else {
