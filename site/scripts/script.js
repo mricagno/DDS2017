@@ -473,22 +473,26 @@ $(function() {
 	$("#btn-agregar-condicion")
 	.click(
 		function() {
-			$('#tabla-metodologias').append(
-				$('<tr><td>'
-					+ $('#tipoCondicion').find("option:selected").text()
-					+ '</td><td>'
-					+ $('#nombreCondicion').val()
-					+ '</td><td>'
-					+ $('#indicadorCondicion').find("option:selected").text()
-					+ '</td><td>'
-					+ $('#criterioCondicion').find("option:selected").text()
-					+ '</td><td>'
-					+ $('#valorCondicion').val()
-					+ '</td>'));
-		}
-		);
-}
-);
+			var html = '';
+
+			html += '<tr><td>';
+			html += $('#tipoCondicion').find("option:selected").text();
+			html += '</td><td>';
+			html += $('#nombreCondicion').val();
+			html += '</td><td>';
+			html += $('#indicadorCondicion').find("option:selected").text();
+			html += '</td><td>';
+			html += $('#criterioCondicion').find("option:selected").text();
+			html += '</td><td>';
+			if ($('#tipoCondicion').find("option:selected").text() === "Filtro") {
+				html += $('#valorCondicion').val();
+			}
+			html += '</td>';
+
+			console.log(html);
+			$('#tabla-metodologias').append(html);
+		});
+});
 
 $(function() {
 	$("#btn-registro-meto")
@@ -526,7 +530,7 @@ $(function() {
 						data.condiciones[i] += '","criterio":"filtrarAntiguedadIgual';
 						break;
 					}
-					data.condiciones[i] += '","valor":"10"}';
+					data.condiciones[i] += '","valor":"' + cols[4].innerText + '}';
 				} else {
 					data.condiciones[i] += '","indicador":"' + cols[2].innerText;
 					data.condiciones[i] += '","criterio":"' + cols[3].innerText.toLowerCase();

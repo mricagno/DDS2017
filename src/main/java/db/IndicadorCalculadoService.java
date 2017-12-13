@@ -1,5 +1,6 @@
 package db;
 
+import dondeInvierto.Empresa;
 import dondeInvierto.Indicador;
 import dondeInvierto.IndicadorCalculado;
 import org.hibernate.HibernateException;
@@ -73,4 +74,26 @@ public class IndicadorCalculadoService {
 		}
 	}
 
+	// Recupera un indicador Calculado
+	public IndicadorCalculado getIndicadorCalculado(Empresa empresa, Indicador indicador, String periodo) {
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		IndicadorCalculado indicadorCalculado = new IndicadorCalculado();
+		try {
+			trx.begin();
+			List<IndicadorCalculado> indicadoresCalculados = this.em
+					.createQuery(
+							"Select i FROM IndicadorCalculado i WHERE i.indicador_id = :indicador_id and c.empresa_id = :empresa_id and c.periodo = :periodo",
+							IndicadorCalculado.class)
+					.setParameter("indicador_id", indicador.getId()).setParameter("empresa_id", empresa.getId())
+					.setParameter("periodo", periodo).getResultList();
+			indicadorCalculado = indicadoresCalculados.stream().findFirst().get();
+			trx.commit();
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+		}
+		return indicadorCalculado;
+	}
 }
