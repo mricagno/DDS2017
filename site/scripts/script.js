@@ -119,7 +119,7 @@ function validateLogin() {
 	$
 	.ajax({
 		type : 'POST',
-		url : "http://localhost:8080/dondeInvierto/login/auth",
+		url : "http://localhost:8080/dondeInvierto/resource/login/auth",
 		dataType : "text",
 		contentType : "application/json",
 		data : JSON.stringify(data),
@@ -190,7 +190,7 @@ $(function() {
 			$
 			.ajax({
 				type : 'GET',
-				url : "http://localhost:8080/dondeInvierto/cuentas/",
+				url : "http://localhost:8080/dondeInvierto/resource/cuentas/",
 				dataType : "json",
 				beforeSend : function() {
 					console
@@ -248,7 +248,7 @@ $(function() {
 			$
 			.ajax({
 				type : 'GET',
-				url : "http://localhost:8080/dondeInvierto/indicadores/",
+				url : "http://localhost:8080/dondeInvierto/resource/indicadores/",
 				dataType : "json",
 				beforeSend : function() {
 					console
@@ -282,7 +282,7 @@ $(function() {
 			$
 			.ajax({
 				type : 'POST',
-				url : "http://localhost:8080/dondeInvierto/indicadores/nuevo",
+				url : "http://localhost:8080/dondeInvierto/resource/indicadores/nuevo",
 				dataType : "text",
 				contentType : "application/json",
 				data : JSON.stringify(data),
@@ -336,7 +336,7 @@ $(function() {
 			$
 			.ajax({
 				type : 'DELETE',
-				url : "http://localhost:8080/dondeInvierto/indicadores/borrar/"
+				url : "http://localhost:8080/dondeInvierto/resource/indicadores/borrar/"
 				+ nombre,
 				contentType : "application/json",
 				beforeSend : function() {
@@ -391,7 +391,7 @@ $(function() {
 			$
 			.ajax({
 				type : 'GET',
-				url : "http://localhost:8080/dondeInvierto/metodologias",
+				url : "http://localhost:8080/dondeInvierto/resource/metodologias",
 				dataType : "json",
 				beforeSend : function() {
 					console
@@ -547,7 +547,7 @@ $(function() {
 
 			$.ajax({
 				type : 'POST',
-				url : "http://localhost:8080/dondeInvierto/metodologias/nueva",
+				url : "http://localhost:8080/dondeInvierto/resource/metodologias/nueva",
 				dataType : "text",
 				contentType : "application/json",
 				data : JSON.stringify(data),
@@ -602,7 +602,7 @@ $(function () {
 			data.indicadorCalculo = $("#indicadorCalculo").find("option:selected").text();
 			$.ajax({
 				type: 'POST',
-				url: "http://localhost:8080/dondeInvierto/indicadores/indicadorCalculado",
+				url: "http://localhost:8080/dondeInvierto/resource/indicadores/indicadorCalculado",
 				dataType: "text",
 				contentType: "application/json",
 				data: JSON.stringify(data),
@@ -655,7 +655,7 @@ $(document).ready(function () {
 	if (window.location.pathname == "/index.html") {
 		$.ajax({
 			type: 'GET',
-			url: "http://localhost:8080/dondeInvierto/login/logged",
+			url: "http://localhost:8080/dondeInvierto/resource/login/logged",
 			dataType : "json",
 			beforeSend: function () {
 				console
@@ -675,7 +675,7 @@ $(document).ready(function () {
 		if (window.location.pathname == "/metodologias-registro.html") {
 			$.ajax({
 				type : 'GET',
-				url : "http://localhost:8080/dondeInvierto/indicadores/",
+				url : "http://localhost:8080/dondeInvierto/resource/indicadores/",
 				dataType : "json",
 				beforeSend : function() {
 					console
@@ -699,7 +699,7 @@ $(document).ready(function () {
 			if (window.location.pathname == "/indicadores-calculo.html") {
 				$.ajax({
 					type : 'GET',
-					url : "http://localhost:8080/dondeInvierto/indicadores/",
+					url : "http://localhost:8080/dondeInvierto/resource/indicadores/",
 					dataType : "json",
 					beforeSend : function() {
 						console
@@ -721,7 +721,7 @@ $(document).ready(function () {
 				});
 				$.ajax({
 					type : 'GET',
-					url : "http://localhost:8080/dondeInvierto/empresas/",
+					url : "http://localhost:8080/dondeInvierto/resource/empresas/",
 					dataType : "json",
 					beforeSend : function() {
 						console
@@ -745,7 +745,7 @@ $(document).ready(function () {
 				if (window.location.pathname == "/configuracion.html") {
 					$.ajax({
 						type: 'GET',
-						url: "http://localhost:8080/dondeInvierto/config/getData",
+						url: "http://localhost:8080/dondeInvierto/resource/config/getData",
 						dataType: "json",
 						beforeSend: function () {
 							console
@@ -794,7 +794,7 @@ $(document).ready(function () {
 					if (window.location.pathname == "/metodologias-calculo.html") {
 						$.ajax({
 							type : 'GET',
-							url : "http://localhost:8080/dondeInvierto/metodologias",
+							url : "http://localhost:8080/dondeInvierto/resource/metodologias",
 							dataType : "json",
 							beforeSend : function() {
 								console
@@ -821,7 +821,7 @@ $(document).ready(function () {
 							$
 							.ajax({
 								type: 'GET',
-								url: "http://localhost:8080/dondeInvierto/config/getLog",
+								url: "http://localhost:8080/dondeInvierto/resource/config/getLog",
 								dataType: "json",
 								beforeSend: function () {
 									console
@@ -855,7 +855,7 @@ $(function btnLogin() {
 			$
 			.ajax({
 				type: 'POST',
-				url: "http://localhost:8080/dondeInvierto/login/out",
+				url: "http://localhost:8080/dondeInvierto/resource/login/out",
 				dataType: "text",
 				contentType: "application/json",
 				beforeSend: function () {
@@ -880,7 +880,7 @@ $(function () {
 			data.intervalo_cuentas = $("#intervalo").val();
 			$.ajax({
 				type: 'POST',
-				url: "http://localhost:8080/dondeInvierto/config/setData",
+				url: "http://localhost:8080/dondeInvierto/resource/config/setData",
 				dataType: "text",
 				contentType: "application/json",
 				data: JSON.stringify(data),
@@ -937,7 +937,7 @@ $(function() {
 				$('#tabla-empresas').html('');
 				$.ajax({
 					type : 'GET',
-					url : "http://localhost:8080/dondeInvierto/metodologias/evaluar/" + metodologia,
+					url : "http://localhost:8080/dondeInvierto/resource/metodologias/evaluar/" + metodologia,
 					dataType : "json",
 					beforeSend : function() {
 						console
@@ -965,7 +965,7 @@ $(function () {
 			$
 			.ajax({
 				type: 'POST',
-				url: "http://localhost:8080/dondeInvierto/config/log",
+				url: "http://localhost:8080/dondeInvierto/resource/config/log",
 				dataType: "text",
 				contentType: "application/json",
 				beforeSend: function () {
@@ -993,7 +993,7 @@ $(function () {
 			$
 			.ajax({
 				type: 'POST',
-				url: "http://localhost:8080/dondeInvierto/cuentas/nuevaCuenta",
+				url: "http://localhost:8080/dondeInvierto/resource/cuentas/nuevaCuenta",
 				dataType: "text",
 				contentType: "application/json",
 				data: JSON.stringify(data),

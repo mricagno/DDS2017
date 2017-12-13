@@ -19,7 +19,7 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import dondeInvierto.resource.*;*/
 
 public class Main extends Application {
-	private static final URI BASE_URI = URI.create("http://localhost:8080/dondeInvierto/");
+	private static final URI BASE_URI = URI.create("http://localhost:8080/dondeInvierto/resource/");
 	
 	public static void main(String[] args) throws Exception {
 		MercadoBursatil mercado = MercadoBursatil.INSTANCE;	
@@ -32,7 +32,7 @@ public class Main extends Application {
             final HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, new JsonApplication(), false);
             Runtime.getRuntime().addShutdownHook(new Thread(server::shutdownNow));
             StaticHttpHandler staticHttpHandler = new StaticHttpHandler(".//site//");
-            server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/");
+            server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/dondeInvierto/");
             server.start();
 
             System.out.println(

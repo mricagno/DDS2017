@@ -78,7 +78,7 @@ public class IndicadorResource {
 	}
 	
 	@Path("/indicadorCalculado")
-	@GET
+	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
 	public String getIndicadorCalculado(String jsonInput) {
