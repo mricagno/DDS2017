@@ -30,4 +30,20 @@ public class CuentaFromFile {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
+	}
+
+	public void setValor(String valor) {
+		this.valor = valor;
+	}
 }

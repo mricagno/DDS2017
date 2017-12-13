@@ -143,14 +143,17 @@
                 <div class="container-fluid fields">
                     <input type="text" class="form-control" id="nombreEmpresa" placeholder="Nombre de la empresa">
                     <input type="text" class="form-control" id="tipoCuenta" placeholder="Tipo de cuenta">
-                    <input type="text" class="form-control" id="periodoCuenta" placeholder="Periodo"> <input type="text"
-                                                                                                             class="form-control"
-                                                                                                             id="valorCuenta"
-                                                                                                             placeholder="Valor">
+                    <input type="text" class="form-control" id="periodoCuenta" placeholder="Periodo (AAAAMMDD)"> <input
+                        type="text"
+                        class="form-control"
+                        id="valorCuenta"
+                        placeholder="Valor">
                 </div>
                 <div class="container-fluid confirm-buttons">
                     <button type="button" class="btn btn-danger" onClick="toggleManualEntryPrompt()">Volver</button>
-                    <button type="button" class="btn btn-success" onClick="registrySuccess()">Registrar</button>
+                    <button type="button" class="btn btn-success" id="account-upload-btn" onClick="registrySuccess()">
+                        Registrar
+                    </button>
                 </div>
             </div>
         </div>

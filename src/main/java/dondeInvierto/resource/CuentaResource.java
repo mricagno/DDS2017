@@ -1,11 +1,6 @@
 package dondeInvierto.resource;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,7 +9,9 @@ import java.util.Set;
 import java.util.Iterator;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
+import javax.sound.midi.SysexMessage;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -56,6 +53,81 @@ public class CuentaResource {
             }
         }
         return cuentasBuilder.build().toString();
+    }
+
+    /**
+     * Clase para cargar cuenta individual
+     */
+    @Path("/nuevaCuenta")
+    @POST
+    @Consumes("application/json")
+    @Produces("text/plain")
+    public Response getCuentas(String jsonInput) throws Exception {
+        JsonObject json = (JsonObject) Json.createReader(new StringReader(jsonInput)).read();
+        String nombreEmpresa = json.getString("nombreEmpresa");
+        String tipoCuenta = json.getString("tipoCuenta");
+        String periodoCuenta = json.getString("periodoCuenta");
+        String valorCuenta = json.getString("valorCuenta");
+        EntityManager em = mercado.getFactory().createEntityManager();
+        EmpresaService empresa = new EmpresaService(em);
+        System.out.println(nombreEmpresa);
+        System.out.println(tipoCuenta);
+        CuentaFromFile cuentaActual = new CuentaFromFile();
+        System.out.println(nombreEmpresa);
+        System.out.println(tipoCuenta);
+        System.out.println(periodoCuenta);
+        System.out.println(valorCuenta);
+        cuentaActual.setNombre(nombreEmpresa);
+        cuentaActual.setTipo(tipoCuenta);
+        cuentaActual.setPeriodo(periodoCuenta);
+        cuentaActual.setValor(valorCuenta);
+        System.out.println(nombreEmpresa);
+        System.out.println(tipoCuenta);
+        try {
+            System.out.println("test1");
+            /**
+             * Se agrega la cuenta a la empresa
+             * El nombre de la empresa se obtiene desde el metodo getNombre()
+             */
+            CuentaService cuenta_DB = new CuentaService(em);
+            mercado.addCuenta(cuentaActual.getNombre(), cuentaActual.getTipo(), cuentaActual.getPeriodo(),
+                    cuentaActual.getValor());
+            if (mercado.getEmpresa(cuentaActual.getNombre()).getId() != null) {
+                /**
+                 * Si la cuenta pertenece a una empresa que ya esta creada
+                 * se agrega en caso de no existir o se actualiza el valor
+                 */
+                if (mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
+                        mercado.getEmpresa(cuentaActual.getNombre())).getId() != null) {
+                    /**
+                     * En caso de existir la cuenta, se actualiza su valor
+                     */
+                    cuenta_DB.updateCuenta2(mercado.getCuenta(new Cuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo().toString(), cuentaActual.getValor()),
+                            mercado.getEmpresa(cuentaActual.getNombre())).getId(), Double.parseDouble(cuentaActual.getValor()));
+                } else {
+                    /**
+                     * En caso de no existir la cuenta, se agrega a la empresa
+                     */
+                    System.out.println("test3");
+                    cuenta_DB.addCuenta_existCompany(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
+                            mercado.getEmpresa(cuentaActual.getNombre()));
+                }
+            } else {
+
+                /**
+                 * En caso de no existir la empresa, se persiste antes
+                 */
+                empresa.addEmpresa(cuentaActual.getNombre());
+                mercado.setEmpresas(empresa.listEmpresas());
+                cuenta_DB.addCuenta(cuentaActual.getTipo(), cuentaActual.getPeriodo(), cuentaActual.getValor(),
+                        mercado.getEmpresa(cuentaActual.getNombre()));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        mercado.init_model(em);
+        mercado.preCalculo_indicadores();
+        return Response.status(200).build();
     }
 
     /**
@@ -130,7 +202,7 @@ public class CuentaResource {
             mercado.init_model(em);
             //try {
             //    if (!mercado.getEmpresas().isEmpty()) {
-                    mercado.preCalculo_indicadores();
+            mercado.preCalculo_indicadores();
             //    }
             //    mercado.init_model(em);
             //} catch (Exception e) {

@@ -909,3 +909,59 @@ $(function () {
                     });
             });
 });
+$(function () {
+    $("#account-upload-btn")
+        .click(
+            function () {
+                var data = {};
+                data.nombreEmpresa = $("#nombreEmpresa").val();
+                data.tipoCuenta = $("#tipoCuenta").val();
+                data.periodoCuenta = $("#periodoCuenta").val();
+                data.valorCuenta = $("#valorCuenta").val();
+                $
+                    .ajax({
+                        type: 'POST',
+                        url: "http://localhost:8080/dondeInvierto/cuentas/nuevaCuenta",
+                        dataType: "text",
+                        contentType: "application/json",
+                        data: JSON.stringify(data),
+                        beforeSend: function () {
+                            console
+                                .log("[INFO] (AJAX) Enviando información de cuenta");
+                        },
+                        success: function (response) {
+                            console.log("Success!");
+                            console.log(response);
+                        },
+                        error: function (jqXHR, exception) {
+                            var msg = '';
+                            if (jqXHR.status === 0) {
+                                msg = 'Not connect.\n Verify Network.';
+                            } else if (jqXHR.status == 400) {
+                                msg = 'Bad request. [400]';
+                            } else if (jqXHR.status == 404) {
+                                msg = 'Requested page not found. [404].';
+                            } else if (jqXHR.status == 500) {
+                                msg = 'Internal Server Error [500].';
+                            } else if (exception === 'parsererror') {
+                                msg = 'Requested JSON parse failed.\n'
+                                    + jqXHR.responseText
+                                    + '.\n'
+                                    + jqXHR.status
+                                    + '.';
+                            } else if (exception === 'timeout') {
+                                msg = 'Time out error.';
+                            } else if (exception === 'abort') {
+                                msg = 'Ajax request aborted.';
+                            } else {
+                                msg = 'Uncaught Error.\n'
+                                    + jqXHR.responseText
+                                    + '.\n' + jqXHR.status
+                                    + '.';
+                            }
+                            console.log(msg);
+                            registryError();
+                        }
+                    });
+            });
+});
