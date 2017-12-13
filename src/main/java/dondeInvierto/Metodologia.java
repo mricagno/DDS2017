@@ -80,6 +80,19 @@ public class Metodologia {
 		int posicion=0;
 		ResultadoCondicionado resultado;
 
+		/**
+         *Inicializo datos
+         */
+		this.listaFiltradaUOrdenada = new ArrayList<ResultadoCondicionado>();
+        this.listaOrdenaUnaCondicion = new ArrayList<ResultadoCondicionado>();
+        for (CondicionFiltro condicion_limpiar_fil : this.getCondicionesFiltro()) {
+            condicion_limpiar_fil.setResultadoCondicion(new ArrayList<ResultadoCondicionado>());
+        }
+
+        for (CondicionOrdenamiento condicion_limpiar_ord : this.getCondicionesOrdenamiento()) {
+            condicion_limpiar_ord.setResultadoCondicion(new ArrayList<ResultadoCondicionado>());
+        }
+        
 		for(CondicionFiltro condicion : this.getCondicionesFiltro()){
 			listaFiltradaUOrdenada=condicion.evaluarCondicion(condicion);
 		}

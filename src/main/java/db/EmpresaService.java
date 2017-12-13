@@ -39,7 +39,7 @@ public class EmpresaService {
 		EntityTransaction trx = this.em.getTransaction();
 		try {
 			trx.begin();
-			List<Empresa> empresas = this.em.createQuery("FROM Empresa",Empresa.class).getResultList();
+			List<Empresa> empresas = this.em.createQuery("FROM Empresa", Empresa.class).getResultList();
 			trx.commit();
 			return empresas;
 		} catch (HibernateException e) {
@@ -112,6 +112,22 @@ public class EmpresaService {
 			Empresa empresa = (Empresa) this.em.find(Empresa.class, id);
 			trx.begin();
 			this.em.remove(empresa);
+			trx.commit();
+		} catch (HibernateException e) {
+			if (trx != null)
+				trx.rollback();
+			e.printStackTrace();
+		}
+	}
+
+	// Setear antiguedad
+	public void setAntiguedad(Long id, int antiguedad) {
+		// Get a new transaction
+		EntityTransaction trx = this.em.getTransaction();
+		try {
+			Empresa empresa = this.em.find(Empresa.class, id);
+			trx.begin();
+			empresa.setAntiguedad(antiguedad);
 			trx.commit();
 		} catch (HibernateException e) {
 			if (trx != null)

@@ -68,6 +68,10 @@ public class Condicion {
 	public void setEmpresas(List<Empresa> empresas) {
 		this.empresas = empresas;
 	}
+	
+	public void setResultadoCondicion(List<ResultadoCondicionado> resultadoCondicion) {
+		this.resultadoCondicion = resultadoCondicion;
+	}
 
 	public List<ResultadoCondicionado> evaluarCondicion(Condicion condicion) {
 		return null;
